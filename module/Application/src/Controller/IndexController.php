@@ -14,6 +14,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        //teste de commit
         return new ViewModel();
     }
 }
