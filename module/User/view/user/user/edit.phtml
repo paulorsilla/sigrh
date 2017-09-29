@@ -1,0 +1,74 @@
+<?php
+$form->get('login')->setAttributes([
+		'class'=>'form-control',
+		'placeholder'=>'Login utilizado nos computadores da Embrapa Soja'
+]);
+
+$form->get('email')->setAttributes([
+		'class'=>'form-control',
+		'placeholder'=>'exemplo@embrapa.br'
+]);
+
+$form->get('nome')->setAttributes([
+		'class'=>'form-control',
+		'placeholder'=>'Insira o nome aqui'
+]);
+
+$form->get('ramal')->setAttributes([
+		'class'=>'form-control',
+		'placeholder'=>'Digite o ramal aqui'
+]);
+
+
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+?>
+<h1>Cadastro de usuários</h1>
+
+
+<div class="row">
+	<div class="col-md-22">
+		<div class="panel panel-default">
+			<div class="panel-heading clearfix">
+				<h3 class="panel-title">
+					Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+					o botão <i>Salvar</i>. <a
+						class="btn btn-secondary btn-sm pull-right"
+						href="/users" title="Fechar"><span
+						class="glyphicon glyphicon-remove"></span></a>
+				</h3>
+			</div>
+
+			<div class="panel-body">
+        <?= $this->form()->openTag($form); ?>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('nome')); ?>
+            <?= $this->formElement($form->get('nome')); ?>
+            <?= $this->formElementErrors($form->get('nome')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('login')); ?>
+            <?= $this->formElement($form->get('login')); ?>
+            <?= $this->formElementErrors($form->get('login')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')); ?>
+            <?= $this->formElement($form->get('email')); ?>
+            <?= $this->formElementErrors($form->get('email')); ?>                  
+        </div>
+        
+        <div class="form-group">
+            <?= $this->formLabel($form->get('ramal')); ?>
+            <?= $this->formElement($form->get('ramal')); ?>
+            <?= $this->formElementErrors($form->get('ramal')); ?>                  
+        </div>
+        
+        <?= $this->formElement($form->get('submit')); ?>
+        
+        <?= $this->form()->closeTag(); ?>
+    </div>
+		</div>
+	</div>
+</div>

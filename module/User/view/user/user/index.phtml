@@ -1,0 +1,40 @@
+<?php
+$this->headTitle ( 'Users' );
+
+?>
+
+<h1>Usuários cadastrados</h1>
+
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Nome</th>
+			<th>Login</th>
+			<th>E-mail</th>
+			<th>Opções</th>
+		</tr>
+	</thead>
+	
+    <?php foreach ($users as $user): ?>
+    
+    <tr>
+		<td><?= $this->escapeHtml($user->getId()); ?></td>
+		<td><?= $this->escapeHtml($user->getNome()); ?></td>
+		<td><?= $this->escapeHtml($user->getLogin()); ?></td>
+		<td><?= $this->escapeHtml($user->getEmail()); ?></td>
+		<td><a class="btn btn-primary btn-sm pull-center"
+			href="<?=$this->url ( 'users', [ 'action' => 'edit','id' => $user->getId () ] );?>"> <span
+				class="glyphicon glyphicon-pencil"></span>
+		</a></td>
+	</tr>
+
+    <?php endforeach; ?>   
+    
+</table>
+
+<div class="row">
+	<a class="btn btn-primary pull-left" href="<?= $this->url('users', ['action'=>'add']); ?>">Novo
+		registro</a>
+</div>
+

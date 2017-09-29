@@ -1,0 +1,50 @@
+<?php
+$this->headTitle ( 'Login' );
+
+// $this->mainMenu()->setActiveItemId('login');
+
+$form->get ( 'login' )->setAttributes ( [ 
+		'class' => 'form-control',
+		'style' => 'width: 40%',
+		'placeholder' => 'Digite seu login',
+		'required' => true,
+		'autofocus' => true 
+] )->setLabelAttributes ( [ 
+		'class' => 'sr-only' 
+] );
+
+$form->get ( 'senha' )->setAttributes ( [ 
+		'class' => 'form-control',
+		'style' => 'width: 40%',
+		'placeholder' => 'Digite sua senha',
+		'required' => true 
+] )->setLabelAttributes ( [ 
+		'class' => 'sr-only' 
+] );
+
+?>
+
+<div class="row">
+	<div class="col-sm-22">
+		<div class="panel panel-default" align="center">
+			<div class="panel-heading clearfix">
+				<h3 class="panel-title">Por favor, registre-se:</h3>
+			</div>
+			<div class="panel-body">
+					<form class="form-signin" method="post">
+	            <?php if ($isLoginError): ?>
+	            <div class="alert alert-warning" role="alert">Login e/ou
+							senha incorretos.</div>
+	            <?php endif; ?>
+		            <?= $this->formLabel($form->get('login')); ?>
+		            <?= $this->formElement($form->get('login')); ?><br>
+		            <?= $this->formLabel($form->get('senha')); ?>
+		            <?= $this->formElement($form->get('senha')); ?><br>
+	            
+		            <button class="btn btn-lg btn-primary btn-block" style="width: 40%"
+								type="submit">Login</button>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
