@@ -5,14 +5,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application;
+namespace SigRH\Controller;
 
-class Module
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+
+class IndexController extends AbstractActionController
 {
-    const VERSION = '3.0.2';
-
-    public function getConfig()
+    public function indexAction()
     {
-        return include __DIR__ . '/../config/module.config.php';
+        //teste de commit
+        return new ViewModel();
     }
 }

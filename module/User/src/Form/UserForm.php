@@ -51,22 +51,22 @@ class UserForm extends Form {
 	 */
 	protected function addElements() {
 		// Add "email" field
-		$this->add ( [ 
-				'type' => 'text',
-				'name' => 'email',
-				'options' => [ 
-						'label' => 'E-mail' 
-				] 
-		] );
-		
-		// Add "nome" field
-		$this->add ( [ 
-				'type' => 'text',
-				'name' => 'nome',
-				'options' => [ 
-						'label' => 'Nome' 
-				] 
-		] );
+//		$this->add ( [ 
+//				'type' => 'text',
+//				'name' => 'email',
+//				'options' => [ 
+//						'label' => 'E-mail' 
+//				] 
+//		] );
+//		
+//		// Add "nome" field
+//		$this->add ( [ 
+//				'type' => 'text',
+//				'name' => 'nome',
+//				'options' => [ 
+//						'label' => 'Nome' 
+//				] 
+//		] );
 		
 		// Add "login" field
 		$this->add ( [
@@ -76,15 +76,15 @@ class UserForm extends Form {
 						'label' => 'Login'
 				]
 		] );
-		
-		// Add "ramal" field
-		$this->add ( [
-				'type' => 'text',
-				'name' => 'ramal',
-				'options' => [
-						'label' => 'Ramal'
-				]
-		] );
+//		
+//		// Add "ramal" field
+//		$this->add ( [
+//				'type' => 'text',
+//				'name' => 'ramal',
+//				'options' => [
+//						'label' => 'Ramal'
+//				]
+//		] );
 		
 		// Add the Submit button
 		$this->add ( [ 
@@ -104,80 +104,80 @@ class UserForm extends Form {
 		$inputFilter = new InputFilter ();
 		$this->setInputFilter ( $inputFilter );
 		
-		// Add input for "email" field
-		$inputFilter->add ( [ 
-				'name' => 'email',
-				'required' => true,
-				'filters' => [ 
-						[ 
-								'name' => 'StringTrim' 
-						] 
-				],
-				'validators' => [ 
-						[ 
-								'name' => 'StringLength',
-								'options' => [ 
-										'min' => 1,
-										'max' => 128 
-								] 
-						],
-						[ 
-								'name' => 'EmailAddress',
-								'options' => [ 
-										'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
-										'useMxCheck' => false 
-								] 
-						],
-						[ 
-								'name' => UserExistsValidator::class,
-								'options' => [ 
-										'entityManager' => $this->entityManager,
-										'user' => $this->user 
-								] 
-						] 
-				] 
-		] );
-		
-		// Add input for "nome" field
-		$inputFilter->add ( [ 
-				'name' => 'nome',
-				'required' => true,
-				'filters' => [ 
-						[ 
-								'name' => 'StringTrim' 
-						] 
-				],
-				'validators' => [ 
-						[ 
-								'name' => 'StringLength',
-								'options' => [ 
-										'min' => 1,
-										'max' => 512 
-								] 
-						] 
-				] 
-		] );
-		
-		// Add input for "ramal" field
-		$inputFilter->add ( [
-				'name' => 'ramal',
-				'required' => true,
-				'filters' => [
-						[
-								'name' => 'StringTrim'
-						]
-				],
-				'validators' => [
-						[
-								'name' => 'StringLength',
-								'options' => [
-										'min' => 1,
-										'max' => 4
-								]
-						]
-				]
-		] );
-		
+//		// Add input for "email" field
+//		$inputFilter->add ( [ 
+//				'name' => 'email',
+//				'required' => true,
+//				'filters' => [ 
+//						[ 
+//								'name' => 'StringTrim' 
+//						] 
+//				],
+//				'validators' => [ 
+//						[ 
+//								'name' => 'StringLength',
+//								'options' => [ 
+//										'min' => 1,
+//										'max' => 128 
+//								] 
+//						],
+//						[ 
+//								'name' => 'EmailAddress',
+//								'options' => [ 
+//										'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+//										'useMxCheck' => false 
+//								] 
+//						],
+//						[ 
+//								'name' => UserExistsValidator::class,
+//								'options' => [ 
+//										'entityManager' => $this->entityManager,
+//										'user' => $this->user 
+//								] 
+//						] 
+//				] 
+//		] );
+//		
+//		// Add input for "nome" field
+//		$inputFilter->add ( [ 
+//				'name' => 'nome',
+//				'required' => true,
+//				'filters' => [ 
+//						[ 
+//								'name' => 'StringTrim' 
+//						] 
+//				],
+//				'validators' => [ 
+//						[ 
+//								'name' => 'StringLength',
+//								'options' => [ 
+//										'min' => 1,
+//										'max' => 512 
+//								] 
+//						] 
+//				] 
+//		] );
+//		
+//		// Add input for "ramal" field
+//		$inputFilter->add ( [
+//				'name' => 'ramal',
+//				'required' => true,
+//				'filters' => [
+//						[
+//								'name' => 'StringTrim'
+//						]
+//				],
+//				'validators' => [
+//						[
+//								'name' => 'StringLength',
+//								'options' => [
+//										'min' => 1,
+//										'max' => 4
+//								]
+//						]
+//				]
+//		] );
+//		
 		// Add input for "login" field
 		$inputFilter->add ( [
 				'name' => 'login',
@@ -197,6 +197,5 @@ class UserForm extends Form {
 						]
 				]
 		] );
-		
 	}
 }

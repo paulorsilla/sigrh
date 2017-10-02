@@ -27,7 +27,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Application\\" : "module/Application/src/",
+			"SigRH\\" : "module/SigRH/src/",
 			"User\\" : "module/User/src/"
 		}
 	},

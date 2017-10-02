@@ -36,6 +36,6 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'ZendDeveloperTools',
-    'Application',
+    'SigRH',
     'User'
 ];
