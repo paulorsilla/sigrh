@@ -9,12 +9,31 @@ namespace SigRH\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use User\Entity\User;
+
 
 class IndexController extends AbstractActionController
 {
+    /**
+     * Entity Manager
+     * @var Doctrine\ORM\EntityManager
+     */
+
+    private $entityManager;
+
+    public function __construct($entityManager) 
+    {
+            $this->entityManager = $entityManager;
+    }
+    
     public function indexAction()
     {
-        //teste de commit
-        return new ViewModel();
+    	$user = null;
+    	if ($this->identity() != null) {
+    		$user = $this->entityManager->getRepository(User::class)->findOneByLogin($this->identity());
+    	}
+        return new ViewModel([
+        		'user' => $user
+        ]);
     }
 }
