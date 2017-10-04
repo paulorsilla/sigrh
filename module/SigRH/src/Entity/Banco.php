@@ -24,7 +24,7 @@ class Banco extends AbstractEntity {
     protected $banco;
 
     /**
-     * @ORM\Column(name="codigo", type="integer")
+     * @ORM\Column(name="codigo", type="string")
      */
     protected $codigo;
 
