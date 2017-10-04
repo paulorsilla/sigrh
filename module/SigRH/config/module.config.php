@@ -12,8 +12,6 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
-//use Zend\ServiceManager\Factory\InvokableFactory;
-
 return [
     'router' => [
         'routes' => [
@@ -52,6 +50,48 @@ return [
                             ]
                         ]
                     ],
+                    'tipo-colaborador' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/tipo-colaborador[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\TipoColaboradorController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'linha-onibus' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/linha-onibus[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\LinhaOnibusController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'grau-instrucao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/grau-instrucao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\GrauInstrucaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -59,8 +99,11 @@ return [
     'controllers' => [
         'factories' => [
 //            Controller\IndexController::class => InvokableFactory::class,
-            Controller\IndexController::class => Service\Factory\IndexControllerFactory::class,
-            Controller\BancoController::class => Service\Factory\BancoControllerFactory::class,
+            Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [

@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Classe banco.
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="SigRH\Repository\Banco")
  * @ORM\Table(name="banco")
  */
-class Banco {
+class Banco extends AbstractEntity {
 
     /**
      * @ORM\Id

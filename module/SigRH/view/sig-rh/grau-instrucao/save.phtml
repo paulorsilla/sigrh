@@ -1,0 +1,51 @@
+<?php
+$form = $this->form;
+$form->get('descricao')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o nome do grau de instrução aqui'
+]);
+
+$form->get('ordem')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o número da ordem aqui'
+]);
+
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro de grau de instrução</h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/grau-instrucao" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->form()->openTag($form); ?>
+
+                <?= $this->formLabel($form->get('descricao')); ?><br>
+                <?= $this->formElement($form->get('descricao')); ?>
+                <?= $this->formElementErrors($form->get('descricao')); ?>                  
+
+                <?= $this->formLabel($form->get('ordem')); ?><br>
+                <?= $this->formElement($form->get('ordem')); ?>
+                <?= $this->formElementErrors($form->get('ordem')); ?>                  
+                <br>
+                <br>
+                <?= $this->formElement($form->get('submit')); ?>
+
+                <?= $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<h1>Linhas de ônibus cadastradas</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Linhas de ônibus</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->linhasOnibus as $linhaOnibus): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($linhaOnibus->getId()); ?></td>
+                    <td><?= $this->escapeHtml($linhaOnibus->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/linha-onibus', ['action' => 'save', 'id' => $linhaOnibus->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/linha-onibus', ['action' => 'delete', 'id' => $linhaOnibus->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->linhasOnibus, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/linha-onibus']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/linha-onibus/save">Novo
+        registro</a>
+</div>

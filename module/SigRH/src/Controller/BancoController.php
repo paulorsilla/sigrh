@@ -28,19 +28,28 @@ class BancoController extends AbstractActionController
 	
 	public function indexAction()
 	{
+                /*
 		$queryBuilder = $this->entityManager->createQueryBuilder();
 		$queryBuilder->select('b')
 					->from(Banco::class, 'b')
 					->orderBy('b.banco', 'ASC');
 		$query = $queryBuilder->getQuery();
-		
+            
 		$page = $this->params()->fromQuery('page', 1);
 		
+                
 		$adapter = new DoctrineAdapter(new ORMPaginator($query, false));
 		$paginator = new Paginator($adapter);
 		$paginator->setDefaultItemCountPerPage(11);
 		$paginator->setCurrentPageNumber($page);
 		
+                 * 
+                 */
+                $repo = $this->entityManager->getRepository(Banco::class);
+                $page = $this->params()->fromQuery('page', 1);
+                $search = $this->params()->fromPost();
+                $paginator = $repo->getPaginator($page,$search);
+            
 		return new ViewModel([
 				'bancos' => $paginator,
 		]);	
@@ -51,6 +60,7 @@ class BancoController extends AbstractActionController
 	 */
 	public function saveAction()
 	{
+                $id = $this->params()->fromRoute('id', null);
 		//Cria o formulário
 		$form = new BancoForm();
 		
@@ -64,14 +74,27 @@ class BancoController extends AbstractActionController
 			$form->setData($data);
 			if ($form->isValid()) {
 				$data = $form->getData();
+                                /*
                                 $banco = new Banco();
                                 $banco->setBanco($data['banco']);
                                 $banco->setCodigo($data['codigo']);
                     		$this->entityManager->persist($banco);
                 		$this->entityManager->flush();
+                                 * 
+                                 */
+                                $repo = $this->entityManager->getRepository(Banco::class);
+                                $repo->incluir_ou_editar($data,$id);
 				return $this->redirect()->toRoute('sig-rh/banco', ['action' => 'save']);
 			}
-		}
+		} else {
+                    if ( !empty($id)){
+                        $repo = $this->entityManager->getRepository(Banco::class);
+                        $row = $repo->find($id);
+                        if ( !empty($row)){
+                            $form->setData($row->toArray());
+                        }
+                    }
+                }
 		return new ViewModel([
 				'form' => $form
 		]);
@@ -104,27 +127,31 @@ class BancoController extends AbstractActionController
 //		]);
 //	}
 //	
-//	public function deleteAction()
-//	{
-//		$id = (int) $this->params()->fromRoute('id', 0);
-//		if (!$id) {
-//			return $this->redirect()->toRoute('application/banco');
-//		}
-//		$request = $this->getRequest();
-//		$banco = $this->entityManager->find(Banco::class, $id); 
-//			
-//		if ($request->isPost()) {
-//			$del = $request->getPost('del', 'Não');
-//			if ($del == 'Sim') {
-//				$id = (int) $request->getPost('id');
-//				
-//				$this->bancoManager->remove($banco);
-//			}
-//			// Redireciona para a lista de registros cadastrados
-//			return $this->redirect()->toRoute('application/banco');
-//		}
-//		return new ViewModel([
-//				'banco' => $banco,
-//		]);
-//	}
+	public function deleteAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id) {
+			return $this->redirect()->toRoute('sig-rh/banco');
+		}
+		$request = $this->getRequest();
+			
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'Não');
+			if ($del == 'Sim') {
+				$id = (int) $request->getPost('id');
+				$repo = $this->entityManager->getRepository(Banco::class);
+				$repo->delete($id);
+			}
+			// Redireciona para a lista de registros cadastrados
+			return $this->redirect()->toRoute('sig-rh/banco');
+		}
+                
+                $repo = $this->entityManager->getRepository(Banco::class);
+                $banco = $repo->find($id);
+
+                return new ViewModel([
+				'banco' => $banco,
+		]);
+		
+	}
 }

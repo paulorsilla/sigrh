@@ -1,4 +1,4 @@
-<h1>Bancos cadastradas</h1>
+<h1>Bancos cadastrados</h1>
 <div class="row">
 
     <table class="table table-striped table-hover">
@@ -17,7 +17,7 @@
                     <td><?= $this->escapeHtml($banco->getCodigo()); ?></td>
                     <td><?= $this->escapeHtml($banco->getBanco()); ?></td>
                     <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/banco', ['action' => 'edit', 'id' => $banco->getId()]) ?>"
+                           href="<?= $this->url('sig-rh/banco', ['action' => 'save', 'id' => $banco->getId()]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/banco', ['action' => 'delete', 'id' => $banco->getId()]) ?>"
