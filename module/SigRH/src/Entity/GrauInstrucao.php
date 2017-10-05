@@ -38,6 +38,14 @@ class GrauInstrucao extends AbstractEntity{
         return $this->id;
     }
 
+    function getDescricao() {
+        return $this->descricao;
+    }
+
+    function getOrdem() {
+        return $this->ordem;
+    }
+    
     /**
      * Sets user ID.
      * 
@@ -46,17 +54,9 @@ class GrauInstrucao extends AbstractEntity{
     public function setId($id) {
         $this->id = $id;
     }
-    
-    function getDescricao() {
-        return $this->descricao;
-    }
 
     function setDescricao($descricao) {
         $this->descricao = $descricao;
-    }
-    
-    function getOrdem() {
-        return $this->ordem;
     }
 
     function setOrdem($ordem) {

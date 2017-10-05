@@ -1,0 +1,36 @@
+<h1>Cor de Pele cadastrada</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cor de Pele</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->coresPele as $corPele): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($corPele->getId()); ?></td>
+                    <td><?= $this->escapeHtml($corPele->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/cor-pele', ['action' => 'save', 'id' => $corPele->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/cor-pele', ['action' => 'delete', 'id' => $corPele->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->coresPele, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/cor-pele']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/cor-pele/save">Novo
+        registro</a>
+</div>

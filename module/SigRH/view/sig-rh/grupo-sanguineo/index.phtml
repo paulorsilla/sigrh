@@ -1,0 +1,36 @@
+<h1>Grupo sanguíneos cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Grupo sanguíneo</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->grupoSanguineos as $grupoSanguineo): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($grupoSanguineo->getId()); ?></td>
+                    <td><?= $this->escapeHtml($grupoSanguineo->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/grupo-sanguineo', ['action' => 'save', 'id' => $grupoSanguineo->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/grupo-sanguineo', ['action' => 'delete', 'id' => $grupoSanguineo->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->grupoSanguineos, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/grupo-sanguineo']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/grupo-sanguineo/save">Novo
+        registro</a>
+</div>

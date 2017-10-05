@@ -33,6 +33,10 @@ class ModalidadeBolsa extends AbstractEntity{
         return $this->id;
     }
 
+    function getDescricao() {
+        return $this->descricao;
+    }
+    
     /**
      * Sets user ID.
      * 
@@ -42,10 +46,6 @@ class ModalidadeBolsa extends AbstractEntity{
         $this->id = $id;
     }
     
-    function getDescricao() {
-        return $this->descricao;
-    }
-
     function setDescricao($descricao) {
         $this->descricao = $descricao;
     }

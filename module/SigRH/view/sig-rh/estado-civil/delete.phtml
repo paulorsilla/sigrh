@@ -1,0 +1,19 @@
+<?php
+$title = 'Excluir um registro';
+$url   = $this->url('sig-rh/estado-civil', ['action' => 'delete', 'id' => $estadoCivil->getId()]);
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<p>
+    Deseja realmente excluir 
+    "<?= $this->escapeHtml($estadoCivil->getDescricao()); ?>"
+</p>
+
+<form action="<?= $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?= (int) $estadoCivil->getId() ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Sim" />
+        <input type="submit" class="btn btn-success" name="del" value="Não" />
+    </div>
+</form>

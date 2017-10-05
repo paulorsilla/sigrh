@@ -1,0 +1,36 @@
+<h1>Estados civil cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Estado civil</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->estadosCivil as $estadoCivil): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($estadoCivil->getId()); ?></td>
+                    <td><?= $this->escapeHtml($estadoCivil->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/estado-civil', ['action' => 'save', 'id' => $estadoCivil->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/estado-civil', ['action' => 'delete', 'id' => $estadoCivil->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->estadosCivil, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/estado-civil']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/estado-civil/save">Novo
+        registro</a>
+</div>

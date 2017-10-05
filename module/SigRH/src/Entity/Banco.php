@@ -37,6 +37,14 @@ class Banco extends AbstractEntity {
         return $this->id;
     }
 
+    function getBanco() {
+        return $this->banco;
+    }
+
+    function getCodigo() {
+        return $this->codigo;
+    }
+
     /**
      * Sets user ID.
      * 
@@ -46,14 +54,6 @@ class Banco extends AbstractEntity {
         $this->id = $id;
     }
     
-    function getBanco() {
-        return $this->banco;
-    }
-
-    function getCodigo() {
-        return $this->codigo;
-    }
-
     function setBanco($banco) {
         $this->banco = $banco;
     }

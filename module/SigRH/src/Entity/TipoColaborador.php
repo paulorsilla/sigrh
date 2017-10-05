@@ -33,6 +33,10 @@ class TipoColaborador extends AbstractEntity {
         return $this->id;
     }
 
+    function getDescricao() {
+        return $this->descricao;
+    }
+    
     /**
      * Sets user ID.
      * 
@@ -40,10 +44,6 @@ class TipoColaborador extends AbstractEntity {
      */
     public function setId($id) {
         $this->id = $id;
-    }
-
-    function getDescricao() {
-        return $this->descricao;
     }
 
     function setDescricao($descricao) {

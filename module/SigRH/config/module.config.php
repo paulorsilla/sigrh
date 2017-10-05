@@ -92,6 +92,49 @@ return [
                             ]
                         ]
                     ],
+                    'cor-pele' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/cor-pele[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CorPeleController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'grupo-sanguineo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/grupo-sanguineo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\GrupoSanguineoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'estado-civil' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/estado-civil[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\EstadoCivilController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                 ],
             ],
         ],
@@ -101,9 +144,12 @@ return [
 //            Controller\IndexController::class => InvokableFactory::class,
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [
