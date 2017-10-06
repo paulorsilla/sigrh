@@ -1,8 +1,18 @@
 <?php
 $form = $this->form;
-$form->get('colaborador')->setAttributes([
+$form->get('matricula')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite a matrícula aqui'
+]);
+
+$form->get('nome')->setAttributes([
     'class' => 'form-control',
     'placeholder' => 'Digite o nome aqui'
+]);
+
+$form->get('apelido')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o apelido aqui'
 ]);
 
 $form->get('submit')->setAttributes([
@@ -10,7 +20,7 @@ $form->get('submit')->setAttributes([
 ]);
 ?>
 
-<h1>Cadastro de bancos</h1>
+<h1>Cadastro de colaboradores</h1>
 
 <div class="row">
     <div class="col-md-22">
@@ -28,9 +38,14 @@ $form->get('submit')->setAttributes([
             <div class="panel-body">
                 <?= $this->form()->openTag($form); ?>
                 
-                <?= $this->formRow ( $form->get ( 'matricula' ) ); ?>
-                <?= $this->formRow ( $form->get ( 'nome' ) ); ?>
-                <?= $this->formRow ( $form->get ( 'apelido' ) ); ?>
+                <div class="row">
+                    <div class="col-md-2"><?= $this->formRow ( $form->get ( 'matricula' ) ); ?></div>
+                    <div class="col-md-8"><?= $this->formRow ( $form->get ( 'nome' ) ); ?></div>
+                    <div class="col-md-2"><?= $this->formRow ( $form->get ( 'apelido' ) ); ?></div>
+                </div>
+                
+                <div class="row">
+                </div>
                 
                 <br>
                 <br>
