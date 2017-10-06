@@ -73,6 +73,69 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
+        //Adiciona o campo "foto"
+        $this->add([
+            'type' => 'text',
+            'name' => 'foto',
+            'attributes' => [
+                'id' => 'foto'
+            ],
+            'options' => [
+                'label' => 'Foto'
+            ],
+        ]);
+        
+        //Adiciona o campo "data_admissao"
+        $this->add([
+            'type' => 'text',
+            'name' => 'data_admissao',
+            'attributes' => [
+                'id' => 'data_admissao'
+            ],
+            'options' => [
+                'label' => 'Data admissão'
+            ],
+        ]);
+        
+        //Adiciona o campo "data_desligamento"
+        $this->add([
+            'type' => 'text',
+            'name' => 'data_desligamento',
+            'attributes' => [
+                'id' => 'data_desligamento'
+            ],
+            'options' => [
+                'label' => 'Data desligamento'
+            ],
+        ]);
+        
+        //Adiciona o campo "sexo"
+        $this->add([
+            'type' => 'text',
+            'name' => 'sexo',
+            'attributes' => [
+                'id' => 'sexo'
+            ],
+            'options' => [
+                'label' => 'Sexo'
+            ],
+        ]);
+        
+        //Adiciona o campo "data_nascimento"
+        $this->add([
+            'type' => 'text',
+            'name' => 'data_nascimento',
+            'attributes' => [
+                'id' => 'data_nascimento'
+            ],
+            'options' => [
+                'label' => 'Data nascimento'
+            ],
+        ]);
+        
+        
+        
+        
         //Adiciona o campo "Observaçoes"
         $this->add([
             'type' => 'text',
@@ -173,7 +236,7 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-//        //Adiciona o campo "Estado" -->VERIFICAR
+//        //Adiciona o campo "Estado"
         $this->add([
             'type' => 'text',
             'name' => 'estado',
@@ -184,32 +247,6 @@ class ColaboradorForm extends Form {
                 'label' => 'Estado'
             ],
         ]);
-//
-//        ////////////campos do estado.../////////////////////////////////////////////
-//
-//        //Adiciona o campo "Estado"
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'estado',
-//            'attributes' => [
-//                'id' => 'estado'
-//            ],
-//            'options' => [
-//                'label' => 'Estado'
-//            ],
-//        ]);
-//
-//        //Adiciona o campo "Sigla"
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'sigla',
-//            'attributes' => [
-//                'id' => 'sigla'
-//            ],
-//            'options' => [
-//                'label' => 'Sigla'
-//            ],
-//        ]);
 
 
         ///////////////////////////////////////////////////////////////////////
