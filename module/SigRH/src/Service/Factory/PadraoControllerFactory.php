@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Factory para instanciar IndexController
+ * Factory genérico para instanciar os Controllers que necessitam do entityManager
  */
 
 class PadraoControllerFactory implements FactoryInterface

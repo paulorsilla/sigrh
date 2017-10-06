@@ -6,9 +6,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\BancoForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Banco;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+//use Zend\Paginator\Paginator;
 
 class BancoController extends AbstractActionController
 {
