@@ -19,7 +19,7 @@ class Estado extends AbstractEntity {
     protected $id;
     
     /**
-     * @ORM\Column(name="endereco", type="string")
+     * @ORM\Column(name="estado", type="string")
      */
     protected $estado;
 
@@ -28,7 +28,6 @@ class Estado extends AbstractEntity {
      */
     protected $sigla;
 
-    
 
     /**
      * Returns user ID.

@@ -24,7 +24,7 @@ class Cidade extends AbstractRepository {
         $array = array();
         $list = $this->findAll();
         foreach($list  as $row){
-            $array[] = array("id"=>$row->id,"nome"=>$row->cidade);
+            $array[] = array("id"=>$row->id,"cidade"=>$row->cidade);
         }
         return $array;
     }

@@ -4,24 +4,36 @@ namespace SigRH\Form;
 
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Formulário utilizado para o cadastro de colaboradores
  */
 class ColaboradorForm extends Form {
+    
+    protected $objectManager;
 
     /**
      * Construtor
      */
-    public function __construct() {
+    public function __construct($objectManager) {
         //Determina o nome do formulário
         parent::__construct('colaborador-form');
 
+        $this->objectManager = $objectManager;
+
         //Define o método POST para envio do formulário
         $this->setAttribute('method', 'post');
-
         $this->addElements();
         $this->addInputFilter();
+    }
+    
+    public function setObjectManager(ObjectManager $objectManager) {
+        $this->objectManager = $objectManager;
+    }
+    
+    public function getObjectManager() {
+        return $this->objectManager;
     }
 
     protected function addElements() {
@@ -136,16 +148,17 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "Cidade" -->VERIFICAR
+        //Adiciona o campo "cidade"
         $this->add([
-            'type' => 'text',
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'cidade',
-            'attributes' => [
-                'id' => 'cidade'
-            ],
             'options' => [
-                'label' => 'Cidade'
-            ],
+                        'label' => 'Cidade',
+                        'object_manager' => $this->getObjectManager(),
+                        'target_class' => \SigRH\Entity\Cidade::class,
+                        'property' => 'cidade',
+                        'display_empty_item' => true,
+            ]
         ]);
         
         //Adiciona o campo "Bairro"
@@ -160,32 +173,17 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-
-//        ////////////campos da cidade.../////////////////////////////////////////////
-//
-//        //Adiciona o campo "Cidade"
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'cidade',
-//            'attributes' => [
-//                'id' => 'cidade'
-//            ],
-//            'options' => [
-//                'label' => 'Cidade'
-//            ],
-//        ]);
-//
 //        //Adiciona o campo "Estado" -->VERIFICAR
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'estado',
-//            'attributes' => [
-//                'id' => 'estado'
-//            ],
-//            'options' => [
-//                'label' => 'Estado'
-//            ],
-//        ]);
+        $this->add([
+            'type' => 'text',
+            'name' => 'estado',
+            'attributes' => [
+                'id' => 'estado'
+            ],
+            'options' => [
+                'label' => 'Estado'
+            ],
+        ]);
 //
 //        ////////////campos do estado.../////////////////////////////////////////////
 //

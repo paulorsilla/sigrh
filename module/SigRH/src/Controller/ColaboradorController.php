@@ -9,6 +9,11 @@ use SigRH\Entity\Colaborador;
 
 class ColaboradorController extends AbstractActionController
 {
+        /**
+         * Object Manager
+         */
+         private $objectManager;
+
 	/**
 	 * Entity Manager
 	 * @var \Doctrine\ORM\EntityManager
@@ -18,9 +23,10 @@ class ColaboradorController extends AbstractActionController
 	/**
 	 * Construtor da classe, utilizado para injetar as dependências no controller
 	 */
-	public function __construct($entityManager)
+	public function __construct($entityManager, $objectManager)
 	{
 		$this->entityManager = $entityManager;
+                $this->objectManager = $objectManager;
 	}
 	
 	public function indexAction()
@@ -41,7 +47,7 @@ class ColaboradorController extends AbstractActionController
 	{
                 $id = $this->params()->fromRoute('id', null);
 		//Cria o formulário
-		$form = new ColaboradorForm();
+		$form = new ColaboradorForm($this->objectManager);
 		
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {

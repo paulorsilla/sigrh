@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Classe endereco.
- * @ORM\Entity(repositoryClass="SigRH\Repository\Endereco")
- * @ORM\Table(name="endereco")
+ * @ORM\Entity(repositoryClass="SigRH\Repository\Cidade")
+ * @ORM\Table(name="cidade")
  */
 class Cidade extends AbstractEntity {
 
@@ -24,14 +24,10 @@ class Cidade extends AbstractEntity {
      **/        
     protected $estado; //estado_id 
     
-
     /**
      * @ORM\Column(name="cidade", type="string")
      */
     protected $cidade;
-
-
-    
 
     /**
      * Returns user ID.
@@ -49,9 +45,6 @@ class Cidade extends AbstractEntity {
     function getCidade() {
         return $this->cidade;
     }
-
-    
-
         
     /**
      * Sets user ID.
