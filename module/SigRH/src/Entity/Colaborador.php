@@ -64,6 +64,13 @@ class Colaborador extends AbstractEntity {
      * @ORM\JoinColumn(name="cidade_id", referencedColumnName="id")
      **/        
     protected $natural; //cidade_id
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Estado")
+     * @ORM\JoinColumn(name="ctps_uf", referencedColumnName="id")
+     **/        
+    protected $ctps_uf; //ctps_uf
+    
 
     /**    
      ** One colaborador has responsavel.
@@ -192,12 +199,6 @@ class Colaborador extends AbstractEntity {
      */
     protected $ctps_data_expedicao;
     
-     /**
-     * @ORM\Column(name="ctps_uf", type="string")
-     */
-    protected $ctps_uf;
-
-
     /**
      * @ORM\Column(name="pis", type="string")
      */
