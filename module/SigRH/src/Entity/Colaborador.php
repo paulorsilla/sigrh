@@ -83,11 +83,6 @@ class Colaborador extends AbstractEntity {
     protected $apelido;
     
     /**
-     * @ORM\Column(name="obrigatorio", type="string")
-     */
-    protected $obrigatorio;
-    
-    /**
      * @ORM\Column(name="foto", type="string")
      */
     protected $foto;
@@ -266,9 +261,6 @@ class Colaborador extends AbstractEntity {
         return $this->apelido;
     }
 
-    function getObrigatorio() {
-        return $this->obrigatorio;
-    }
 
     function getFoto() {
         return $this->foto;
@@ -422,10 +414,6 @@ class Colaborador extends AbstractEntity {
 
     function setApelido($apelido) {
         $this->apelido = $apelido;
-    }
-
-    function setObrigatorio($obrigatorio) {
-        $this->obrigatorio = $obrigatorio;
     }
 
     function setFoto($foto) {
