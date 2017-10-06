@@ -14,6 +14,38 @@ $form->get('apelido')->setAttributes([
     'class' => 'form-control',
     'placeholder' => 'Digite o apelido aqui'
 ]);
+$form->get('cep')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o CEP aqui'
+]);
+
+$form->get('endereco')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o endereco aqui'
+]);
+
+$form->get('numero')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o número aqui'
+]);
+
+$form->get('complemento')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o complemento aqui'
+]);
+
+$form->get('bairro')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o bairro aqui'
+]);
+
+$form->get('cidade')->setAttributes([
+    'class' => 'form-control',
+]);
+
+$form->get('estado')->setAttributes([
+    'class' => 'form-control',
+]);
 
 $form->get('submit')->setAttributes([
     'class' => 'btn btn-primary'
@@ -55,7 +87,17 @@ $form->get('submit')->setAttributes([
 
                 <div class="tab-content">
                     <div id="dadosPessoais" class="tab-pane fade in active">
-                        <p>Dados pessoais</p>
+                        <div class="row">
+                            <div class="col-md-2"><?= $this->formRow($form->get('cep'));?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('endereco'));?></div>
+                            <div class="col-md-1"><?= $this->formRow($form->get('numero'));?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('complemento'));?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('bairro'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('cidade'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('estado'));?></div>
+                        </div>
                     </div>
 
                     <div id="documentacao" class="tab-pane fade">
