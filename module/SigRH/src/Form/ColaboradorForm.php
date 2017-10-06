@@ -61,7 +61,7 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "Observçoes"
+        //Adiciona o campo "Observaçoes"
         $this->add([
             'type' => 'text',
             'name' => 'observacoes',
@@ -72,6 +72,100 @@ class ColaboradorForm extends Form {
                 'label' => 'Observações'
             ],
         ]);
+        
+        
+        ////////////campos endereço.../////////////////////////////////////////////
+        
+        //Adiciona o campo "Endereço"
+        $this->add([
+            'type' => 'text',
+            'name' => 'endereco',
+            'attributes' => [
+                'id' => 'endereco'
+            ],
+            'options' => [
+                'label' => 'Endereço'
+            ],
+        ]);
+        
+        //Adiciona o campo "Número"
+        $this->add([
+            'type' => 'text',
+            'name' => 'numero',
+            'attributes' => [
+                'id' => 'numero'
+            ],
+            'options' => [
+                'label' => 'Número'
+            ],
+        ]);
+        
+        //Adiciona o campo "Complemento"
+        $this->add([
+            'type' => 'text',
+            'name' => 'complemento',
+            'attributes' => [
+                'id' => 'complemento'
+            ],
+            'options' => [
+                'label' => 'Complemento'
+            ],
+        ]);
+        
+        //Adiciona o campo "Bairro"
+        $this->add([
+            'type' => 'text',
+            'name' => 'bairro',
+            'attributes' => [
+                'id' => 'bairro'
+            ],
+            'options' => [
+                'label' => 'Bairro'
+            ],
+        ]);
+        
+        //Adiciona o campo "Cep"
+        $this->add([
+            'type' => 'text',
+            'name' => 'cep',
+            'attributes' => [
+                'id' => 'cep'
+            ],
+            'options' => [
+                'label' => 'Cep'
+            ],
+        ]);
+        
+        //Adiciona o campo "Cidade"
+        $this->add([
+            'type' => 'text',
+            'name' => 'cidade',
+            'attributes' => [
+                'id' => 'cidade'
+            ],
+            'options' => [
+                'label' => 'Cidade'
+            ],
+        ]);
+        
+        //Adiciona o campo "Bairro"
+        $this->add([
+            'type' => 'text',
+            'name' => 'bairro',
+            'attributes' => [
+                'id' => 'bairro'
+            ],
+            'options' => [
+                'label' => 'Bairro'
+            ],
+        ]);
+        
+        ///////////////////////////////////////////////////////////////////////
+
+        ////////////campos endereço.../////////////////////////////////////////////
+
+
+        ///////////////////////////////////////////////////////////////////////
 
         $this->add([
             'type' => 'submit',
