@@ -20,9 +20,9 @@ class Endereco extends AbstractEntity {
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cidade")
-     * @ORM\JoinColumn(name="cidade", referencedColumnName="id")
+     * @ORM\JoinColumn(name="cidade_id", referencedColumnName="id")
      **/        
-    protected $cidade; //cidade_id --> ver como eu deixo no banco de um jeito e na classe como cidade
+    protected $cidade; //cidade_id
     
 
     /**
