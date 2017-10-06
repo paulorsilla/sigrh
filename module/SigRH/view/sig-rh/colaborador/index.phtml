@@ -1,0 +1,36 @@
+<h1>Colaboradores cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->colaboradores as $colaborador): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($colaborador->getMatricula()); ?></td>
+                    <td><?= $this->escapeHtml($colaborador->getNome()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/banco', ['action' => 'save', 'id' => $colaborador->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/banco', ['action' => 'delete', 'id' => $colaborador->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/colaborador']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/colaborador/save">Novo
+        registro</a>
+</div>

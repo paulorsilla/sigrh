@@ -61,7 +61,7 @@ class Colaborador extends AbstractEntity {
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cidade")
-     * @ORM\JoinColumn(name="cidade_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="natural", referencedColumnName="id")
      **/        
     protected $natural; //cidade_id
     
