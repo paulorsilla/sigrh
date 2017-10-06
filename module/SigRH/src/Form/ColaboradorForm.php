@@ -134,7 +134,223 @@ class ColaboradorForm extends Form {
         ]);
         
         
+        //Adiciona o campo "nacionalidade"
+        $this->add([
+            'type' => 'text',
+            'name' => 'nacionalidade',
+            'attributes' => [
+                'id' => 'nacionalidade'
+            ],
+            'options' => [
+                'label' => 'Nacionalidade'
+            ],
+        ]);
         
+        //Adiciona o campo "nome_pai"
+        $this->add([
+            'type' => 'text',
+            'name' => 'nome_pai',
+            'attributes' => [
+                'id' => 'nome_pai'
+            ],
+            'options' => [
+                'label' => 'Nome pai'
+            ],
+        ]);
+        
+        //Adiciona o campo "nome_mae"
+        $this->add([
+            'type' => 'text',
+            'name' => 'nome_mae',
+            'attributes' => [
+                'id' => 'nome_mae'
+            ],
+            'options' => [
+                'label' => 'Nome mãe'
+            ],
+        ]);
+        
+        //Adiciona o campo "telefone_residencial"
+        $this->add([
+            'type' => 'text',
+            'name' => 'telefone_residencial',
+            'attributes' => [
+                'id' => 'telefone_residencial'
+            ],
+            'options' => [
+                'label' => 'Telefone residencial'
+            ],
+        ]);
+        
+        //Adiciona o campo "telefone_celular"
+        $this->add([
+            'type' => 'text',
+            'name' => 'telefone_celular',
+            'attributes' => [
+                'id' => 'telefone_celular'
+            ],
+            'options' => [
+                'label' => 'Telefone celular'
+            ],
+        ]);
+        
+        //Adiciona o campo "ramal"
+        $this->add([
+            'type' => 'text',
+            'name' => 'ramal',
+            'attributes' => [
+                'id' => 'ramal'
+            ],
+            'options' => [
+                'label' => 'Ramal'
+            ],
+        ]);
+        
+        //Adiciona o campo "email"
+        $this->add([
+            'type' => 'text',
+            'name' => 'email',
+            'attributes' => [
+                'id' => 'email'
+            ],
+            'options' => [
+                'label' => 'Email'
+            ],
+        ]);
+        
+        //Adiciona o campo "login_sede"
+        $this->add([
+            'type' => 'text',
+            'name' => 'login_sede',
+            'attributes' => [
+                'id' => 'login_sede'
+            ],
+            'options' => [
+                'label' => 'Login sede'
+            ],
+        ]);
+        
+        //Adiciona o campo "login_local"
+        $this->add([
+            'type' => 'text',
+            'name' => 'login_local',
+            'attributes' => [
+                'id' => 'login_local'
+            ],
+            'options' => [
+                'label' => 'Login local'
+            ],
+        ]);
+        
+        //Adiciona o campo "email_corporativo"
+        $this->add([
+            'type' => 'text',
+            'name' => 'email_corporativo',
+            'attributes' => [
+                'id' => 'email_corporativo'
+            ],
+            'options' => [
+                'label' => 'Email corporativo'
+            ],
+        ]);
+        
+        //Adiciona o campo "rg_numero"
+        $this->add([
+            'type' => 'text',
+            'name' => 'rg_numero',
+            'attributes' => [
+                'id' => 'rg_numero'
+            ],
+            'options' => [
+                'label' => 'Número RG' 
+            ],
+        ]);
+        
+        //Adiciona o campo "rg_data_emissao"
+        $this->add([
+            'type' => 'text',
+            'name' => 'rg_data_emissao',
+            'attributes' => [
+                'id' => 'rg_data_emissao'
+            ],
+            'options' => [
+                'label' => 'Data emissão RG' 
+            ],
+        ]);
+        
+        //Adiciona o campo "rg_orgao_expedidor"
+        $this->add([
+            'type' => 'text',
+            'name' => 'rg_orgao_expedidor',
+            'attributes' => [
+                'id' => 'rg_orgao_expedidor'
+            ],
+            'options' => [
+                'label' => 'Órgão expediro RG' 
+            ],
+        ]);
+
+        //Adiciona o campo "cpf"
+        $this->add([
+            'type' => 'text',
+            'name' => 'cpf',
+            'attributes' => [
+                'id' => 'cpf'
+            ],
+            'options' => [
+                'label' => 'CPF' 
+            ],
+        ]);
+        
+        //Adiciona o campo "ctps_numero"
+        $this->add([
+            'type' => 'text',
+            'name' => 'ctps_numero',
+            'attributes' => [
+                'id' => 'ctps_numero'
+            ],
+            'options' => [
+                'label' => 'Número CTPS' 
+            ],
+        ]);
+        
+        //Adiciona o campo "ctps_serie"
+        $this->add([
+            'type' => 'text',
+            'name' => 'ctps_serie',
+            'attributes' => [
+                'id' => 'ctps_serie'
+            ],
+            'options' => [
+                'label' => 'Número CTPS série' 
+            ],
+        ]);
+        
+        //Adiciona o campo "ctps_data_expedicao"
+        $this->add([
+            'type' => 'text',
+            'name' => 'ctps_data_expedicao',
+            'attributes' => [
+                'id' => 'ctps_data_expedicao'
+            ],
+            'options' => [
+                'label' => 'Data expedição CTPS' 
+            ],
+        ]);
+        
+        //Adiciona o campo "pis"
+        $this->add([
+            'type' => 'text',
+            'name' => 'pis',
+            'attributes' => [
+                'id' => 'pis'
+            ],
+            'options' => [
+                'label' => 'PIS' 
+            ],
+        ]);
+        
+
         
         //Adiciona o campo "Observaçoes"
         $this->add([
