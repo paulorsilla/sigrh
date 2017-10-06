@@ -6,9 +6,9 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
 /**
- * Formulário utilizado para o cadastro de Bancos
+ * Formulário utilizado para o cadastro de colaboradores
  */
-class BancoForm extends Form {
+class ColaboradorForm extends Form {
 
     /**
      * Construtor
