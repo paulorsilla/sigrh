@@ -74,7 +74,7 @@ class ColaboradorForm extends Form {
         ]);
         
         
-        ////////////campos endereço.../////////////////////////////////////////////
+        ////////////campos do endereço.../////////////////////////////////////////////
         
         //Adiciona o campo "Endereço"
         $this->add([
@@ -136,7 +136,7 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "Cidade"
+        //Adiciona o campo "Cidade" -->VERIFICAR
         $this->add([
             'type' => 'text',
             'name' => 'cidade',
@@ -160,9 +160,58 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
-        ///////////////////////////////////////////////////////////////////////
 
-        ////////////campos endereço.../////////////////////////////////////////////
+        ////////////campos da cidade.../////////////////////////////////////////////
+
+        //Adiciona o campo "Cidade"
+        $this->add([
+            'type' => 'text',
+            'name' => 'cidade',
+            'attributes' => [
+                'id' => 'cidade'
+            ],
+            'options' => [
+                'label' => 'Cidade'
+            ],
+        ]);
+
+        //Adiciona o campo "Estado" -->VERIFICAR
+        $this->add([
+            'type' => 'text',
+            'name' => 'estado',
+            'attributes' => [
+                'id' => 'estado'
+            ],
+            'options' => [
+                'label' => 'Estado'
+            ],
+        ]);
+
+        ////////////campos do estado.../////////////////////////////////////////////
+
+        //Adiciona o campo "Estado"
+        $this->add([
+            'type' => 'text',
+            'name' => 'estado',
+            'attributes' => [
+                'id' => 'estado'
+            ],
+            'options' => [
+                'label' => 'Estado'
+            ],
+        ]);
+
+        //Adiciona o campo "Sigla"
+        $this->add([
+            'type' => 'text',
+            'name' => 'sigla',
+            'attributes' => [
+                'id' => 'sigla'
+            ],
+            'options' => [
+                'label' => 'Sigla'
+            ],
+        ]);
 
 
         ///////////////////////////////////////////////////////////////////////
