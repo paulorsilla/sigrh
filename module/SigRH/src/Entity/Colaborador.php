@@ -67,8 +67,8 @@ class Colaborador extends AbstractEntity {
 
     /**    
      ** One colaborador has responsavel.
-     * @OneToOne(targetEntity="Colaborador")     
-     * @JoinColumn(name="responsavel", referencedColumnName="matricula")     
+     * @ORM\OneToOne(targetEntity="Colaborador")     
+     * @ORM\JoinColumn(name="responsavel", referencedColumnName="matricula")     
      **/
     private $responsavel;
     
