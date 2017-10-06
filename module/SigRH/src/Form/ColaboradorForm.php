@@ -223,6 +223,19 @@ class ColaboradorForm extends Form {
                         'display_empty_item' => true,
             ]
         ]);
+
+        //Adiciona o campo "estado"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'estado',
+            'options' => [
+                        'label' => 'Estado',
+                        'object_manager' => $this->getObjectManager(),
+                        'target_class' => \SigRH\Entity\Estado::class,
+                        'property' => 'sigla',
+                        'display_empty_item' => true,
+            ]
+        ]);
         
         //Adiciona o campo "Bairro"
         $this->add([
@@ -235,19 +248,6 @@ class ColaboradorForm extends Form {
                 'label' => 'Bairro'
             ],
         ]);
-        
-//        //Adiciona o campo "Estado"
-        $this->add([
-            'type' => 'text',
-            'name' => 'estado',
-            'attributes' => [
-                'id' => 'estado'
-            ],
-            'options' => [
-                'label' => 'Estado'
-            ],
-        ]);
-
 
         ///////////////////////////////////////////////////////////////////////
 
@@ -321,8 +321,5 @@ class ColaboradorForm extends Form {
                 ],
             ],
         ]);
-
-        
     }
-
 }
