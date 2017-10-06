@@ -37,20 +37,35 @@ $form->get('submit')->setAttributes([
 
             <div class="panel-body">
                 <?= $this->form()->openTag($form); ?>
-                
+
                 <div class="row">
-                    <div class="col-md-2"><?= $this->formRow ( $form->get ( 'matricula' ) ); ?></div>
-                    <div class="col-md-8"><?= $this->formRow ( $form->get ( 'nome' ) ); ?></div>
-                    <div class="col-md-2"><?= $this->formRow ( $form->get ( 'apelido' ) ); ?></div>
+                    <div class="col-md-2"><?= $this->formRow($form->get('matricula')); ?></div>
+                    <div class="col-md-8"><?= $this->formRow($form->get('nome')); ?></div>
+                    <div class="col-md-2"><?= $this->formRow($form->get('apelido')); ?></div>
                 </div>
-                
+
                 <div class="row">
                 </div>
-                
+                <hr>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#dadosPessoais">Dados Pessoais</a></li>
+                    <li><a data-toggle="tab" href="#documentacao">Documentação</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="dadosPessoais" class="tab-pane fade in active">
+                        <p>Dados pessoais</p>
+                    </div>
+
+                    <div id="documentacao" class="tab-pane fade">
+                        <p>Documentação</p>
+                    </div>
+                </div>
+
                 <br>
                 <br>
                 <?= $this->formElement($form->get('submit')); ?>
-
                 <?= $this->form()->closeTag(); ?>
             </div>
         </div>
