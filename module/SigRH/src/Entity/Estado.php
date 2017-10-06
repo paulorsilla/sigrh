@@ -24,7 +24,7 @@ class Estado extends AbstractEntity {
     protected $estado;
 
     /**
-     * @ORM\Column(name="endereco", type="string")
+     * @ORM\Column(name="sigla", type="string")
      */
     protected $sigla;
 
