@@ -67,8 +67,8 @@ class Colaborador extends AbstractEntity {
 
     /**    
      ** One colaborador has responsavel.
-     * @OneToOne(targetEntity="Colaborador")     
-     * @JoinColumn(name="responsavel", referencedColumnName="matricula")     
+     * @ORM\OneToOne(targetEntity="Colaborador")     
+     * @ORM\JoinColumn(name="responsavel", referencedColumnName="matricula")     
      **/
     private $responsavel;
     
@@ -81,11 +81,6 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="apelido", type="string")
      */
     protected $apelido;
-    
-    /**
-     * @ORM\Column(name="obrigatorio", type="string")
-     */
-    protected $obrigatorio;
     
     /**
      * @ORM\Column(name="foto", type="string")
@@ -266,9 +261,6 @@ class Colaborador extends AbstractEntity {
         return $this->apelido;
     }
 
-    function getObrigatorio() {
-        return $this->obrigatorio;
-    }
 
     function getFoto() {
         return $this->foto;
@@ -422,10 +414,6 @@ class Colaborador extends AbstractEntity {
 
     function setApelido($apelido) {
         $this->apelido = $apelido;
-    }
-
-    function setObrigatorio($obrigatorio) {
-        $this->obrigatorio = $obrigatorio;
     }
 
     function setFoto($foto) {
