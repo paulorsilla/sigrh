@@ -50,6 +50,20 @@ return [
                             ]
                         ]
                     ],
+                    'colaborador' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/colaborador[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ColaboradorController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'tipo-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -144,6 +158,7 @@ return [
 //            Controller\IndexController::class => InvokableFactory::class,
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,

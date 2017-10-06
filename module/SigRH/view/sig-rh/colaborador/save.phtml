@@ -27,7 +27,11 @@ $form->get('submit')->setAttributes([
 
             <div class="panel-body">
                 <?= $this->form()->openTag($form); ?>
-
+                
+                <?= $this->formRow ( $form->get ( 'matricula' ) ); ?>
+                <?= $this->formRow ( $form->get ( 'nome' ) ); ?>
+                <?= $this->formRow ( $form->get ( 'apelido' ) ); ?>
+                
                 <br>
                 <br>
                 <?= $this->formElement($form->get('submit')); ?>
