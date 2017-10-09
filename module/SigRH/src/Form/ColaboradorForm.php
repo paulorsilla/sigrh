@@ -54,7 +54,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'nome',
             'attributes' => [
-                'id' => 'nome'
+                'id' => 'nome',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o nome aqui'
             ],
             'options' => [
                 'label' => 'Nome'

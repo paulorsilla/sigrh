@@ -64,6 +64,20 @@ return [
                             ]
                         ]
                     ],
+                    'cidade' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/cidade[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CidadeController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'tipo-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -158,6 +172,7 @@ return [
 //            Controller\IndexController::class => InvokableFactory::class,
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
