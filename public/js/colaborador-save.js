@@ -8,7 +8,6 @@ $(document).ready(function () {
 //    ];
     var vCidades = [];
 
-
     function carregaComboCidades(uf) {
         $("select[name=cidade]").html('<option>Selecione</option>');
 
@@ -37,36 +36,44 @@ $(document).ready(function () {
     }
     
     function selecionaEstado(uf) {
-        var achou = false;
+        var idEstado = 0;
         $("select[name=estado] option").each(function() {
             if ($(this).text() === uf) {
                 $(this).attr("selected", "selected");
-                achou =  true;
+                idEstado = $(this).val();
             }
         });
-       return achou;
+        return idEstado;
     }
     
-    function addCidade(uf, nome) {
-        $(vCidades).each(function (i, item) {
-            if (item.id === uf) {
-                achou = false;
-                $(item.cidades).each(function (i2, item2) {
-                    if (item2.cidade === nome) {
-                        achou = true;
-                        $("select[name=cidade]").val(item2.id);
-                    }
-                });
-                if (!achou) {
-                    // fazer uma chamada POST para um action e cadastrar essa cidade retornando o id via json
-                    item.cidades.push({id: 999, cidade: nome});
-                    carregaComboCidades(uf);
-                    $("select[name=cidade]").val(999);
-                }
-            }
+    function selecionaCidade(cidade) {
+        $("select[name=cidade] option").each(function() {
+           if ($(this).text() === cidade) {
+               $(this).attr("selected", "selected");
+           }
         });
-        console.log(achou);
     }
+    
+//    function addCidade(uf, nome) {
+//        $(vCidades).each(function (i, item) {
+//            if (item.id === uf) {
+//                achou = false;
+//                $(item.cidades).each(function (i2, item2) {
+//                    if (item2.cidade === nome) {
+//                        achou = true;
+//                        $("select[name=cidade]").val(item2.id);
+//                    }
+//                });
+//                if (!achou) {
+//                    // fazer uma chamada POST para um action e cadastrar essa cidade retornando o id via json
+//                    item.cidades.push({id: 999, cidade: nome});
+//                    carregaComboCidades(uf);
+//                    $("select[name=cidade]").val(999);
+//                }
+//            }
+//        });
+//        console.log(achou);
+//    }
 
     function limpa_formulário_cep() {
         // Limpa valores do formulário de cep.
@@ -104,15 +111,16 @@ $(document).ready(function () {
 
                 //Consulta o webservice viacep.com.br/
                 $.getJSON("//viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-
                     if (!("erro" in dados)) {
                         //Atualiza os campos com os valores da consulta.
                         $("input[name=endereco]").val(dados.logradouro);
                         $("input[name=bairro]").val(dados.bairro);
-                        alert(selecionaEstado(dados.uf));
+                        var idEstado = selecionaEstado(dados.uf);
+                        carregaComboCidades(idEstado);
+ //                       addCidade(dados.uf, dados.localidade);
+                        selecionaCidade(dados.localidade);
+
                         
-                        carregaComboCidades(dados.uf);
-                        addCidade(dados.uf, dados.localidade);
                         //$("select[name=cidade]").val(dados.localidade);
 //                        $("input[name=estado]").val(dados.uf);
                         //$("#ibge").val(dados.ibge);

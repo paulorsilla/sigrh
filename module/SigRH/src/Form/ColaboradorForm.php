@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
  * Formulário utilizado para o cadastro de colaboradores
  */
 class ColaboradorForm extends Form {
-    
+
     protected $objectManager;
 
     /**
@@ -27,11 +27,11 @@ class ColaboradorForm extends Form {
         $this->addElements();
         $this->addInputFilter();
     }
-    
+
     public function setObjectManager(ObjectManager $objectManager) {
         $this->objectManager = $objectManager;
     }
-    
+
     public function getObjectManager() {
         return $this->objectManager;
     }
@@ -42,7 +42,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'matricula',
             'attributes' => [
-                'id' => 'matricula'
+                'id' => 'matricula',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a matrícula aqui'
             ],
             'options' => [
                 'label' => 'Matrícula'
@@ -62,19 +64,21 @@ class ColaboradorForm extends Form {
                 'label' => 'Nome'
             ],
         ]);
-        
+
         //Adiciona o campo "Apelido"
         $this->add([
             'type' => 'text',
             'name' => 'apelido',
             'attributes' => [
-                'id' => 'apelido'
+                'id' => 'apelido',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o apelido aqui'
             ],
             'options' => [
                 'label' => 'Apelido'
             ],
         ]);
-        
+
         //Adiciona o campo "foto"
         $this->add([
             'type' => 'text',
@@ -86,92 +90,133 @@ class ColaboradorForm extends Form {
                 'label' => 'Foto'
             ],
         ]);
-        
+
         //Adiciona o campo "data_admissao"
         $this->add([
             'type' => 'text',
             'name' => 'data_admissao',
             'attributes' => [
-                'id' => 'data_admissao'
+                'id' => 'data_admissao',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Data admissão'
             ],
         ]);
-        
+
         //Adiciona o campo "data_desligamento"
         $this->add([
             'type' => 'text',
             'name' => 'data_desligamento',
             'attributes' => [
-                'id' => 'data_desligamento'
+                'id' => 'data_desligamento',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Data desligamento'
             ],
         ]);
-        
+
         //Adiciona o campo "sexo"
         $this->add([
             'type' => 'text',
             'name' => 'sexo',
             'attributes' => [
-                'id' => 'sexo'
+                'id' => 'sexo',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Sexo'
             ],
         ]);
-        
+
         //Adiciona o campo "data_nascimento"
         $this->add([
             'type' => 'text',
             'name' => 'data_nascimento',
             'attributes' => [
-                'id' => 'data_nascimento'
+                'id' => 'data_nascimento',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Data nascimento'
             ],
         ]);
-        
-        
+
+        //Adiciona o campo "natural (cidade)"
+        $this->add([
+            'type' => 'select',
+            'name' => 'natural',
+            'attributes' => [
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Natural (Cidade)',
+//                        'object_manager' => $this->getObjectManager(),
+//                        'target_class' => \SigRH\Entity\Cidade::class,
+//                        'property' => 'cidade',
+//                        'display_empty_item' => true,
+            ]
+        ]);
+
+        //Adiciona o campo " natural (estado)"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'natural_estado',
+            'attributes' => [
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Natural (Estado)',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Estado::class,
+                'property' => 'sigla',
+                'display_empty_item' => true,
+            ]
+        ]);
+
         //Adiciona o campo "nacionalidade"
         $this->add([
             'type' => 'text',
             'name' => 'nacionalidade',
             'attributes' => [
-                'id' => 'nacionalidade'
+                'id' => 'nacionalidade',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a nacionalidade aqui'
             ],
             'options' => [
                 'label' => 'Nacionalidade'
             ],
         ]);
-        
+
         //Adiciona o campo "nome_pai"
         $this->add([
             'type' => 'text',
             'name' => 'nome_pai',
             'attributes' => [
-                'id' => 'nome_pai'
+                'id' => 'nome_pai',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o nome do pai'
             ],
             'options' => [
                 'label' => 'Nome pai'
             ],
         ]);
-        
+
         //Adiciona o campo "nome_mae"
         $this->add([
             'type' => 'text',
             'name' => 'nome_mae',
             'attributes' => [
-                'id' => 'nome_mae'
+                'id' => 'nome_mae',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o nome da mãe'
             ],
             'options' => [
                 'label' => 'Nome mãe'
             ],
         ]);
-        
+
         //Adiciona o campo "telefone_residencial"
         $this->add([
             'type' => 'text',
@@ -183,7 +228,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Telefone residencial'
             ],
         ]);
-        
+
         //Adiciona o campo "telefone_celular"
         $this->add([
             'type' => 'text',
@@ -195,7 +240,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Telefone celular'
             ],
         ]);
-        
+
         //Adiciona o campo "ramal"
         $this->add([
             'type' => 'text',
@@ -207,7 +252,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Ramal'
             ],
         ]);
-        
+
         //Adiciona o campo "email"
         $this->add([
             'type' => 'text',
@@ -219,7 +264,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Email'
             ],
         ]);
-        
+
         //Adiciona o campo "login_sede"
         $this->add([
             'type' => 'text',
@@ -231,7 +276,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Login sede'
             ],
         ]);
-        
+
         //Adiciona o campo "login_local"
         $this->add([
             'type' => 'text',
@@ -243,7 +288,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Login local'
             ],
         ]);
-        
+
         //Adiciona o campo "email_corporativo"
         $this->add([
             'type' => 'text',
@@ -255,7 +300,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Email corporativo'
             ],
         ]);
-        
+
         //Adiciona o campo "rg_numero"
         $this->add([
             'type' => 'text',
@@ -264,10 +309,10 @@ class ColaboradorForm extends Form {
                 'id' => 'rg_numero'
             ],
             'options' => [
-                'label' => 'Número RG' 
+                'label' => 'Número RG'
             ],
         ]);
-        
+
         //Adiciona o campo "rg_data_emissao"
         $this->add([
             'type' => 'text',
@@ -276,10 +321,10 @@ class ColaboradorForm extends Form {
                 'id' => 'rg_data_emissao'
             ],
             'options' => [
-                'label' => 'Data emissão RG' 
+                'label' => 'Data emissão RG'
             ],
         ]);
-        
+
         //Adiciona o campo "rg_orgao_expedidor"
         $this->add([
             'type' => 'text',
@@ -288,7 +333,7 @@ class ColaboradorForm extends Form {
                 'id' => 'rg_orgao_expedidor'
             ],
             'options' => [
-                'label' => 'Órgão expediro RG' 
+                'label' => 'Órgão expediro RG'
             ],
         ]);
 
@@ -300,10 +345,10 @@ class ColaboradorForm extends Form {
                 'id' => 'cpf'
             ],
             'options' => [
-                'label' => 'CPF' 
+                'label' => 'CPF'
             ],
         ]);
-        
+
         //Adiciona o campo "ctps_numero"
         $this->add([
             'type' => 'text',
@@ -312,10 +357,10 @@ class ColaboradorForm extends Form {
                 'id' => 'ctps_numero'
             ],
             'options' => [
-                'label' => 'Número CTPS' 
+                'label' => 'Número CTPS'
             ],
         ]);
-        
+
         //Adiciona o campo "ctps_serie"
         $this->add([
             'type' => 'text',
@@ -324,10 +369,10 @@ class ColaboradorForm extends Form {
                 'id' => 'ctps_serie'
             ],
             'options' => [
-                'label' => 'Número CTPS série' 
+                'label' => 'Número CTPS série'
             ],
         ]);
-        
+
         //Adiciona o campo "ctps_data_expedicao"
         $this->add([
             'type' => 'text',
@@ -336,10 +381,10 @@ class ColaboradorForm extends Form {
                 'id' => 'ctps_data_expedicao'
             ],
             'options' => [
-                'label' => 'Data expedição CTPS' 
+                'label' => 'Data expedição CTPS'
             ],
         ]);
-        
+
         //Adiciona o campo "pis"
         $this->add([
             'type' => 'text',
@@ -348,12 +393,10 @@ class ColaboradorForm extends Form {
                 'id' => 'pis'
             ],
             'options' => [
-                'label' => 'PIS' 
+                'label' => 'PIS'
             ],
         ]);
-        
 
-        
         //Adiciona o campo "Observaçoes"
         $this->add([
             'type' => 'text',
@@ -365,10 +408,8 @@ class ColaboradorForm extends Form {
                 'label' => 'Observações'
             ],
         ]);
-        
-        
+
         ////////////campos do endereço.../////////////////////////////////////////////
-        
         //Adiciona o campo "Endereço"
         $this->add([
             'type' => 'text',
@@ -380,7 +421,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Endereço'
             ],
         ]);
-        
+
         //Adiciona o campo "Número"
         $this->add([
             'type' => 'text',
@@ -392,7 +433,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Número'
             ],
         ]);
-        
+
         //Adiciona o campo "Complemento"
         $this->add([
             'type' => 'text',
@@ -404,7 +445,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Complemento'
             ],
         ]);
-        
+
         //Adiciona o campo "Bairro"
         $this->add([
             'type' => 'text',
@@ -416,7 +457,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Bairro'
             ],
         ]);
-        
+
         //Adiciona o campo "Cep"
         $this->add([
             'type' => 'text',
@@ -428,17 +469,17 @@ class ColaboradorForm extends Form {
                 'label' => 'Cep'
             ],
         ]);
-        
+
         //Adiciona o campo "cidade"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'cidade',
             'options' => [
-                        'label' => 'Cidade',
-                        'object_manager' => $this->getObjectManager(),
-                        'target_class' => \SigRH\Entity\Cidade::class,
-                        'property' => 'cidade',
-                        'display_empty_item' => true,
+                'label' => 'Cidade',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Cidade::class,
+                'property' => 'cidade',
+                'display_empty_item' => true,
             ]
         ]);
 
@@ -447,14 +488,14 @@ class ColaboradorForm extends Form {
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'estado',
             'options' => [
-                        'label' => 'Estado',
-                        'object_manager' => $this->getObjectManager(),
-                        'target_class' => \SigRH\Entity\Estado::class,
-                        'property' => 'sigla',
-                        'display_empty_item' => true,
+                'label' => 'Estado',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Estado::class,
+                'property' => 'sigla',
+                'display_empty_item' => true,
             ]
         ]);
-        
+
         //Adiciona o campo "Bairro"
         $this->add([
             'type' => 'text',
@@ -520,7 +561,7 @@ class ColaboradorForm extends Form {
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'apelido',
             'required' => true,
@@ -540,4 +581,5 @@ class ColaboradorForm extends Form {
             ],
         ]);
     }
+
 }

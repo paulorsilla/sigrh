@@ -2,15 +2,7 @@
 $this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
 
 $form = $this->form;
-$form->get('matricula')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite a matrícula aqui'
-]);
 
-$form->get('apelido')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o apelido aqui'
-]);
 $form->get('cep')->setAttributes([
     'class' => 'form-control',
     'placeholder' => 'Digite o CEP aqui'
@@ -84,6 +76,19 @@ $form->get('submit')->setAttributes([
 
                 <div class="tab-content">
                     <div id="dadosPessoais" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-md-2"><?= $this->formRow($form->get('data_nascimento'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('natural_estado'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('natural'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('nacionalidade'));?></div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('sexo'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('grupo_sanguineo'));?></div>
+                            
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-2"><?= $this->formRow($form->get('cep'));?></div>
                             <div class="col-md-6"><?= $this->formRow($form->get('endereco'));?></div>
