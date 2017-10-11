@@ -3,38 +3,20 @@ $this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
 
 $form = $this->form;
 
-$form->get('cep')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o CEP aqui'
-]);
-
-$form->get('endereco')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o endereco aqui'
-]);
-
-$form->get('numero')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o número aqui'
-]);
-
-$form->get('complemento')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o complemento aqui'
-]);
-
-$form->get('bairro')->setAttributes([
-    'class' => 'form-control',
-    'placeholder' => 'Digite o bairro aqui'
-]);
-
-$form->get('cidade')->setAttributes([
-    'class' => 'form-control',
-]);
-
-$form->get('estado')->setAttributes([
-    'class' => 'form-control',
-]);
+//$form->get('cep')->setAttributes([
+//    'class' => 'form-control',
+//    'placeholder' => 'Digite o CEP aqui'
+//]);
+//
+//$form->get('endereco')->setAttributes([
+//    'class' => 'form-control',
+//    'placeholder' => 'Digite o endereco aqui'
+//]);
+//
+//$form->get('numero')->setAttributes([
+//    'class' => 'form-control',
+//    'placeholder' => 'Digite o número aqui'
+//]);
 
 $form->get('submit')->setAttributes([
     'class' => 'btn btn-primary'
@@ -44,7 +26,7 @@ $form->get('submit')->setAttributes([
 <h1>Cadastro de colaboradores</h1>
 
 <div class="row">
-    <div class="col-md-22">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <h3 class="panel-title">
@@ -59,14 +41,13 @@ $form->get('submit')->setAttributes([
             <div class="panel-body">
                 <?= $this->form()->openTag($form); ?>
 
-                <div class="row">
+                <div class="form-group row">
                     <div class="col-md-2"><?= $this->formRow($form->get('matricula')); ?></div>
                     <div class="col-md-8"><?= $this->formRow($form->get('nome')); ?></div>
                     <div class="col-md-2"><?= $this->formRow($form->get('apelido')); ?></div>
                 </div>
 
-                <div class="row">
-                </div>
+
                 <hr>
 
                 <ul class="nav nav-tabs">
@@ -86,6 +67,7 @@ $form->get('submit')->setAttributes([
                         <div class="row">
                             <div class="col-md-4"><?= $this->formRow($form->get('sexo'));?></div>
                             <div class="col-md-4"><?= $this->formRow($form->get('grupo_sanguineo'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('cor_pele'));?></div>
                             
                         </div>
                         

@@ -44,7 +44,7 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'matricula',
                 'class' => 'form-control',
-                'placeholder' => 'Digite a matrícula aqui'
+                'placeholder' => 'Digite o nome aqui'
             ],
             'options' => [
                 'label' => 'Matrícula'
@@ -84,7 +84,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'foto',
             'attributes' => [
-                'id' => 'foto'
+                'id' => 'foto',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Foto'
@@ -119,16 +120,56 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "sexo"
         $this->add([
-            'type' => 'text',
+            'type' => 'select',
             'name' => 'sexo',
             'attributes' => [
                 'id' => 'sexo',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Sexo',
+                'value_options' => [
+                    "" => "Selecione",
+                    "1" => "Feminino",
+                    "2" => "Masculino"
+                ]
+            ],
+        ]);
+
+        //Adiciona o campo "grupo sanguineo"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'grupo_sanguineo',
+            'attributes' => [
+                'id' => 'grupo_sanguineo',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Sexo'
-            ],
+                'label' => 'Grupo Sanguineo',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\GrupoSanguineo::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
         ]);
+
+        //Adiciona o campo "cor da pele"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'cor_pele',
+            'attributes' => [
+                'id' => 'cor_pele',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Cor da Pele',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\CorPele::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+
 
         //Adiciona o campo "data_nascimento"
         $this->add([
@@ -148,14 +189,11 @@ class ColaboradorForm extends Form {
             'type' => 'select',
             'name' => 'natural',
             'attributes' => [
+                'id' => 'natual',
                 'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Natural (Cidade)',
-//                        'object_manager' => $this->getObjectManager(),
-//                        'target_class' => \SigRH\Entity\Cidade::class,
-//                        'property' => 'cidade',
-//                        'display_empty_item' => true,
             ]
         ]);
 
@@ -164,6 +202,7 @@ class ColaboradorForm extends Form {
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'natural_estado',
             'attributes' => [
+                'id' => 'natural_estado',
                 'class' => 'form-control',
             ],
             'options' => [
@@ -194,7 +233,7 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'nome_pai',
             'attributes' => [
-                'id' => 'nome_pai',
+                'id'    => 'nome_pai',
                 'class' => 'form-control',
                 'placeholder' => 'Digite o nome do pai'
             ],
@@ -222,7 +261,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'telefone_residencial',
             'attributes' => [
-                'id' => 'telefone_residencial'
+                'id' => 'telefone_residencial',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Telefone residencial'
@@ -234,7 +274,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'telefone_celular',
             'attributes' => [
-                'id' => 'telefone_celular'
+                'id' => 'telefone_celular',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Telefone celular'
@@ -246,7 +287,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'ramal',
             'attributes' => [
-                'id' => 'ramal'
+                'id' => 'ramal',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Ramal'
@@ -258,7 +300,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'email',
             'attributes' => [
-                'id' => 'email'
+                'id' => 'email',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o e-mail aqui',
             ],
             'options' => [
                 'label' => 'Email'
@@ -270,7 +314,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'login_sede',
             'attributes' => [
-                'id' => 'login_sede'
+                'id' => 'login_sede',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o login da sede aqui',
             ],
             'options' => [
                 'label' => 'Login sede'
@@ -282,7 +328,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'login_local',
             'attributes' => [
-                'id' => 'login_local'
+                'id' => 'login_local',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o login local aqui'
             ],
             'options' => [
                 'label' => 'Login local'
@@ -294,7 +342,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'email_corporativo',
             'attributes' => [
-                'id' => 'email_corporativo'
+                'id' => 'email_corporativo',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o e-mail corporativo aqui'
             ],
             'options' => [
                 'label' => 'Email corporativo'
@@ -306,7 +356,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'rg_numero',
             'attributes' => [
-                'id' => 'rg_numero'
+                'id' => 'rg_numero',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o número aqui',
             ],
             'options' => [
                 'label' => 'Número RG'
@@ -318,7 +370,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'rg_data_emissao',
             'attributes' => [
-                'id' => 'rg_data_emissao'
+                'id' => 'rg_data_emissao',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Data emissão RG'
@@ -330,7 +383,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'rg_orgao_expedidor',
             'attributes' => [
-                'id' => 'rg_orgao_expedidor'
+                'id' => 'rg_orgao_expedidor',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Órgão expediro RG'
@@ -342,7 +396,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'cpf',
             'attributes' => [
-                'id' => 'cpf'
+                'id' => 'cpf',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'CPF'
@@ -354,7 +409,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'ctps_numero',
             'attributes' => [
-                'id' => 'ctps_numero'
+                'id' => 'ctps_numero',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Número CTPS'
@@ -366,7 +422,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'ctps_serie',
             'attributes' => [
-                'id' => 'ctps_serie'
+                'id' => 'ctps_serie',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Número CTPS série'
@@ -378,7 +435,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'ctps_data_expedicao',
             'attributes' => [
-                'id' => 'ctps_data_expedicao'
+                'id' => 'ctps_data_expedicao',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Data expedição CTPS'
@@ -390,7 +448,8 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'pis',
             'attributes' => [
-                'id' => 'pis'
+                'id' => 'pis',
+                'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'PIS'
@@ -402,7 +461,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'observacoes',
             'attributes' => [
-                'id' => 'observacoes'
+                'id' => 'observacoes',
+                'class' => 'form-control',
+                'placeholder' => 'Digite as observações aqui'
             ],
             'options' => [
                 'label' => 'Observações'
@@ -415,7 +476,10 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'endereco',
             'attributes' => [
-                'id' => 'endereco'
+                'id' => 'endereco',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o endereço aqui'
+
             ],
             'options' => [
                 'label' => 'Endereço'
@@ -427,7 +491,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'numero',
             'attributes' => [
-                'id' => 'numero'
+                'id' => 'numero',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o número aqui'
             ],
             'options' => [
                 'label' => 'Número'
@@ -439,7 +505,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'complemento',
             'attributes' => [
-                'id' => 'complemento'
+                'id' => 'complemento',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o complemento aqui'
             ],
             'options' => [
                 'label' => 'Complemento'
@@ -451,7 +519,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'bairro',
             'attributes' => [
-                'id' => 'bairro'
+                'id' => 'bairro',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o bairro aqui'
             ],
             'options' => [
                 'label' => 'Bairro'
@@ -463,7 +533,9 @@ class ColaboradorForm extends Form {
             'type' => 'text',
             'name' => 'cep',
             'attributes' => [
-                'id' => 'cep'
+                'id' => 'cep',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o cep aqui'
             ],
             'options' => [
                 'label' => 'Cep'
@@ -474,6 +546,10 @@ class ColaboradorForm extends Form {
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'cidade',
+            'attributes' => [
+                'id' => 'cidade',
+                'class' => 'form-control',
+            ],
             'options' => [
                 'label' => 'Cidade',
                 'object_manager' => $this->getObjectManager(),
@@ -487,6 +563,10 @@ class ColaboradorForm extends Form {
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'estado',
+            'attributes' => [
+                'id' => 'estado',
+                'class' => 'form-control',
+            ],
             'options' => [
                 'label' => 'Estado',
                 'object_manager' => $this->getObjectManager(),
@@ -496,17 +576,17 @@ class ColaboradorForm extends Form {
             ]
         ]);
 
-        //Adiciona o campo "Bairro"
-        $this->add([
-            'type' => 'text',
-            'name' => 'bairro',
-            'attributes' => [
-                'id' => 'bairro'
-            ],
-            'options' => [
-                'label' => 'Bairro'
-            ],
-        ]);
+//        //Adiciona o campo "Bairro"
+//        $this->add([
+//            'type' => 'text',
+//            'name' => 'bairro',
+//            'attributes' => [
+//                'id' => 'bairro'
+//            ],
+//            'options' => [
+//                'label' => 'Bairro'
+//            ],
+//        ]);
 
         ///////////////////////////////////////////////////////////////////////
 
