@@ -139,13 +139,14 @@ class ColaboradorForm extends Form {
         //Adiciona o campo "grupo sanguineo"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'grupo_sanguineo',
+            'name' => 'grupoSanguineo',
             'attributes' => [
-                'id' => 'grupo_sanguineo',
+                'id' => 'grupoSanguineo',
                 'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Grupo Sanguineo',
+                'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\GrupoSanguineo::class,
                 'property' => 'descricao',
@@ -156,13 +157,14 @@ class ColaboradorForm extends Form {
         //Adiciona o campo "cor da pele"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'cor_pele',
+            'name' => 'corPele',
             'attributes' => [
-                'id' => 'cor_pele',
+                'id' => 'corPele',
                 'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Cor da Pele',
+                'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\CorPele::class,
                 'property' => 'descricao',
@@ -170,13 +172,12 @@ class ColaboradorForm extends Form {
             ]
         ]);
 
-
         //Adiciona o campo "data_nascimento"
         $this->add([
             'type' => 'text',
-            'name' => 'data_nascimento',
+            'name' => 'dataNascimento',
             'attributes' => [
-                'id' => 'data_nascimento',
+                'id' => 'dataNascimento',
                 'class' => 'form-control',
             ],
             'options' => [
@@ -194,10 +195,12 @@ class ColaboradorForm extends Form {
             ],
             'options' => [
                 'label' => 'Natural (Cidade)',
+                'empty_option' => 'Selecione',
+                'display_empty_item' => true,
             ]
         ]);
 
-        //Adiciona o campo " natural (estado)"
+        //Adiciona o campo "natural (estado)"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'natural_estado',
@@ -207,6 +210,7 @@ class ColaboradorForm extends Form {
             ],
             'options' => [
                 'label' => 'Natural (Estado)',
+                'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Estado::class,
                 'property' => 'sigla',
@@ -227,41 +231,78 @@ class ColaboradorForm extends Form {
                 'label' => 'Nacionalidade'
             ],
         ]);
+        
+        //Adiciona o campo "estado civil"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'estadoCivil',
+            'attributes' => [
+                'id' => 'estadoCivil',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Estado Civil',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\EstadoCivil::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+        
+        //Adiciona o campo "grau instrução"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'grauInstrucao',
+            'attributes' => [
+                'id' => 'grauInstrucao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Grau de Instrução',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\GrauInstrucao::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
 
         //Adiciona o campo "nome_pai"
         $this->add([
             'type' => 'text',
-            'name' => 'nome_pai',
+            'name' => 'nomePai',
             'attributes' => [
-                'id'    => 'nome_pai',
+                'id'    => 'nomePai',
                 'class' => 'form-control',
                 'placeholder' => 'Digite o nome do pai'
             ],
             'options' => [
-                'label' => 'Nome pai'
+                'label' => 'Nome do pai'
             ],
         ]);
 
         //Adiciona o campo "nome_mae"
         $this->add([
             'type' => 'text',
-            'name' => 'nome_mae',
+            'name' => 'nomeMae',
             'attributes' => [
-                'id' => 'nome_mae',
+                'id' => 'nomeMae',
                 'class' => 'form-control',
                 'placeholder' => 'Digite o nome da mãe'
             ],
             'options' => [
-                'label' => 'Nome mãe'
+                'label' => 'Nome da mãe'
             ],
         ]);
 
-        //Adiciona o campo "telefone_residencial"
+        //Adiciona o campo "telefone residencial"
         $this->add([
             'type' => 'text',
-            'name' => 'telefone_residencial',
+            'name' => 'telefoneResidencial',
             'attributes' => [
-                'id' => 'telefone_residencial',
+                'id' => 'telefoneResidencial',
                 'class' => 'form-control',
             ],
             'options' => [
@@ -269,12 +310,12 @@ class ColaboradorForm extends Form {
             ],
         ]);
 
-        //Adiciona o campo "telefone_celular"
+        //Adiciona o campo "telefone celular"
         $this->add([
             'type' => 'text',
-            'name' => 'telefone_celular',
+            'name' => 'telefoneCelular',
             'attributes' => [
-                'id' => 'telefone_celular',
+                'id' => 'telefoneCelular',
                 'class' => 'form-control',
             ],
             'options' => [
@@ -552,6 +593,7 @@ class ColaboradorForm extends Form {
             ],
             'options' => [
                 'label' => 'Cidade',
+                'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Cidade::class,
                 'property' => 'cidade',
@@ -569,6 +611,7 @@ class ColaboradorForm extends Form {
             ],
             'options' => [
                 'label' => 'Estado',
+                'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Estado::class,
                 'property' => 'sigla',

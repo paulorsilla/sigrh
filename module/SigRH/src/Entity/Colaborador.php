@@ -16,69 +16,68 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="matricula")
      */
     protected $matricula;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\TipoColaborador")
      * @ORM\JoinColumn(name="tipo_colaborador_id", referencedColumnName="id")
-     **/        
+     * */
     protected $tipoColaborador; //tipo_colaborador_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\LinhaOnibus")
      * @ORM\JoinColumn(name="linha_onibus_id", referencedColumnName="id")
-     **/        
+     * */
     protected $linhaOnibus; //linha_onibus_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Endereco")
      * @ORM\JoinColumn(name="endereco_id", referencedColumnName="id")
-     **/        
+     * */
     protected $endereco; //endereco_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\GrupoSanguineo")
      * @ORM\JoinColumn(name="grupo_sanguineo_id", referencedColumnName="id")
-     **/        
+     * */
     protected $grupoSanguineo; //grupo_sanguineo_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\GrauInstrucao")
      * @ORM\JoinColumn(name="grau_instrucao_id", referencedColumnName="id")
-     **/        
+     * */
     protected $grauInstrucao; //grau_instrucao_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\CorPele")
      * @ORM\JoinColumn(name="cor_pele_id", referencedColumnName="id")
-     **/        
+     * */
     protected $corPele; //cor_pele_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\EstadoCivil")
      * @ORM\JoinColumn(name="estado_civil_id", referencedColumnName="id")
-     **/        
+     * */
     protected $estadoCivil; //estado_civil_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cidade")
      * @ORM\JoinColumn(name="natural", referencedColumnName="id")
-     **/        
+     * */
     protected $natural; //cidade_id
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Estado")
      * @ORM\JoinColumn(name="ctps_uf", referencedColumnName="id")
-     **/        
+     * */
     protected $ctps_uf; //ctps_uf
-    
 
-    /**    
-     ** One colaborador has responsavel.
+    /**
+     * * One colaborador has responsavel.
      * @ORM\OneToOne(targetEntity="Colaborador")     
      * @ORM\JoinColumn(name="responsavel", referencedColumnName="matricula")     
-     **/
+     * */
     private $responsavel;
-    
+
     /**
      * @ORM\Column(name="nome", type="string")
      */
@@ -88,12 +87,12 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="apelido", type="string")
      */
     protected $apelido;
-    
+
     /**
      * @ORM\Column(name="foto", type="string")
      */
     protected $foto;
-    
+
     /**
      * @ORM\Column(name="data_admissao", type="datetime")
      */
@@ -103,17 +102,17 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="data_desligamento", type="datetime")
      */
     protected $data_desligamento;
-    
+
     /**
      * @ORM\Column(name="data_nascimento", type="datetime")
      */
-    protected $data_nascimento;
-    
+    protected $dataNascimento;
+
     /**
      * @ORM\Column(name="sexo", type="string")
      */
     protected $sexo;
-    
+
     /**
      * @ORM\Column(name="nacionalidade", type="string")
      */
@@ -122,33 +121,38 @@ class Colaborador extends AbstractEntity {
     /**
      * @ORM\Column(name="nome_pai", type="string")
      */
-    protected $nome_pai;
+    protected $nomePai;
 
     /**
      * @ORM\Column(name="nome_mae", type="string")
      */
-    protected $nome_mae;
-    
-        /**
+    protected $nomeMae;
+
+    /**
      * @ORM\Column(name="telefone_residencial", type="string")
      */
-    protected $telefone_residencial;
+    protected $telefoneResidencial;
 
-        /**
+    /**
      * @ORM\Column(name="telefone_celular", type="string")
      */
-    protected $telefone_celular;
+    protected $telefoneCelular;
 
-        /**
+    /**
      * @ORM\Column(name="ramal", type="string")
      */
     protected $ramal;
 
-        /**
+    /**
      * @ORM\Column(name="email", type="string")
      */
     protected $email;
 
+    /**
+     * @ORM\Column(name="necessidade_especial", type="boolean")
+     */
+    protected $necessidadeEspecial;
+    
     /**
      * @ORM\Column(name="login_sede", type="string")
      */
@@ -168,17 +172,17 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="rg_numero", type="string")
      */
     protected $rg_numero;
-    
+
     /**
      * @ORM\Column(name="rg_data_emissao", type="string")
      */
     protected $rg_data_emissao;
-    
+
     /**
      * @ORM\Column(name="rg_orgao_expedidor", type="string")
      */
     protected $rg_orgao_expedidor;
-    
+
     /**
      * @ORM\Column(name="cpf", type="string")
      */
@@ -198,13 +202,12 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="ctps_data_expedicao", type="string")
      */
     protected $ctps_data_expedicao;
-    
+
     /**
      * @ORM\Column(name="pis", type="string")
      */
     protected $pis;
 
-    
     /**
      * Returns user ID.
      * 
@@ -262,7 +265,6 @@ class Colaborador extends AbstractEntity {
         return $this->apelido;
     }
 
-
     function getFoto() {
         return $this->foto;
     }
@@ -275,8 +277,8 @@ class Colaborador extends AbstractEntity {
         return $this->data_desligamento;
     }
 
-    function getData_nascimento() {
-        return $this->data_nascimento;
+    function getDataNascimento() {
+        return $this->dataNascimento;
     }
 
     function getSexo() {
@@ -287,20 +289,20 @@ class Colaborador extends AbstractEntity {
         return $this->nacionalidade;
     }
 
-    function getNome_pai() {
-        return $this->nome_pai;
+    function getNomePai() {
+        return $this->nomePai;
     }
 
-    function getNome_mae() {
-        return $this->nome_mae;
+    function getNomeMae() {
+        return $this->nomeMae;
     }
 
-    function getTelefone_residencial() {
-        return $this->telefone_residencial;
+    function getTelefoneResidencial() {
+        return $this->telefoneResidencial;
     }
 
-    function getTelefone_celular() {
-        return $this->telefone_celular;
+    function getTelefoneCelular() {
+        return $this->telefoneCelular;
     }
 
     function getRamal() {
@@ -359,7 +361,6 @@ class Colaborador extends AbstractEntity {
         return $this->pis;
     }
 
-    
     /**
      * Sets user ID.
      * 
@@ -368,7 +369,7 @@ class Colaborador extends AbstractEntity {
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     function setMatricula($matricula) {
         $this->matricula = $matricula;
     }
@@ -429,7 +430,7 @@ class Colaborador extends AbstractEntity {
         $this->data_desligamento = $data_desligamento;
     }
 
-    function setData_nascimento($data_nascimento) {
+    function setDataNascimento($data_nascimento) {
         $this->data_nascimento = $data_nascimento;
     }
 
@@ -441,20 +442,20 @@ class Colaborador extends AbstractEntity {
         $this->nacionalidade = $nacionalidade;
     }
 
-    function setNome_pai($nome_pai) {
-        $this->nome_pai = $nome_pai;
+    function setNomePai($nomePai) {
+        $this->nomePai = $nomePai;
     }
 
-    function setNome_mae($nome_mae) {
-        $this->nome_mae = $nome_mae;
+    function setNomeMae($nomeMae) {
+        $this->nomeMae = $nomeMae;
     }
 
-    function setTelefone_residencial($telefone_residencial) {
-        $this->telefone_residencial = $telefone_residencial;
+    function setTelefoneResidencial($telefoneResidencial) {
+        $this->telefoneResidencial = $telefoneResidencial;
     }
 
-    function setTelefone_celular($telefone_celular) {
-        $this->telefone_celular = $telefone_celular;
+    function setTelefoneCelular($telefoneCelular) {
+        $this->telefoneCelular = $telefoneCelular;
     }
 
     function setRamal($ramal) {
@@ -513,6 +514,4 @@ class Colaborador extends AbstractEntity {
         $this->pis = $pis;
     }
 
-
-    
 }

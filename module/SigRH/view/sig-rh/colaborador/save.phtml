@@ -58,17 +58,23 @@ $form->get('submit')->setAttributes([
                 <div class="tab-content">
                     <div id="dadosPessoais" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('data_nascimento'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('dataNascimento'));?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('natural_estado'));?></div>
                             <div class="col-md-4"><?= $this->formRow($form->get('natural'));?></div>
                             <div class="col-md-4"><?= $this->formRow($form->get('nacionalidade'));?></div>
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('sexo'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('grupo_sanguineo'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('cor_pele'));?></div>
-                            
+                            <div class="col-md-2"><?= $this->formRow($form->get('sexo'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('grupoSanguineo'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('corPele'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('estadoCivil'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('grauInstrucao'));?></div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6"><?= $this->formRow($form->get('nomePai'));?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('nomeMae'));?></div>
                         </div>
                         
                         <div class="row">
@@ -81,6 +87,14 @@ $form->get('submit')->setAttributes([
                             <div class="col-md-6"><?= $this->formRow($form->get('bairro'));?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('estado'));?></div>
                             <div class="col-md-4"><?= $this->formRow($form->get('cidade'));?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneResidencial'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('ramal'));?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('email'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('necessidadeEspecial'));?></div>
+                            
                         </div>
                     </div>
 
