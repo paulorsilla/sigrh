@@ -44,7 +44,7 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'matricula',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o nome aqui'
+                'placeholder' => 'Digite a matrícula aqui'
             ],
             'options' => [
                 'label' => 'Matrícula'
@@ -95,26 +95,26 @@ class ColaboradorForm extends Form {
         //Adiciona o campo "data_admissao"
         $this->add([
             'type' => 'text',
-            'name' => 'data_admissao',
+            'name' => 'dataAdmissao',
             'attributes' => [
-                'id' => 'data_admissao',
+                'id' => 'dataAdmissao',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data admissão'
+                'label' => 'Data de admissão'
             ],
         ]);
 
         //Adiciona o campo "data_desligamento"
         $this->add([
             'type' => 'text',
-            'name' => 'data_desligamento',
+            'name' => 'dataDesligamento',
             'attributes' => [
-                'id' => 'data_desligamento',
+                'id' => 'dataDesligamento',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data desligamento'
+                'label' => 'Data de desligamento'
             ],
         ]);
 
@@ -655,6 +655,24 @@ class ColaboradorForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Estado::class,
                 'property' => 'sigla',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+        //Adiciona o campo "responsavel"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'responsavel',
+            'attributes' => [
+                'id' => 'responsavel',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Técnico Responsável',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Colaborador::class,
+                'property' => 'nome',
                 'display_empty_item' => true,
             ]
         ]);
