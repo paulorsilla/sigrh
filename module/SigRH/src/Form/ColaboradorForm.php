@@ -529,6 +529,8 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'pis',
                 'class' => 'form-control',
+                'placeholder' => 'Digite o número do PIS aqui',
+
             ],
             'options' => [
                 'label' => 'Número do PIS'

@@ -77,6 +77,16 @@ class Colaborador extends AbstractEntity {
      * @ORM\JoinColumn(name="responsavel", referencedColumnName="matricula")     
      * */
     private $responsavel;
+    
+    /**
+     * Many Colaboradores have Many Contas Corrente.
+     * @ORM\ManyToMany(targetEntity="ContaCorrente")
+     * @ORM\JoinTable(name="colaborador_conta_corrente",
+     *      joinColumns={@ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="conta_corrente_id", referencedColumnName="id")}
+     *      )
+     */
+    private $contasCorrente;
 
     /**
      * @ORM\Column(name="nome", type="string")
@@ -207,6 +217,14 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="pis", type="string")
      */
     protected $pis;
+
+    /*
+     * Construtor da classe Colaborador
+     */
+    
+    public function __construct() {
+        $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Returns user ID.
@@ -360,7 +378,15 @@ class Colaborador extends AbstractEntity {
     function getPis() {
         return $this->pis;
     }
+    
+    function getContasCorrente() {
+        return $this->contasCorrente;
+    }
 
+    function getNecessidadeEspecial() {
+        return $this->necessidadeEspecial;
+    }
+    
     /**
      * Sets user ID.
      * 
@@ -513,5 +539,22 @@ class Colaborador extends AbstractEntity {
     function setPis($pis) {
         $this->pis = $pis;
     }
+    
+    function setCtpsUf($ctpsUf) {
+        $this->ctpsUf = $ctpsUf;
+    }
+
+    function setContasCorrente($contasCorrente) {
+        $this->contasCorrente = $contasCorrente;
+    }
+
+    function setNecessidadeEspecial($necessidadeEspecial) {
+        $this->necessidadeEspecial = $necessidadeEspecial;
+    }
+
+    function setLoginSede($loginSede) {
+        $this->loginSede = $loginSede;
+    }
+
 
 }

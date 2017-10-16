@@ -96,40 +96,71 @@ $form->get('submit')->setAttributes([
                             <div class="col-md-8"></div>
 
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-4"><?= $this->formRow($form->get('ctpsNumero')); ?></div>
                             <div class="col-md-3"><?= $this->formRow($form->get('ctpsSerie')); ?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('ctpsUf')); ?></div>
                             <div class="col-md-3"><?= $this->formRow($form->get('ctpsDataExpedicao')); ?></div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-md-4"><?= $this->formRow($form->get('pis')); ?></div>
                             <div class="col-md-8"></div>
                         </div>
-
-                        <div id="informacoesBancarias" class="tab-pane fade">
-                            <p>Informações Bancárias</p>
-                        </div>
-
-                        <div id="estagio" class="tab-pane fade">
-                            <p>Estágio</p>
-                        </div>
-                        <div id="escalaHorarios" class="tab-pane fade">
-                            <p>Escala de Horários</p>
-                        </div>
-
-                        <div id="avaliacoes" class="tab-pane fade">
-                            <p>Avaliações</p>
-                        </div>
                     </div>
 
-                    <br>
-                    <br>
-                    <?= $this->formElement($form->get('submit')); ?>
-                    <?= $this->form()->closeTag(); ?>
+                    <div id="informacoesBancarias" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sequência</th>
+                                            <th>Banco</th>
+                                            <th>Agência</th>
+                                            <th>Conta Corrente</th>
+                                            <th>Conjunta</th>
+                                            <th>Nome Conjunta</th>
+                                            <th>CPF Conjunta</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($this->colaborador->getContasCorrente() as $contaCorrente):?>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="estagio" class="tab-pane fade">
+                        <p>Estágio</p>
+                    </div>
+                    <div id="escalaHorarios" class="tab-pane fade">
+                        <p>Escala de Horários</p>
+                    </div>
+
+                    <div id="avaliacoes" class="tab-pane fade">
+                        <p>Avaliações</p>
+                    </div>
                 </div>
+
+                <br>
+                <br>
+                <?= $this->formElement($form->get('submit')); ?>
+                <?= $this->form()->closeTag(); ?>
             </div>
         </div>
     </div>
+</div>
