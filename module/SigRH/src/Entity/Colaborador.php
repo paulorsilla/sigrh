@@ -69,7 +69,7 @@ class Colaborador extends AbstractEntity {
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Estado")
      * @ORM\JoinColumn(name="ctps_uf", referencedColumnName="id")
      * */
-    protected $ctps_uf; //ctps_uf
+    protected $ctpsUf; //ctps_uf
 
     /**
      * * One colaborador has responsavel.
@@ -96,12 +96,12 @@ class Colaborador extends AbstractEntity {
     /**
      * @ORM\Column(name="data_admissao", type="datetime")
      */
-    protected $data_admissao;
+    protected $dataAdmissao;
 
     /**
      * @ORM\Column(name="data_desligamento", type="datetime")
      */
-    protected $data_desligamento;
+    protected $dataDesligamento;
 
     /**
      * @ORM\Column(name="data_nascimento", type="datetime")
@@ -156,32 +156,32 @@ class Colaborador extends AbstractEntity {
     /**
      * @ORM\Column(name="login_sede", type="string")
      */
-    protected $login_sede;
+    protected $loginSede;
 
     /**
      * @ORM\Column(name="login_local", type="string")
      */
-    protected $login_local;
+    protected $loginLocal;
 
     /**
      * @ORM\Column(name="email_corporativo", type="string")
      */
-    protected $email_corporativo;
+    protected $emailCorporativo;
 
     /**
      * @ORM\Column(name="rg_numero", type="string")
      */
-    protected $rg_numero;
+    protected $rgNumero;
 
     /**
      * @ORM\Column(name="rg_data_emissao", type="string")
      */
-    protected $rg_data_emissao;
+    protected $rgDataEmissao;
 
     /**
      * @ORM\Column(name="rg_orgao_expedidor", type="string")
      */
-    protected $rg_orgao_expedidor;
+    protected $rgOrgaoExpedidor;
 
     /**
      * @ORM\Column(name="cpf", type="string")
@@ -191,17 +191,17 @@ class Colaborador extends AbstractEntity {
     /**
      * @ORM\Column(name="ctps_numero", type="string")
      */
-    protected $ctps_numero;
+    protected $ctpsNumero;
 
     /**
      * @ORM\Column(name="ctps_serie", type="string")
      */
-    protected $ctps_serie;
+    protected $ctpsSerie;
 
     /**
      * @ORM\Column(name="ctps_data_expedicao", type="string")
      */
-    protected $ctps_data_expedicao;
+    protected $ctpsDataExpedicao;
 
     /**
      * @ORM\Column(name="pis", type="string")
@@ -269,12 +269,12 @@ class Colaborador extends AbstractEntity {
         return $this->foto;
     }
 
-    function getData_admissao() {
-        return $this->data_admissao;
+    function getDataAdmissao() {
+        return $this->dataAdmissao;
     }
 
-    function getData_desligamento() {
-        return $this->data_desligamento;
+    function getDataDesligamento() {
+        return $this->dataDesligamento;
     }
 
     function getDataNascimento() {
@@ -313,48 +313,48 @@ class Colaborador extends AbstractEntity {
         return $this->email;
     }
 
-    function getLogin_sede() {
-        return $this->login_sede;
+    function getLoginSede() {
+        return $this->loginSede;
     }
 
-    function getLogin_local() {
-        return $this->login_local;
+    function getLoginLocal() {
+        return $this->loginLocal;
     }
 
-    function getEmail_corporativo() {
-        return $this->email_corporativo;
+    function getEmailCorporativo() {
+        return $this->emailCorporativo;
     }
 
-    function getRg_numero() {
-        return $this->rg_numero;
+    function getRgNumero() {
+        return $this->rgNumero;
     }
 
-    function getRg_data_emissao() {
-        return $this->rg_data_emissao;
+    function getRgDataEmissao() {
+        return $this->rgDataEmissao;
     }
 
-    function getRg_orgao_expedidor() {
-        return $this->rg_orgao_expedidor;
+    function getRgOrgaoExpedidor() {
+        return $this->rgOrgaoExpedidor;
     }
 
     function getCpf() {
         return $this->cpf;
     }
 
-    function getCtps_numero() {
-        return $this->ctps_numero;
+    function getCtpsNumero() {
+        return $this->ctpsNumero;
     }
 
-    function getCtps_serie() {
-        return $this->ctps_serie;
+    function getCtpsSerie() {
+        return $this->ctpsSerie;
     }
 
-    function getCtps_data_expedicao() {
-        return $this->ctps_data_expedicao;
+    function getCtpsDataExpedicao() {
+        return $this->ctpsDataExpedicao;
     }
 
-    function getCtps_uf() {
-        return $this->ctps_uf;
+    function getCtpsUf() {
+        return $this->ctpsUf;
     }
 
     function getPis() {
@@ -422,16 +422,16 @@ class Colaborador extends AbstractEntity {
         $this->foto = $foto;
     }
 
-    function setData_admissao($data_admissao) {
-        $this->data_admissao = $data_admissao;
+    function setDataAdmissao($dataAdmissao) {
+        $this->dataAdmissao = $dataAdmissao;
     }
 
-    function setData_desligamento($data_desligamento) {
-        $this->data_desligamento = $data_desligamento;
+    function setDataDesligamento($dataDesligamento) {
+        $this->dataDesligamento = $dataDesligamento;
     }
 
-    function setDataNascimento($data_nascimento) {
-        $this->data_nascimento = $data_nascimento;
+    function setDataNascimento($dataNascimento) {
+        $this->dataNascimento = $dataNascimento;
     }
 
     function setSexo($sexo) {
@@ -466,48 +466,48 @@ class Colaborador extends AbstractEntity {
         $this->email = $email;
     }
 
-    function setLogin_sede($login_sede) {
-        $this->login_sede = $login_sede;
+    function setLogin_sede($loginSede) {
+        $this->loginSede = $loginSede;
     }
 
-    function setLogin_local($login_local) {
-        $this->login_local = $login_local;
+    function setLoginLocal($loginLocal) {
+        $this->loginLocal = $loginLocal;
     }
 
-    function setEmail_corporativo($email_corporativo) {
-        $this->email_corporativo = $email_corporativo;
+    function setEmailCorporativo($emailCorporativo) {
+        $this->emailCorporativo = $emailCorporativo;
     }
 
-    function setRg_numero($rg_numero) {
-        $this->rg_numero = $rg_numero;
+    function setRgNumero($rgNumero) {
+        $this->rgNumero = $rgNumero;
     }
 
-    function setRg_data_emissao($rg_data_emissao) {
-        $this->rg_data_emissao = $rg_data_emissao;
+    function setRgDataEmissao($rgDataEmissao) {
+        $this->rgDataEmissao = $rgDataEmissao;
     }
 
-    function setRg_orgao_expedidor($rg_orgao_expedidor) {
-        $this->rg_orgao_expedidor = $rg_orgao_expedidor;
+    function setRgOrgaoExpedidor($rgOrgaoExpedidor) {
+        $this->rgOrgaoExpedidor = $rgOrgaoExpedidor;
     }
 
     function setCpf($cpf) {
         $this->cpf = $cpf;
     }
 
-    function setCtps_numero($ctps_numero) {
-        $this->ctps_numero = $ctps_numero;
+    function setCtpsNumero($ctpsNumero) {
+        $this->ctpsNumero = $ctpsNumero;
     }
 
-    function setCtps_serie($ctps_serie) {
-        $this->ctps_serie = $ctps_serie;
+    function setCtpsSerie($ctpsSerie) {
+        $this->ctpsSerie = $ctpsSerie;
     }
 
-    function setCtps_data_expedicao($ctps_data_expedicao) {
-        $this->ctps_data_expedicao = $ctps_data_expedicao;
+    function setCtpsDataExpedicao($ctpsDataExpedicao) {
+        $this->ctpsDataExpedicao = $ctpsDataExpedicao;
     }
 
-    function setCtps_uf($ctps_uf) {
-        $this->ctps_uf = $ctps_uf;
+    function setCtps_uf($ctpsUf) {
+        $this->ctpsUf = $ctpsUf;
     }
 
     function setPis($pis) {
