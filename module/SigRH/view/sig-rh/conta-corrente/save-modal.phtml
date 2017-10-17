@@ -1,0 +1,48 @@
+<?= $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. 
+                </h3>
+              <div class="col-md-3">
+
+                <?= $this->formLabel($this->form->get('sequencia')); ?><br>
+                <?= $this->formElement($this->form->get('sequencia')); ?>
+                <?= $this->formElementErrors($this->form->get('sequencia')); ?>  
+              </div>
+                
+              <div class="col-md-6">
+
+                <?= $this->formLabel($this->form->get('banco')); ?><br>
+                <?= $this->formElement($this->form->get('banco')); ?>
+                <?= $this->formElementErrors($this->form->get('banco')); ?>                  
+              </div>
+
+              <div class="col-md-3">
+                <?= $this->formLabel($this->form->get('agencia')); ?><br>
+                <?= $this->formElement($this->form->get('agencia')); ?>
+                <?= $this->formElementErrors($this->form->get('agencia')); ?>                  
+              </div>
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('contaCorrente')); ?><br>
+                <?= $this->formElement($this->form->get('contaCorrente')); ?>
+                <?= $this->formElementErrors($this->form->get('contaCorrente')); ?>                  
+              </div>
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('conjunta')); ?><br>
+                <?= $this->formElement($this->form->get('conjunta')); ?>
+                <?= $this->formElementErrors($this->form->get('conjunta')); ?>                  
+              </div>
+                
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('nomeConjunta')); ?><br>
+                <?= $this->formElement($this->form->get('nomeConjunta')); ?>
+                <?= $this->formElementErrors($this->form->get('nomeConjunta')); ?>                  
+              </div>
+        </div>
+    </div>
+</div>
+<?= $this->form()->closeTag(); ?>

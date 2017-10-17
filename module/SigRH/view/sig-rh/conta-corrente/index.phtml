@@ -1,0 +1,44 @@
+<h1>Contas correntes cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Código</th>
+                <th>Banco</th>
+                <th>Agência</th>
+                <th>Conjunta</th>
+                <th>Nome conjunta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->ccs as $cc): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($banco->getId()); ?></td>
+                    <td><?= $this->escapeHtml($banco->getCodigo()); ?></td>
+                    <td><?= $this->escapeHtml($banco->getBanco()); ?></td>
+                    <td><?= $this->escapeHtml($banco->getAgencia()); ?></td>
+                    <td><?= $this->escapeHtml($banco->getConjunta()); ?></td>
+                    <td><?= $this->escapeHtml($banco->getNomeConjunta()); ?></td>
+                    
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/conta-corrente', ['action' => 'save', 'id' => $cc->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/conta-corrente', ['action' => 'delete', 'id' => $cc->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->ccs, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/conta-corrente']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/conta-corrente/save">Novo
+        registro</a>
+</div>

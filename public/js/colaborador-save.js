@@ -1,3 +1,32 @@
+    function novaContaCorrente(){
+        url = "/sig-rh/conta-corrente/save-modal";
+        $('#ContaCorrenteModal .modal-body').html('carregando...');
+        $('#ContaCorrenteModal .modal-body').attr('url',url);
+        $('#ContaCorrenteModal .modal-body').load(url);
+        $('#ContaCorrenteModal').modal('show');
+    }
+    
+    function fncSalvarContaCorrente(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        
+        $.post(urlPost,dados,function(data){
+            if ( data.success == 1 ){
+                
+                //$("<option></option>").val(data.id).html(data.descricao).appendTo($("select[name=ca_id]"));
+                //$("select[name=ca_id]").val(data.id);
+                $("#ContaCorrenteModal").modal('hide');
+                
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    } 
+    
 $(document).ready(function () {
 
 // Carregar as cidades do banco de dados e salvar na variavel vCidades em JSON
@@ -7,6 +36,7 @@ $(document).ready(function () {
 //        
 //    ];
     var vCidades = [];
+
 
     function carregaComboCidades(uf) {
         $("select[name=cidade]").html('<option>Selecione</option>');
