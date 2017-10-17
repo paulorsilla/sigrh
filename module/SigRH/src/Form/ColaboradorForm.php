@@ -44,7 +44,7 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'matricula',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o nome aqui'
+                'placeholder' => 'Digite a matrícula aqui'
             ],
             'options' => [
                 'label' => 'Matrícula'
@@ -95,26 +95,26 @@ class ColaboradorForm extends Form {
         //Adiciona o campo "data_admissao"
         $this->add([
             'type' => 'text',
-            'name' => 'data_admissao',
+            'name' => 'dataAdmissao',
             'attributes' => [
-                'id' => 'data_admissao',
+                'id' => 'dataAdmissao',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data admissão'
+                'label' => 'Data de admissão'
             ],
         ]);
 
         //Adiciona o campo "data_desligamento"
         $this->add([
             'type' => 'text',
-            'name' => 'data_desligamento',
+            'name' => 'dataDesligamento',
             'attributes' => [
-                'id' => 'data_desligamento',
+                'id' => 'dataDesligamento',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data desligamento'
+                'label' => 'Data de desligamento'
             ],
         ]);
 
@@ -249,7 +249,6 @@ class ColaboradorForm extends Form {
                 'display_empty_item' => true,
             ]
         ]);
-        
         
         //Adiciona o campo "grau instrução"
         $this->add([
@@ -391,44 +390,62 @@ class ColaboradorForm extends Form {
                 'label' => 'Email corporativo'
             ],
         ]);
+        
+        //Adiciona o campo "portador_necessidade_especial"
+        $this->add([
+            'type' => 'select',
+            'name' => 'necessidadeEspecial',
+            'attributes' => [
+                'id' => 'necessidadeEspecial',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Portador de necessidades especiais',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim",
+                ]
+            ],
+        ]);
 
         //Adiciona o campo "rg_numero"
         $this->add([
             'type' => 'text',
-            'name' => 'rg_numero',
+            'name' => 'rgNumero',
             'attributes' => [
-                'id' => 'rg_numero',
+                'id' => 'rgNumero',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o número aqui',
+                'placeholder' => 'Digite o número do RG aqui',
             ],
             'options' => [
-                'label' => 'Número RG'
+                'label' => 'Número do RG'
             ],
         ]);
 
         //Adiciona o campo "rg_data_emissao"
         $this->add([
             'type' => 'text',
-            'name' => 'rg_data_emissao',
+            'name' => 'rgDataEmissao',
             'attributes' => [
                 'id' => 'rg_data_emissao',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data emissão RG'
+                'label' => 'Data de emissão'
             ],
         ]);
 
         //Adiciona o campo "rg_orgao_expedidor"
         $this->add([
             'type' => 'text',
-            'name' => 'rg_orgao_expedidor',
+            'name' => 'rgOrgaoExpedidor',
             'attributes' => [
-                'id' => 'rg_orgao_expedidor',
+                'id' => 'rgOrgaoExpedidor',
                 'class' => 'form-control',
+                'placeholder' => 'Digite o órgão expedidor aqui',
             ],
             'options' => [
-                'label' => 'Órgão expediro RG'
+                'label' => 'Órgão expedidor'
             ],
         ]);
 
@@ -439,48 +456,69 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'cpf',
                 'class' => 'form-control',
+                'placeholder' => 'Digite o número do CPF aqui',
             ],
             'options' => [
-                'label' => 'CPF'
+                'label' => 'Número do CPF'
             ],
         ]);
 
         //Adiciona o campo "ctps_numero"
         $this->add([
             'type' => 'text',
-            'name' => 'ctps_numero',
+            'name' => 'ctpsNumero',
             'attributes' => [
-                'id' => 'ctps_numero',
+                'id' => 'ctpsNumero',
                 'class' => 'form-control',
+                'placeholder' => 'Digite o número da CTPS aqui',
             ],
             'options' => [
-                'label' => 'Número CTPS'
+                'label' => 'Número da CTPS'
             ],
         ]);
 
         //Adiciona o campo "ctps_serie"
         $this->add([
             'type' => 'text',
-            'name' => 'ctps_serie',
+            'name' => 'ctpsSerie',
             'attributes' => [
-                'id' => 'ctps_serie',
+                'id' => 'ctpsSerie',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a Série da CTPS aqui',
+            ],
+            'options' => [
+                'label' => 'Série'
+            ],
+        ]);
+        
+        //Adiciona o campo "ctps_uf"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'ctpsUf',
+            'attributes' => [
+                'id' => 'ctpsUf',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Número CTPS série'
-            ],
+                'label' => 'UF',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Estado::class,
+                'property' => 'sigla',
+                'display_empty_item' => true,
+            ]
         ]);
 
         //Adiciona o campo "ctps_data_expedicao"
         $this->add([
             'type' => 'text',
-            'name' => 'ctps_data_expedicao',
+            'name' => 'ctpsDataExpedicao',
             'attributes' => [
-                'id' => 'ctps_data_expedicao',
+                'id' => 'ctpsDataExpedicao',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data expedição CTPS'
+                'label' => 'Data expedição'
             ],
         ]);
 
@@ -491,9 +529,11 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'pis',
                 'class' => 'form-control',
+                'placeholder' => 'Digite o número do PIS aqui',
+
             ],
             'options' => [
-                'label' => 'PIS'
+                'label' => 'Número do PIS'
             ],
         ]);
 
@@ -615,6 +655,24 @@ class ColaboradorForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Estado::class,
                 'property' => 'sigla',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+        //Adiciona o campo "responsavel"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'responsavel',
+            'attributes' => [
+                'id' => 'responsavel',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Técnico Responsável',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Colaborador::class,
+                'property' => 'nome',
                 'display_empty_item' => true,
             ]
         ]);

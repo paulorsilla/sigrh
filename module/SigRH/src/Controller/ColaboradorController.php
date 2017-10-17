@@ -48,6 +48,7 @@ class ColaboradorController extends AbstractActionController
                 $id = $this->params()->fromRoute('id', null);
 		//Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
+                $colaborador = new Colaborador();
 		
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
@@ -66,14 +67,15 @@ class ColaboradorController extends AbstractActionController
 		} else {
                     if ( !empty($id)){
                         $repo = $this->entityManager->getRepository(Colaborador::class);
-                        $row = $repo->find($id);
-                        if ( !empty($row)){
-                            $form->setData($row->toArray());
+                        $colaborador = $repo->find($id);
+                        if ( !empty($colaborador)){
+                            $form->setData($colaborador->toArray());
                         }
                     }
                 }
 		return new ViewModel([
-				'form' => $form
+				'form' => $form,
+                                'colaborador' => $colaborador
 		]);
 	}
 	

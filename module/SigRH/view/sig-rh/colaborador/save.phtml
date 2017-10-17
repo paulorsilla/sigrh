@@ -1,23 +1,6 @@
 <?php
 $this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
-
 $form = $this->form;
-
-//$form->get('cep')->setAttributes([
-//    'class' => 'form-control',
-//    'placeholder' => 'Digite o CEP aqui'
-//]);
-//
-//$form->get('endereco')->setAttributes([
-//    'class' => 'form-control',
-//    'placeholder' => 'Digite o endereco aqui'
-//]);
-//
-//$form->get('numero')->setAttributes([
-//    'class' => 'form-control',
-//    'placeholder' => 'Digite o número aqui'
-//]);
-
 $form->get('submit')->setAttributes([
     'class' => 'btn btn-primary'
 ]);
@@ -46,65 +29,158 @@ $form->get('submit')->setAttributes([
                     <div class="col-md-8"><?= $this->formRow($form->get('nome')); ?></div>
                     <div class="col-md-2"><?= $this->formRow($form->get('apelido')); ?></div>
                 </div>
-
+                
+                <div class="form-group row">
+                    <div class="col-md-10">
+                        <div class="form-group row">
+                            <div class="col-md-6"><?= $this->formRow($form->get('responsavel')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('dataAdmissao')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('dataDesligamento')); ?></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <img data-src="holder.js/200x200" class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzIwMHgyMDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWYyNjVjN2U4NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ZjI2NWM3ZTg1Ij48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9Ijc1LjUiIHk9IjEwMy42Ij4yMDB4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+" data-holder-rendered="true">
+                    </div>
+                </div>
 
                 <hr>
 
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#dadosPessoais">Dados Pessoais</a></li>
                     <li><a data-toggle="tab" href="#documentacao">Documentação</a></li>
+                    <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
+                    <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
+                    <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
+                    <li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div id="dadosPessoais" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('dataNascimento'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('natural_estado'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('natural'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('nacionalidade'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('dataNascimento')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('natural_estado')); ?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('natural')); ?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('nacionalidade')); ?></div>
                         </div>
-                        
+
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('sexo'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('grupoSanguineo'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('corPele'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('estadoCivil'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('grauInstrucao'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('sexo')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('grupoSanguineo')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('corPele')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('estadoCivil')); ?></div>
+                            <div class="col-md-4"><?= $this->formRow($form->get('grauInstrucao')); ?></div>
                         </div>
-                        
+
                         <div class="row">
-                            <div class="col-md-6"><?= $this->formRow($form->get('nomePai'));?></div>
-                            <div class="col-md-6"><?= $this->formRow($form->get('nomeMae'));?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('nomePai')); ?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('nomeMae')); ?></div>
                         </div>
-                        
+
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('cep'));?></div>
-                            <div class="col-md-6"><?= $this->formRow($form->get('endereco'));?></div>
-                            <div class="col-md-1"><?= $this->formRow($form->get('numero'));?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('complemento'));?></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"><?= $this->formRow($form->get('bairro'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('estado'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('cidade'));?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('cep')); ?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('endereco')); ?></div>
+                            <div class="col-md-1"><?= $this->formRow($form->get('numero')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('complemento')); ?></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneResidencial'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('ramal'));?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('email'));?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('necessidadeEspecial'));?></div>
-                            
+                            <div class="col-md-4"><?= $this->formRow($form->get('bairro')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('estado')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('cidade')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('necessidadeEspecial')); ?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneResidencial')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('ramal')); ?></div>
+                            <div class="col-md-6"><?= $this->formRow($form->get('email')); ?></div>
                         </div>
                     </div>
 
                     <div id="documentacao" class="tab-pane fade">
-                        <p>Documentação</p>
+
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('rgNumero')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('rgDataEmissao')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('rgOrgaoExpedidor')); ?></div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('cpf')); ?></div>
+                            <div class="col-md-8"></div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('ctpsNumero')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('ctpsSerie')); ?></div>
+                            <div class="col-md-2"><?= $this->formRow($form->get('ctpsUf')); ?></div>
+                            <div class="col-md-3"><?= $this->formRow($form->get('ctpsDataExpedicao')); ?></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4"><?= $this->formRow($form->get('pis')); ?></div>
+                            <div class="col-md-8"></div>
+                        </div>
+                    </div>
+
+                    <div id="informacoesBancarias" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Sequência</th>
+                                            <th>Banco</th>
+                                            <th>Agência</th>
+                                            <th>Conta Corrente</th>
+                                            <th>Conjunta</th>
+                                            <th>Nome Conjunta</th>
+                                            <th>CPF Conjunta</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($this->colaborador->getContasCorrente() as $contaCorrente): ?>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div id="estagio" class="tab-pane fade">
+                        <p>Estágio</p>
+                    </div>
+                    <div id="escalaHorarios" class="tab-pane fade">
+                        <p>Escala de Horários</p>
+                    </div>
+
+                    <div id="avaliacoes" class="tab-pane fade">
+                        <p>Avaliações</p>
                     </div>
                 </div>
 
                 <br>
                 <br>
+                <hr>
                 <?= $this->formElement($form->get('submit')); ?>
                 <?= $this->form()->closeTag(); ?>
             </div>
