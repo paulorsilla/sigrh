@@ -30,14 +30,8 @@ class Termo extends AbstractEntity {
      **/        
     protected $orientador; //orientador 
     
-
-     /**
-     * @ORM\Column(name="seguro_capital", type="string")
-     */
-    protected $seguroCapital; //seguro_capital
-    
     /**
-     * @ORM\Column(name="instituicao", type="integer") 
+     * @ORM\Column(name="instituicao_fomento", type="integer") 
      */
     protected $instituicao; //instituicao -> buscar via serviço
     
@@ -45,6 +39,50 @@ class Termo extends AbstractEntity {
      * @ORM\Column(name="plano_acao", type="integer") 
      */
     protected $planoAcao; //plano_acao -> buscar via serviço
+    
+     /**
+     * @ORM\Column(name="aditivo", type="string")
+     */
+    protected $aditivo; 
+    
+     /**
+     * @ORM\Column(name="tipo_aditivo", type="string")
+     */
+    protected $tipoAditivo; 
+    
+     /**
+     * @ORM\Column(name="data_inicio", type="string")
+     */
+    protected $dataInicio; 
+    
+     /**
+     * @ORM\Column(name="data_termino", type="string")
+     */
+    protected $dataTermino; 
+    
+     /**
+     * @ORM\Column(name="ch_semanal", type="string")
+     */
+    protected $chSemanal; 
+    
+     /**
+     * @ORM\Column(name="horario_flexivel", type="string")
+     */
+    protected $horarioFlexivel; 
+    
+     /**
+     * @ORM\Column(name="processo", type="string")
+     */
+    protected $processo; 
+    
+     /**
+     * @ORM\Column(name="valor_bolsa", type="string")
+     */
+    protected $valorBolsa; 
+    
+    
+    
+    
     
     /**
      * Returns user ID.
@@ -54,8 +92,56 @@ class Termo extends AbstractEntity {
     public function getId() {
         return $this->id;
     }
+    
+    function getModalidadeBolsa() {
+        return $this->modalidadeBolsa;
+    }
 
+    function getOrientador() {
+        return $this->orientador;
+    }
 
+    function getInstituicao() {
+        return $this->instituicao;
+    }
+
+    function getPlanoAcao() {
+        return $this->planoAcao;
+    }
+
+    function getAditivo() {
+        return $this->aditivo;
+    }
+
+    function getTipoAditivo() {
+        return $this->tipoAditivo;
+    }
+
+    function getDataInicio() {
+        return $this->dataInicio;
+    }
+
+    function getDataTermino() {
+        return $this->dataTermino;
+    }
+
+    function getChSemanal() {
+        return $this->chSemanal;
+    }
+
+    function getHorarioFlexivel() {
+        return $this->horarioFlexivel;
+    }
+
+    function getProcesso() {
+        return $this->processo;
+    }
+
+    function getValorBolsa() {
+        return $this->valorBolsa;
+    }
+
+    
     /**
      * Sets user ID.
      * 
@@ -63,6 +149,54 @@ class Termo extends AbstractEntity {
      */
     public function setId($id) {
         $this->id = $id;
+    }
+
+    function setModalidadeBolsa($modalidadeBolsa) {
+        $this->modalidadeBolsa = $modalidadeBolsa;
+    }
+
+    function setOrientador($orientador) {
+        $this->orientador = $orientador;
+    }
+
+    function setInstituicao($instituicao) {
+        $this->instituicao = $instituicao;
+    }
+
+    function setPlanoAcao($planoAcao) {
+        $this->planoAcao = $planoAcao;
+    }
+
+    function setAditivo($aditivo) {
+        $this->aditivo = $aditivo;
+    }
+
+    function setTipoAditivo($tipoAditivo) {
+        $this->tipoAditivo = $tipoAditivo;
+    }
+
+    function setDataInicio($dataInicio) {
+        $this->dataInicio = $dataInicio;
+    }
+
+    function setDataTermino($dataTermino) {
+        $this->dataTermino = $dataTermino;
+    }
+
+    function setChSemanal($chSemanal) {
+        $this->chSemanal = $chSemanal;
+    }
+
+    function setHorarioFlexivel($horarioFlexivel) {
+        $this->horarioFlexivel = $horarioFlexivel;
+    }
+
+    function setProcesso($processo) {
+        $this->processo = $processo;
+    }
+
+    function setValorBolsa($valorBolsa) {
+        $this->valorBolsa = $valorBolsa;
     }
 
 

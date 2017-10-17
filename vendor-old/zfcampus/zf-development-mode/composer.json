@@ -1,0 +1,49 @@
+{
+    "name": "zfcampus/zf-development-mode",
+    "description": "Zend Framework development mode script",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://github.com/zfcampus/zf-development-mode",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.1-dev",
+            "dev-develop": "3.2-dev"
+        }
+    },
+    "bin": [
+        "bin/zf-development-mode"
+    ],
+    "require": {
+        "php": "^5.6 || ^7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.3.1",
+        "phpunit/phpunit": "^5.4",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZF\\DevelopmentMode\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZFTest\\DevelopmentMode\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "coveralls": "coveralls",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-clover clover.xml"
+    }
+}

@@ -1,0 +1,36 @@
+<h1>Curso cadastrado</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Curso</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->cursos as $curso): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($curso->getId()); ?></td>
+                    <td><?= $this->escapeHtml($curso->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/curso', ['action' => 'save', 'id' => $curso->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/curso', ['action' => 'delete', 'id' => $curso->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->cursos, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/curso']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/curso/save">Novo
+        registro</a>
+</div>

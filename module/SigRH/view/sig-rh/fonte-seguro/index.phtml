@@ -1,0 +1,36 @@
+<h1>Fonte seguro cadastrada</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fonte seguro</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->fonteSeguros as $fonteSeguro): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($fonteSeguro->getId()); ?></td>
+                    <td><?= $this->escapeHtml($fonteSeguro->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/fonte-seguro', ['action' => 'save', 'id' => $fonteSeguro->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/fonte-seguro', ['action' => 'delete', 'id' => $fonteSeguro->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->fonteSeguros, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/fonte-seguro']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/fonte-seguro/save">Novo
+        registro</a>
+</div>

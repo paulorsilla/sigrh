@@ -162,23 +162,82 @@ return [
                             ]
                         ]
                     ],
+                    'nivel' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/nivel[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\NivelController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'curso' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/curso[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CursoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'fonte-seguro' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/fonte-seguro[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\FonteSeguroController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
+                    'modalidade-bolsa' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/modalidade-bolsa[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ModalidadeBolsaController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
     ],
     'controllers' => [
         'factories' => [
-//            Controller\IndexController::class => InvokableFactory::class,
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\CursoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],

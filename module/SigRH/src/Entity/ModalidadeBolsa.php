@@ -23,6 +23,10 @@ class ModalidadeBolsa extends AbstractEntity{
      */
     protected $descricao;
 
+    /**
+     * @ORM\Column(name="sigla", type="string")
+     */
+    protected $sigla;
 
     /**
      * Returns user ID.
@@ -37,6 +41,12 @@ class ModalidadeBolsa extends AbstractEntity{
         return $this->descricao;
     }
     
+    function getSigla() {
+        return $this->sigla;
+    }
+
+
+    
     /**
      * Sets user ID.
      * 
@@ -50,5 +60,8 @@ class ModalidadeBolsa extends AbstractEntity{
         $this->descricao = $descricao;
     }
 
+    function setSigla($sigla) {
+        $this->sigla = $sigla;
+    }
 
 }

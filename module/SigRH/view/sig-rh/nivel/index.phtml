@@ -1,0 +1,36 @@
+<h1>Nível cadastrado</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nível</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->niveis as $nivel): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($nivel->getId()); ?></td>
+                    <td><?= $this->escapeHtml($nivel->getDescricao()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/nivel', ['action' => 'save', 'id' => $nivel->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/nivel', ['action' => 'delete', 'id' => $nivel->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->niveis, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/nivel']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/nivel/save">Novo
+        registro</a>
+</div>
