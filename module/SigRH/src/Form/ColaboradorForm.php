@@ -190,8 +190,9 @@ class ColaboradorForm extends Form {
             'type' => 'select',
             'name' => 'natural',
             'attributes' => [
-                'id' => 'natual',
+                'id' => 'natural',
                 'class' => 'form-control',
+                'required' => false,
             ],
             'options' => [
                 'label' => 'Natural (Cidade)',
@@ -207,6 +208,7 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'natural_estado',
                 'class' => 'form-control',
+                'required' => false,
             ],
             'options' => [
                 'label' => 'Natural (Estado)',
@@ -225,7 +227,8 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'nacionalidade',
                 'class' => 'form-control',
-                'placeholder' => 'Digite a nacionalidade aqui'
+                'placeholder' => 'Digite a nacionalidade aqui',
+                'required' => false,
             ],
             'options' => [
                 'label' => 'Nacionalidade'
@@ -238,6 +241,7 @@ class ColaboradorForm extends Form {
             'name' => 'estadoCivil',
             'attributes' => [
                 'id' => 'estadoCivil',
+                'required' => false,
                 'class' => 'form-control',
             ],
             'options' => [
@@ -256,6 +260,7 @@ class ColaboradorForm extends Form {
             'name' => 'grauInstrucao',
             'attributes' => [
                 'id' => 'grauInstrucao',
+                'required' => false,
                 'class' => 'form-control',
             ],
             'options' => [
@@ -668,7 +673,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Técnico Responsável',
+                'label' => 'Responsável',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Colaborador::class,
@@ -705,6 +710,7 @@ class ColaboradorForm extends Form {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
 
+        ////////////////////////////pk//////////////////////////////////////////
         $inputFilter->add([
             'name' => 'matricula',
             'required' => true,
@@ -723,6 +729,75 @@ class ColaboradorForm extends Form {
                 ],
             ],
         ]);
+        
+        /////////////////////////fks///////////////////////////////////////////
+        //responsavel_id
+        $inputFilter->add([
+            'name' => 'responsavel',
+            'required' => false,
+        ]);
+        
+        //natural_id
+        $inputFilter->add([
+            'name' => 'natural',
+            'required' => false,
+        ]);
+        
+        //natural_estado
+        $inputFilter->add([
+            'name' => 'natural_estado',
+            'required' => false,
+        ]);
+        
+        //sexo_id
+        $inputFilter->add([
+            'name' => 'sexo',
+            'required' => false,
+        ]);
+
+        //grupo_sanguineo_id
+        $inputFilter->add([
+            'name' => 'grupoSanguineo',
+            'required' => false,
+        ]);
+
+        //cor_pele_id
+        $inputFilter->add([
+            'name' => 'corPele',
+            'required' => false,
+        ]);
+
+        //estado_civil_id
+        $inputFilter->add([
+            'name' => 'estadoCivil',
+            'required' => false,
+        ]);
+
+        //grau_instrucao_id
+        $inputFilter->add([
+            'name' => 'grauInstrucao',
+            'required' => false,
+        ]);
+        
+        //estado_id
+        $inputFilter->add([
+            'name' => 'estado',
+            'required' => false,
+        ]);
+        
+        //cidade_id
+        $inputFilter->add([
+            'name' => 'cidade',
+            'required' => false,
+        ]);
+        
+        //ctps_uf_id
+        $inputFilter->add([
+            'name' => 'ctpsUf',
+            'required' => false,
+        ]);
+        
+ //////////////////////////////////////////////////////////////////////////////       
 
         $inputFilter->add([
             'name' => 'nome',
@@ -745,7 +820,7 @@ class ColaboradorForm extends Form {
 
         $inputFilter->add([
             'name' => 'apelido',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -761,6 +836,9 @@ class ColaboradorForm extends Form {
                 ],
             ],
         ]);
+        
+        
+        
     }
 
 }

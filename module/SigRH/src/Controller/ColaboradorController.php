@@ -69,6 +69,8 @@ class ColaboradorController extends AbstractActionController
                         $repo = $this->entityManager->getRepository(Colaborador::class);
                         $colaborador = $repo->find($id);
                         if ( !empty($colaborador)){
+                            $form->get("cidade_id")->setValue($colaborador->cidade_id->id);
+                            
                             $form->setData($colaborador->toArray());
                         }
                     }

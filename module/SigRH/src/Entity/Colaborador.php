@@ -61,20 +61,20 @@ class Colaborador extends AbstractEntity {
 
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cidade")
-     * @ORM\JoinColumn(name="natural", referencedColumnName="id")
+     * @ORM\JoinColumn(name="natural_id", referencedColumnName="id")
      * */
     protected $natural; //cidade_id
 
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Estado")
-     * @ORM\JoinColumn(name="ctps_uf", referencedColumnName="id")
+     * @ORM\JoinColumn(name="ctps_uf_id", referencedColumnName="id")
      * */
-    protected $ctpsUf; //ctps_uf
+    protected $ctpsUf; //ctps_uf_id
 
     /**
      * * One colaborador has responsavel.
      * @ORM\OneToOne(targetEntity="Colaborador")     
-     * @ORM\JoinColumn(name="responsavel", referencedColumnName="matricula")     
+     * @ORM\JoinColumn(name="responsavel_id", referencedColumnName="matricula")     
      * */
     private $responsavel;
     
