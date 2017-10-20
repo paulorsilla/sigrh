@@ -47,11 +47,63 @@ class Colaborador extends AbstractRepository {
         }
         
         //endereco...
-        if ( !empty($dados['endereco_id'] )) {
-            $endereco = $this->getEntityManager()->find('SigRH\Model\Endereco', $dados['endereco_id']); //busca as informações
-            $row->setEpis_id($endereco);
+        if ( !empty($dados['endereco'] )) {
+            $endereco = $this->getEntityManager()->find('SigRH\Entity\Endereco', $dados['endereco']); //busca as informações
+            $row->setEndereco($endereco);
         }
-        unset($dados['endereco_id']);
+        unset($dados['endereco']);
+        
+        //cidade...
+        if ( !empty($dados['cidade'] )) {
+            $cidade = $this->getEntityManager()->find('SigRH\Entity\Cidade', $dados['cidade']); //busca as informações
+            $row->setCidade($cidade);
+        }
+        unset($dados['cidade']);
+
+        //Grupo sanguineo...
+        if ( !empty($dados['grupoSanguineo'] )) {
+            $grupoSanguineo = $this->getEntityManager()->find('SigRH\Entity\GrupoSanguineo', $dados['grupoSanguineo']); //busca as informações
+            $row->setGrupoSanguineo($grupoSanguineo);
+        }
+        unset($dados['grupoSanguineo']);
+        
+        //grauInstrucao
+        if ( !empty($dados['grauInstrucao'] )) {
+            $grauInstrucao = $this->getEntityManager()->find('SigRH\Entity\GrauInstrucao', $dados['grauInstrucao']); //busca as informações
+            $row->setGrauInstrucao($grauInstrucao);
+        }
+        unset($dados['grauInstrucao']);
+        
+        //corPele
+        if ( !empty($dados['corPele'] )) {
+            $corPele = $this->getEntityManager()->find('SigRH\Entity\CorPele', $dados['corPele']); //busca as informações
+            $row->setCorPele($corPele);
+        }
+        unset($dados['corPele']);
+        
+        //estadoCivil
+        if ( !empty($dados['estadoCivil'] )) {
+            $estadoCivil = $this->getEntityManager()->find('SigRH\Entity\EstadoCivil', $dados['estadoCivil']); //busca as informações
+            $row->setEstadoCivil($estadoCivil);
+        }
+        unset($dados['estadoCivil']);
+        
+        //natural
+        if ( !empty($dados['natural'] )) {
+            $natural = $this->getEntityManager()->find('SigRH\Entity\Cidade', $dados['natural']); //busca as informações
+            $row->setNatural($natural);
+        }
+        unset($dados['natural']);
+        
+        //ctpsUf
+        if ( !empty($dados['ctpsUf'] )) {
+            $ctpsUf = $this->getEntityManager()->find('SigRH\Entity\Estado', $dados['ctpsUf']); //busca as informações
+            $row->setCtpsUf($ctpsUf);
+        }
+        unset($dados['ctpsUf']);
+        
+        
+
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

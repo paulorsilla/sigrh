@@ -15,10 +15,10 @@
                     <td><?= $this->escapeHtml($colaborador->getMatricula()); ?></td>
                     <td><?= $this->escapeHtml($colaborador->getNome()); ?></td>
                     <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/banco', ['action' => 'save', 'id' => $colaborador->getId()]) ?>"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula()]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/banco', ['action' => 'delete', 'id' => $colaborador->getId()]) ?>"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"
                            title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
                     </td>
                 </tr>

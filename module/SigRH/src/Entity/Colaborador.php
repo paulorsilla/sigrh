@@ -104,17 +104,17 @@ class Colaborador extends AbstractEntity {
     protected $foto;
 
     /**
-     * @ORM\Column(name="data_admissao", type="datetime")
+     * @ORM\Column(name="data_admissao", type="string")
      */
     protected $dataAdmissao;
 
     /**
-     * @ORM\Column(name="data_desligamento", type="datetime")
+     * @ORM\Column(name="data_desligamento", type="string")
      */
     protected $dataDesligamento;
 
     /**
-     * @ORM\Column(name="data_nascimento", type="datetime")
+     * @ORM\Column(name="data_nascimento", type="string")
      */
     protected $dataNascimento;
 

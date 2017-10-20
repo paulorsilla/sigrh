@@ -22,14 +22,29 @@ class User {
      * @ORM\Column(name="login")
      */
     protected $login;
+    
+    /**
+     * @ORM\Column(name="nome")
+     */
+    protected $nome;
 
+    /**
+     * @ORM\Column(name="email")
+     */
+    protected $email;
+
+    /**
+     * @ORM\Column(name="ramal")
+     */
+    protected $ramal;
+    
     /**
      * @ORM\Column(name="papel")
      */
     protected $papel;
 
-    /**
-     * Returns user ID.
+        /**
+     * Returns gets user.
      * 
      * @return integer
      */
@@ -37,6 +52,31 @@ class User {
         return $this->id;
     }
 
+    public function getLogin() {
+        return $this->login;
+    }
+
+    function getNome() {
+        return $this->nome;
+    }
+    
+    function getEmail() {
+        return $this->email;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function getPapel() {
+        return $this->papel;
+    }
+    
+    function getRamal() {
+        return $this->ramal;
+    }
+
+    
     /**
      * Sets user ID.
      * 
@@ -46,20 +86,23 @@ class User {
         $this->id = $id;
     }
 
-    public function getLogin() {
-        return $this->login;
-    }
 
     public function setLogin($login) {
         $this->login = $login;
     }
 
-    function getPapel() {
-        return $this->papel;
+    function setNome($nome) {
+        $this->nome = $nome;
     }
 
     function setPapel($papel) {
         $this->papel = $papel;
     }
+
+    function setRamal($ramal) {
+        $this->ramal = $ramal;
+    }
+
+
 
 }

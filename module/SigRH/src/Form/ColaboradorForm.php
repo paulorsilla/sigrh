@@ -130,8 +130,8 @@ class ColaboradorForm extends Form {
                 'label' => 'Sexo',
                 'value_options' => [
                     "" => "Selecione",
-                    "1" => "Feminino",
-                    "2" => "Masculino"
+                    "F" => "Feminino",
+                    "M" => "Masculino"
                 ]
             ],
         ]);
