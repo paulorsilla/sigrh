@@ -82,6 +82,10 @@ class ColaboradorController extends AbstractActionController
                             $form->get("natural")->setValue($colaborador->natural->id);
                             $form->get("ctpsUf")->setValue($colaborador->ctpsUf->id);
                             
+//                            $form->get("dataNascimento")->setValue(\DateTime::createFromFormat ( "d/m/Y",$colaborador->dataNascimento));
+
+//                            $form->get("dataNascimento")->setValue(\Admin\Model\Util::converteDataPhp($colaborador->dataNascimento));
+                           
                         }
                     }
                 }

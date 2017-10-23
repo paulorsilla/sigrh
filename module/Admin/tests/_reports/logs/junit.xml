@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Admin Test Suite" tests="8" assertions="26" failures="0" errors="0" time="4.233249">
+    <testsuite name="AuthControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/AuthControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="IndexControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/IndexControllerTest.php" tests="0" assertions="0" failures="0" errors="0" time="0.000000"/>
+    <testsuite name="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" tests="8" assertions="26" failures="0" errors="0" time="4.233249">
+      <testcase name="testUserIndexAction" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="30" assertions="5" time="0.756634"/>
+      <testcase name="testUserSaveActionNewRequest" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="62" assertions="5" time="0.443773"/>
+      <testcase name="testUserSaveActionUpdateFormRequest" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="87" assertions="6" time="0.528539"/>
+      <testcase name="testUserSaveActionPostRequest" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="121" assertions="2" time="0.452313"/>
+      <testcase name="testUserUpdateAction" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="141" assertions="2" time="0.619105"/>
+      <testcase name="testUserSaveActionInvalidPostRequest" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="166" assertions="2" time="0.394910"/>
+      <testcase name="testUserInvalidDeleteAction" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="190" assertions="2" time="0.435500"/>
+      <testcase name="testUserDeleteAction" class="UserControllerTest" file="/home/projetos/zf2napratica/module/Admin/tests/src/Admin/Controller/UserControllerTest.php" line="204" assertions="2" time="0.602475"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

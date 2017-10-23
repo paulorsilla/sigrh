@@ -102,8 +102,13 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['ctpsUf']);
         
+//        $row = null;
+//        if ($dados ['dataNascimento'] != "") {					
+//            $row = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataNascimento'] );
+//        }
         
-
+//        $dados['dataNascimento'] = \Admin\Model\Util::converteDataSql($dados['dataNascimento']);
+        
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
