@@ -1,11 +1,15 @@
-    function novaContaCorrente(){
-        url = "/sig-rh/conta-corrente/save-modal";
+    function novaContaCorrente(matricula){
+        url = "/sig-rh/conta-corrente/save-modal?matricula="+matricula;
         $('#ContaCorrenteModal .modal-body').html('carregando...');
         $('#ContaCorrenteModal .modal-body').attr('url',url);
         $('#ContaCorrenteModal .modal-body').load(url);
         $('#ContaCorrenteModal').modal('show');
     }
-    
+    function refreshGridContaCorrente(matricula){
+        url = "/sig-rh/conta-corrente/grid-modal?matricula="+matricula;
+        $('#gridContaCorrente').html('carregando...');
+        $('#gridContaCorrente').load(url);
+    }
     function fncSalvarContaCorrente(obj){
         $(this).html("aguarde ...").attr("disabled",true);
         form =  $("form",$(obj).closest(".modal-content"));

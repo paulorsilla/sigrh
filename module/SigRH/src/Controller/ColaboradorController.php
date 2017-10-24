@@ -49,7 +49,10 @@ class ColaboradorController extends AbstractActionController
 		//Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
                 $colaborador = new Colaborador();
-		
+                if ( !empty($id)){
+                    $repo = $this->entityManager->getRepository(Colaborador::class);
+                    $colaborador = $repo->find($id);
+                }
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
 			
@@ -66,12 +69,23 @@ class ColaboradorController extends AbstractActionController
 			}
 		} else {
                     if ( !empty($id)){
-                        $repo = $this->entityManager->getRepository(Colaborador::class);
-                        $colaborador = $repo->find($id);
+                        
                         if ( !empty($colaborador)){
-                            $form->get("cidade_id")->setValue($colaborador->cidade_id->id);
-                            
+//                            $form->bind($colaborador);
                             $form->setData($colaborador->toArray());
+                            $form->get("cidade")->setValue($colaborador->cidade->id);
+                            $form->get("endereco")->setValue($colaborador->endereco->id);
+                            $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
+                            $form->get("grauInstrucao")->setValue($colaborador->grauInstrucao->id);
+                            $form->get("corPele")->setValue($colaborador->corPele->id);
+                            $form->get("estadoCivil")->setValue($colaborador->estadoCivil->id);
+                            $form->get("natural")->setValue($colaborador->natural->id);
+                            $form->get("ctpsUf")->setValue($colaborador->ctpsUf->id);
+                            
+//                            $form->get("dataNascimento")->setValue(\DateTime::createFromFormat ( "d/m/Y",$colaborador->dataNascimento));
+
+//                            $form->get("dataNascimento")->setValue(\Admin\Model\Util::converteDataPhp($colaborador->dataNascimento));
+                           
                         }
                     }
                 }

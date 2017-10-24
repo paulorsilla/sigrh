@@ -1,0 +1,73 @@
+<div class="row titulo" >
+    <div class="col-sm-8">
+        <h3>Usuário <small>->  Consulta</small></h3>
+    </div>
+    <div class="col-sm-4" style="padding-top: 15px;">
+        <form action="/admin/usuario/busca" method="post">
+                <div class="input-group">
+
+                    <input type="text" class="form-control" name="search" placeholder="Procurar por..." value="<?php echo $this->search?>">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+
+            </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-3"><a href="/admin/usuario/save" class="btn btn-primary btn-sm" title="Cadastrar Usuário">Cadastrar Usuário</a></div>
+
+    <div class="col-sm-9" style="text-align: right">
+        <?php
+            echo $this->paginationControl(
+            $users, 'Sliding', 'partials/paginator/control.phtml');
+        ?>
+        
+    </div>
+</div>
+
+
+<!--<div class="actions clearfix">
+	<div class="btns">
+		<a class="btn submit" href="/admin/usuario/save" title="Cadastrar Usuário">Cadastrar Usuário</a>
+	</div>
+</div>-->
+
+    <table class="table table-striped table-condensed ">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Login</th>
+			<th>E-mail</th>
+			<th>Ramal</th>
+			<th>Função</th>
+			<th width="120" class="center">Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($users as $user):?>
+		<tr>
+			<td><?php echo $this->escapeHtml($user->nome);?></td>
+			<td><?php echo $this->escapeHtml($user->login);?></td>
+			<td><?php echo $this->escapeHtml($user->email);?></td>
+			<td><?php echo $this->escapeHtml($user->ramal);?></td>
+			<td><?php echo $this->escapeHtml($user->funcao);?></td>
+			<td class="center">
+				<a href="/admin/usuario/save/id/<?php echo $user->id ;?>" title="Editar" class="btn"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+				<a href="/admin/usuario/delete/id/<?php echo $user->id;?>" rel="confirmation" title="Deseja excluir este registro?" class="btn"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+			</td>
+		</tr>
+	<?php endforeach;?>
+  </table>
+<div class="row">
+    <div class="col-sm-3"><a href="/admin/usuario/save" class="btn btn-primary btn-sm" title="Cadastrar Usuário">Cadastrar Usuário</a></div>
+    <div class="col-sm-9" style="text-align: right">
+        <?php
+            echo $this->paginationControl(
+            $users, 'Sliding', 'partials/paginator/control.phtml');
+        ?>
+    
+</div>

@@ -133,8 +133,90 @@ class ContaCorrenteForm extends Form {
         $this->setInputFilter($inputFilter);
 
         $inputFilter->add([
-            'name' => 'descricao',
+            'name' => 'agencia',
             'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 2,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'banco',
+            'required' => true,
+        ]);
+
+        
+         $inputFilter->add([
+            'name' => 'sequencia',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+
+         $inputFilter->add([
+            'name' => 'contaCorrente',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 2,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'conjunta',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 2,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'nomeConjunta',
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],

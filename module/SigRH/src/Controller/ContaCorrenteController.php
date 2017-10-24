@@ -34,33 +34,30 @@ class ContaCorrenteController extends AbstractActionController
 	
 	public function indexAction()
 	{
-                /*
-		$queryBuilder = $this->entityManager->createQueryBuilder();
-		$queryBuilder->select('b')
-					->from(Banco::class, 'b')
-					->orderBy('b.banco', 'ASC');
-		$query = $queryBuilder->getQuery();
-            
-		$page = $this->params()->fromQuery('page', 1);
-		
-                
-		$adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-		$paginator = new Paginator($adapter);
-		$paginator->setDefaultItemCountPerPage(11);
-		$paginator->setCurrentPageNumber($page);
-		
-                 * 
-                 */
-                $repo = $this->entityManager->getRepository(Banco::class);
+                $repo = $this->entityManager->getRepository(ContaCorrente::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $search = $this->params()->fromPost();
                 $paginator = $repo->getPaginator($page,$search);
             
 		return new ViewModel([
-				'bancos' => $paginator,
+				'contasCorrente' => $paginator,
 		]);	
 	}
 	
+        public function gridModalAction()
+	{
+                $repo = $this->entityManager->getRepository(ContaCorrente::class);
+                $page = $this->params()->fromQuery('page', 1);
+                $matricula = $this->params()->fromQuery('matricula',0);
+                $search = $this->params()->fromPost();
+                $search['matricula'] = $matricula;
+                $paginator = $repo->getPaginator($page,$search);
+            
+                $view = new ViewModel([
+				'contasCorrente' => $paginator,
+		]);
+		return 	$view->setTerminal(true);
+	}
 	/**
 	 * Action para salvar um novo registro
 	 */
@@ -80,18 +77,12 @@ class ContaCorrenteController extends AbstractActionController
 			$form->setData($data);
 			if ($form->isValid()) {
 				$data = $form->getData();
-                                /*
-                                $banco = new Banco();
-                                $banco->setBanco($data['banco']);
-                                $banco->setCodigo($data['codigo']);
-                    		$this->entityManager->persist($banco);
-                		$this->entityManager->flush();
-                                 * 
-                                 */
                                 $repo = $this->entityManager->getRepository(ContaCorrente::class);
-                                $repo->incluir_ou_editar($data,$id);
+                                $matricula = $this->params()->fromQuery('matricula');
+                                $repo->incluir_ou_editar($data,$id,$matricula);
                                 // alterar para json
-				return $this->redirect()->toRoute('sig-rh/banco', ['action' => 'save']);
+                                $modelJson = new \Zend\View\Model\JsonModel();
+				return $modelJson->setVariable('success',1);
 			}
 		} else {
                     if ( !empty($id)){
@@ -99,6 +90,9 @@ class ContaCorrenteController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
+                            
+                            $form->get("banco")->setValue($row->banco->id);
+                            
                         }
                     }
                 }
@@ -108,38 +102,11 @@ class ContaCorrenteController extends AbstractActionController
 		return $view->setTerminal(true);
 	}
 	
-//	public function editAction()
-//	{
-//		$form = new BancoForm();
-//		$id = $this->params()->fromRoute('id', -1);
-//		$saprofita = $this->entityManager->getRepository(Banco::class)->findOneById($id);
-//		if ($saprofita == null) {
-//			$this->getResponse()->setStatusCode(404);
-//			return;
-//		}
-//		if ($this->getRequest()->isPost()) {
-//			$data = $this->params()->fromPost();
-//			$form->setData($data);
-//			if($form->isValid()) {
-//				$data = $form->getData();
-//				$this->bancoManager->update($banco, $data);
-//				return $this->redirect()->toRoute('application/banco');
-//			}
-//		} else {
-//			$form->bind($banco);
-//			$form->get('submit')->setAttribute('value', 'Editar');
-//		}
-//		return new ViewModel([
-//				'form' => $form,
-//				'banco' => $banco
-//		]);
-//	}
-//	
 	public function deleteAction()
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('sig-rh/banco');
+			return $this->redirect()->toRoute('sig-rh/contaCorrente');
 		}
 		$request = $this->getRequest();
 			
@@ -151,14 +118,14 @@ class ContaCorrenteController extends AbstractActionController
 				$repo->delete($id);
 			}
 			// Redireciona para a lista de registros cadastrados
-			return $this->redirect()->toRoute('sig-rh/banco');
+			return $this->redirect()->toRoute('sig-rh/contaCorrente');
 		}
                 
-                $repo = $this->entityManager->getRepository(Banco::class);
-                $banco = $repo->find($id);
+                $repo = $this->entityManager->getRepository(ContaCorrente::class);
+                $contaCorrente= $repo->find($id);
 
                 return new ViewModel([
-				'banco' => $banco,
+				'contaCorrente' => $contaCorrente,
 		]);
 		
 	}

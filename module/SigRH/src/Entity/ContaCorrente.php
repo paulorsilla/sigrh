@@ -60,8 +60,16 @@ class ContaCorrente extends AbstractEntity {
         return $this->id;
     }
 
+    function getBanco() {
+        return $this->banco;
+    }
+
     function getAgencia() {
         return $this->agencia;
+    }
+
+    function getSequencia() {
+        return $this->sequencia;
     }
 
     function getContaCorrente() {
@@ -76,6 +84,7 @@ class ContaCorrente extends AbstractEntity {
         return $this->nomeConjunta;
     }
 
+    
         /**
      * Sets user ID.
      * 
@@ -83,6 +92,14 @@ class ContaCorrente extends AbstractEntity {
      */
     public function setId($id) {
         $this->id = $id;
+    }
+
+    function setBanco($banco) {
+        $this->banco = $banco;
+    }
+
+    function setSequencia($sequencia) {
+        $this->sequencia = $sequencia;
     }
 
     function setAgencia($agencia) {
@@ -101,5 +118,6 @@ class ContaCorrente extends AbstractEntity {
         $this->nomeConjunta = $nomeConjunta;
     }
 
-    
+
+
 }

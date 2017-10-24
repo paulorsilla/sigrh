@@ -51,22 +51,22 @@ class UserForm extends Form {
 	 */
 	protected function addElements() {
 		// Add "email" field
-//		$this->add ( [ 
-//				'type' => 'text',
-//				'name' => 'email',
-//				'options' => [ 
-//						'label' => 'E-mail' 
-//				] 
-//		] );
-//		
-//		// Add "nome" field
-//		$this->add ( [ 
-//				'type' => 'text',
-//				'name' => 'nome',
-//				'options' => [ 
-//						'label' => 'Nome' 
-//				] 
-//		] );
+		$this->add ( [ 
+				'type' => 'text',
+				'name' => 'email',
+				'options' => [ 
+						'label' => 'E-mail' 
+				] 
+		] );
+		
+		// Add "nome" field
+		$this->add ( [ 
+				'type' => 'text',
+				'name' => 'nome',
+				'options' => [ 
+						'label' => 'Nome' 
+				] 
+		] );
 		
 		// Add "login" field
 		$this->add ( [
@@ -77,14 +77,14 @@ class UserForm extends Form {
 				]
 		] );
 //		
-//		// Add "ramal" field
-//		$this->add ( [
-//				'type' => 'text',
-//				'name' => 'ramal',
-//				'options' => [
-//						'label' => 'Ramal'
-//				]
-//		] );
+		// Add "ramal" field
+		$this->add ( [
+				'type' => 'text',
+				'name' => 'ramal',
+				'options' => [
+						'label' => 'Ramal'
+				]
+		] );
 		
 		// Add the Submit button
 		$this->add ( [ 
