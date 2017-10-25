@@ -73,6 +73,7 @@ class ColaboradorController extends AbstractActionController
                         if ( !empty($colaborador)){
 //                            $form->bind($colaborador);
                             $form->setData($colaborador->toArray());
+                            $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
                             $form->get("cidade")->setValue($colaborador->cidade->id);
                             $form->get("endereco")->setValue($colaborador->endereco->id);
                             $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);

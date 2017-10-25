@@ -23,7 +23,6 @@ class Endereco extends AbstractEntity {
      * @ORM\JoinColumn(name="cidade_id", referencedColumnName="id")
      **/        
     protected $cidade; //cidade_id
-    
 
     /**
      * @ORM\Column(name="endereco", type="string")
@@ -49,8 +48,6 @@ class Endereco extends AbstractEntity {
      * @ORM\Column(name="cep", type="string")
      */
     protected $cep;
-
-    
 
     /**
      * Returns user ID.
