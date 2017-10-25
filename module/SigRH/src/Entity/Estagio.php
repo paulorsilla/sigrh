@@ -40,6 +40,13 @@ class Estagio extends AbstractEntity {
      * @ORM\Column(name="instituicao", type="integer") 
      */
     protected $instituicao; //instituicao -> buscar via serviço
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Colaborador")
+     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
+     **/        
+    protected $colaboradorMatricula; //colaborador_matricula 
+    
 
     /**
      * @ORM\Column(name="ano_inicio", type="integer")
@@ -90,7 +97,24 @@ class Estagio extends AbstractEntity {
     public function getId() {
         return $this->id;
     }
+    
+    function getCurso() {
+        return $this->curso;
+    }
 
+    function getFonteSeguro() {
+        return $this->fonteSeguro;
+    }
+
+    function getInstituicao() {
+        return $this->instituicao;
+    }
+
+    function getColaboradorMatricula() {
+        return $this->colaboradorMatricula;
+    }
+
+    
     function getNivel() {
         return $this->nivel;
     }
@@ -136,6 +160,23 @@ class Estagio extends AbstractEntity {
     public function setId($id) {
         $this->id = $id;
     }
+    
+    function setCurso($curso) {
+        $this->curso = $curso;
+    }
+
+    function setFonteSeguro($fonteSeguro) {
+        $this->fonteSeguro = $fonteSeguro;
+    }
+
+    function setInstituicao($instituicao) {
+        $this->instituicao = $instituicao;
+    }
+
+    function setColaboradorMatricula($colaboradorMatricula) {
+        $this->colaboradorMatricula = $colaboradorMatricula;
+    }
+
 
     function setNivel($nivel) {
         $this->nivel = $nivel;

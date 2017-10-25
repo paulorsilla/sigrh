@@ -1,0 +1,40 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Colaborador</th>
+            <th>Início</th>
+            <th>Conclusão</th>
+            <th>Nível</th>
+            <th>Curso</th>
+            <th>Instituição</th>
+            <th>Início efetivo</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->estagios as $estagio): ?>
+            <tr>
+                <td><?= $this->escapeHtml($estagio->getId()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getColaboradorMatricula()->getNome()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getAnoInicio()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getAnoPrevisaoConclusao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getNivel()->getDescricao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getCurso()->getDescricao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getInstituicao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getDataInicioEfetivo()); ?></td>
+                
+                <td><a class="btn btn-primary btn-sm pull-center"
+                       href="<?= $this->url('sig-rh/estagio', ['action' => 'save', 'id' => $estagio->getId()]) ?>"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-primary btn-sm pull-center"
+                       href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
+                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<span class="pull-right">
+    <?= $this->paginationControl($this->estagios, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/estagio']); ?>
+</span>

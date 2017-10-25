@@ -6,7 +6,7 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
 /**
- * Formulário utilizado para o cadastro de cor de pele
+ * Formulário utilizado para o cadastro de conta corrente
  */
 class ContaCorrenteForm extends Form {
 

@@ -1,18 +1,18 @@
 <?php
 $title = 'Excluir um registro';
-$url   = $this->url('sig-rh/contaCorrente', ['action' => 'delete', 'id' => $contaCorrente->getId()]);
+$url   = $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]);
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <p>
     Deseja realmente excluir 
-    "<?= $this->escapeHtml($contaCorrente->getContaCorrente()); ?>"
+    "<?= $this->escapeHtml($estagio->getColaboradorMatricula()); ?>"
 </p>
 
 <form action="<?= $url ?>" method="post">
     <div class="form-group">
-        <input type="hidden" name="id" value="<?= (int) $contaCorrente->getId() ?>" />
+        <input type="hidden" name="id" value="<?= (int) $estagio->getId() ?>" />
         <input type="submit" class="btn btn-danger" name="del" value="Sim" />
         <input type="submit" class="btn btn-success" name="del" value="Não" />
     </div>

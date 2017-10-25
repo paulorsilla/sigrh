@@ -1,0 +1,68 @@
+<?= $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. 
+                </h3>
+              <div class="col-md-3">
+
+                <?= $this->formLabel($this->form->get('anoInicio')); ?><br>
+                <?= $this->formElement($this->form->get('anoInicio')); ?>
+                <?= $this->formElementErrors($this->form->get('anoInicio')); ?>  
+              </div>
+
+              <div class="col-md-6">
+                <?= $this->formLabel($this->form->get('anoPrevisaoConclusao')); ?><br>
+                <?= $this->formElement($this->form->get('anoPrevisaoConclusao')); ?>
+                <?= $this->formElementErrors($this->form->get('anoPrevisaoConclusao')); ?>                  
+              </div>
+
+                
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('serie')); ?><br>
+                <?= $this->formElement($this->form->get('serie')); ?>
+                <?= $this->formElementErrors($this->form->get('serie')); ?>                  
+              </div>
+        
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('dataInicioEfetivo')); ?><br>
+                <?= $this->formElement($this->form->get('dataInicioEfetivo')); ?>
+                <?= $this->formElementErrors($this->form->get('dataInicioEfetivo')); ?>                  
+              </div>
+
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('seguroApolice')); ?><br>
+                <?= $this->formElement($this->form->get('seguroApolice')); ?>
+                <?= $this->formElementErrors($this->form->get('seguroApolice')); ?>                  
+              </div>
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('seguroApolice')); ?><br>
+                <?= $this->formElement($this->form->get('seguroApolice')); ?>
+                <?= $this->formElementErrors($this->form->get('seguroApolice')); ?>                  
+              </div>
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('seguroSeguradora')); ?><br>
+                <?= $this->formElement($this->form->get('seguroSeguradora')); ?>
+                <?= $this->formElementErrors($this->form->get('seguroSeguradora')); ?>                  
+              </div>
+
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('seguroMensalidade')); ?><br>
+                <?= $this->formElement($this->form->get('seguroMensalidade')); ?>
+                <?= $this->formElementErrors($this->form->get('seguroMensalidade')); ?>                  
+              </div>
+        
+              <div class="col-md-4">
+                <?= $this->formLabel($this->form->get('seguroCapital')); ?><br>
+                <?= $this->formElement($this->form->get('seguroCapital')); ?>
+                <?= $this->formElementErrors($this->form->get('seguroCapital')); ?>                  
+              </div>
+
+        </div>
+    </div>
+</div>
+<?= $this->form()->closeTag(); ?>
