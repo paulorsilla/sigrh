@@ -65,6 +65,24 @@ class ColaboradorForm extends Form {
             ],
         ]);
 
+        //Adiciona o campo "tipo colaborador"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'tipoColaborador',
+            'attributes' => [
+                'id' => 'tipoColaborador',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Tipo',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\TipoColaborador::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
         //Adiciona o campo "Apelido"
         $this->add([
             'type' => 'text',
@@ -94,27 +112,29 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "data_admissao"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'dataAdmissao',
             'attributes' => [
                 'id' => 'dataAdmissao',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data de admissão'
+                'format' => 'd/m/Y',
+                'label' => 'Data admissão'
             ],
         ]);
 
         //Adiciona o campo "data_desligamento"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'dataDesligamento',
             'attributes' => [
                 'id' => 'dataDesligamento',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Data de desligamento'
+                'format' => 'd/m/Y',
+                'label' => 'Data desligamento'
             ],
         ]);
 
@@ -174,13 +194,14 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "data_nascimento"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'dataNascimento',
             'attributes' => [
                 'id' => 'dataNascimento',
                 'class' => 'form-control',
             ],
             'options' => [
+                'format' => 'd/m/Y',
                 'label' => 'Data nascimento'
             ],
         ]);
@@ -667,13 +688,13 @@ class ColaboradorForm extends Form {
         //Adiciona o campo "responsavel"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'responsavel',
+            'name' => 'supervisor',
             'attributes' => [
-                'id' => 'responsavel',
+                'id' => 'supervisor',
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Responsável',
+                'label' => 'Supervisor',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Colaborador::class,

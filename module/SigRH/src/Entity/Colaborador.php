@@ -13,7 +13,7 @@ class Colaborador extends AbstractEntity {
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="matricula")
+     * @ORM\Column(name="matricula", type="string")
      */
     protected $matricula;
 
@@ -72,11 +72,11 @@ class Colaborador extends AbstractEntity {
     protected $ctpsUf; //ctps_uf_id
 
     /**
-     * * One colaborador has responsavel.
+     * * One colaborador has supervisor
      * @ORM\OneToOne(targetEntity="Colaborador")     
-     * @ORM\JoinColumn(name="responsavel_id", referencedColumnName="matricula")     
+     * @ORM\JoinColumn(name="supervisor_id", referencedColumnName="matricula")     
      * */
-    private $responsavel;
+    private $supervisor;
     
     /**
      * Many Colaboradores have Many Contas Corrente.
@@ -104,17 +104,17 @@ class Colaborador extends AbstractEntity {
     protected $foto;
 
     /**
-     * @ORM\Column(name="data_admissao", type="string")
+     * @ORM\Column(name="data_admissao", type="datetime")
      */
     protected $dataAdmissao;
 
     /**
-     * @ORM\Column(name="data_desligamento", type="string")
+     * @ORM\Column(name="data_desligamento", type="datetime")
      */
     protected $dataDesligamento;
 
     /**
-     * @ORM\Column(name="data_nascimento", type="string")
+     * @ORM\Column(name="data_nascimento", type="datetime")
      */
     protected $dataNascimento;
 
@@ -271,8 +271,8 @@ class Colaborador extends AbstractEntity {
         return $this->natural;
     }
 
-    function getResponsavel() {
-        return $this->responsavel;
+    function getSupervisor() {
+        return $this->supervisor;
     }
 
     function getNome() {
@@ -432,8 +432,8 @@ class Colaborador extends AbstractEntity {
         $this->natural = $natural;
     }
 
-    function setResponsavel($responsavel) {
-        $this->responsavel = $responsavel;
+    function setSupervisor($supervisor) {
+        $this->supervisor = $supervisor;
     }
 
     function setNome($nome) {
@@ -555,6 +555,4 @@ class Colaborador extends AbstractEntity {
     function setLoginSede($loginSede) {
         $this->loginSede = $loginSede;
     }
-
-
 }
