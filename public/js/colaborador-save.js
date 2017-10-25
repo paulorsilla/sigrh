@@ -32,7 +32,8 @@
     } 
     
 $(document).ready(function () {
-
+    $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());
+    
 // Carregar as cidades do banco de dados e salvar na variavel vCidades em JSON
 //    var vCidades = [
 //        {id: 'SP', estado: 'Sao Paulo', cidades: [{id: 1, cidade: 'Sao Paulo'}, {id: 2, cidade: 'Santos'}, {id: 3, cidade: 'Praia Grande'}]},
