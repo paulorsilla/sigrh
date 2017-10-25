@@ -6,7 +6,7 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
 /**
- * Formulário utilizado para o cadastro de fonteSeguro
+ * Formulário utilizado para o cadastro de fonte seguro
  */
 class FonteSeguroForm extends Form {
 

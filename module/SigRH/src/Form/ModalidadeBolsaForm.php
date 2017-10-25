@@ -6,7 +6,7 @@ use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
 /**
- * Formulário utilizado para o cadastro de modalidadeBolsa
+ * Formulário utilizado para o cadastro de modalidade bolsa
  */
 class ModalidadeBolsaForm extends Form {
 

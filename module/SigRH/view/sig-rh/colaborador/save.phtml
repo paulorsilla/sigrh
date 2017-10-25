@@ -150,6 +150,25 @@ $form->get('submit')->setAttributes([
                     </div>
                     <div id="estagio" class="tab-pane fade">
                         <p>Estágio</p>
+                        
+                        <?php if ( !empty($this->colaborador) ) { 
+                            $matricula = $this->colaborador->getMatricula();
+                            if ( !empty($matricula) ) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridEstagio('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Atualizar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoEstagio('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }
+                        }?>
+                        
                     </div>
                     <div id="escalaHorarios" class="tab-pane fade">
                         <p>Escala de Horários</p>
@@ -184,6 +203,24 @@ $form->get('submit')->setAttributes([
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary" onclick="fncSalvarContaCorrente(this)">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade " id="EstagioModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Cadastro de estágios</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="fncSalvarEstagio(this)">Salvar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

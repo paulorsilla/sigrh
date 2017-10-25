@@ -5,11 +5,13 @@
         $('#ContaCorrenteModal .modal-body').load(url);
         $('#ContaCorrenteModal').modal('show');
     }
+    
     function refreshGridContaCorrente(matricula){
         url = "/sig-rh/conta-corrente/grid-modal?matricula="+matricula;
         $('#gridContaCorrente').html('carregando...');
         $('#gridContaCorrente').load(url);
     }
+    
     function fncSalvarContaCorrente(obj){
         $(this).html("aguarde ...").attr("disabled",true);
         form =  $("form",$(obj).closest(".modal-content"));
@@ -30,6 +32,40 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
+    
+    function novoEstagio(matricula){
+        url = "/sig-rh/estagio/save-modal?matricula="+matricula;
+        $('#EstagioModal .modal-body').html('carregando...');
+        $('#EstagioModal .modal-body').attr('url',url);
+        $('#EstagioModal .modal-body').load(url);
+        $('#EstagioModal').modal('show');
+    }
+    
+    function refreshGridEstagio(matricula){
+        url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
+        $('#gridEstagio').html('carregando...');
+        $('#gridEstagio').load(url);
+    }
+
+    function fncSalvarEstagio(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        
+        $.post(urlPost,dados,function(data){
+            if ( data.success == 1 ){
+                
+                $("#EstagioModal").modal('hide');
+                
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    } 
+    
     
 $(document).ready(function () {
 
