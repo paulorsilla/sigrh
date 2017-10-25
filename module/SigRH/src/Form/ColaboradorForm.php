@@ -109,7 +109,7 @@ class ColaboradorForm extends Form {
                 'label' => 'Foto'
             ],
         ]);
-
+        
         //Adiciona o campo "data_admissao"
         $this->add([
             'type' => 'Zend\Form\Element\Date',
