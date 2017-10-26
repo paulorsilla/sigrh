@@ -112,7 +112,7 @@ class EstagioController extends AbstractActionController
 			$del = $request->getPost('del', 'Não');
 			if ($del == 'Sim') {
 				$id = (int) $request->getPost('id');
-				$repo = $this->entityManager->getRepository(Banco::class);
+				$repo = $this->entityManager->getRepository(Estagio::class);
 				$repo->delete($id);
 			}
 			// Redireciona para a lista de registros cadastrados

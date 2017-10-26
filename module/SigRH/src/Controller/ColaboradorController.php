@@ -73,7 +73,13 @@ class ColaboradorController extends AbstractActionController
                         if ( !empty($colaborador)){
 //                            $form->bind($colaborador);
                             $form->setData($colaborador->toArray());
-                            $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
+                            
+                            if (null != $colaborador->getSupervisor()){
+                                $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
+                                
+                            }
+                            
+                            $form->get("tipoColaborador")->setValue($colaborador->tipoColaborador->id);
                             $form->get("cidade")->setValue($colaborador->cidade->id);
                             $form->get("endereco")->setValue($colaborador->endereco->id);
                             $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
@@ -82,10 +88,18 @@ class ColaboradorController extends AbstractActionController
                             $form->get("estadoCivil")->setValue($colaborador->estadoCivil->id);
                             $form->get("natural")->setValue($colaborador->natural->id);
                             $form->get("ctpsUf")->setValue($colaborador->ctpsUf->id);
+                            $endereco = $colaborador->getEndereco();
+//                            \Doctrine\Common\Util\Debug::dump($endereco); die();
+                            if ( !empty($endereco) ) { // COLOCAR TODOS OS CAMPOS
+                                $form->get("cep")->setValue($endereco->getCep());
+                                $form->get("endereco")->setValue($endereco->getEndereco());
+                                $form->get("numero")->setValue($endereco->getNumero());
+                                $form->get("complemento")->setValue($endereco->getComplemento());
+                                $form->get("bairro")->setValue($endereco->getBairro());
+                                $form->get("cidade")->setValue($endereco->getCidade()->getId());
+                                $form->get("estado")->setValue($endereco->getCidade()->getEstado()->getId());
+                            }
                             
-//                            $form->get("dataNascimento")->setValue(\DateTime::createFromFormat ( "d/m/Y",$colaborador->dataNascimento));
-
-//                            $form->get("dataNascimento")->setValue(\Admin\Model\Util::converteDataPhp($colaborador->dataNascimento));
                            
                         }
                     }

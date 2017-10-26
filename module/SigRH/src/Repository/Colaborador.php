@@ -45,20 +45,39 @@ class Colaborador extends AbstractRepository {
         if ( empty($row)) {
             $row = new ColaboradorEntity();
         }
+
         
-        //endereco...
-        if ( !empty($dados['endereco'] )) {
-            $endereco = $this->getEntityManager()->find('SigRH\Entity\Endereco', $dados['endereco']); //busca as informações
+        //tipoColaborador...
+        if ( !empty($dados['tipoColaborador'] )) {
+            $tipoColaborador = $this->getEntityManager()->find('SigRH\Entity\TipoColaborador', $dados['tipoColaborador']); //busca as informações
+            $row->setTipoColaborador($tipoColaborador);
+        }
+        unset($dados['tipoColaborador']);
+        
+        //////////////endereco////////////////////////////////////
+        $endereco = $row->getEndereco();
+        if ( empty($endereco )){
+            $endereco = new \SigRH\Entity\Endereco();
             $row->setEndereco($endereco);
         }
+        
+        $endereco->setCep($dados['cep']);
+        unset($dados['cep']);
+        
+        $endereco->setEndereco($dados['endereco']);
         unset($dados['endereco']);
+        
         
         //cidade...
         if ( !empty($dados['cidade'] )) {
             $cidade = $this->getEntityManager()->find('SigRH\Entity\Cidade', $dados['cidade']); //busca as informações
-            $row->setCidade($cidade);
+            $endereco->setCidade($cidade);
         }
         unset($dados['cidade']);
+        
+        
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //Grupo sanguineo...
         if ( !empty($dados['grupoSanguineo'] )) {
@@ -102,15 +121,32 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['ctpsUf']);
         
-//        $row = null;
-//        if ($dados ['dataNascimento'] != "") {					
-//            $row = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataNascimento'] );
-//        }
+        $row->setDataNascimento(null);
+        if ($dados ['dataNascimento'] != "") {					
+            $dataNascimento = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataNascimento'] );
+            if ( !empty($dataNascimento)  )
+               $row->setDataNascimento($dataNascimento);
+        }
+        unset($dados['dataNascimento']);
         
-//        $dados['dataNascimento'] = \Admin\Model\Util::converteDataSql($dados['dataNascimento']);
+        $row->setDataAdmissao(null);
+        if ($dados ['dataAdmissao'] != "") {					
+            $dataAdmissao = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataAdmissao'] );
+            if ( !empty($dataAdmissao)  )
+                $row->setDataAdmissao($dataAdmissao);
+        }
+        unset($dados['dataAdmissao']);
         
+        $row->setDataDesligamento(null);
+        if ($dados ['dataDesligamento'] != "") {					
+            $dataDesligamento = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataDesligamento'] );
+            if ( !empty($dataDesligamento)  )
+                $row->setDataDesligamento($dataDesligamento);
+        }
+        unset($dados['dataDesligamento']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
+        $this->getEntityManager()->persist($endereco);
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         

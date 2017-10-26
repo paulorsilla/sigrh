@@ -858,6 +858,11 @@ class ColaboradorForm extends Form {
             ],
         ]);
         
+        //data_desligamento
+        $inputFilter->add([
+            'name' => 'dataDesligamento',
+            'required' => false,
+        ]);
         
         
     }

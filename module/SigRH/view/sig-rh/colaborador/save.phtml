@@ -95,7 +95,7 @@ $form->get('submit')->setAttributes([
                             <div class="col-md-3"><?= $this->formRow($form->get('necessidadeEspecial')); ?></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneResidencial')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('telefoneResidencial')); ?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular')); ?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('ramal')); ?></div>
                             <div class="col-md-6"><?= $this->formRow($form->get('email')); ?></div>
@@ -151,6 +151,11 @@ $form->get('submit')->setAttributes([
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridContaCorrente('<?php echo $matricula;?>');
+                                });
+                                </script>
                         <?php }
                         }?>
                     </div>

@@ -62,7 +62,7 @@ class EstagioForm extends Form {
         ]);
         
         //Adiciona o campo "nivel"
-        $this->add([
+        /*$this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'nivel',
             'attributes' => [
@@ -79,9 +79,9 @@ class EstagioForm extends Form {
                 'display_empty_item' => true,
             ]
         ]);
-        
+        */
         //Adiciona o campo "curso"
-        $this->add([
+        /*$this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'curso',
             'attributes' => [
@@ -98,7 +98,7 @@ class EstagioForm extends Form {
                 'display_empty_item' => true,
             ]
         ]);
-        
+        */
         
         //Adiciona o campo "instituicao"
         $this->add([
@@ -137,7 +137,7 @@ class EstagioForm extends Form {
         ]);
         
         //Adiciona o campo "fonteSeguro"
-        $this->add([
+        /*$this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'fonteSeguro',
             'attributes' => [
@@ -153,7 +153,7 @@ class EstagioForm extends Form {
                 'property' => 'fonteSeguro',
                 'display_empty_item' => true,
             ]
-        ]);
+        ]);*/
         
         
         //Adiciona o campo "seguroApolice"
@@ -206,7 +206,7 @@ class EstagioForm extends Form {
         ]);
         
         //Adiciona o campo "colaborador"
-        $this->add([
+        /*$this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'colaborador',
             'attributes' => [
@@ -222,7 +222,7 @@ class EstagioForm extends Form {
                 'property' => 'colaborador',
                 'display_empty_item' => true,
             ]
-        ]);
+        ]);*/
         
 
 
