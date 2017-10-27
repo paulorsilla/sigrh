@@ -23,8 +23,6 @@ class ContaCorrente extends AbstractEntity {
      * @ORM\JoinColumn(name="banco_id", referencedColumnName="id")
      **/        
     protected $banco; //banco_id 
-
-
     /**
      * @ORM\Column(name="agencia", type="string")
      */
