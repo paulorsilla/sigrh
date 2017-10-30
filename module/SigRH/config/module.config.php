@@ -246,6 +246,20 @@ return [
                             ]
                         ]
                     ],
+                    'sublotacao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/sublotacao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\SublotacaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                 ],
             ],
@@ -269,6 +283,7 @@ return [
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [
