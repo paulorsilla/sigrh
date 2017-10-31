@@ -86,7 +86,13 @@ class Colaborador extends AbstractEntity {
      *      inverseJoinColumns={@ORM\JoinColumn(name="conta_corrente_id", referencedColumnName="id")}
      *      )
      */
-    private $contasCorrente;
+    protected $contasCorrente;
+    
+    /**
+     * One Colaborador has Many Dependentes
+     * @ORM\OneToMany(targetEntity="Dependente", mappedBy="colaboradorMatricula")
+     */
+    protected $dependentes;
 
     /**
      * @ORM\Column(name="nome", type="string")
@@ -224,6 +230,7 @@ class Colaborador extends AbstractEntity {
     
     public function __construct() {
         $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dependentes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -387,7 +394,11 @@ class Colaborador extends AbstractEntity {
         return $this->necessidadeEspecial;
     }
     
-    /**
+    function getDependentes() {
+        return $this->dependentes;
+    }
+
+        /**
      * Sets user ID.
      * 
      * @param int $id        	
@@ -554,5 +565,9 @@ class Colaborador extends AbstractEntity {
 
     function setLoginSede($loginSede) {
         $this->loginSede = $loginSede;
+    }
+    
+    function setDependentes($dependentes) {
+        $this->dependentes = $dependentes;
     }
 }

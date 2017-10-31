@@ -78,7 +78,6 @@ class ColaboradorController extends AbstractActionController
                                 $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
                                 
                             }
-                            
                             $form->get("tipoColaborador")->setValue($colaborador->tipoColaborador->id);
                             $form->get("cidade")->setValue($colaborador->cidade->id);
                             $form->get("endereco")->setValue($colaborador->endereco->id);

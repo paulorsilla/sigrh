@@ -75,6 +75,12 @@
         });
     } 
     
+    function refreshGridDependente(matricula){
+        url = "/sig-rh/dependente/grid-modal?matricula="+matricula;
+        $('#gridDependentes').html('carregando...');
+        $('#gridDependentes').load(url);
+    }
+    
     
 $(document).ready(function () {
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());

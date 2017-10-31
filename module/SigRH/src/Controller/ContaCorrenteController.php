@@ -47,8 +47,8 @@ class ContaCorrenteController extends AbstractActionController
 	
         public function gridModalAction()
 	{
-                $repo = $this->entityManager->getRepository(ContaCorrente::class);
-                $page = $this->params()->fromQuery('page', 1);
+//                $repo = $this->entityManager->getRepository(ContaCorrente::class);
+//                $page = $this->params()->fromQuery('page', 1);
                 $matricula = $this->params()->fromQuery('matricula',0);
                 $colaborador = $this->entityManager->find(Colaborador::class, $matricula);
                         

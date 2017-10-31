@@ -232,6 +232,20 @@ return [
                             ]
                         ]
                     ],
+                    'dependente' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/dependente[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\DependenteController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'estagio' => [
                         'type' => Segment::class,
                         'options' => [
@@ -270,6 +284,7 @@ return [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
