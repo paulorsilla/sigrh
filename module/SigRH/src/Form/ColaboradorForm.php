@@ -685,7 +685,7 @@ class ColaboradorForm extends Form {
             ]
         ]);
         
-        //Adiciona o campo "responsavel"
+        //Adiciona o campo "supervisor"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'supervisor',
@@ -817,6 +817,13 @@ class ColaboradorForm extends Form {
             'name' => 'ctpsUf',
             'required' => false,
         ]);
+        
+        //tipo_colaborador
+        $inputFilter->add([
+            'name' => 'tipoColaborador',
+            'required' => false,
+        ]);
+        
         
  //////////////////////////////////////////////////////////////////////////////       
 

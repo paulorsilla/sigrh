@@ -5,8 +5,17 @@
         $('#ContaCorrenteModal .modal-body').load(url);
         $('#ContaCorrenteModal').modal('show');
     }
+    
     function editarContaCorrente(id){
         url = "/sig-rh/conta-corrente/save-modal/"+id;
+        $('#ContaCorrenteModal .modal-body').html('carregando...');
+        $('#ContaCorrenteModal .modal-body').attr('url',url);
+        $('#ContaCorrenteModal .modal-body').load(url);
+        $('#ContaCorrenteModal').modal('show');
+    }
+
+    function excluirContaCorrente(id){
+        url = "/sig-rh/conta-corrente/delete/"+id;
         $('#ContaCorrenteModal .modal-body').html('carregando...');
         $('#ContaCorrenteModal .modal-body').attr('url',url);
         $('#ContaCorrenteModal .modal-body').load(url);
@@ -64,6 +73,7 @@
         
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
+                 alert('hi!!');            
                 
                 $("#EstagioModal").modal('hide');
                  

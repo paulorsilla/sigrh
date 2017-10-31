@@ -10,10 +10,10 @@ class Estagio extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('e')
                 ->from(EstagioEntity::class, 'e')
-                ->orderby('e.dataInicioEfetivo','ASC');
+                ->orderby('e.anoInicio','ASC');
         
         if ( !empty($search['search'])){
-            $qb->where(' c.dataInicioEfetivo like :busca');
+            $qb->where(' c.anoInicio like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
        return $qb;
@@ -45,9 +45,39 @@ class Estagio extends AbstractRepository {
         if ( empty($row)) {
             $row = new EstagioEntity();
         }
+        //nivel...
+        if ( !empty($dados['nivel'] )) {
+            $nivel = $this->getEntityManager()->find('SigRH\Entity\Nivel', $dados['nivel']); //busca as informações
+            $row->setNivel($nivel);
+        }
+        unset($dados['nivel']);
+        
+        //curso...
+        if ( !empty($dados['curso'] )) {
+            $curso = $this->getEntityManager()->find('SigRH\Entity\Curso', $dados['curso']); //busca as informações
+            $row->setCurso($curso);
+        }
+        unset($dados['curso']);
+        
+        //fonte seguro...
+        if ( !empty($dados['fonteSeguro'] )) {
+            $fonteSeguro = $this->getEntityManager()->find('SigRH\Entity\FonteSeguro', $dados['fonteSeguro']); //busca as informações
+            $row->setFonteSeguro($fonteSeguro);
+        }
+        unset($dados['fonteSeguro']);
+        
+        $row->setDataInicioEfetivo(null);
+        if ($dados ['dataInicioEfetivo'] != "") {					
+            $dataInicioEfetivo = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataInicioEfetivo'] );
+            if ( !empty($dataInicioEfetivo)  )
+               $row->setDataInicioEfetivo($dataInicioEfetivo);
+        }
+        unset($dados['dataInicioEfetivo']);
         
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
+        print_r($row);
+//        die;
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         

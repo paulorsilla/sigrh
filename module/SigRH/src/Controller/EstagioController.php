@@ -76,8 +76,9 @@ class EstagioController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Estagio::class);
-                                $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$id,$matricula);
+//                                $matricula = $this->params()->fromQuery('matricula');
+//                                $repo->incluir_ou_editar($data,$id,$matricula);
+                                $repo->incluir_ou_editar($data,$id);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
@@ -89,8 +90,10 @@ class EstagioController extends AbstractActionController
                         if ( !empty($row)){
                             $form->setData($row->toArray());
                             
-//                            $form->get("banco")->setValue($row->banco->id);
-                            
+                            $form->get("nivel")->setValue($row->nivel->id);
+                            $form->get("curso")->setValue($row->curso->id);
+                            $form->get("fonteSeguro")->setValue($row->fonteSeguro->id);
+                          
                         }
                     }
                 }

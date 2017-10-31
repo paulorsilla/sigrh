@@ -1,16 +1,30 @@
 <?= $this->form()->openTag($this->form); ?>
+
+
+<h1>Cadastro de estágiosss</h1>
+
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
                 <h3 class="panel-title">
                     Por favor, preencha o formulário abaixo e, em seguida, clique sobre
-                    o botão <i>Salvar</i>. 
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/estagio" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
                 </h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->form()->openTag($form); ?>
+
             <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('anoInicio')); ?><br>
                 <?php echo  $this->formElement($this->form->get('anoInicio')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('anoInicio')); ?>  
               </div>
-        
+                
               <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('anoPrevisaoConclusao')); ?><br>
                 <?php echo  $this->formElement($this->form->get('anoPrevisaoConclusao')); ?>
@@ -22,13 +36,14 @@
                 <?php echo  $this->formElement($this->form->get('dataInicioEfetivo')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('dataInicioEfetivo')); ?>                  
               </div>
-
-             <div class="col-md-4">
+                
+                
+              <div class="col-md-4">
                 <?php echo  $this->formLabel($this->form->get('serie')); ?><br>
                 <?php echo  $this->formElement($this->form->get('serie')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('serie')); ?>                  
               </div>
-        
+                
               <div class="col-md-4">
                 <?php echo  $this->formLabel($this->form->get('seguroApolice')); ?><br>
                 <?php echo  $this->formElement($this->form->get('seguroApolice')); ?>
@@ -52,13 +67,13 @@
                 <?php echo  $this->formElement($this->form->get('seguroCapital')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('seguroCapital')); ?>                  
               </div>
-        
+                
               <div class="col-md-4">
                 <?php echo  $this->formLabel($this->form->get('nivel')); ?><br>
                 <?php echo  $this->formElement($this->form->get('nivel')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('nivel')); ?>                  
               </div>
-        
+                
               <div class="col-md-4">
                 <?php echo  $this->formLabel($this->form->get('curso')); ?><br>
                 <?php echo  $this->formElement($this->form->get('curso')); ?>
@@ -70,8 +85,11 @@
                 <?php echo  $this->formElement($this->form->get('fonteSeguro')); ?>
                 <?php echo  $this->formElementErrors($this->form->get('fonteSeguro')); ?>                  
               </div>
-        
                 
+                <?= $this->formElement($form->get('submit')); ?>
+
+                <?= $this->form()->closeTag(); ?>
+            </div>
+        </div>
     </div>
 </div>
-<?= $this->form()->closeTag(); ?>

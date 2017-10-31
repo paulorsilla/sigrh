@@ -5,26 +5,33 @@
         <thead>
             <tr>
             <th>Id</th>
-            <th>Colaborador</th>
             <th>Início</th>
-            <th>Conclusão</th>
+            <th>Previsão ano conclusão</th>
+            <th>Série</th>
+            <th>Seguro apólice</th>
+            <th>Seguro seguradora</th>
+            <th>Seguro mensalidade</th>
+            <th>Seguro capital</th>
             <th>Nível</th>
             <th>Curso</th>
-            <th>Instituição</th>
-            <th>Início efetivo</th>
+            <th>Fonte seguro</th>
+            <th>Opções</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach ($this->estagios as $estagio): ?>
             <tr>
                 <td><?= $this->escapeHtml($estagio->getId()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getColaboradorMatricula()->getNome()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoInicio()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoPrevisaoConclusao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getNivel()->getDescricao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getCurso()->getDescricao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getInstituicao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getDataInicioEfetivo()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroApolice()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroSeguradora()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getseguroMensalidade()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroCapital()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getNivel()->getNivel()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getCurso()->curso); ?></td>
+                <td><?= $this->escapeHtml($estagio->getFonteSeguro()->fonteSeguro); ?></td>
                 
                 <td><a class="btn btn-primary btn-sm pull-center"
                        href="<?= $this->url('sig-rh/estagio', ['action' => 'save', 'id' => $estagio->getId()]) ?>"

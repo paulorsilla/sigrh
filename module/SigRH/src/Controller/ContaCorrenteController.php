@@ -6,9 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\ContaCorrenteForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\ContaCorrente;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
 
 class ContaCorrenteController extends AbstractActionController
 {
@@ -58,6 +55,7 @@ class ContaCorrenteController extends AbstractActionController
 		]);
 		return 	$view->setTerminal(true);
 	}
+        
 	/**
 	 * Action para salvar um novo registro
 	 */
@@ -106,7 +104,7 @@ class ContaCorrenteController extends AbstractActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('sig-rh/contaCorrente');
+			return $this->redirect()->toRoute('sig-rh/conta-corrente');
 		}
 		$request = $this->getRequest();
 			
@@ -118,7 +116,7 @@ class ContaCorrenteController extends AbstractActionController
 				$repo->delete($id);
 			}
 			// Redireciona para a lista de registros cadastrados
-			return $this->redirect()->toRoute('sig-rh/contaCorrente');
+			return $this->redirect()->toRoute('sig-rh/conta-corrente');
 		}
                 
                 $repo = $this->entityManager->getRepository(ContaCorrente::class);
