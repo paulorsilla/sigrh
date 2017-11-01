@@ -12,15 +12,16 @@
                 <th>Nome conjunta</th>
             </tr>
         </thead>
+        
         <tbody>
             <?php foreach ($this->ccs as $cc): ?>
                 <tr>
-                    <td><?= $this->escapeHtml($banco->getId()); ?></td>
-                    <td><?= $this->escapeHtml($banco->getCodigo()); ?></td>
-                    <td><?= $this->escapeHtml($banco->getBanco()); ?></td>
-                    <td><?= $this->escapeHtml($banco->getAgencia()); ?></td>
-                    <td><?= $this->escapeHtml($banco->getConjunta()); ?></td>
-                    <td><?= $this->escapeHtml($banco->getNomeConjunta()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getId()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getCodigo()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getBanco()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getAgencia()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getConjunta()); ?></td>
+                    <td><?= $this->escapeHtml($cc->getNomeConjunta()); ?></td>
                     
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/conta-corrente', ['action' => 'save', 'id' => $cc->getId()]) ?>"
@@ -32,6 +33,7 @@
                 </tr>
             <?php endforeach; ?>
         </tbody>
+        
     </table>
     <span class="pull-right">
         <?= $this->paginationControl($this->ccs, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/conta-corrente']); ?>

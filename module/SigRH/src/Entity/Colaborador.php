@@ -95,6 +95,13 @@ class Colaborador extends AbstractEntity {
     protected $dependentes;
 
     /**
+     * One Colaborador has Many estagios
+     * @ORM\OneToMany(targetEntity="Estagio", mappedBy="colaboradorMatricula")
+     */
+    protected $estagios;
+    
+    
+    /**
      * @ORM\Column(name="nome", type="string")
      */
     protected $nome;
@@ -231,6 +238,7 @@ class Colaborador extends AbstractEntity {
     public function __construct() {
         $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
         $this->dependentes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->estagios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -397,6 +405,11 @@ class Colaborador extends AbstractEntity {
     function getDependentes() {
         return $this->dependentes;
     }
+    
+    function getEstagios() {
+        return $this->estagios;
+    }
+    
 
         /**
      * Sets user ID.
@@ -570,4 +583,10 @@ class Colaborador extends AbstractEntity {
     function setDependentes($dependentes) {
         $this->dependentes = $dependentes;
     }
+    
+    function setEstagios($estagios) {
+        $this->estagios = $estagios;
+    }
+
+
 }

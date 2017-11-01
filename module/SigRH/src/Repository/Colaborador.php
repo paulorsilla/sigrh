@@ -69,6 +69,12 @@ class Colaborador extends AbstractRepository {
         $endereco->setEndereco($dados['endereco']);
         unset($dados['endereco']);
         
+        $endereco->setNumero($dados['numero']);
+        unset($dados['numero']);
+        
+        $endereco->setBairro($dados['bairro']);
+        unset($dados['bairro']);
+        
         
         //cidade...
         if ( !empty($dados['cidade'] )) {
@@ -81,6 +87,13 @@ class Colaborador extends AbstractRepository {
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        //supervisor...
+        if ( !empty($dados['supervisor'] )) {
+            $supervisor = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $dados['supervisor']); //busca as informações
+            $row->setSupervisor($supervisor);
+        }
+        unset($dados['supervisor']);
+        
         //Grupo sanguineo...
         if ( !empty($dados['grupoSanguineo'] )) {
             $grupoSanguineo = $this->getEntityManager()->find('SigRH\Entity\GrupoSanguineo', $dados['grupoSanguineo']); //busca as informações
@@ -146,6 +159,8 @@ class Colaborador extends AbstractRepository {
                 $row->setDataDesligamento($dataDesligamento);
         }
         unset($dados['dataDesligamento']);
+        
+        
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($endereco);

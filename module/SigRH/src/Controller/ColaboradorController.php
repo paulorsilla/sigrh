@@ -71,7 +71,6 @@ class ColaboradorController extends AbstractActionController
                     if ( !empty($id)){
                         
                         if ( !empty($colaborador)){
-//                            $form->bind($colaborador);
                             $form->setData($colaborador->toArray());
                             
                             if (null != $colaborador->getSupervisor()){

@@ -5,8 +5,17 @@
         $('#ContaCorrenteModal .modal-body').load(url);
         $('#ContaCorrenteModal').modal('show');
     }
+    
     function editarContaCorrente(id){
         url = "/sig-rh/conta-corrente/save-modal/"+id;
+        $('#ContaCorrenteModal .modal-body').html('carregando...');
+        $('#ContaCorrenteModal .modal-body').attr('url',url);
+        $('#ContaCorrenteModal .modal-body').load(url);
+        $('#ContaCorrenteModal').modal('show');
+    }
+
+    function excluirContaCorrente(id){
+        url = "/sig-rh/conta-corrente/delete/"+id;
         $('#ContaCorrenteModal .modal-body').html('carregando...');
         $('#ContaCorrenteModal .modal-body').attr('url',url);
         $('#ContaCorrenteModal .modal-body').load(url);
@@ -48,7 +57,13 @@
         $('#EstagioModal .modal-body').load(url);
         $('#EstagioModal').modal('show');
     }
-    
+    function editarEstagio(id){
+        url = "/sig-rh/estagio/save-modal/"+id;
+        $('#EstagioModal .modal-body').html('carregando...');
+        $('#EstagioModal .modal-body').attr('url',url);
+        $('#EstagioModal .modal-body').load(url);
+        $('#EstagioModal').modal('show');
+    }
     function refreshGridEstagio(matricula){
         url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
         $('#gridEstagio').html('carregando...');
@@ -64,6 +79,7 @@
         
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
+                 alert('hi!!');            
                 
                 $("#EstagioModal").modal('hide');
                  

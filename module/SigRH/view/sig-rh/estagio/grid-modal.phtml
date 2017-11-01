@@ -19,14 +19,14 @@
                 <td><?= $this->escapeHtml($estagio->getColaboradorMatricula()->getNome()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoInicio()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoPrevisaoConclusao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getNivel()->getDescricao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getCurso()->getDescricao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getInstituicao()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getDataInicioEfetivo()); ?></td>
+                <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
+                <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
+                <td><?php //= $this->escapeHtml($estagio->getInstituicao()); ?></td>
+                <td><?php //$this->escapeHtml(\DateTime::createFromFormat ( "d/m/Y", $estagio->getDataInicioEfetivo())); ?></td>
                 
-                <td><a class="btn btn-primary btn-sm pull-center"
-                       href="<?= $this->url('sig-rh/estagio', ['action' => 'save', 'id' => $estagio->getId()]) ?>"
-                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                       onclick="editarEstagio('<?php echo $estagio->getId();?>')"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
                     <a class="btn btn-primary btn-sm pull-center"
                        href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
                        title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>

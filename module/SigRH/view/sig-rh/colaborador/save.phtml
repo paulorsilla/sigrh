@@ -161,7 +161,12 @@ $form->get('submit')->setAttributes([
                         }?>
                     </div>
                     <div id="estagio" class="tab-pane fade">
-                        <p>Estágio</p>
+                        <div class="row">
+                            <div class="col-md-12" id="gridEstagio">
+                               
+                            </div>
+                            
+                        </div>
                         
                         <?php if ( !empty($this->colaborador) ) { 
                             $matricula = $this->colaborador->getMatricula();
@@ -178,6 +183,11 @@ $form->get('submit')->setAttributes([
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridEstagio('<?php echo $matricula;?>');
+                                });
+                            </script>
                         <?php }
                         }?>
                         

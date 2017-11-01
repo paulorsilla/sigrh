@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\EstagioForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Estagio;
+use SigRH\Entity\Colaborador;
 
 class EstagioController extends AbstractActionController
 {
@@ -89,8 +90,10 @@ class EstagioController extends AbstractActionController
                         if ( !empty($row)){
                             $form->setData($row->toArray());
                             
-//                            $form->get("banco")->setValue($row->banco->id);
-                            
+                            $form->get("nivel")->setValue($row->nivel->id);
+                            $form->get("curso")->setValue($row->curso->id);
+                            $form->get("fonteSeguro")->setValue($row->fonteSeguro->id);
+                          
                         }
                     }
                 }

@@ -47,7 +47,7 @@ class EstagioForm extends Form {
                 'label' => 'Ano de início'
             ],
         ]);
-        
+
         $this->add([
             'type' => 'text',
             'name' => 'anoPrevisaoConclusao',
@@ -60,9 +60,9 @@ class EstagioForm extends Form {
                 'label' => 'Previsão de conclusão'
             ],
         ]);
-        
+
         //Adiciona o campo "nivel"
-        /*$this->add([
+        $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'nivel',
             'attributes' => [
@@ -75,13 +75,13 @@ class EstagioForm extends Form {
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Nivel::class,
-                'property' => 'nivel',
+                'property' => 'descricao',
                 'display_empty_item' => true,
             ]
         ]);
-        */
+
         //Adiciona o campo "curso"
-        /*$this->add([
+        $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'curso',
             'attributes' => [
@@ -94,24 +94,24 @@ class EstagioForm extends Form {
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Curso::class,
-                'property' => 'curso',
+                'property' => 'descricao',
                 'display_empty_item' => true,
             ]
         ]);
-        */
         
-        //Adiciona o campo "instituicao"
-        $this->add([
-            'type' => 'text',
-            'name' => 'instituicao',
-            'attributes' => [
-                'id' => 'instituicao'
-            ],
-            'options' => [
-                'label' => 'Instituição'
-            ],
-        ]);
         
+//        //Adiciona o campo "instituicao"
+//        $this->add([
+//            'type' => 'text',
+//            'name' => 'instituicao',
+//            'attributes' => [
+//                'id' => 'instituicao'
+//            ],
+//            'options' => [
+//                'label' => 'Instituição'
+//            ],
+//        ]);
+//        
         //Adiciona o campo "serie"
         $this->add([
             'type' => 'text',
@@ -123,6 +123,7 @@ class EstagioForm extends Form {
                 'label' => 'Série'
             ],
         ]);
+        
         
         //Adiciona o campo "dataInicioEfetivo"
         $this->add([
@@ -137,7 +138,7 @@ class EstagioForm extends Form {
         ]);
         
         //Adiciona o campo "fonteSeguro"
-        /*$this->add([
+        $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'fonteSeguro',
             'attributes' => [
@@ -146,15 +147,14 @@ class EstagioForm extends Form {
                 'placeholder' => 'Digite a fonte seguro aqui'
             ],
             'options' => [
-                'label' => 'fonteSeguro',
+                'label' => 'Fonte seguro',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\FonteSeguro::class,
-                'property' => 'fonteSeguro',
+                'property' => 'descricao',
                 'display_empty_item' => true,
             ]
-        ]);*/
-        
+        ]);
         
         //Adiciona o campo "seguroApolice"
         $this->add([
@@ -239,7 +239,7 @@ class EstagioForm extends Form {
     private function addInputFilter() {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
-
+/*
         $inputFilter->add([
             'name' => 'anoInicio',
             'required' => true,
@@ -259,7 +259,6 @@ class EstagioForm extends Form {
             ],
         ]);
         
-
         
          $inputFilter->add([
             'name' => 'anoPrevisaoConclusao',
@@ -282,24 +281,24 @@ class EstagioForm extends Form {
 
          $inputFilter->add([
             'name' => 'nivel',
-            'required' => true,
+            'required' => false,
         ]);
-         
+       
          $inputFilter->add([
             'name' => 'curso',
-            'required' => true,
+            'required' => false,
         ]);
-         
+/*         
          $inputFilter->add([
             'name' => 'instituicao',
-            'required' => true,
+            'required' => false,
         ]);
+    */     
          
-         
-         
+  /*       
          $inputFilter->add([
             'name' => 'serie',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -334,12 +333,11 @@ class EstagioForm extends Form {
                 ],
             ],
         ]);
-         
+   
          $inputFilter->add([
             'name' => 'fonteSeguro',
-            'required' => true,
+            'required' => false,
         ]);
-         
          
          $inputFilter->add([
             'name' => 'seguroApolice',
@@ -415,13 +413,7 @@ class EstagioForm extends Form {
                     ],
                 ],
             ],
-        ]);
-
-        $inputFilter->add([
-            'name' => 'instituicao',
-            'required' => true,
-        ]);
-
+        ]);*/
     }
 
 }

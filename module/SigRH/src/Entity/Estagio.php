@@ -21,34 +21,23 @@ class Estagio extends AbstractEntity {
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Nivel")
      * @ORM\JoinColumn(name="nivel_id", referencedColumnName="id")
-     **/        
-    protected $nivel; //nivel_id 
+     * */
+    protected $nivel; //nivel_id
 
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Curso")
      * @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
      **/        
     protected $curso; //curso_id 
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\FonteSeguro")
      * @ORM\JoinColumn(name="fonte_seguro_id", referencedColumnName="id")
      **/        
     protected $fonteSeguro; //fonte_seguro_id 
     
-    /**
-     * @ORM\Column(name="instituicao", type="integer") 
-     */
-    protected $instituicao; //instituicao -> buscar via serviço
     
-    /**
-     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Colaborador")
-     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
-     **/        
-    protected $colaboradorMatricula; //colaborador_matricula 
-    
-
-    /**
+     /**
      * @ORM\Column(name="ano_inicio", type="integer")
      */
     protected $anoInicio; //ano_inicio
@@ -57,13 +46,13 @@ class Estagio extends AbstractEntity {
      * @ORM\Column(name="ano_previsao_conclusao", type="integer")
      */
     protected $anoPrevisaoConclusao; //ano_previsao_conclusao
-    
+
     /**
      * @ORM\Column(name="serie", type="string")
      */
     protected $serie;
     
-    /**
+      /**
      * @ORM\Column(name="data_inicio_efetivo", type="datetime")
      */
     protected $dataInicioEfetivo; //data_inicio_efetivo
@@ -88,7 +77,14 @@ class Estagio extends AbstractEntity {
      * @ORM\Column(name="seguro_capital", type="string")
      */
     protected $seguroCapital; //seguro_capital
+  
+    /**
+     * @ORM\ManyToOne(targetEntity="Colaborador")
+     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
+     * */
+    protected $colaboradorMatricula; //ctps_uf_id
     
+
     /**
      * Returns user ID.
      * 
@@ -97,29 +93,24 @@ class Estagio extends AbstractEntity {
     public function getId() {
         return $this->id;
     }
-    
-    function getCurso() {
-        return $this->curso;
+   
+    function getNivel() {
+        return $this->nivel;
     }
-
+    
     function getFonteSeguro() {
         return $this->fonteSeguro;
     }
 
-    function getInstituicao() {
-        return $this->instituicao;
+
+    function getSerie() {
+        return $this->serie;
+    }
+    function getCurso() {
+        return $this->curso;
     }
 
-    function getColaboradorMatricula() {
-        return $this->colaboradorMatricula;
-    }
-
-    
-    function getNivel() {
-        return $this->nivel;
-    }
-
-    function getAnoInicio() {
+        function getAnoInicio() {
         return $this->anoInicio;
     }
 
@@ -127,14 +118,9 @@ class Estagio extends AbstractEntity {
         return $this->anoPrevisaoConclusao;
     }
 
-    function getSerie() {
-        return $this->serie;
-    }
-
     function getDataInicioEfetivo() {
         return $this->dataInicioEfetivo;
     }
-
     function getSeguroApolice() {
         return $this->seguroApolice;
     }
@@ -152,6 +138,7 @@ class Estagio extends AbstractEntity {
     }
 
 
+    
     /**
      * Sets user ID.
      * 
@@ -161,23 +148,6 @@ class Estagio extends AbstractEntity {
         $this->id = $id;
     }
     
-    function setCurso($curso) {
-        $this->curso = $curso;
-    }
-
-    function setFonteSeguro($fonteSeguro) {
-        $this->fonteSeguro = $fonteSeguro;
-    }
-
-    function setInstituicao($instituicao) {
-        $this->instituicao = $instituicao;
-    }
-
-    function setColaboradorMatricula($colaboradorMatricula) {
-        $this->colaboradorMatricula = $colaboradorMatricula;
-    }
-
-
     function setNivel($nivel) {
         $this->nivel = $nivel;
     }
@@ -186,6 +156,15 @@ class Estagio extends AbstractEntity {
         $this->anoInicio = $anoInicio;
     }
 
+    function setCurso($curso) {
+        $this->curso = $curso;
+    }
+
+    function setFonteSeguro($fonteSeguro) {
+        $this->fonteSeguro = $fonteSeguro;
+    }
+
+    
     function setAnoPrevisaoConclusao($anoPrevisaoConclusao) {
         $this->anoPrevisaoConclusao = $anoPrevisaoConclusao;
     }
@@ -213,6 +192,15 @@ class Estagio extends AbstractEntity {
     function setSeguroCapital($seguroCapital) {
         $this->seguroCapital = $seguroCapital;
     }
+
+    function getColaboradorMatricula() {
+        return $this->colaboradorMatricula;
+    }
+
+    function setColaboradorMatricula($colaboradorMatricula) {
+        $this->colaboradorMatricula = $colaboradorMatricula;
+    }
+
 
     
 }

@@ -62,6 +62,7 @@ class ContaCorrenteController extends AbstractActionController
 		]);
 		return 	$view->setTerminal(true);
 	}
+        
 	/**
 	 * Action para salvar um novo registro
 	 */
@@ -110,7 +111,7 @@ class ContaCorrenteController extends AbstractActionController
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('sig-rh/contaCorrente');
+			return $this->redirect()->toRoute('sig-rh/conta-corrente');
 		}
 		$request = $this->getRequest();
 			
@@ -122,7 +123,7 @@ class ContaCorrenteController extends AbstractActionController
 				$repo->delete($id);
 			}
 			// Redireciona para a lista de registros cadastrados
-			return $this->redirect()->toRoute('sig-rh/contaCorrente');
+			return $this->redirect()->toRoute('sig-rh/conta-corrente');
 		}
                 
                 $repo = $this->entityManager->getRepository(ContaCorrente::class);
