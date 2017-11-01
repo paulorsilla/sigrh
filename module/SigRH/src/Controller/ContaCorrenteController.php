@@ -84,7 +84,7 @@ class ContaCorrenteController extends AbstractActionController
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(ContaCorrente::class);
                                 $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$id,$matricula);
+                                $repo->incluir_ou_editar($data, $id, $matricula);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
@@ -95,7 +95,6 @@ class ContaCorrenteController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
-                            
                             $form->get("banco")->setValue($row->banco->id);
                             
                         }
@@ -106,12 +105,33 @@ class ContaCorrenteController extends AbstractActionController
 		]);
 		return $view->setTerminal(true);
 	}
+        
+        public function deleteModalAction()
+        {
+		$id = (int) $this->params()->fromRoute('id', null);
+                $matricula = $this->params()->fromQuery('matricula');
+                
+		if ($this->getRequest()->isPost()) {
+                    $repo = $this->entityManager->getRepository(ContaCorrente::class);
+                    $repo->delete($id, $matricula);
+                    $modelJson = new \Zend\View\Model\JsonModel();
+                    return $modelJson->setVariable('success', 1);
+		}
+                
+                $repo = $this->entityManager->getRepository(ContaCorrente::class);
+                $contaCorrente= $repo->find($id);
+
+                $view = new ViewModel([
+				'contaCorrente' => $contaCorrente,
+		]);
+                return $view->setTerminal(true);
+        }
 	
 	public function deleteAction()
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('sig-rh/conta-corrente');
+                    return $this->redirect()->toRoute('sig-rh/conta-corrente');
 		}
 		$request = $this->getRequest();
 			

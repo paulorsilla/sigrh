@@ -7,7 +7,8 @@
     }
     
     function editarContaCorrente(id){
-        url = "/sig-rh/conta-corrente/save-modal/"+id;
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/conta-corrente/save-modal/"+id+"?matricula="+matricula;
         $('#ContaCorrenteModal .modal-body').html('carregando...');
         $('#ContaCorrenteModal .modal-body').attr('url',url);
         $('#ContaCorrenteModal .modal-body').load(url);
@@ -15,17 +16,33 @@
     }
 
     function excluirContaCorrente(id){
-        url = "/sig-rh/conta-corrente/delete/"+id;
-        $('#ContaCorrenteModal .modal-body').html('carregando...');
-        $('#ContaCorrenteModal .modal-body').attr('url',url);
-        $('#ContaCorrenteModal .modal-body').load(url);
-        $('#ContaCorrenteModal').modal('show');
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/conta-corrente/delete-modal/"+id+"?matricula="+matricula;
+        $('#ExclusaoCCModal .modal-body').html('carregando...');
+        $('#ExclusaoCCModal .modal-body').attr('url',url);
+        $('#ExclusaoCCModal .modal-body').load(url);
+        $('#ExclusaoCCModal').modal('show');
     }
     
     function refreshGridContaCorrente(matricula){
         url = "/sig-rh/conta-corrente/grid-modal?matricula="+matricula;
         $('#gridContaCorrente').html('carregando...');
         $('#gridContaCorrente').load(url);
+    }
+    
+    function fncExcluirContaCorrente(obj) {
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#ExclusaoCCModal").modal('hide');
+                refreshGridContaCorrente($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+        });
     }
     
     function fncSalvarContaCorrente(obj){
@@ -35,14 +52,13 @@
         
         urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
         
-        $.post(urlPost,dados,function(data){
+        $.post(urlPost, dados, function(data){
             if ( data.success == 1 ){
                 
                 //$("<option></option>").val(data.id).html(data.descricao).appendTo($("select[name=ca_id]"));
                 //$("select[name=ca_id]").val(data.id);
                 $("#ContaCorrenteModal").modal('hide');
                 refreshGridContaCorrente($("input#matricula").val());
-                
             } else {
                 $(".modal-body",$(obj).closest(".modal-content")).html(data);
             }
@@ -252,4 +268,5 @@ $(document).ready(function () {
             limpa_formulário_cep();
         }
     });
+    
 });

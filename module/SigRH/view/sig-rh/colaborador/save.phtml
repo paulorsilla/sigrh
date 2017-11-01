@@ -143,9 +143,6 @@ $form->get('submit')->setAttributes([
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridContaCorrente('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Atualizar
-                                        </button>
                                         <button type="button" class="btn btn-primary btn-sm" onclick="novaContaCorrente('<?php echo $matricula;?>')">
                                             <span class="glyphicon glyphicon-plus"></span> Incluir...
                                         </button>
@@ -288,6 +285,24 @@ $form->get('submit')->setAttributes([
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary" onclick="fncSalvarDependente(this)">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade " id="ExclusaoCCModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Exclusão</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="fncExcluirContaCorrente(this)">Sim</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
