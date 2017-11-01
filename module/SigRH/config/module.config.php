@@ -232,6 +232,20 @@ return [
                             ]
                         ]
                     ],
+                    'dependente' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/dependente[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\DependenteController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'estagio' => [
                         'type' => Segment::class,
                         'options' => [
@@ -246,6 +260,20 @@ return [
                             ]
                         ]
                     ],
+                    'sublotacao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/sublotacao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\SublotacaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                 ],
             ],
@@ -256,6 +284,7 @@ return [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
@@ -269,6 +298,7 @@ return [
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [

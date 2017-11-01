@@ -41,7 +41,7 @@ $form->get('submit')->setAttributes([
                     </div>
                     <div class="col-md-2">
                         <!--<img class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px;" src="file:///home/aplicacoes/sigrh-arquivos/fotos/352468.bmp" data-holder-rendered="true">-->
-                        <img id="imgFoto" style="height: 100%; width: 100%; object-fit: contain; border: 2px solid black"/>
+                        <img id="imgFoto" style="height: 100%; width: 100%; object-fit: contain; border: 2px solid gray"/>
                     </div>
                 </div>
                 
@@ -58,6 +58,7 @@ $form->get('submit')->setAttributes([
                     <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
                     <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
                     <li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>
+                    <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -160,7 +161,12 @@ $form->get('submit')->setAttributes([
                         }?>
                     </div>
                     <div id="estagio" class="tab-pane fade">
-                        <p>Estágio</p>
+                        <div class="row">
+                            <div class="col-md-12" id="gridEstagio">
+                               
+                            </div>
+                            
+                        </div>
                         
                         <?php if ( !empty($this->colaborador) ) { 
                             $matricula = $this->colaborador->getMatricula();
@@ -177,6 +183,11 @@ $form->get('submit')->setAttributes([
                                     </div>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridEstagio('<?php echo $matricula;?>');
+                                });
+                            </script>
                         <?php }
                         }?>
                         
@@ -188,8 +199,38 @@ $form->get('submit')->setAttributes([
                     <div id="avaliacoes" class="tab-pane fade">
                         <p>Avaliações</p>
                     </div>
+                    
+                    <div id="dependentes" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12" id="gridDependentes">
+                               
+                            </div>
+                            
+                        </div>
+                        <?php if ( !empty($this->colaborador) ) { 
+                            $matricula = $this->colaborador->getMatricula();
+                            if ( !empty($matricula) ) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridDependente('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Atualizar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoDependente('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridDependente('<?php echo $matricula;?>');
+                                });
+                                </script>
+                        <?php }
+                        }?>
+                    </div>
                 </div>
-
                 <br>
                 <br>
                 <hr>

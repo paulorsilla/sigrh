@@ -54,7 +54,7 @@ class ContaCorrente extends AbstractRepository {
         }
         unset($dados['banco']);
         
-        
+        /////gravação...
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao

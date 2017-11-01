@@ -78,6 +78,11 @@ class Estagio extends AbstractEntity {
      */
     protected $seguroCapital; //seguro_capital
   
+    /**
+     * @ORM\ManyToOne(targetEntity="Colaborador")
+     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
+     * */
+    protected $colaboradorMatricula; //ctps_uf_id
     
 
     /**
@@ -186,6 +191,14 @@ class Estagio extends AbstractEntity {
 
     function setSeguroCapital($seguroCapital) {
         $this->seguroCapital = $seguroCapital;
+    }
+
+    function getColaboradorMatricula() {
+        return $this->colaboradorMatricula;
+    }
+
+    function setColaboradorMatricula($colaboradorMatricula) {
+        $this->colaboradorMatricula = $colaboradorMatricula;
     }
 
 

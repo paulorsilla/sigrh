@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\EstagioForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Estagio;
+use SigRH\Entity\Colaborador;
 
 class EstagioController extends AbstractActionController
 {
@@ -76,9 +77,8 @@ class EstagioController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Estagio::class);
-//                                $matricula = $this->params()->fromQuery('matricula');
-//                                $repo->incluir_ou_editar($data,$id,$matricula);
-                                $repo->incluir_ou_editar($data,$id);
+                                $matricula = $this->params()->fromQuery('matricula');
+                                $repo->incluir_ou_editar($data,$id,$matricula);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);

@@ -13,9 +13,20 @@ class Estagio extends AbstractRepository {
                 ->orderby('e.anoInicio','ASC');
         
         if ( !empty($search['search'])){
-            $qb->where(' c.anoInicio like :busca');
+            $qb->where(' e.anoInicio like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
+        //inclui a pesquisa por matricula por meio de um join
+        if ( !empty($search['matricula'])){
+            $qb->join("e.colaboradorMatricula",'c');
+            $qb->where('c.matricula = :matricula');
+            $qb->setParameter("matricula",$search['matricula']);
+        }
+        
+//        echo "DQL: ".$qb->getDQL();
+//        echo "<hr>";
+//        echo "SQL: ".$qb->getQuery()->getSQL();
+//        die();
        return $qb;
     }
     
@@ -36,7 +47,7 @@ class Estagio extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
-    public function incluir_ou_editar($dados,$id = null){
+    public function incluir_ou_editar($dados,$id = null,$matricula=null){
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
@@ -45,6 +56,13 @@ class Estagio extends AbstractRepository {
         if ( empty($row)) {
             $row = new EstagioEntity();
         }
+        if ( !empty($matricula)) {
+            $colaborador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $matricula);
+            if ( empty($colaborador) )
+                throw new Exception('Colaborador nao encontrado');
+            $row->setColaboradorMatricula($colaborador);
+        }
+        
         //nivel...
         if ( !empty($dados['nivel'] )) {
             $nivel = $this->getEntityManager()->find('SigRH\Entity\Nivel', $dados['nivel']); //busca as informações
@@ -76,8 +94,7 @@ class Estagio extends AbstractRepository {
         
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
-        print_r($row);
-//        die;
+        // \Doctrine\Common\Util\Debug::dump($row); nunca usar print_r para elemento doctrine
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         

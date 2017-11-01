@@ -1,0 +1,38 @@
+<h1>Sublotações cadastradas</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Descricao</th>
+                <th>Sigla</th>
+                <th>Ano</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->sublotacoes as $sublotacao): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($sublotacao->getDescricao()); ?></td>
+                    <td><?= $this->escapeHtml($sublotacao->getSigla()); ?></td>
+                    <td><?= $this->escapeHtml($sublotacao->getAno()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/sublotacao', ['action' => 'save', 'id' => $sublotacao->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/sublotacao', ['action' => 'delete', 'id' => $sublotacao->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->sublotacoes, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/sublotacao']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/sublotacao/save">Novo
+        registro</a>
+</div>

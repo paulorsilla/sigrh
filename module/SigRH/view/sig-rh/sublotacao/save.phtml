@@ -1,0 +1,60 @@
+<?php
+$form = $this->form;
+$form->get('descricao')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o curso aqui'
+]);
+
+$form->get('sigla')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Sigla'
+]);
+$form->get('ano')->setAttributes([
+    'class' => 'form-control',
+]);
+
+
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro da sublotação</h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/sublotacao" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?php echo $this->form()->openTag($form); ?>
+
+                <?php echo $this->formLabel($form->get('descricao')); ?><br>
+                <?php echo $this->formElement($form->get('descricao')); ?>
+                <?php echo $this->formElementErrors($form->get('descricao')); ?>                  
+
+                <?php echo $this->formLabel($form->get('sigla')); ?><br>
+                <?php echo $this->formElement($form->get('sigla')); ?>
+                <?php echo $this->formElementErrors($form->get('sigla')); ?>                  
+
+                <?php echo $this->formLabel($form->get('ano')); ?><br>
+                <?php echo $this->formElement($form->get('ano')); ?>
+                <?php echo $this->formElementErrors($form->get('ano')); ?>                  
+                
+                <br>
+                <br>
+                <?php echo $this->formElement($form->get('submit')); ?>
+
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

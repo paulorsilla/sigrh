@@ -1,0 +1,35 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Grau de parentesco</th>
+            <th>Data de Nascimento</th>
+            <th>Ativo</th>
+            <th>Universitário</th>
+            <th>Salário Família</th>
+            <th>Imposto de Renda</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->dependentes as $dependente): ?>
+            <tr>
+                <td><?= $this->escapeHtml($dependente->getNome()); ?></td>
+                <td><?= $this->escapeHtml($dependente->getGrauParentesco()); ?></td>
+                <td><?= $this->escapeHtml($dependente->getDataNascimento()->format("d/m/Y")); ?></td>
+                <td><?php echo $dependente->getAtivo() ? "Sim" : "Nao"; ?></td>
+                <td><?php echo $dependente->getUniversitario() ? "Sim": "Não"; ?></td>
+                <td><?php echo $dependente->getSalarioFamilia() ? "Sim":"Não"; ?></td>
+                <td><?php echo $dependente->getImpostoRenda() ? "Sim":"Não"; ?></td>
+
+                <td><a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/dependente', ['action' => 'save', 'id' => $dependente->getId()]) ?>"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/dependente', ['action' => 'delete', 'id' => $dependente->getId()]) ?>"
+                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </tbody>
+</table>

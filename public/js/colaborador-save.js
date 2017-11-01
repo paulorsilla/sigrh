@@ -57,7 +57,13 @@
         $('#EstagioModal .modal-body').load(url);
         $('#EstagioModal').modal('show');
     }
-    
+    function editarEstagio(id){
+        url = "/sig-rh/estagio/save-modal/"+id;
+        $('#EstagioModal .modal-body').html('carregando...');
+        $('#EstagioModal .modal-body').attr('url',url);
+        $('#EstagioModal .modal-body').load(url);
+        $('#EstagioModal').modal('show');
+    }
     function refreshGridEstagio(matricula){
         url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
         $('#gridEstagio').html('carregando...');
@@ -84,6 +90,12 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
+    
+    function refreshGridDependente(matricula){
+        url = "/sig-rh/dependente/grid-modal?matricula="+matricula;
+        $('#gridDependentes').html('carregando...');
+        $('#gridDependentes').load(url);
+    }
     
     
 $(document).ready(function () {
