@@ -125,17 +125,21 @@ class EstagioForm extends Form {
         ]);
         
         
+       
         //Adiciona o campo "dataInicioEfetivo"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'dataInicioEfetivo',
             'attributes' => [
-                'id' => 'dataInicioEfetivo'
+                'id' => 'dataInicioEfetivo',
+                'class' => 'form-control',
             ],
             'options' => [
+                'format' => 'd/m/Y',
                 'label' => 'Data início efetivo'
             ],
         ]);
+        
         
         //Adiciona o campo "fonteSeguro"
         $this->add([
@@ -205,26 +209,6 @@ class EstagioForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "colaborador"
-        /*$this->add([
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'colaborador',
-            'attributes' => [
-                'id' => 'colaborador',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o colaborador aqui'
-            ],
-            'options' => [
-                'label' => 'Colaborador',
-                'empty_option' => 'Selecione',
-                'object_manager' => $this->getObjectManager(),
-                'target_class' => \SigRH\Entity\Colaborador::class,
-                'property' => 'colaborador',
-                'display_empty_item' => true,
-            ]
-        ]);*/
-        
-
 
         $this->add([
             'type' => 'submit',
@@ -239,7 +223,7 @@ class EstagioForm extends Form {
     private function addInputFilter() {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
-/*
+
         $inputFilter->add([
             'name' => 'anoInicio',
             'required' => true,
@@ -281,12 +265,12 @@ class EstagioForm extends Form {
 
          $inputFilter->add([
             'name' => 'nivel',
-            'required' => false,
+            'required' => true,
         ]);
        
          $inputFilter->add([
             'name' => 'curso',
-            'required' => false,
+            'required' => true,
         ]);
 /*         
          $inputFilter->add([
@@ -295,7 +279,7 @@ class EstagioForm extends Form {
         ]);
     */     
          
-  /*       
+         
          $inputFilter->add([
             'name' => 'serie',
             'required' => false,
@@ -336,7 +320,7 @@ class EstagioForm extends Form {
    
          $inputFilter->add([
             'name' => 'fonteSeguro',
-            'required' => false,
+            'required' => true,
         ]);
          
          $inputFilter->add([
@@ -351,7 +335,7 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
@@ -370,7 +354,7 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
@@ -379,7 +363,7 @@ class EstagioForm extends Form {
          
          $inputFilter->add([
             'name' => 'seguroMensalidade',
-            'required' => false,
+            'required' => true,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -389,7 +373,7 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
@@ -408,12 +392,12 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
             ],
-        ]);*/
+        ]);
     }
 
 }

@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\EstagioForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Estagio;
-use SigRH\Entity\Colaborador;
 
 class EstagioController extends AbstractActionController
 {
@@ -28,18 +27,6 @@ class EstagioController extends AbstractActionController
 	{
 		$this->entityManager = $entityManager;
                 $this->objectManager = $objectManager;
-	}
-	
-	public function indexAction()
-	{
-                $repo = $this->entityManager->getRepository(Estagio::class);
-                $page = $this->params()->fromQuery('page', 1);
-                $search = $this->params()->fromPost();
-                $paginator = $repo->getPaginator($page,$search);
-            
-		return new ViewModel([
-				'estagios' => $paginator,
-		]);	
 	}
 	
         public function gridModalAction()

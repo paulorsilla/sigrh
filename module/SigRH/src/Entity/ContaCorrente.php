@@ -28,10 +28,6 @@ class ContaCorrente extends AbstractEntity {
      */
     protected $agencia;
 
-    /**
-     * @ORM\Column(name="sequencia", type="integer")
-     */
-    protected $sequencia;
     
     /**
      * @ORM\Column(name="conta_corrente", type="string")

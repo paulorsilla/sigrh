@@ -79,9 +79,9 @@
         
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
-                 alert('hi!!');            
                 
                 $("#EstagioModal").modal('hide');
+                refreshGridEstagio($("input#matricula").val());
                  
                 
             } else {
@@ -90,6 +90,14 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
+
+    function excluirEstagio(id){
+        url = "/sig-rh/estagio/delete/"+id;
+        $('#EstagioModal .modal-body').html('carregando...');
+        $('#EstagioModal .modal-body').attr('url',url);
+        $('#EstagioModal .modal-body').load(url);
+        $('#EstagioModal').modal('show');
+    }
     
     function refreshGridDependente(matricula){
         url = "/sig-rh/dependente/grid-modal?matricula="+matricula;

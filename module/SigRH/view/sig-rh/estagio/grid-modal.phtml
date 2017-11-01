@@ -22,7 +22,7 @@
                 <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
                 <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
                 <td><?php //= $this->escapeHtml($estagio->getInstituicao()); ?></td>
-                <td><?php //$this->escapeHtml(\DateTime::createFromFormat ( "d/m/Y", $estagio->getDataInicioEfetivo())); ?></td>
+                <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
                 
                 <td><button type="button" class="btn btn-primary btn-sm pull-center"
                        onclick="editarEstagio('<?php echo $estagio->getId();?>')"

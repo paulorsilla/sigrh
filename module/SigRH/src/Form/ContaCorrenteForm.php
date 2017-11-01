@@ -34,19 +34,6 @@ class ContaCorrenteForm extends Form {
         return $this->objectManager;
     }
     protected function addElements() {
-        //Adiciona o campo "descricao"
-        $this->add([
-            'type' => 'text',
-            'name' => 'sequencia',
-            'attributes' => [
-                'id' => 'sequencia',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o nome do banco aqui'
-            ],
-            'options' => [
-                'label' => 'Sequência'
-            ],
-        ]);
         
         //Adiciona o campo "banco"
         $this->add([

@@ -10,7 +10,7 @@ class ContaCorrente extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ContaCorrenteEntity::class, 'c')
-                ->orderby('c.sequencia','ASC');
+                ->orderby('c.contaCorrente','ASC');
         
         if ( !empty($search['search'])){
             $qb->where(' c.contaCorrente like :busca');
