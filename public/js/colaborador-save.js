@@ -75,12 +75,19 @@
         });
     } 
     
+    function novoDependente(matricula){
+        url = "/sig-rh/dependente/save-modal?matricula="+matricula;
+        $('#DependenteModal .modal-body').html('carregando...');
+        $('#DependenteModal .modal-body').attr('url',url);
+        $('#DependenteModal .modal-body').load(url);
+        $('#DependenteModal').modal('show');
+    }
+
     function refreshGridDependente(matricula){
         url = "/sig-rh/dependente/grid-modal?matricula="+matricula;
         $('#gridDependentes').html('carregando...');
         $('#gridDependentes').load(url);
     }
-    
     
 $(document).ready(function () {
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());

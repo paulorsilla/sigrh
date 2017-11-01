@@ -1,0 +1,56 @@
+<?= $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <div class="row">
+            <div class="col-md-6">
+                <?php echo $this->formLabel($this->form->get('nome')); ?><br>
+                <?php echo $this->formElement($this->form->get('nome')); ?>
+                <?php echo $this->formElementErrors($this->form->get('nome')); ?>                  
+            </div>
+
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('grauParentesco')); ?><br>
+                <?php echo $this->formElement($this->form->get('grauParentesco')); ?>
+                <?php echo $this->formElementErrors($this->form->get('grauParentesco')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('dataNascimento')); ?><br>
+                <?php echo $this->formElement($this->form->get('dataNascimento')); ?>
+                <?php echo $this->formElementErrors($this->form->get('dataNascimento')); ?>                  
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('ativo')); ?><br>
+                <?php echo $this->formElement($this->form->get('ativo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('ativo')); ?>                  
+            </div>
+
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('universitario')); ?><br>
+                <?php echo $this->formElement($this->form->get('universitario')); ?>
+                <?php echo $this->formElementErrors($this->form->get('universitario')); ?>                  
+            </div>
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('salarioFamilia')); ?><br>
+                <?php echo $this->formElement($this->form->get('salarioFamilia')); ?>
+                <?php echo $this->formElementErrors($this->form->get('salarioFamilia')); ?>                  
+            </div>
+
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('impostoRenda')); ?><br>
+                <?php echo $this->formElement($this->form->get('impostoRenda')); ?>
+                <?php echo $this->formElementErrors($this->form->get('impostoRenda')); ?>                  
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<?= $this->form()->closeTag(); ?>

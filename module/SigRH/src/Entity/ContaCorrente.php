@@ -29,26 +29,25 @@ class ContaCorrente extends AbstractEntity {
     protected $agencia;
 
     /**
-     * @ORM\Column(name="sequencia", type="integer")
-     */
-    protected $sequencia;
-    
-    /**
      * @ORM\Column(name="conta_corrente", type="string")
      */
     protected $contaCorrente;
     
     /**
-     * @ORM\Column(name="conjunta", type="string")
+     * @ORM\Column(name="conjunta", type="boolean")
      */
     protected $conjunta;
-    
 
     /**
      * @ORM\Column(name="nome_conjunta", type="string")
      */
     protected $nomeConjunta;
     
+    /**
+     * @ORM\Column(name="cpf_conjunta", type="string")
+     */
+    protected $cpfConjunta;
+
     /**
      * Returns user ID.
      * 
@@ -66,10 +65,6 @@ class ContaCorrente extends AbstractEntity {
         return $this->agencia;
     }
 
-    function getSequencia() {
-        return $this->sequencia;
-    }
-
     function getContaCorrente() {
         return $this->contaCorrente;
     }
@@ -82,8 +77,11 @@ class ContaCorrente extends AbstractEntity {
         return $this->nomeConjunta;
     }
 
-    
-        /**
+    function getCpfConjunta() {
+        return $this->cpfConjunta;
+    }
+   
+    /**
      * Sets user ID.
      * 
      * @param int $id        	
@@ -94,10 +92,6 @@ class ContaCorrente extends AbstractEntity {
 
     function setBanco($banco) {
         $this->banco = $banco;
-    }
-
-    function setSequencia($sequencia) {
-        $this->sequencia = $sequencia;
     }
 
     function setAgencia($agencia) {
@@ -115,7 +109,8 @@ class ContaCorrente extends AbstractEntity {
     function setNomeConjunta($nomeConjunta) {
         $this->nomeConjunta = $nomeConjunta;
     }
-
-
-
+    
+    function setCpfConjunta($cpfConjunta) {
+        $this->cpfConjunta = $cpfConjunta;
+    }
 }

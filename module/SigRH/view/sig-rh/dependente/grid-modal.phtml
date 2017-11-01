@@ -14,7 +14,7 @@
         <?php foreach ($this->dependentes as $dependente): ?>
             <tr>
                 <td><?= $this->escapeHtml($dependente->getNome()); ?></td>
-                <td><?= $this->escapeHtml($dependente->getGrauParentesco()); ?></td>
+                <td><?= $this->escapeHtml($this->grauParentesco[$dependente->getGrauParentesco()]); ?></td>
                 <td><?= $this->escapeHtml($dependente->getDataNascimento()->format("d/m/Y")); ?></td>
                 <td><?php echo $dependente->getAtivo() ? "Sim" : "Nao"; ?></td>
                 <td><?php echo $dependente->getUniversitario() ? "Sim": "Não"; ?></td>

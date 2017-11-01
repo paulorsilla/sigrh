@@ -10,10 +10,12 @@ class Colaborador extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
-                ->orderby('c.nome','ASC');
+                ->orderby('c.nome','ASC')
+                ->where('c.matricula < 500000')
+                ->andWhere('c.dataDesligamento is NULL');
         
         if ( !empty($search['search'])){
-            $qb->where('b.nome like :busca');
+            $qb->where('c.nome like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
        return $qb;

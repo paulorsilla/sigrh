@@ -1,23 +1,23 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Código</th>
             <th>Banco</th>
             <th>Agência</th>
+            <th>Conta corrente</th>
             <th>Conjunta</th>
             <th>Nome conjunta</th>
+            <th>Cpf conjunta</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($this->contasCorrente as $cc): ?>
             <tr>
-                <td><?= $this->escapeHtml($cc->getId()); ?></td>
-                <td><?= $this->escapeHtml($cc->getSequencia()); ?></td>
-                <td><?= $this->escapeHtml($cc->getBanco()->getBanco()); ?></td>
-                <td><?= $this->escapeHtml($cc->getAgencia()); ?></td>
-                <td><?= $this->escapeHtml($cc->getConjunta()); ?></td>
-                <td><?= $this->escapeHtml($cc->getNomeConjunta()); ?></td>
+                <td><?php echo $this->escapeHtml($cc->getBanco()->getBanco()); ?></td>
+                <td><?php echo $this->escapeHtml($cc->getAgencia()); ?></td>
+                <td><?php echo $this->escapeHtml($cc->getContaCorrente()); ?></td>
+                <td><?php echo ($cc->getConjunta() ? "Sim":"Não"); ?></td>
+                <td><?php echo $this->escapeHtml($cc->getNomeConjunta()); ?></td>
+                <td><?php echo $this->escapeHtml($cc->getCpfConjunta()); ?></td>
 
                 <td><button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="editarContaCorrente('<?php echo $cc->getId();?>')"
