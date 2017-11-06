@@ -1,0 +1,17 @@
+<?php
+$title = 'Excluir um registro';
+$url   = $this->url('sig-rh/conta-corrente', ['action' => 'delete-modal', 'id' => $contaCorrente->getId()]);
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<p>
+    Deseja realmente excluir 
+    "<?= $this->escapeHtml($contaCorrente->getContaCorrente()); ?>"
+</p>
+
+<form action="<?php echo $url; ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?php echo (int) $contaCorrente->getId(); ?>" />
+    </div>
+</form>

@@ -42,7 +42,6 @@ class ContaCorrenteForm extends Form {
             'attributes' => [
                 'id' => 'banco',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o código do banco aqui'
             ],
             'options' => [
                 'label' => 'Banco',
@@ -60,7 +59,9 @@ class ContaCorrenteForm extends Form {
             'type' => 'text',
             'name' => 'agencia',
             'attributes' => [
-                'id' => 'agencia'
+                'id' => 'agencia',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a agência aqui'
             ],
             'options' => [
                 'label' => 'Agência'
@@ -72,22 +73,29 @@ class ContaCorrenteForm extends Form {
             'type' => 'text',
             'name' => 'contaCorrente',
             'attributes' => [
-                'id' => 'contaCorrente'
+                'id' => 'contaCorrente',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a conta corrente aqui'
             ],
             'options' => [
                 'label' => 'Conta corrente'
             ],
         ]);
         
-        //Adiciona o campo "conjunta"
+        //Adiciona o campo "conta conjunta"
         $this->add([
-            'type' => 'text',
+            'type' => 'select',
             'name' => 'conjunta',
             'attributes' => [
-                'id' => 'conjunta'
+                'id' => 'conjunta',
+                'class' => 'form-control'
             ],
             'options' => [
-                'label' => 'Conjunta'
+                'label' => 'Conta Conjunta',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
             ],
         ]);
         
@@ -96,14 +104,28 @@ class ContaCorrenteForm extends Form {
             'type' => 'text',
             'name' => 'nomeConjunta',
             'attributes' => [
-                'id' => 'nomeConjunta'
+                'id' => 'nomeConjunta',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o nome aqui'
             ],
             'options' => [
                 'label' => 'Nome conta conjunta'
             ],
         ]);
         
-
+        //Adiciona o campo "cpf_conjunta"
+        $this->add([
+            'type' => 'text',
+            'name' => 'cpfConjunta',
+            'attributes' => [
+                'id' => 'cpfConjunta',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o cpf aqui'
+            ],
+            'options' => [
+                'label' => 'Cpf conta conjunta'
+            ],
+        ]);
 
         $this->add([
             'type' => 'submit',
@@ -145,25 +167,6 @@ class ContaCorrenteForm extends Form {
 
         
          $inputFilter->add([
-            'name' => 'sequencia',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-
-         $inputFilter->add([
             'name' => 'contaCorrente',
             'required' => true,
             'filters' => [
@@ -185,20 +188,6 @@ class ContaCorrenteForm extends Form {
          $inputFilter->add([
             'name' => 'conjunta',
             'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 2,
-                        'max' => 200
-                    ],
-                ],
-            ],
         ]);
          
          $inputFilter->add([
@@ -213,12 +202,32 @@ class ContaCorrenteForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 5,
                         'max' => 200
                     ],
                 ],
             ],
         ]);
+         
+        $inputFilter->add([
+            'name' => 'cpfConjunta',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 20
+                    ],
+                ],
+            ],
+        ]);
+
 
     }
 

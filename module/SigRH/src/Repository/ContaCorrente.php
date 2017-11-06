@@ -9,8 +9,7 @@ class ContaCorrente extends AbstractRepository {
     public function getQuery($search = array()) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
-                ->from(ContaCorrenteEntity::class, 'c')
-                ->orderby('c.contaCorrente','ASC');
+                ->from(ContaCorrenteEntity::class, 'c');
         
         if ( !empty($search['search'])){
             $qb->where(' c.contaCorrente like :busca');
@@ -29,22 +28,30 @@ class ContaCorrente extends AbstractRepository {
         return $array;
     }
     
-    public function delete($id){
+    public function delete($id, $matricula){
         $row = $this->find($id);
+        error_log("excluindo id = ".$id);
         if ($row) {
-                $this->getEntityManager()->remove($row);
-                $this->getEntityManager()->flush();
+            $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
+            if ( empty($colaborador) )
+                throw new Exception('Colaborador nao encontrado');
+            $colaborador->getContasCorrente()->removeElement($row);
+            $this->getEntityManager()->flush();
+//            $this->getEntityManager()->persist($colaborador);
+            $this->getEntityManager()->remove($row);
+            $this->getEntityManager()->flush();
         }
     }
-    public function incluir_ou_editar($dados,$id = null,$matricula=null){
+    public function incluir_ou_editar($dados, $id = null, $matricula=null) {
 
         if ( empty($matricula))
             throw new Exception('Matricula em branco');
         $row = null;
+        $incluir = true;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
             $row = $this->find($id); // busca o registro do banco para poder alterar
-        }    
-        if ( empty($row)) {
+            $incluir = false;
+        } else {
             $row = new ContaCorrenteEntity();
         }
         //banco...
@@ -62,10 +69,11 @@ class ContaCorrente extends AbstractRepository {
         $colaborador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $matricula);
         if ( empty($colaborador) )
             throw new Exception('Colaborador nao encontrado');
-        $colaborador->getContasCorrente()->add($row);
-        $this->getEntityManager()->persist($colaborador);
-        $this->getEntityManager()->flush(); // Confirma a atualizacao
-        
+        if ($incluir) {
+            $colaborador->getContasCorrente()->add($row);
+            $this->getEntityManager()->persist($colaborador);
+            $this->getEntityManager()->flush(); // Confirma a atualizacao
+        }
         return $row;
     }
 

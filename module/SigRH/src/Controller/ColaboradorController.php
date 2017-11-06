@@ -94,8 +94,10 @@ class ColaboradorController extends AbstractActionController
                                 $form->get("numero")->setValue($endereco->getNumero());
                                 $form->get("complemento")->setValue($endereco->getComplemento());
                                 $form->get("bairro")->setValue($endereco->getBairro());
-                                $form->get("cidade")->setValue($endereco->getCidade()->getId());
-                                $form->get("estado")->setValue($endereco->getCidade()->getEstado()->getId());
+                                if (null != $endereco->getCidade()) {
+                                    $form->get("cidade")->setValue($endereco->getCidade()->getId());
+                                    $form->get("estado")->setValue($endereco->getCidade()->getEstado()->getId());
+                                }
                             }
                             
                            
