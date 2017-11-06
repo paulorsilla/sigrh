@@ -6,18 +6,32 @@ use SigRH\Entity\Colaborador as ColaboradorEntity;
 
 class Colaborador extends AbstractRepository {
 
-    public function getQuery($search = array()) {
+    public function getQuery($search = []) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
-                ->where('c.matricula < 500000')
-                ->andWhere('c.dataDesligamento is NULL');
-        
-        if ( !empty($search['search'])){
-            $qb->where('c.nome like :busca');
-            $qb->setParameter("busca",'%'.$search['search'].'%');
+                ->where('c.nome is not NULL');
+        if (null != $search['ativo']) {
+            if ($search['ativo'] == 'S') {
+                $qb->andWhere('c.dataDesligamento is NULL');
+            } else {
+                $qb->andWhere('c.dataDesligamento is NOT NULL');
+            }
+            unset($search['ativo']);
         }
+        if ( (null != $search['tipoColaborador']) && ($search['tipoColaborador'] == 2)) {
+            unset($search['tipoColaborador']);
+            $qb->andWhere('c.tipoColaborador > 1');
+        }
+        foreach($search as $key => $value) {
+            $qb->andWhere('c.'.$key.' = :'.$key);
+            $qb->setParameter($key, $value);
+        }
+//        if ( !empty($search)){
+//            $qb->where('c.tipoColaborador = :busca');
+//            $qb->setParameter("busca", $search['tipoColaborador']);
+//        }
        return $qb;
     }
     
