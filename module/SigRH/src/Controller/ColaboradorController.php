@@ -34,10 +34,12 @@ class ColaboradorController extends AbstractActionController
                 $repo = $this->entityManager->getRepository(Colaborador::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $search = $this->params()->fromPost();
-                $paginator = $repo->getPaginator($page,$search);
+                $search['tipoColaborador'] = 2;
+                $search['ativo'] = 'S';
+                $paginator = $repo->getPaginator($page, $search);
 		return new ViewModel([
 				'colaboradores' => $paginator,
-		]);	
+		]);
 	}
 	
 	/**
