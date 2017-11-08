@@ -84,6 +84,14 @@ class Estagio extends AbstractRepository {
         }
         unset($dados['fonteSeguro']);
         
+        //instituicao...
+        if ( !empty($dados['instituicao'] )) {
+            $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
+            $row->setInstituicao($instituicao);
+        }
+        unset($dados['instituicao']);
+        
+        
         $row->setDataInicioEfetivo(null);
         if ($dados ['dataInicioEfetivo'] != "") {					
             $dataInicioEfetivo = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataInicioEfetivo'] );

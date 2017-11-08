@@ -1,0 +1,51 @@
+<?php
+$form = $this->form;
+$form->get('banco')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o nome do banco aqui'
+]);
+
+$form->get('codigo')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite o código do banco aqui'
+]);
+
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro de bancos</h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/banco" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->form()->openTag($form); ?>
+
+                <?= $this->formLabel($form->get('banco')); ?><br>
+                <?= $this->formElement($form->get('banco')); ?>
+                <?= $this->formElementErrors($form->get('banco')); ?>                  
+
+                <?= $this->formLabel($form->get('codigo')); ?><br>
+                <?= $this->formElement($form->get('codigo')); ?>
+                <?= $this->formElementErrors($form->get('codigo')); ?>                  
+                <br>
+                <br>
+                <?= $this->formElement($form->get('submit')); ?>
+
+                <?= $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

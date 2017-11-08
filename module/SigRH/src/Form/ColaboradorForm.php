@@ -450,16 +450,19 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "rg_data_emissao"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'rgDataEmissao',
             'attributes' => [
-                'id' => 'rg_data_emissao',
+                'id' => 'rgDataEmissao',
                 'class' => 'form-control',
             ],
             'options' => [
+                'format' => 'd/m/Y',
                 'label' => 'Data de emissão'
             ],
         ]);
+        
+        
 
         //Adiciona o campo "rg_orgao_expedidor"
         $this->add([
@@ -537,13 +540,14 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "ctps_data_expedicao"
         $this->add([
-            'type' => 'text',
+            'type' => 'Zend\Form\Element\Date',
             'name' => 'ctpsDataExpedicao',
             'attributes' => [
                 'id' => 'ctpsDataExpedicao',
                 'class' => 'form-control',
             ],
             'options' => [
+                'format' => 'd/m/Y',
                 'label' => 'Data expedição'
             ],
         ]);

@@ -1,28 +1,36 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Colaborador</th>
             <th>Início</th>
-            <th>Conclusão</th>
+            <th>Previsão conclusão</th>
             <th>Nível</th>
             <th>Curso</th>
-            <th>Instituição</th>
+            <th>Série</th>
             <th>Início efetivo</th>
+            <th>Fonte seguro</th>
+            <th>Apólice seguro</th>
+            <th>Seguradora</th>
+            <th>Mensalidade seguro</th>
+            <th>Capital seguro</th>
+            <th>Instituição</th>
             
         </tr>
     </thead>
     <tbody>
         <?php foreach ($this->estagios as $estagio): ?>
             <tr>
-                <td><?= $this->escapeHtml($estagio->getId()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getColaboradorMatricula()->getNome()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoInicio()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getAnoPrevisaoConclusao()); ?></td>
                 <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
                 <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
-                <td><?php //= $this->escapeHtml($estagio->getInstituicao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
                 <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
+                <td><?= $estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroApolice()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroSeguradora()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroMensalidade()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getSeguroCapital()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
                 
                 <td><button type="button" class="btn btn-primary btn-sm pull-center"
                        onclick="editarEstagio('<?php echo $estagio->getId();?>')"

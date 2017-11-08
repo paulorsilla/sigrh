@@ -1,0 +1,28 @@
+<h1>Instituições cadastradas</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Razão social</th>
+                <th>Nome fantasia</th>
+                <th>PF/PJ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->instituicoes as $instituicao): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($instituicao->getCodInstituicao()); ?></td>
+                    <td><?= $this->escapeHtml($instituicao->getDesRazaoSocial()); ?></td>
+                    <td><?= $this->escapeHtml($instituicao->getNomFantasia()); ?></td>
+                    <td><?= $this->escapeHtml($instituicao->getDesPfPj()); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->instituicoes, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/instituicao']); ?>
+    </span>
+</div>
+

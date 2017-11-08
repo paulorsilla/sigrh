@@ -36,6 +36,11 @@ class Estagio extends AbstractEntity {
      **/        
     protected $fonteSeguro; //fonte_seguro_id 
     
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
+     * @ORM\JoinColumn(name="instituicao_ensino_id", referencedColumnName="cod_instituicao")
+     **/        
+    protected $instituicao; //instituicao_ensino_id 
     
      /**
      * @ORM\Column(name="ano_inicio", type="integer")
@@ -141,7 +146,13 @@ class Estagio extends AbstractEntity {
         return $this->colaboradorMatricula;
     }
 
+    function getInstituicao() {
+        return $this->instituicao;
+    }
+
+        
     
+        
     /**
      * Sets user ID.
      * 
@@ -200,6 +211,12 @@ class Estagio extends AbstractEntity {
     function setColaboradorMatricula($colaboradorMatricula) {
         $this->colaboradorMatricula = $colaboradorMatricula;
     }
+
+    function setInstituicao($instituicao) {
+        $this->instituicao = $instituicao;
+    }
+
+
 
 
     

@@ -80,6 +80,7 @@ class EstagioController extends AbstractActionController
                             $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("curso")->setValue($row->curso->id);
                             $form->get("fonteSeguro")->setValue($row->fonteSeguro->id);
+                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                           
                         }
                     }

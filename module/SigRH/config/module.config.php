@@ -274,7 +274,20 @@ return [
                             ]
                         ]
                     ],
-                    
+                    'instituicao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/instituicao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\InstituicaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                 ],
             ],
         ],
@@ -294,11 +307,12 @@ return [
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\InstituicaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [

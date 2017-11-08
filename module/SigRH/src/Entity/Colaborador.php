@@ -197,7 +197,7 @@ class Colaborador extends AbstractEntity {
     protected $rgNumero;
 
     /**
-     * @ORM\Column(name="rg_data_emissao", type="string")
+     * @ORM\Column(name="rg_data_emissao", type="datetime")
      */
     protected $rgDataEmissao;
 
@@ -222,7 +222,7 @@ class Colaborador extends AbstractEntity {
     protected $ctpsSerie;
 
     /**
-     * @ORM\Column(name="ctps_data_expedicao", type="string")
+     * @ORM\Column(name="ctps_data_expedicao", type="datetime")
      */
     protected $ctpsDataExpedicao;
 

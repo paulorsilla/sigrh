@@ -99,19 +99,25 @@ class EstagioForm extends Form {
             ]
         ]);
         
+        //Adiciona o campo "instituicao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'instituicao',
+            'attributes' => [
+                'id' => 'instituicao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Instituição',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Instituicao::class,
+                'property' => 'desRazaoSocial',
+                'display_empty_item' => true,
+            ]
+        ]);
+
         
-//        //Adiciona o campo "instituicao"
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'instituicao',
-//            'attributes' => [
-//                'id' => 'instituicao'
-//            ],
-//            'options' => [
-//                'label' => 'Instituição'
-//            ],
-//        ]);
-//        
         //Adiciona o campo "serie"
         $this->add([
             'type' => 'text',
@@ -272,12 +278,11 @@ class EstagioForm extends Form {
             'name' => 'curso',
             'required' => true,
         ]);
-/*         
+         
          $inputFilter->add([
             'name' => 'instituicao',
             'required' => false,
         ]);
-    */     
          
          
          $inputFilter->add([

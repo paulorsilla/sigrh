@@ -174,11 +174,27 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['dataDesligamento']);
         
+        $row->setRgDataEmissao(null);
+        if ($dados ['rgDataEmissao'] != "") {					
+            $rgDataEmissao = \DateTime::createFromFormat ( "d/m/Y", $dados ['rgDataEmissao'] );
+            if ( !empty($rgDataEmissao)  )
+                $row->setRgDataEmissao($rgDataEmissao);
+        }
+        unset($dados['rgDataEmissao']);
+        
+        $row->setCtpsDataExpedicao(null);
+        if ($dados ['ctpsDataExpedicao'] != "") {					
+            $rgDataEmissao = \DateTime::createFromFormat ( "d/m/Y", $dados ['ctpsDataExpedicao'] );
+            if ( !empty($ctpsDataExpedicao)  )
+                $row->setRgDataEmissao($ctpsDataExpedicao);
+        }
+        unset($dados['ctpsDataExpedicao']);
+        
         
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($endereco);
-        $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
+        $this->getEntityManager()->persist($row); // persiste o model  ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         
         return $row;

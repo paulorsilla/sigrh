@@ -33,17 +33,6 @@ class DependenteController extends AbstractActionController
                 $this->objectManager = $objectManager;
 	}
 	
-//	public function indexAction()
-//	{
-//                $repo = $this->entityManager->getRepository(ContaCorrente::class);
-//                $page = $this->params()->fromQuery('page', 1);
-//                $search = $this->params()->fromPost();
-//                $paginator = $repo->getPaginator($page,$search);
-//            
-//		return new ViewModel([
-//				'contasCorrente' => $paginator,
-//		]);	
-//	}
 	
         public function gridModalAction()
 	{
