@@ -38,19 +38,19 @@ class Estagio extends AbstractEntity {
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
-     * @ORM\JoinColumn(name="instituicao_ensino_id", referencedColumnName="cod_instituicao")
+     * @ORM\JoinColumn(name="instituicao_id", referencedColumnName="cod_instituicao")
      **/        
-    protected $instituicao; //instituicao_ensino_id 
+    protected $instituicao; 
     
      /**
-     * @ORM\Column(name="ano_inicio", type="integer")
+     * @ORM\Column(name="inicio", type="string")
      */
-    protected $anoInicio; //ano_inicio
+    protected $inicio; 
 
     /**
-     * @ORM\Column(name="ano_previsao_conclusao", type="integer")
+     * @ORM\Column(name="previsao_conclusao", type="string")
      */
-    protected $anoPrevisaoConclusao; //ano_previsao_conclusao
+    protected $previsaoConclusao; //previsao_conclusao
 
     /**
      * @ORM\Column(name="serie", type="string")
@@ -73,16 +73,6 @@ class Estagio extends AbstractEntity {
      */
     protected $seguroSeguradora; //seguro_seguradora
     
-     /**
-     * @ORM\Column(name="seguro_mensalidade", type="string")
-     */
-    protected $seguroMensalidade; //seguro_mensalidade
-
-     /**
-     * @ORM\Column(name="seguro_capital", type="string")
-     */
-    protected $seguroCapital; //seguro_capital
-  
     /**
      * @ORM\ManyToOne(targetEntity="Colaborador")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
@@ -115,12 +105,12 @@ class Estagio extends AbstractEntity {
         return $this->curso;
     }
 
-        function getAnoInicio() {
-        return $this->anoInicio;
+    function getInicio() {
+        return $this->inicio;
     }
 
-    function getAnoPrevisaoConclusao() {
-        return $this->anoPrevisaoConclusao;
+    function getPrevisaoConclusao() {
+        return $this->previsaoConclusao;
     }
 
     function getDataInicioEfetivo() {
@@ -132,14 +122,6 @@ class Estagio extends AbstractEntity {
 
     function getSeguroSeguradora() {
         return $this->seguroSeguradora;
-    }
-
-    function getSeguroMensalidade() {
-        return $this->seguroMensalidade;
-    }
-
-    function getSeguroCapital() {
-        return $this->seguroCapital;
     }
 
     function getColaboradorMatricula() {
@@ -166,10 +148,6 @@ class Estagio extends AbstractEntity {
         $this->nivel = $nivel;
     }
 
-    function setAnoInicio($anoInicio) {
-        $this->anoInicio = $anoInicio;
-    }
-
     function setCurso($curso) {
         $this->curso = $curso;
     }
@@ -178,12 +156,15 @@ class Estagio extends AbstractEntity {
         $this->fonteSeguro = $fonteSeguro;
     }
 
-    
-    function setAnoPrevisaoConclusao($anoPrevisaoConclusao) {
-        $this->anoPrevisaoConclusao = $anoPrevisaoConclusao;
+    function setInicio($inicio) {
+        $this->inicio = $inicio;
     }
 
-    function setSerie($serie) {
+    function setPrevisaoConclusao($previsaoConclusao) {
+        $this->previsaoConclusao = $previsaoConclusao;
+    }
+
+        function setSerie($serie) {
         $this->serie = $serie;
     }
 

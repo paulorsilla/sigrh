@@ -5,13 +5,11 @@
             <th>Previsão conclusão</th>
             <th>Nível</th>
             <th>Curso</th>
-            <th>Série</th>
+            <th>Semestre</th>
             <th>Início efetivo</th>
             <th>Fonte seguro</th>
             <th>Apólice seguro</th>
             <th>Seguradora</th>
-            <th>Mensalidade seguro</th>
-            <th>Capital seguro</th>
             <th>Instituição</th>
             
         </tr>
@@ -19,8 +17,8 @@
     <tbody>
         <?php foreach ($this->estagios as $estagio): ?>
             <tr>
-                <td><?= $this->escapeHtml($estagio->getAnoInicio()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getAnoPrevisaoConclusao()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getInicio()); ?></td>
+                <td><?= $this->escapeHtml($estagio->getPrevisaoConclusao()); ?></td>
                 <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
                 <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
                 <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
@@ -28,8 +26,6 @@
                 <td><?= $estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
                 <td><?= $this->escapeHtml($estagio->getSeguroApolice()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getSeguroSeguradora()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getSeguroMensalidade()); ?></td>
-                <td><?= $this->escapeHtml($estagio->getSeguroCapital()); ?></td>
                 <td><?= $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
                 
                 <td><button type="button" class="btn btn-primary btn-sm pull-center"
