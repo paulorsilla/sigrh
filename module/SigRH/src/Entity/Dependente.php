@@ -5,8 +5,8 @@ namespace SigRH\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Classe Curso.
- * @ORM\Entity(repositoryClass="SigRH\Repository\Curso")
+ * Classe Dependente.
+ * @ORM\Entity(repositoryClass="SigRH\Repository\Dependente")
  * @ORM\Table(name="dependente")
  */
 class Dependente extends AbstractEntity{
@@ -19,10 +19,11 @@ class Dependente extends AbstractEntity{
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Colaborador", inversedBy="dependentes")
+    /**
+     * @ORM\ManyToOne(targetEntity="Colaborador")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
-     */
-    protected $colaboradorMatricula;
+     * */
+    protected $colaboradorMatricula; //colaborador_matricula
 
     /**
      * @ORM\Column(name="nome", type="string")

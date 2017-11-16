@@ -1,0 +1,116 @@
+
+<h1>Cadastro de convênios</h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/convenio" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->form()->openTag($form); ?>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('instituicao')); ?><br>
+                <?php echo $this->formElement($form->get('instituicao')); ?>
+                <?php echo $this->formElementErrors($form->get('instituicao')); ?>                  
+            </div>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('convenioNumero')); ?><br>
+                <?php echo $this->formElement($form->get('convenioNumero')); ?>
+                <?php echo $this->formElementErrors($form->get('convenioNumero')); ?>                  
+            </div>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('convenioInicio')); ?><br>
+                <?php echo $this->formElement($form->get('convenioInicio')); ?>
+                <?php echo $this->formElementErrors($form->get('convenioInicio')); ?>                  
+            </div>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('convenioTermino')); ?><br>
+                <?php echo $this->formElement($form->get('convenioTermino')); ?>
+                <?php echo $this->formElementErrors($form->get('convenioTermino')); ?>                  
+            </div>
+                
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('tipo')); ?><br>
+                <?php echo $this->formElement($form->get('tipo')); ?>
+                <?php echo $this->formElementErrors($form->get('tipo')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelNome')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelNome')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelNome')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelCargo')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelCargo')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelCargo')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelCpfNumero')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelCpfNumero')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelCpfNumero')); ?>                  
+            </div>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelRgNumero')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelRgNumero')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelRgNumero')); ?>                  
+            </div>
+                
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelRgEmissor')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelRgEmissor')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelRgEmissor')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('responsavelRgDataEmissao')); ?><br>
+                <?php echo $this->formElement($form->get('responsavelRgDataEmissao')); ?>
+                <?php echo $this->formElementErrors($form->get('responsavelRgDataEmissao')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('descricaoJuridica')); ?><br>
+                <?php echo $this->formElement($form->get('descricaoJuridica')); ?>
+                <?php echo $this->formElementErrors($form->get('descricaoJuridica')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?= $this->formLabel($form->get('responsavelDescricaoJuridica')); ?><br>
+                <?= $this->formElement($form->get('responsavelDescricaoJuridica')); ?>
+                <?= $this->formElementErrors($form->get('responsavelDescricaoJuridica')); ?>                  
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?= $this->formLabel($form->get('observacoes')); ?><br>
+                <?= $this->formElement($form->get('observacoes')); ?>
+                <?= $this->formElementErrors($form->get('observacoes')); ?>                  
+            </div>
+                <br>
+        </div>
+                
+        <div class="row" style="margin-top: 20px">
+            <div class="col-sm-12" >
+                <?= $this->formElement($form->get('submit')); ?>
+            </div>
+        </div>
+                <br>
+                
+            
+    </div>
+</div>

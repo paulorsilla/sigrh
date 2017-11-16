@@ -138,9 +138,8 @@
         
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
-                
                 $("#DependenteModal").modal('hide');
-                refreshGridEstagio($("input#matricula").val());
+                refreshGridDependente($("input#matricula").val());
                  
                 
             } else {

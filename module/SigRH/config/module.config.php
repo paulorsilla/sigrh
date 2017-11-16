@@ -288,6 +288,21 @@ return [
                             ]
                         ]
                     ],
+                    'convenio' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/convenio[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ConvenioController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                 ],
             ],
         ],
@@ -300,6 +315,7 @@ return [
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CursoController::class => Service\Factory\PadraoControllerFactory::class,

@@ -1,0 +1,44 @@
+<h1>Convênios cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Número do convênio</th>
+                <th>Início convênio</th>
+                <th>Término convênio</th>
+                <th>Nome responsável</th>
+                <th>Cargo responsável</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->convenios as $convenio): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($this->tipo[$convenio->getTipo()]); ?></td>
+                    <td><?= $this->escapeHtml($convenio->getConvenioNumero()); ?></td>
+                    <td><?php echo $this->escapeHtml(null!= $convenio->getConvenioInicio() ? $convenio->getConvenioInicio()->format("d/m/Y"): ''); ?></td>
+                    <td><?php echo $this->escapeHtml(null!= $convenio->getConvenioTermino() ? $convenio->getConvenioTermino()->format("d/m/Y"): ''); ?></td>
+                    <td><?= $this->escapeHtml($convenio->getResponsavelNome()); ?></td>
+                    <td><?= $this->escapeHtml($convenio->getResponsavelCargo()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/convenio', ['action' => 'save', 'id' => $convenio->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/convenio', ['action' => 'delete', 'id' => $convenio->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->convenios, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/convenio']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/convenio/save">Novo
+        registro</a>
+</div>

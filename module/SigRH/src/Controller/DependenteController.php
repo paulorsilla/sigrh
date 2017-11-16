@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\DependenteForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Dependente;
-use SigRH\Entity\Colaborador;
+//use SigRH\Entity\Colaborador;
 //use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 //use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 //use Zend\Paginator\Paginator;
@@ -36,14 +36,21 @@ class DependenteController extends AbstractActionController
 	
         public function gridModalAction()
 	{
-                $matricula = $this->params()->fromQuery('matricula',0);
-                $colaborador = $this->entityManager->find(Colaborador::class, $matricula);
                 $grauParentesco = [1 => "Cônjuge", 2 => "Filho(a)", 3 => "Irmã(o)", 4 => "Pai", 5 => "Mãe", 99 => "Outros"];
+
+                $repo = $this->entityManager->getRepository(Dependente::class);
+                $page = $this->params()->fromQuery('page', 1);
+                $matricula = $this->params()->fromQuery('matricula',0);
+                $search = $this->params()->fromPost();
+                $search['matricula'] = $matricula;
+                $paginator = $repo->getPaginator($page,$search);
+            
                 $view = new ViewModel([
-                                'dependentes' => $colaborador->getDependentes(),
+				'dependentes' => $paginator,
                                 'grauParentesco' => $grauParentesco
 		]);
 		return 	$view->setTerminal(true);
+            
 	}
 	/**
 	 * Action para salvar um novo registro
@@ -59,7 +66,6 @@ class DependenteController extends AbstractActionController
 			
 			//Recebe os dados via POST
 			$data = $this->params()->fromPost();
-			
 			//Preenche o form com os dados recebidos e o valida
 			$form->setData($data);
 			if ($form->isValid()) {
@@ -67,6 +73,7 @@ class DependenteController extends AbstractActionController
                                 $repo = $this->entityManager->getRepository(Dependente::class);
                                 $matricula = $this->params()->fromQuery('matricula');
                                 $repo->incluir_ou_editar($data,$id,$matricula);
+                                
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
@@ -77,7 +84,9 @@ class DependenteController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
+                          
                         }
+
                     }
                 }
                 $view = new ViewModel([
