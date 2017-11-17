@@ -36,10 +36,11 @@ class Termo extends AbstractEntity {
      **/        
     protected $instituicao; 
     
- /** 
-  ** Muitos termos tem 1 estagio.     
-  ** @ManyToOne(targetEntity="Estagio", inversedBy="termos")     
-  ** @JoinColumn(name="estagio_id", referencedColumnName="id")     */    
+    /** 
+    * Muitos termos tem 1 estagio.     
+    * @ORM\ManyToOne(targetEntity="Estagio", inversedBy="termos")     
+    * @ORM\JoinColumn(name="estagio_id", referencedColumnName="id")     
+    **/    
     private $estagio;    //estagio_id
     
     /**
@@ -52,7 +53,6 @@ class Termo extends AbstractEntity {
      * @ORM\JoinColumn(name="fundacao_id", referencedColumnName="cod_instituicao")
      **/        
     protected $fundacao; 
-    
     
      /**
      * @ORM\Column(name="aditivo", type="string")
@@ -93,10 +93,6 @@ class Termo extends AbstractEntity {
      * @ORM\Column(name="valor_bolsa", type="decimal")
      */
     protected $valorBolsa; 
-    
-    
-    
-    
     
     /**
      * Returns user ID.
@@ -227,7 +223,5 @@ class Termo extends AbstractEntity {
     function setEstagio($estagio) {
         $this->estagio = $estagio;
     }
-
-
     
 }
