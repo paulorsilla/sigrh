@@ -703,6 +703,17 @@ class ColaboradorForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Colaborador::class,
                 'property' => 'nome',
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1,
+                            'tipoColaborador' => 1, //empregado
+                            'ativo' => 'S'
+                         ]
+                    ]
+                ],
+                
                 'display_empty_item' => true,
             ]
         ]);
