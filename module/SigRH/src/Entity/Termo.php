@@ -90,7 +90,7 @@ class Termo extends AbstractEntity {
     protected $processo; 
     
      /**
-     * @ORM\Column(name="valor_bolsa", type="string")
+     * @ORM\Column(name="valor_bolsa", type="decimal")
      */
     protected $valorBolsa; 
     

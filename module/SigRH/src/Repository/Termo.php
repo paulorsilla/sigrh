@@ -8,12 +8,12 @@ class Termo extends AbstractRepository {
 
     public function getQuery($search = array()) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('c')
-                ->from(TermoEntity::class, 'c')
-                ->orderby('c.aditivo','ASC');
+        $qb->select('t')
+                ->from(TermoEntity::class, 't')
+                ->orderby('t.aditivo','ASC');
         
         if ( !empty($search['search'])){
-            $qb->where('c.aditivo like :busca');
+            $qb->where('t.aditivo like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
        return $qb;

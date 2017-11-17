@@ -64,8 +64,8 @@ class TermoController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Termo::class);
-                                $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$id,$matricula);
+                                $estagio = $this->params()->fromQuery('estagio_id');
+                                $repo->incluir_ou_editar($data,$id,$estagio);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
@@ -77,9 +77,7 @@ class TermoController extends AbstractActionController
                         if ( !empty($row)){
                             $form->setData($row->toArray());
                             
-                            $form->get("nivel")->setValue($row->nivel->id);
-                            $form->get("curso")->setValue($row->curso->id);
-                            $form->get("fonteSeguro")->setValue($row->fonteSeguro->id);
+//                            $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                           
                         }
