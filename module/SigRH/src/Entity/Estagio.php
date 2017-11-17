@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe Estagio.
@@ -88,7 +89,15 @@ class Estagio extends AbstractEntity {
      * @ORM\JoinColumn(name="sublotacao_id", referencedColumnName="id")
      **/      
     protected $sublotacao;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Termo", mappedBy="estagio")
+     */
+    protected $termos;
+    
+    public function __construct() {
+        $this->termos = new ArrayCollection();
+    }
     /**
      * Returns user ID.
      * 
@@ -146,6 +155,10 @@ class Estagio extends AbstractEntity {
     
     public function getSublotacao() {
         return $this->sublotacao;
+    }
+    
+    public function getTermos() {
+        return $this->termos;
     }
         
     /**
@@ -215,5 +228,9 @@ class Estagio extends AbstractEntity {
     
     public function setSublotacao($sublotacao) {
         $this->sublotacao = $sublotacao;
+    }
+    
+    public function setTermos($termos) {
+        $this->termos = $termos;
     }
 }
