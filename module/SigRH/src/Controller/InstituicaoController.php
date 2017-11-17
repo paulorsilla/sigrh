@@ -5,9 +5,9 @@ namespace SigRH\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Instituicao;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+//use Zend\Paginator\Paginator;
 
 
 class InstituicaoController extends AbstractActionController
@@ -28,27 +28,14 @@ class InstituicaoController extends AbstractActionController
 	
 	public function indexAction()
 	{
-            $queryBuilder = $this->entityManager->createQueryBuilder();
-            $queryBuilder->select('i')
-                                    ->from(Instituicao::class, 'i')
-                                    ->where('i.desPfPj = :tipo')
-                                    ->orderBy('i.desRazaoSocial', 'ASC')
-                                    ->setParameter('tipo', "Pessoa Jurídica");
-            
-            $query = $queryBuilder->getQuery();
-
+            $repo = $this->entityManager->getRepository(Instituicao::class);
             $page = $this->params()->fromQuery('page', 1);
-
-
-            $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-            $paginator = new Paginator($adapter);
-            $paginator->setDefaultItemCountPerPage(11);
-            $paginator->setCurrentPageNumber($page);
+            $search = $this->params()->fromPost();
+            $paginator = $repo->getPaginator($page,$search);
             
             return new ViewModel([
                             'instituicoes' => $paginator,
             ]);	
-            
 
 	}
 	

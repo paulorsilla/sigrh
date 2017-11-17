@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Classe instituicao.
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SigRH\Repository\Instituicao")
  * @ORM\Table(name="nco.tb_inst")
  */
-
 
 class Instituicao extends AbstractEntity {
 
@@ -41,22 +41,21 @@ class Instituicao extends AbstractEntity {
      * 
      * @return integer
      */
-    function getCodInstituicao() {
+    public function getCodInstituicao() {
         return $this->codInstituicao;
     }
-
-    function getDesRazaoSocial() {
+     
+    public function getDesRazaoSocial() {
         return $this->desRazaoSocial;
     }
 
-    function getNomFantasia() {
+    public function getNomFantasia() {
         return $this->nomFantasia;
     }
 
-    function getDesPfPj() {
+    public function getDesPfPj() {
         return $this->desPfPj;
     }
-
         
     
     /**
@@ -65,21 +64,20 @@ class Instituicao extends AbstractEntity {
      * @param int $id        	
      */
     
-    function setCodInstituicao($codInstituicao) {
+    public function setCodInstituicao($codInstituicao) {
         $this->codInstituicao = $codInstituicao;
     }
 
-    function setDesRazaoSocial($desRazaoSocial) {
+    public function setDesRazaoSocial($desRazaoSocial) {
         $this->desRazaoSocial = $desRazaoSocial;
     }
 
-    function setNomFantasia($nomFantasia) {
+    public function setNomFantasia($nomFantasia) {
         $this->nomFantasia = $nomFantasia;
     }
 
-    function setDesPfPj($desPfPj) {
+    public function setDesPfPj($desPfPj) {
         $this->desPfPj = $desPfPj;
     }
-
 
 }

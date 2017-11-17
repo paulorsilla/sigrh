@@ -113,7 +113,19 @@ class EstagioForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Instituicao::class,
                 'property' => 'desRazaoSocial',
-                'display_empty_item' => true,
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
+                
+                
+//                'property' => 'ListParaCombo',
+//                'display_empty_item' => true,
             ]
         ]);
 
