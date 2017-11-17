@@ -41,10 +41,10 @@ class EstagioForm extends Form {
             'attributes' => [
                 'id' => 'inicio',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o ano de início aqui'
+                'placeholder' => 'Digite o início aqui'
             ],
             'options' => [
-                'label' => 'Ano de início'
+                'label' => 'Início'
             ],
         ]);
 
@@ -52,7 +52,7 @@ class EstagioForm extends Form {
             'type' => 'text',
             'name' => 'previsaoConclusao',
             'attributes' => [
-                'id' => 'anoPrevisaoConclusao',
+                'id' => 'previsaoConclusao',
                 'class' => 'form-control',
                 'placeholder' => 'Digite a previsão de conclusão aqui'
             ],
@@ -108,7 +108,7 @@ class EstagioForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Instituição',
+                'label' => 'Instituição de ensino',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Instituicao::class,
@@ -122,27 +122,48 @@ class EstagioForm extends Form {
                         ]
                     ]
                 ],
-                
-                
-//                'property' => 'ListParaCombo',
-//                'display_empty_item' => true,
             ]
         ]);
-
+        
+        //Adiciona o campo "sublotacao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'sublotacao',
+            'attributes' => [
+                'id' => 'sublotacao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Sublotação',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Sublotacao::class,
+                'property' => 'descricao',
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1,
+                            'ano' => '2011'
+                        ]
+                    ]
+                ],
+            ]
+        ]);
         
         //Adiciona o campo "serie"
         $this->add([
             'type' => 'text',
             'name' => 'serie',
             'attributes' => [
-                'id' => 'serie'
+                'id' => 'serie',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a série aqui'
             ],
             'options' => [
                 'label' => 'Série'
             ],
         ]);
-        
-        
        
         //Adiciona o campo "dataInicioEfetivo"
         $this->add([
@@ -154,7 +175,7 @@ class EstagioForm extends Form {
             ],
             'options' => [
                 'format' => 'd/m/Y',
-                'label' => 'Data início efetivo'
+                'label' => 'Início efetivo'
             ],
         ]);
         
@@ -166,7 +187,6 @@ class EstagioForm extends Form {
             'attributes' => [
                 'id' => 'fonteSeguro',
                 'class' => 'form-control',
-                'placeholder' => 'Digite a fonte seguro aqui'
             ],
             'options' => [
                 'label' => 'Fonte seguro',
@@ -183,23 +203,44 @@ class EstagioForm extends Form {
             'type' => 'text',
             'name' => 'seguroApolice',
             'attributes' => [
-                'id' => 'seguroApolice'
+                'id' => 'seguroApolice',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a apólice aqui'
             ],
             'options' => [
-                'label' => 'Seguro apólice'
+                'label' => 'Apólice'
             ],
         ]);
-        
         
         //Adiciona o campo "seguroSeguradora"
         $this->add([
             'type' => 'text',
             'name' => 'seguroSeguradora',
             'attributes' => [
-                'id' => 'seguroSeguradora'
+                'id' => 'seguroSeguradora',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a seguradora aqui'
             ],
             'options' => [
                 'label' => 'Seguradora'
+            ],
+        ]);
+        
+        //Adiciona o campo "preContrato"
+        $this->add([
+            'type' => 'select',
+            'name' => 'preContrato',
+            'attributes' => [
+                'id' => 'preContrato',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Pré-contrato',
+                'value_options' => [
+                    "" => "Selecione",
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
             ],
         ]);
         

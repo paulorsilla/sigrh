@@ -119,7 +119,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'd-m-Y',
                 'label' => 'Data admissão'
             ],
         ]);

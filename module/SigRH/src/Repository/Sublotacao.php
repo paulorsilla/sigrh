@@ -15,10 +15,21 @@ class Sublotacao extends AbstractRepository {
             $qb->where('s.descricao like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
-       return $qb;
+        if ( !empty($search['ano'])){
+            $qb->where('s.ano = :ano');
+            $qb->setParameter("ano", $search['ano']);
+        }
+        
+        if (null != $search['combo'] && $search['combo'] == 1) {
+            return $qb->getQuery()->getResult();
+        } else {
+            return $qb->getQuery();
+        }
+//       return $qb;
+
     }
     
-    public function getListParaCombo(){
+    public function getListParaCombo() {
         
         $array = array();
         $list = $this->findAll();

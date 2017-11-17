@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe Estagio.
@@ -66,7 +67,6 @@ class Estagio extends AbstractEntity {
      * @ORM\Column(name="seguro_apolice", type="string")
      */
     protected $seguroApolice; //seguro_apolice
-    
 
     /**
      * @ORM\Column(name="seguro_seguradora", type="string")
@@ -79,7 +79,25 @@ class Estagio extends AbstractEntity {
      * */
     protected $colaboradorMatricula; //colaborador_matricula
     
+    /**
+     * @ORM\Column(name="pre_contrato", type="boolean")
+     */
+    protected $preContrato;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Sublotacao")
+     * @ORM\JoinColumn(name="sublotacao_id", referencedColumnName="id")
+     **/      
+    protected $sublotacao;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Termo", mappedBy="estagio")
+     */
+    protected $termos;
+    
+    public function __construct() {
+        $this->termos = new ArrayCollection();
+    }
     /**
      * Returns user ID.
      * 
@@ -96,7 +114,6 @@ class Estagio extends AbstractEntity {
     function getFonteSeguro() {
         return $this->fonteSeguro;
     }
-
 
     function getSerie() {
         return $this->serie;
@@ -131,9 +148,18 @@ class Estagio extends AbstractEntity {
     function getInstituicao() {
         return $this->instituicao;
     }
-
-        
     
+    public function getPreContrato() {
+        return $this->preContrato;
+    }
+    
+    public function getSublotacao() {
+        return $this->sublotacao;
+    }
+    
+    public function getTermos() {
+        return $this->termos;
+    }
         
     /**
      * Sets user ID.
@@ -188,7 +214,6 @@ class Estagio extends AbstractEntity {
         $this->seguroCapital = $seguroCapital;
     }
 
-
     function setColaboradorMatricula($colaboradorMatricula) {
         $this->colaboradorMatricula = $colaboradorMatricula;
     }
@@ -196,9 +221,16 @@ class Estagio extends AbstractEntity {
     function setInstituicao($instituicao) {
         $this->instituicao = $instituicao;
     }
-
-
-
-
     
+    public function setPreContrato($preContrato) {
+        $this->preContrato = $preContrato;
+    }
+    
+    public function setSublotacao($sublotacao) {
+        $this->sublotacao = $sublotacao;
+    }
+    
+    public function setTermos($termos) {
+        $this->termos = $termos;
+    }
 }
