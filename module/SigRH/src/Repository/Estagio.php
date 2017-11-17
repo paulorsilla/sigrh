@@ -10,10 +10,10 @@ class Estagio extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('e')
                 ->from(EstagioEntity::class, 'e')
-                ->orderby('e.anoInicio','ASC');
+                ->orderby('e.inicio','ASC');
         
         if ( !empty($search['search'])){
-            $qb->where(' e.anoInicio like :busca');
+            $qb->where(' e.inicio like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
         //inclui a pesquisa por matricula por meio de um join

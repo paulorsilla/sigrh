@@ -37,9 +37,9 @@ class EstagioForm extends Form {
         //Adiciona o campo "descricao"
         $this->add([
             'type' => 'text',
-            'name' => 'anoInicio',
+            'name' => 'inicio',
             'attributes' => [
-                'id' => 'anoInicio',
+                'id' => 'inicio',
                 'class' => 'form-control',
                 'placeholder' => 'Digite o ano de início aqui'
             ],
@@ -50,7 +50,7 @@ class EstagioForm extends Form {
 
         $this->add([
             'type' => 'text',
-            'name' => 'anoPrevisaoConclusao',
+            'name' => 'previsaoConclusao',
             'attributes' => [
                 'id' => 'anoPrevisaoConclusao',
                 'class' => 'form-control',
@@ -203,31 +203,6 @@ class EstagioForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "seguroMensalidade"
-        $this->add([
-            'type' => 'text',
-            'name' => 'seguroMensalidade',
-            'attributes' => [
-                'id' => 'seguroMensalidade'
-            ],
-            'options' => [
-                'label' => 'Mensalidade seguro'
-            ],
-        ]);
-        
-        //Adiciona o campo "seguroCapital"
-        $this->add([
-            'type' => 'text',
-            'name' => 'seguroCapital',
-            'attributes' => [
-                'id' => 'seguroCapital'
-            ],
-            'options' => [
-                'label' => 'Seguro capital'
-            ],
-        ]);
-        
-
         $this->add([
             'type' => 'submit',
             'name' => 'submit',
@@ -243,7 +218,7 @@ class EstagioForm extends Form {
         $this->setInputFilter($inputFilter);
 
         $inputFilter->add([
-            'name' => 'anoInicio',
+            'name' => 'inicio',
             'required' => true,
             'filters' => [
                 ['name' => 'StringTrim'],
@@ -254,8 +229,8 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
-                        'max' => 10
+                        'min' => 1,
+                        'max' => 100
                     ],
                 ],
             ],
@@ -263,7 +238,7 @@ class EstagioForm extends Form {
         
         
          $inputFilter->add([
-            'name' => 'anoPrevisaoConclusao',
+            'name' => 'previsaoConclusao',
             'required' => true,
             'filters' => [
                 ['name' => 'StringTrim'],
@@ -309,7 +284,7 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
@@ -328,7 +303,7 @@ class EstagioForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
+                        'min' => 1,
                         'max' => 200
                     ],
                 ],
@@ -378,43 +353,6 @@ class EstagioForm extends Form {
             ],
         ]);
          
-         $inputFilter->add([
-            'name' => 'seguroMensalidade',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-         
-         $inputFilter->add([
-            'name' => 'seguroCapital',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
     }
 
 }
