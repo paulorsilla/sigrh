@@ -26,19 +26,33 @@ class Termo extends AbstractEntity {
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Colaborador")
-     * @ORM\JoinColumn(name="orientador", referencedColumnName="id")
+     * @ORM\JoinColumn(name="orientador_matricula", referencedColumnName="matricula")
      **/        
-    protected $orientador; //orientador 
+    protected $orientador; //orientador_matricula 
     
     /**
-     * @ORM\Column(name="instituicao_fomento", type="integer") 
-     */
-    protected $instituicao; //instituicao -> buscar via serviço
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
+     * @ORM\JoinColumn(name="instituicao_id", referencedColumnName="cod_instituicao")
+     **/        
+    protected $instituicao; 
+    
+ /** 
+  ** Muitos termos tem 1 estagio.     
+  ** @ManyToOne(targetEntity="Estagio", inversedBy="termos")     
+  ** @JoinColumn(name="estagio_id", referencedColumnName="id")     */    
+    private $estagio;    //estagio_id
     
     /**
      * @ORM\Column(name="plano_acao", type="integer") 
      */
     protected $planoAcao; //plano_acao -> buscar via serviço
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
+     * @ORM\JoinColumn(name="fundacao_id", referencedColumnName="cod_instituicao")
+     **/        
+    protected $fundacao; 
+    
     
      /**
      * @ORM\Column(name="aditivo", type="string")
@@ -51,12 +65,12 @@ class Termo extends AbstractEntity {
     protected $tipoAditivo; 
     
      /**
-     * @ORM\Column(name="data_inicio", type="string")
+     * @ORM\Column(name="data_inicio", type="datetime")
      */
     protected $dataInicio; 
     
      /**
-     * @ORM\Column(name="data_termino", type="string")
+     * @ORM\Column(name="data_termino", type="datetime")
      */
     protected $dataTermino; 
     
@@ -141,7 +155,14 @@ class Termo extends AbstractEntity {
         return $this->valorBolsa;
     }
 
-    
+    function getFundacao() {
+        return $this->fundacao;
+    }
+    function getEstagio() {
+        return $this->estagio;
+    }
+
+            
     /**
      * Sets user ID.
      * 
@@ -197,6 +218,14 @@ class Termo extends AbstractEntity {
 
     function setValorBolsa($valorBolsa) {
         $this->valorBolsa = $valorBolsa;
+    }
+
+    function setFundacao($fundacao) {
+        $this->fundacao = $fundacao;
+    }
+
+    function setEstagio($estagio) {
+        $this->estagio = $estagio;
     }
 
 
