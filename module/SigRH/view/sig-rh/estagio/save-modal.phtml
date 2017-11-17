@@ -1,70 +1,94 @@
 <?= $this->form()->openTag($this->form); ?>
 <div class="row">
     <div class="col-md-12">
-                <h3 class="panel-title">
-                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
-                    o botão <i>Salvar</i>. 
-                </h3>
-            <div class="col-md-3">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <div class="row">
+            <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('inicio')); ?><br>
-                <?php echo  $this->formElement($this->form->get('inicio')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('inicio')); ?>  
-              </div>
-        
-              <div class="col-md-3">
+                <?php echo $this->formElement($this->form->get('inicio')); ?>
+                <?php echo $this->formElementErrors($this->form->get('inicio')); ?>  
+            </div>
+
+            <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('previsaoConclusao')); ?><br>
-                <?php echo  $this->formElement($this->form->get('previsaoConclusao')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('previsaoConclusao')); ?>                  
-              </div>
-                
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('dataInicioEfetivo')); ?><br>
-                <?php echo  $this->formElement($this->form->get('dataInicioEfetivo')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('dataInicioEfetivo')); ?>                  
-              </div>
+                <?php echo $this->formElement($this->form->get('previsaoConclusao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('previsaoConclusao')); ?>                  
+            </div>
 
-             <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('serie')); ?><br>
-                <?php echo  $this->formElement($this->form->get('serie')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('serie')); ?>                  
-              </div>
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('dataInicioEfetivo')); ?><br>
+                <?php echo $this->formElement($this->form->get('dataInicioEfetivo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('dataInicioEfetivo')); ?>                  
+            </div>
+        </div>
         
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('seguroApolice')); ?><br>
-                <?php echo  $this->formElement($this->form->get('seguroApolice')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('seguroApolice')); ?>                  
-              </div>
+        <div class="row">
+            <div class="col-md-8">
+                <?php echo $this->formLabel($this->form->get('sublotacao')); ?><br>
+                <?php echo $this->formElement($this->form->get('sublotacao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('sublotacao')); ?>                  
+            </div>
+            
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('preContrato')); ?><br>
+                <?php echo $this->formElement($this->form->get('preContrato')); ?>
+                <?php echo $this->formElementErrors($this->form->get('preContrato')); ?>                  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <?php echo $this->formLabel($this->form->get('curso')); ?><br>
+                <?php echo $this->formElement($this->form->get('curso')); ?>
+                <?php echo $this->formElementErrors($this->form->get('curso')); ?>                  
+            </div>
 
-              <div class="col-md-4">
+            <div class="col-md-2">
+                <?php echo $this->formLabel($this->form->get('nivel')); ?><br>
+                <?php echo $this->formElement($this->form->get('nivel')); ?>
+                <?php echo $this->formElementErrors($this->form->get('nivel')); ?>                  
+            </div>
+
+            <div class="col-md-2">
+                <?php echo $this->formLabel($this->form->get('serie')); ?><br>
+                <?php echo $this->formElement($this->form->get('serie')); ?>
+                <?php echo $this->formElementErrors($this->form->get('serie')); ?>                  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->formLabel($this->form->get('instituicao')); ?><br>
+                <?php echo $this->formElement($this->form->get('instituicao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('instituicao')); ?>                  
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('fonteSeguro')); ?><br>
+                <?php echo $this->formElement($this->form->get('fonteSeguro')); ?>
+                <?php echo $this->formElementErrors($this->form->get('fonteSeguro')); ?>                  
+            </div>
+
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('seguroApolice')); ?><br>
+                <?php echo $this->formElement($this->form->get('seguroApolice')); ?>
+                <?php echo $this->formElementErrors($this->form->get('seguroApolice')); ?>                  
+            </div>
+
+            <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('seguroSeguradora')); ?><br>
                 <?php echo $this->formElement($this->form->get('seguroSeguradora')); ?>
                 <?php echo $this->formElementErrors($this->form->get('seguroSeguradora')); ?>                  
-              </div>
+            </div>
 
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('nivel')); ?><br>
-                <?php echo  $this->formElement($this->form->get('nivel')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('nivel')); ?>                  
-              </div>
-        
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('curso')); ?><br>
-                <?php echo  $this->formElement($this->form->get('curso')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('curso')); ?>                  
-              </div>
+        </div>
 
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('fonteSeguro')); ?><br>
-                <?php echo  $this->formElement($this->form->get('fonteSeguro')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('fonteSeguro')); ?>                  
-              </div>
-        
-              <div class="col-md-4">
-                <?php echo  $this->formLabel($this->form->get('instituicao')); ?><br>
-                <?php echo  $this->formElement($this->form->get('instituicao')); ?>
-                <?php echo  $this->formElementErrors($this->form->get('instituicao')); ?>                  
-              </div>
-                
     </div>
 </div>
 <?= $this->form()->closeTag(); ?>
