@@ -161,8 +161,11 @@ $(document).ready(function () {
     var vCidades = [];
 
 
-    function carregaComboCidades(uf) {
-        $("select[name=cidade]").html('<option>Selecione</option>');
+    function carregaComboCidades(uf, opcao) {
+        //opcao = 1 => combo cidade (endereco)
+        //opcao = 2 => combo cidade (natual)
+        if (opcao === "1") $("select[name=cidade]").html('<option>Selecione</option>');
+        if (opcao === "2") $("select[name=natural]").html('<option>Selecione</option>');
 
         $.ajax({
             type: "POST",
@@ -176,7 +179,11 @@ $(document).ready(function () {
         });
 
         $.each(vCidades, function (i, item) {
-            $("<option></option>").val(item.id).html(item.cidade).appendTo($("select[name=cidade]"));
+            if (opcao === "1") {
+                $("<option></option>").val(item.id).html(item.cidade).appendTo($("select[name=cidade]"));
+            } else if (opcao === "2") {
+               $("<option></option>").val(item.id).html(item.cidade).appendTo($("select[name=natural]"));
+            }
         });
 
 //        $(vCidades).each(function (i, item) {
@@ -185,7 +192,6 @@ $(document).ready(function () {
 //                $("<option></option>").val(item2.id).html(item2.cidade).appendTo($("select[name=cidade]"));
 //            });
 //        });
-
     }
     
     function selecionaEstado(uf) {
@@ -237,8 +243,13 @@ $(document).ready(function () {
 //        $("#ibge").val("");
     }
     $("select[name=estado]").change(function () {
-        carregaComboCidades($(this).val());
+        carregaComboCidades($(this).val(), '1');
     });
+    
+    $("select[name=natural_estado]").change(function () {
+        carregaComboCidades($(this).val(), '2');
+    });
+
 
     //Quando o campo cep perde o foco.
     $("input[name=cep]").change(function () {

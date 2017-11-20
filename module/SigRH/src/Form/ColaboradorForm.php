@@ -208,16 +208,18 @@ class ColaboradorForm extends Form {
 
         //Adiciona o campo "natural (cidade)"
         $this->add([
-            'type' => 'select',
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'natural',
             'attributes' => [
                 'id' => 'natural',
                 'class' => 'form-control',
-                'required' => false,
             ],
             'options' => [
                 'label' => 'Natural (Cidade)',
                 'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Cidade::class,
+                'property' => 'cidade',
                 'display_empty_item' => true,
             ]
         ]);
