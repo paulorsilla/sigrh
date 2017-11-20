@@ -81,7 +81,6 @@ class ColaboradorController extends AbstractActionController
                             
                             if (null != $colaborador->getSupervisor()){
                                 $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
-                                
                             }
                             $form->get("tipoColaborador")->setValue($colaborador->tipoColaborador->id);
                             if (null != $colaborador->getDataAdmissao()) {
@@ -93,7 +92,15 @@ class ColaboradorController extends AbstractActionController
                             if (null != $colaborador->getDataNascimento()) {
                                 $form->get("dataNascimento")->setValue($colaborador->getDataNascimento()->format('Y-m-d'));
                             }
-                            $form->get("natural_estado")->setValue($colaborador->getNatural()->getEstado()->getId());
+                            if (null != $colaborador->getRgDataEmissao()) {
+                                $form->get("rgDataEmissao")->setValue($colaborador->getRgDataEmissao()->format('Y-m-d'));
+                            }
+                            if (null != $colaborador->getCtpsDataExpedicao()) {
+                                $form->get("ctpsDataExpedicao")->setValue($colaborador->getCtpsDataExpedicao()->format('Y-m-d'));
+                            }
+                            if (null != $colaborador->getNatural()) {
+                                $form->get("natural_estado")->setValue($colaborador->getNatural()->getEstado()->getId());
+                            }
                             $form->get("natural")->setValue($colaborador->getNatural()->getId());
                             $form->get("endereco")->setValue($colaborador->endereco->id);
                             $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
