@@ -64,12 +64,15 @@ class TermoController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Termo::class);
-                                $estagio = $this->params()->fromQuery('estagio_id');
+                                $estagio = $this->params()->fromQuery('estagio');
                                 $repo->incluir_ou_editar($data,$id,$estagio);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
 			}
+                       // $msgs = $form->getMessages();
+                        //\Zend\Debug\Debug::dump($msgs);
+                        //die ();
 		} else {
                     if ( !empty($id)){
                         $repo = $this->entityManager->getRepository(Termo::class);
@@ -78,7 +81,7 @@ class TermoController extends AbstractActionController
                             $form->setData($row->toArray());
                             
 //                            $form->get("nivel")->setValue($row->nivel->id);
-                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
+//                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                           
                         }
                     }

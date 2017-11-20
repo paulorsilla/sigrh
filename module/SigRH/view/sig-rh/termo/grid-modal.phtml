@@ -59,7 +59,7 @@
             <?php foreach($estagio->getTermos() as $termo):?>
                 <tr>
                     <td><?php echo $this->escapeHtml($termo->getAditivo());?></td>
-                    <td><?php echo $termo->getDataInicio()?$this->escapeHtml($termo->getDataInicio()->format("d/m/Y")):"";?></td>
+                    <td><?php echo $this->escapeHtml($termo->getDataInicio()->format("d/m/Y"));?></td>
                     <td><?php echo (null != $termo->getDataTermino()) ? $this->escapeHtml($termo->getDataTermino()->format("d/m/Y")) : "";?></td>
                     <td><?php echo $this->escapeHtml($termo->getChSemanal());?></td>
                     <td><?php echo $this->escapeHtml($horarioFlexivel[$termo->getHorarioFlexivel()]);?></td>

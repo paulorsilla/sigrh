@@ -61,34 +61,35 @@ class TermoForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "dataInicio"
-        $this->add([
-            'type' => 'Zend\Form\Element\Date',
-            'name' => 'dataInicio',
-            'attributes' => [
-                'id' => 'dataInicio',
-                'class' => 'form-control',
-            ],
-            'options' => [
-                'format' => 'd/m/Y',
-                'label' => 'Início'
-            ],
-        ]);
+//        //Adiciona o campo "dataInicio"
+//        $this->add([
+//            'type' => 'Zend\Form\Element\Date',
+//            'name' => 'dataInicio',
+//            'attributes' => [
+//                'id' => 'dataInicio',
+//                'class' => 'form-control',
+//            ],
+//            'options' => [
+//                'format' => 'd/m/Y',
+//                'label' => 'Início'
+//            ],
+//        ]);
+//        
+//        //Adiciona o campo "dataTermino"
+//        $this->add([
+//            'type' => 'Zend\Form\Element\Date',
+//            'name' => 'dataTermino',
+//            'attributes' => [
+//                'id' => 'dataTermino',
+//                'class' => 'form-control',
+//            ],
+//            'options' => [
+//                'format' => 'd/m/Y',
+//                'label' => 'Término'
+//            ],
+//        ]);
         
-        //Adiciona o campo "dataTermino"
-        $this->add([
-            'type' => 'Zend\Form\Element\Date',
-            'name' => 'dataTermino',
-            'attributes' => [
-                'id' => 'dataTermino',
-                'class' => 'form-control',
-            ],
-            'options' => [
-                'format' => 'd/m/Y',
-                'label' => 'Término'
-            ],
-        ]);
-        
+        //Adiciona o campo "chSemanal"
         $this->add([
             'type' => 'text',
             'name' => 'chSemanal',
@@ -102,6 +103,7 @@ class TermoForm extends Form {
             ],
         ]);
         
+        //Adiciona o campo "horarioFlexivel"
         $this->add([
             'type' => 'text',
             'name' => 'horarioFlexivel',
@@ -247,24 +249,24 @@ class TermoForm extends Form {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
 
-//        $inputFilter->add([
-//            'name' => 'inicio',
-//            'required' => true,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 100
-//                    ],
-//                ],
-//            ],
-//        ]);
+        $inputFilter->add([
+            'name' => 'aditivo',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 100
+                    ],
+                ],
+            ],
+        ]);
 //        
 //        
 //         $inputFilter->add([

@@ -23,10 +23,10 @@ class Estagio extends AbstractRepository {
             $qb->setParameter("matricula",$search['matricula']);
         }
         
-//        echo "DQL: ".$qb->getDQL();
-//        echo "<hr>";
-//        echo "SQL: ".$qb->getQuery()->getSQL();
-//        die();
+/*      echo "DQL: ".$qb->getDQL();
+        echo "<hr>";
+        echo "SQL: ".$qb->getQuery()->getSQL();
+        die();*/
        return $qb;
     }
     
@@ -91,6 +91,12 @@ class Estagio extends AbstractRepository {
         }
         unset($dados['instituicao']);
         
+        //instituicao...
+        if ( !empty($dados['sublotacao'] )) {
+            $sublotacao = $this->getEntityManager()->find('SigRH\Entity\Sublotacao', $dados['sublotacao']); //busca as informações
+            $row->setSublotacao($sublotacao);
+        }
+        unset($dados['sublotacao']);
         
         $row->setDataInicioEfetivo(null);
         if ($dados ['dataInicioEfetivo'] != "") {					

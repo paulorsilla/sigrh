@@ -1,0 +1,47 @@
+<?= $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('aditivo')); ?><br>
+                <?php echo $this->formElement($this->form->get('aditivo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('aditivo')); ?>  
+            </div>
+
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('tipoAditivo')); ?><br>
+                <?php echo $this->formElement($this->form->get('tipoAditivo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('tipoAditivo')); ?>                  
+            </div>
+
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
+                <?php echo $this->formElement($this->form->get('chSemanal')); ?>
+                <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <?php echo $this->formLabel($this->form->get('horarioFlexivel')); ?><br>
+                <?php echo $this->formElement($this->form->get('horarioFlexivel')); ?>
+                <?php echo $this->formElementErrors($this->form->get('horarioFlexivel')); ?>                  
+            </div>
+            
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('processo')); ?><br>
+                <?php echo $this->formElement($this->form->get('processo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('processo')); ?>                  
+            </div>
+        </div>
+        
+
+
+    </div>
+</div>
+<?= $this->form()->closeTag(); ?>

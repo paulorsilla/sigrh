@@ -36,7 +36,7 @@ class Termo extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
-    public function incluir_ou_editar($dados,$id = null){
+    public function incluir_ou_editar($dados,$id = null,$estagio=null){
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
@@ -45,7 +45,12 @@ class Termo extends AbstractRepository {
         if ( empty($row)) {
             $row = new TermoEntity();
         }
-        
+        if ( !empty($estagio)) {
+            $estagioObj = $this->getEntityManager()->find('SigRH\Entity\Estagio', $estagio);
+            if ( empty($estagioObj) )
+                throw new Exception('Estagio nao encontrado');
+            $row->setEstagio($estagioObj);
+        }
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

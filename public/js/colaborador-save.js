@@ -80,6 +80,21 @@
         $('#EstagioModal .modal-body').load(url);
         $('#EstagioModal').modal('show');
     }
+    
+    function novoTermo(estagio){
+        url = "/sig-rh/termo/save-modal?estagio="+estagio;
+        $('#TermoModal .modal-body').html('carregando...');
+        $('#TermoModal .modal-body').attr('url',url);
+        $('#TermoModal .modal-body').load(url);
+        $('#TermoModal').modal('show');
+    }
+    function editarTermo(id){
+        url = "/sig-rh/termo/save-modal/"+id;
+        $('#TermoModal .modal-body').html('carregando...');
+        $('#TermoModal .modal-body').attr('url',url);
+        $('#TermoModal .modal-body').load(url);
+        $('#TermoModal').modal('show');
+    }
     function refreshGridEstagio(matricula){
         url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
         $('#gridEstagio').html('carregando...');
@@ -97,6 +112,27 @@
             if ( data.success == 1 ){
                 
                 $("#EstagioModal").modal('hide');
+                refreshGridEstagio($("input#matricula").val());
+                 
+                
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    } 
+    
+    function fncSalvarTermo(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        
+        $.post(urlPost,dados,function(data){
+            if ( data.success == 1 ){
+                
+                $("#TermoModal").modal('hide');
                 refreshGridEstagio($("input#matricula").val());
                  
                 

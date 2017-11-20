@@ -302,6 +302,20 @@ return [
                             ]
                         ]
                     ],
+                    'termo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/termo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\TermoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                 ],
             ],
@@ -328,6 +342,7 @@ return [
             Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
