@@ -16,7 +16,7 @@ $form->get('submit')->setAttributes([
                     Por favor, preencha o formulário abaixo e, em seguida, clique sobre
                     o botão <i>Salvar</i>. <a
                         class="btn btn-secondary btn-sm pull-right"
-                        href="/sig-rh/colaborador" title="Fechar"><span
+                        href="/sig-rh/colaborador?page=<?php echo $this->page;?>" title="Fechar"><span
                             class="glyphicon glyphicon-remove"></span></a>
                 </h3>
             </div>
@@ -55,10 +55,14 @@ $form->get('submit')->setAttributes([
                     <li class="active"><a data-toggle="tab" href="#dadosPessoais">Dados Pessoais</a></li>
                     <li><a data-toggle="tab" href="#documentacao">Documentação</a></li>
                     <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
-                    <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
+                    <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() != 1)):?>
+                        <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
+                    <?php endif;?>
                     <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
                     <li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>
-                    <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
+                    <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() == 1)):?>
+                        <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
+                    <?php endif;?>
                 </ul>
 
                 <div class="tab-content">

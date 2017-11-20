@@ -6,16 +6,18 @@
             <tr>
                 <th>Matrícula</th>
                 <th>Nome</th>
+                <th>Tipo</th>
                 <th>Opções</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($this->colaboradores as $colaborador): ?>
                 <tr>
-                    <td><?= $this->escapeHtml($colaborador->getMatricula()); ?></td>
-                    <td><?= $this->escapeHtml($colaborador->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->getMatricula()); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->getTipoColaborador()->getDescricao());?>
                     <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula()]) ?>"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"

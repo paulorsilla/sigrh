@@ -53,10 +53,11 @@ return [
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/colaborador[/:action[/:id]]',
+                            'route' => '/colaborador[/:action[/:id][/:page]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+'
                             ],
                             'defaults' => [
                                 'controller' => Controller\ColaboradorController::class,

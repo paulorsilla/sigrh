@@ -39,6 +39,7 @@ class ColaboradorController extends AbstractActionController
                 $paginator = $repo->getPaginator($page, $search);
 		return new ViewModel([
 				'colaboradores' => $paginator,
+                                'page' => $page
 		]);
 	}
 	
@@ -48,7 +49,10 @@ class ColaboradorController extends AbstractActionController
 	public function saveAction()
 	{
                 $id = $this->params()->fromRoute('id', null);
-		//Cria o formulário
+                $page = $this->params()->fromRoute('page', null);
+                error_log("Pagina: ".$page );
+		
+                //Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
                 $colaborador = new Colaborador();
                 if ( !empty($id)){
@@ -80,7 +84,17 @@ class ColaboradorController extends AbstractActionController
                                 
                             }
                             $form->get("tipoColaborador")->setValue($colaborador->tipoColaborador->id);
-                            $form->get("cidade")->setValue($colaborador->cidade->id);
+                            if (null != $colaborador->getDataAdmissao()) {
+                                $form->get("dataAdmissao")->setValue($colaborador->getDataAdmissao()->format('Y-m-d'));
+                            }
+                            if (null != $colaborador->getDataDesligamento()) {
+                                $form->get("dataDesligamento")->setValue($colaborador->getDataDesligamento()->format('Y-m-d'));
+                            }
+                            if (null != $colaborador->getDataNascimento()) {
+                                $form->get("dataNascimento")->setValue($colaborador->getDataNascimento()->format('Y-m-d'));
+                            }
+                            $form->get("natural_estado")->setValue($colaborador->getNatural()->getEstado()->getId());
+                            $form->get("natural")->setValue($colaborador->getNatural()->getId());
                             $form->get("endereco")->setValue($colaborador->endereco->id);
                             $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
                             $form->get("grauInstrucao")->setValue($colaborador->grauInstrucao->id);
@@ -108,6 +122,7 @@ class ColaboradorController extends AbstractActionController
                 }
 		return new ViewModel([
 				'form' => $form,
+                                'page' => $page,
                                 'colaborador' => $colaborador
 		]);
 	}

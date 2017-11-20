@@ -7,11 +7,19 @@ use SigRH\Entity\Colaborador as ColaboradorEntity;
 class Colaborador extends AbstractRepository {
 
     public function getQuery($search = []) {
+        $combo = false;
+        $empregados = false;
+        if (null != $search['combo'] && $search['combo'] == 1) {
+            $combo = true;
+            unset($search['combo']);
+        }
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
-                ->where('c.nome is not NULL');
+                ->where('c.nome is not NULL')
+                ->andWhere('c.nome != :empty')
+                ->setParameter('empty', ' ');
         if (null != $search['ativo']) {
             if ($search['ativo'] == 'S') {
                 $qb->andWhere('c.dataDesligamento is NULL');
@@ -28,11 +36,17 @@ class Colaborador extends AbstractRepository {
             $qb->andWhere('c.'.$key.' = :'.$key);
             $qb->setParameter($key, $value);
         }
+        
+        if ($combo) {
+            return $qb->getQuery()->getResult();
+        } else {
+            return $qb->getQuery();
+        }
 //        if ( !empty($search)){
 //            $qb->where('c.tipoColaborador = :busca');
 //            $qb->setParameter("busca", $search['tipoColaborador']);
 //        }
-       return $qb;
+//       return $qb;
     }
     
     public function getListParaCombo(){
