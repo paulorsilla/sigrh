@@ -80,14 +80,14 @@ class ColaboradorController extends AbstractActionController
 
                             $form->get("supervisor")->setValue((null != $colaborador->getSupervisor()) ? $colaborador->getSupervisor() : null);
                             $form->get("tipoColaborador")->setValue((null != $colaborador->getTipoColaborador()) ? $colaborador->getTipoColaborador() : null);
-                            $form->get("dataAdmissao")->setValue((null != $colaborador->getDataAdmissao()) ? $colaborador->getDataAdmissao()->format('Y-m-d') : null);
+                            //$form->get("dataAdmissao")->setValue((null != $colaborador->getDataAdmissao()) ? $colaborador->getDataAdmissao()->format('Y-m-d') : null);
 
-                            $form->get("dataDesligamento")->setValue((null != $colaborador->getDataDesligamento()) ? $colaborador->getDataDesligamento()->format('Y-m-d') : null);
-                            $form->get("dataNascimento")->setValue((null != $colaborador->getDataNascimento()) ? $colaborador->getDataNascimento()->format('Y-m-d') : null);
-                            $form->get("rgDataEmissao")->setValue((null != $colaborador->getRgDataEmissao()) ? $colaborador->getRgDataEmissao()->format('Y-m-d') : null);
+                            //$form->get("dataDesligamento")->setValue((null != $colaborador->getDataDesligamento()) ? $colaborador->getDataDesligamento()->format('Y-m-d') : null);
+                            //$form->get("dataNascimento")->setValue((null != $colaborador->getDataNascimento()) ? $colaborador->getDataNascimento()->format('Y-m-d') : null);
+                            //$form->get("rgDataEmissao")->setValue((null != $colaborador->getRgDataEmissao()) ? $colaborador->getRgDataEmissao()->format('Y-m-d') : null);
 
-                            $form->get("ctpsDataExpedicao")->setValue((null != $colaborador->getCtpsDataExpedicao()) ? $colaborador->getCtpsDataExpedicao()->format('Y-m-d') : null);
-                            $form->get("natural_estado")->setValue((null != $colaborador->getNatural()->getEstado()) ? $colaborador->getNatural()->getEstado() : null);
+                            //$form->get("ctpsDataExpedicao")->setValue((null != $colaborador->getCtpsDataExpedicao()) ? $colaborador->getCtpsDataExpedicao()->format('Y-m-d') : null);
+                            $form->get("natural_estado")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural()->getEstado() : null);
                             $form->get("natural")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural() : null);
                             $form->get("endereco")->setValue((null != $colaborador->getEndereco()) ? $colaborador->getEndereco() : null);
                             $form->get("grupoSanguineo")->setValue((null != $colaborador->getGrupoSanguineo()) ? $colaborador->getGrupoSanguineo() : null);

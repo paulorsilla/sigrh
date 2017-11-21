@@ -1,68 +1,101 @@
-<?php foreach ($this->estagios as $estagio): 
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<?php 
+$seq = 0;
+foreach ($this->estagios as $estagio): 
     
     $horarioFlexivel = ['' =>'', '0' => 'Não', '1' => 'Sim'];
-?>
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Início</th>
-                <th>Previsão conclusão</th>
-                <th>Nível</th>
-                <th>Curso</th>
-                <th>Semestre</th>
-                <th>Início efetivo</th>
-                <th>Fonte seguro</th>
-                <th>Instituição de ensino</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    <td><?= $this->escapeHtml($estagio->getInicio()); ?></td>
-                    <td><?= $this->escapeHtml($estagio->getPrevisaoConclusao()); ?></td>
-                    <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
-                    <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
-                    <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
-                    <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
-                    <td><?php //$estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
-                    <td><?php //echo $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
 
-                    <td><button type="button" class="btn btn-primary btn-sm pull-center"
-                           onclick="editarEstagio('<?php echo $estagio->getId();?>')"
-                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                        <a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
-                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
-                        <button type="button" class="btn btn-info btn-sm pull-center"
-                           onclick="novoTermo('<?php echo $estagio->getId();?>')"
-                           title="Novo termo."><span class="glyphicon glyphicon-folder-open"></span></button>
-                    </td>
-                </tr>
-        </tbody>
-    </table>
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Aditivo</th>
-                <th>Inicio</th>
-                <th>Final</th>
-                <th>Carga Horária Semanal</th>
-                <th>Horário flexível</th>
-                <th>Orientador</th>
-                <th>Instituição de fomento</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach($estagio->getTermos() as $termo):?>
-                <tr>
-                    <td><?php echo $this->escapeHtml($termo->getAditivo());?></td>
-                    <td><?php echo $termo->getDataInicio()?$this->escapeHtml($termo->getDataInicio()->format("d/m/Y")):"";?></td>
-                    <td><?php echo (null != $termo->getDataTermino()) ? $this->escapeHtml($termo->getDataTermino()->format("d/m/Y")) : "";?></td>
-                    <td><?php echo $this->escapeHtml($termo->getChSemanal());?></td>
-                    <td><?php echo $this->escapeHtml($horarioFlexivel[$termo->getHorarioFlexivel()]);?></td>
-                    <td><?php echo (null != $termo->getOrientador()) ? $this->escapeHtml($termo->getOrientador()->getNome()) : "";?></td>
-                    <td><?php echo (null != $termo->getInstituicao()) ? $this->escapeHtml($termo->getInstituicao()->getDesRazaoSocial()) : "";?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    $seq ++;
+?>
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading<?php echo $seq;?>">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $seq;?>" aria-expanded="true" aria-controls="collapse<?php echo $seq;?>">
+          Estágio <?= $this->escapeHtml($estagio->getInicio()); ?> - Curso <?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?>
+        </a>
+          <span class="label label-info" style="float: right;"><?php echo count($estagio->getTermos());?> Termo(s)</span>
+      </h4>
+        
+    </div>
+    <div id="collapse<?php echo $seq;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $seq;?>">
+        <div class="panel-body">
+            
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Início</th>
+                                <th>Previsão conclusão</th>
+                                <th>Nível</th>
+                                <th>Curso</th>
+                                <th>Semestre</th>
+                                <th>Início efetivo</th>
+                                <th>Fonte seguro</th>
+                                <th>Instituição de ensino</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td><?= $this->escapeHtml($estagio->getInicio()); ?></td>
+                                    <td><?= $this->escapeHtml($estagio->getPrevisaoConclusao()); ?></td>
+                                    <td><?= $estagio->getNivel()?$this->escapeHtml($estagio->getNivel()->getDescricao()):""; ?></td>
+                                    <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
+                                    <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
+                                    <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
+                                    <td><?php //$estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
+                                    <td><?php //echo $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
+
+                                    <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                                           onclick="editarEstagio('<?php echo $estagio->getId();?>')"
+                                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <a class="btn btn-primary btn-sm pull-center"
+                                           href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
+                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                                        
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+            <h4>Termos <button type="button" class="btn btn-info btn-xs pull-center"
+                                           onclick="novoTermo('<?php echo $estagio->getId();?>')"
+                                           title="Novo termo."><span class="glyphicon glyphicon-plus"> Incluir</span></button>
+            </h4>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Aditivo</th>
+                                <th>Inicio</th>
+                                <th>Final</th>
+                                <th>Carga Horária Semanal</th>
+                                <th>Horário flexível</th>
+                                <th>Orientador</th>
+                                <th>Instituição de fomento</th>
+                                <th>Opções/<th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($estagio->getTermos() as $termo):?>
+                                <tr>
+                                    <td><?php echo $this->escapeHtml($termo->getAditivo());?></td>
+                                    <td><?php echo $termo->getDataInicio()?$this->escapeHtml($termo->getDataInicio()->format("d/m/Y")):"";?></td>
+                                    <td><?php echo (null != $termo->getDataTermino()) ? $this->escapeHtml($termo->getDataTermino()->format("d/m/Y")) : "";?></td>
+                                    <td><?php echo $this->escapeHtml($termo->getChSemanal());?></td>
+                                    <td><?php echo $this->escapeHtml($horarioFlexivel[$termo->getHorarioFlexivel()]);?></td>
+                                    <td><?php echo (null != $termo->getOrientador()) ? $this->escapeHtml($termo->getOrientador()->getNome()) : "";?></td>
+                                    <td><?php echo (null != $termo->getInstituicao()) ? $this->escapeHtml($termo->getInstituicao()->getDesRazaoSocial()) : "";?></td>
+                                    <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                                           onclick="editarTermo('<?php echo $termo->getId();?>')"
+                                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <a class="btn btn-primary btn-sm pull-center"
+                                           href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $termo->getId()]) ?>"
+                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                                    </td>
+
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+        </div>
+    </div>
+  </div>
 <?php endforeach;?>
+</div>

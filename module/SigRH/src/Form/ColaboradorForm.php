@@ -119,7 +119,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd-m-Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data admissão'
             ],
         ]);
@@ -133,7 +133,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data desligamento'
             ],
         ]);
@@ -201,7 +201,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data nascimento'
             ],
         ]);
@@ -459,7 +459,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data de emissão'
             ],
         ]);
@@ -549,7 +549,7 @@ class ColaboradorForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data expedição'
             ],
         ]);
