@@ -6,9 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Classe Escala.
+ * @ORM\Entity(repositoryClass="SigRH\Repository\Escala")
  * @ORM\Table(name="escala")
  */
-class Escala extends AbstractEntity{
+
+class Escala extends AbstractEntity {
 
     /**
      * @ORM\Id

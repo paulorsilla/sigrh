@@ -30,6 +30,12 @@ class Horario extends AbstractEntity {
      */
     protected $escala;
     
+    /**
+     * 
+     * @ORM\column(name="dia_semana", type="integer")
+     */
+    protected $diaSemana;
+    
     public function getId() {
         return $this->id;
     }
@@ -40,6 +46,10 @@ class Horario extends AbstractEntity {
 
     public function getEscala() {
         return $this->escala;
+    }
+    
+    public function getDiaSemana() {
+        return $this->diaSemana;
     }
 
     public function setId($id) {
@@ -52,6 +62,10 @@ class Horario extends AbstractEntity {
 
     public function setEscala($escala) {
         $this->escala = $escala;
+    }
+    
+    public function setDiaSemana($diaSemana) {
+        $this->diaSemana = $diaSemana;
     }
 
 }

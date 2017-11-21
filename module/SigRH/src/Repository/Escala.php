@@ -2,22 +2,16 @@
 
 namespace SigRH\Repository;
 
-use SigRH\Entity\Horario as HorarioEntity;
+use SigRH\Entity\Escala as EscalaEntity;
 
-class Horario extends AbstractRepository {
+class Escala extends AbstractRepository {
 
- public function getQuery($search = array()) {
+    public function getQuery() {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('h')
-                ->from(HorarioEntity::class, 'h')
-              ->orderby('h.diaSemana','ASC');
-        //inclui a pesquisa por matricula por meio de um join
-        if ( !empty($search['matricula'])){
-            $qb->join("h.colaboradorMatricula",'c');
-            $qb->where('c.matricula = :matricula');
-            $qb->setParameter("matricula",$search['matricula']);
-        }
+        $qb->select('e')
+                ->from(EscalaEntity::class, 'e');
        return $qb;
+       
     }
     
     public function delete($id){
@@ -28,13 +22,15 @@ class Horario extends AbstractRepository {
         }
     }
     public function incluir_ou_editar($dados,$id = null){
+        
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
-            $row = $this->find($id); // busca o registro do banco para poder alterar
+            $row = $this->find($id); // busca o registro do campo para poder alterar
         }    
         if ( empty($row)) {
-            $row = new HorarioEntity();
+            $row = new EscalaEntity();
         }
+        
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao

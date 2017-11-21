@@ -12,12 +12,12 @@
     <tbody>
         <?php foreach ($this->horarios as $horario): ?>
             <tr>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
-                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->escapeHtml($this->diasSemana[$horario->getDiaSemana()]); ?></td>
+                <td><?php echo $this->escapeHtml($horario->getEscala()->getId()); ?></td>
+                <td><?php echo $this->escapeHtml($horario->getEscala()->getEntrada1()->format("H:i")); ?></td>
+                <td><?php echo $this->escapeHtml($horario->getEscala()->getSaida1()->format("H:i")); ?></td>
+                <td><?php echo $this->escapeHtml($horario->getEscala()->getEntrada2()->format("H:i")); ?></td>
+                <td><?php echo $this->escapeHtml($horario->getEscala()->getSaida2()->format("H:i")); ?></td>
 
                 <td><a class="btn btn-primary btn-sm pull-center"
                        href="<?php echo $this->url('sig-rh/horario', ['action' => 'save', 'id' => $horario->getId()]) ?>"
