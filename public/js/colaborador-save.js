@@ -185,6 +185,14 @@
         });
     } 
     
+    
+    function refreshGridHorario(matricula){
+        url = "/sig-rh/horario/grid-modal?matricula="+matricula;
+        $('#gridHorarios').html('carregando...');
+        $('#gridHorarios').load(url);
+    }
+
+    
 $(document).ready(function () {
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());
     

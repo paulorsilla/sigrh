@@ -89,17 +89,22 @@ class Colaborador extends AbstractEntity {
     protected $contasCorrente;
     
     /**
-     * One Colaborador has Many Dependentes
+     * One Colaborador has Many dependentes
      * @ORM\OneToMany(targetEntity="Dependente", mappedBy="colaboradorMatricula")
      */
     protected $dependentes;
 
     /**
      * One Colaborador has Many estagios
-     * @ORM\OneToMany(targetEntity="Estagio", mappedBy="colaboradorMatricula")
+     * @ORM\OneToMany(targetEntity="Dependente", mappedBy="colaboradorMatricula")
      */
     protected $estagios;
-    
+
+    /**
+     * One Colaborador has Many horarios
+     * @ORM\OneToMany(targetEntity="Horario", mappedBy="colaboradorMatricula")
+     */
+    protected $horarios;    
     
     /**
      * @ORM\Column(name="nome", type="string")
@@ -239,6 +244,7 @@ class Colaborador extends AbstractEntity {
         $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
         $this->dependentes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->estagios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->horarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -409,7 +415,10 @@ class Colaborador extends AbstractEntity {
     function getEstagios() {
         return $this->estagios;
     }
-    
+
+    public function getHorarios() {
+        return $this->horarios;
+    }
 
         /**
      * Sets user ID.

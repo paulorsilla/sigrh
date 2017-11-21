@@ -194,7 +194,32 @@ $form->get('submit')->setAttributes([
                         
                     </div>
                     <div id="escalaHorarios" class="tab-pane fade">
-                        <p>Escala de Horários</p>
+                        <div class="row">
+                            <div class="col-md-12" id="gridHorarios">
+                               
+                            </div>
+                            
+                        </div>
+                        <?php if ( !empty($this->colaborador) ) { 
+                            $matricula = $this->colaborador->getMatricula();
+                            if ( !empty($matricula) ) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoHorario('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridHorario('<?php echo $matricula;?>');
+                                });
+                                </script>
+                        <?php }
+                        }?>
+
                     </div>
 
                     <div id="avaliacoes" class="tab-pane fade">

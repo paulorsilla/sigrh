@@ -19,7 +19,6 @@ class Dependente extends AbstractEntity{
     protected $id;
     
     /**
-    /**
      * @ORM\ManyToOne(targetEntity="Colaborador")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
      * */

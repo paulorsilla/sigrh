@@ -50,7 +50,6 @@ class ColaboradorController extends AbstractActionController
 	{
                 $id = $this->params()->fromRoute('id', null);
                 $page = $this->params()->fromRoute('page', null);
-                error_log("Pagina: ".$page );
 		
                 //Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
@@ -61,8 +60,8 @@ class ColaboradorController extends AbstractActionController
                 }
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
-			
-			//Recebe os dados via POST
+
+                    //Recebe os dados via POST
 			$data = $this->params()->fromPost();
 			
 			//Preenche o form com os dados recebidos e o valida
@@ -78,37 +77,26 @@ class ColaboradorController extends AbstractActionController
                         
                         if ( !empty($colaborador)){
                             $form->setData($colaborador->toArray());
-                            
-                            if (null != $colaborador->getSupervisor()){
-                                $form->get("supervisor")->setValue($colaborador->getSupervisor()->getMatricula());
-                            }
-                            $form->get("tipoColaborador")->setValue($colaborador->tipoColaborador->id);
-                            if (null != $colaborador->getDataAdmissao()) {
-                                $form->get("dataAdmissao")->setValue($colaborador->getDataAdmissao()->format('Y-m-d'));
-                            }
-                            if (null != $colaborador->getDataDesligamento()) {
-                                $form->get("dataDesligamento")->setValue($colaborador->getDataDesligamento()->format('Y-m-d'));
-                            }
-                            if (null != $colaborador->getDataNascimento()) {
-                                $form->get("dataNascimento")->setValue($colaborador->getDataNascimento()->format('Y-m-d'));
-                            }
-                            if (null != $colaborador->getRgDataEmissao()) {
-                                $form->get("rgDataEmissao")->setValue($colaborador->getRgDataEmissao()->format('Y-m-d'));
-                            }
-                            if (null != $colaborador->getCtpsDataExpedicao()) {
-                                $form->get("ctpsDataExpedicao")->setValue($colaborador->getCtpsDataExpedicao()->format('Y-m-d'));
-                            }
-                            if (null != $colaborador->getNatural()) {
-                                $form->get("natural_estado")->setValue($colaborador->getNatural()->getEstado()->getId());
-                            }
-                            $form->get("natural")->setValue($colaborador->getNatural()->getId());
-                            $form->get("endereco")->setValue($colaborador->endereco->id);
-                            $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
-                            $form->get("grauInstrucao")->setValue($colaborador->grauInstrucao->id);
-                            $form->get("corPele")->setValue($colaborador->corPele->id);
-                            $form->get("estadoCivil")->setValue($colaborador->estadoCivil->id);
-                            $form->get("natural")->setValue($colaborador->natural->id);
-                            $form->get("ctpsUf")->setValue($colaborador->ctpsUf->id);
+
+                            $form->get("supervisor")->setValue((null != $colaborador->getSupervisor()) ? $colaborador->getSupervisor() : null);
+                            $form->get("tipoColaborador")->setValue((null != $colaborador->getTipoColaborador()) ? $colaborador->getTipoColaborador() : null);
+                            $form->get("dataAdmissao")->setValue((null != $colaborador->getDataAdmissao()) ? $colaborador->getDataAdmissao()->format('Y-m-d') : null);
+
+                            $form->get("dataDesligamento")->setValue((null != $colaborador->getDataDesligamento()) ? $colaborador->getDataDesligamento()->format('Y-m-d') : null);
+                            $form->get("dataNascimento")->setValue((null != $colaborador->getDataNascimento()) ? $colaborador->getDataNascimento()->format('Y-m-d') : null);
+                            $form->get("rgDataEmissao")->setValue((null != $colaborador->getRgDataEmissao()) ? $colaborador->getRgDataEmissao()->format('Y-m-d') : null);
+
+                            $form->get("ctpsDataExpedicao")->setValue((null != $colaborador->getCtpsDataExpedicao()) ? $colaborador->getCtpsDataExpedicao()->format('Y-m-d') : null);
+                            $form->get("natural_estado")->setValue((null != $colaborador->getNatural()->getEstado()) ? $colaborador->getNatural()->getEstado() : null);
+                            $form->get("natural")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural() : null);
+                            $form->get("endereco")->setValue((null != $colaborador->getEndereco()) ? $colaborador->getEndereco() : null);
+                            $form->get("grupoSanguineo")->setValue((null != $colaborador->getGrupoSanguineo()) ? $colaborador->getGrupoSanguineo() : null);
+                            $form->get("grauInstrucao")->setValue((null != $colaborador->getGrauInstrucao()) ? $colaborador->getGrauInstrucao() : null);
+                            $form->get("corPele")->setValue((null != $colaborador->getCorPele()) ? $colaborador->getCorPele() : null);
+                            $form->get("estadoCivil")->setValue((null != $colaborador->getEstadoCivil()) ? $colaborador->getEstadoCivil() : null);
+                            $form->get("natural")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural() : null);
+                            $form->get("ctpsUf")->setValue((null != $colaborador->getCtpsUf()) ? $colaborador->getCtpsUf() : null);
+
                             $endereco = $colaborador->getEndereco();
 //                            \Doctrine\Common\Util\Debug::dump($endereco); die();
                             if ( !empty($endereco) ) { // COLOCAR TODOS OS CAMPOS
@@ -122,8 +110,6 @@ class ColaboradorController extends AbstractActionController
                                     $form->get("estado")->setValue($endereco->getCidade()->getEstado()->getId());
                                 }
                             }
-                            
-                           
                         }
                     }
                 }

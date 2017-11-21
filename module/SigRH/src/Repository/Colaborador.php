@@ -8,8 +8,7 @@ class Colaborador extends AbstractRepository {
 
     public function getQuery($search = []) {
         $combo = false;
-        $empregados = false;
-        if (null != $search['combo'] && $search['combo'] == 1) {
+        if ( (isset($search['combo']) && $search['combo'] == 1)) {
             $combo = true;
             unset($search['combo']);
         }

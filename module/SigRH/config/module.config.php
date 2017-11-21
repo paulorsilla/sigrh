@@ -261,6 +261,20 @@ return [
                             ]
                         ]
                     ],
+                    'horario' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/horario[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HorarioController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'sublotacao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -329,6 +343,8 @@ return [
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\HorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,

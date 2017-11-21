@@ -1,0 +1,33 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Dia da semana</th>
+            <th>Código do Horário</th>
+            <th>Entrada 1</th>
+            <th>Saída 1</th>
+            <th>Entrada 2</th>
+            <th>Saída 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->horarios as $horario): ?>
+            <tr>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+                <td><?php echo $this->esacapeHtml($horario->getDiaSemana()); ?></td>
+
+                <td><a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/horario', ['action' => 'save', 'id' => $horario->getId()]) ?>"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/horario', ['action' => 'delete', 'id' => $horario->getId()]) ?>"
+                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </tbody>
+</table>
