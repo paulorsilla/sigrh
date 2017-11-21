@@ -89,6 +89,26 @@ class TermoForm extends Form {
 //            ],
 //        ]);
         
+        //Adiciona o campo "horarioFlexivel"
+        $this->add([
+            'type' => 'select',
+            'name' => 'horarioFlexivel',
+            'attributes' => [
+                'id' => 'horarioFlexivel',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Horário flexível',
+                'value_options' => [
+                    "" => "Selecione",
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+        
+        
+        
         //Adiciona o campo "chSemanal"
         $this->add([
             'type' => 'text',
@@ -100,20 +120,6 @@ class TermoForm extends Form {
             ],
             'options' => [
                 'label' => 'C.H Semanal'
-            ],
-        ]);
-        
-        //Adiciona o campo "horarioFlexivel"
-        $this->add([
-            'type' => 'text',
-            'name' => 'horarioFlexivel',
-            'attributes' => [
-                'id' => 'horarioFlexivel',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o horário flexível aqui'
-            ],
-            'options' => [
-                'label' => 'Horário flexível'
             ],
         ]);
         
@@ -130,18 +136,18 @@ class TermoForm extends Form {
             ],
         ]);
         
-        $this->add([
-            'type' => 'text',
-            'name' => 'valorBolsa',
-            'attributes' => [
-                'id' => 'valorBolsa',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o valor da bolsa'
-            ],
-            'options' => [
-                'label' => 'Valor da bolsa'
-            ],
-        ]);
+//        $this->add([
+//            'type' => 'text',
+//            'name' => 'valorBolsa',
+//            'attributes' => [
+//                'id' => 'valorBolsa',
+//                'class' => 'form-control',
+//                'placeholder' => 'Digite o valor da bolsa'
+//            ],
+//            'options' => [
+//                'label' => 'Valor da bolsa'
+//            ],
+//        ]);
         
 
 //        //Adiciona o campo "nivel"
@@ -267,6 +273,66 @@ class TermoForm extends Form {
                 ],
             ],
         ]);
+        
+        $inputFilter->add([
+            'name' => 'tipoAditivo',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 100
+                    ],
+                ],
+            ],
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'chSemanal',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 100
+                    ],
+                ],
+            ],
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'horarioFlexivel',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 100
+                    ],
+                ],
+            ],
+        ]);
+        
+        
+        
 //        
 //        
 //         $inputFilter->add([

@@ -11,9 +11,7 @@
                 <th>Curso</th>
                 <th>Semestre</th>
                 <th>Início efetivo</th>
-<!--                <th>Fonte seguro</th>
-                <th>Apólice seguro</th>
-                <th>Seguradora</th>-->
+                <th>Fonte seguro</th>
                 <th>Instituição de ensino</th>
             </tr>
         </thead>
@@ -25,10 +23,8 @@
                     <td><?= $estagio->getCurso()?$this->escapeHtml($estagio->getCurso()->getDescricao()):""; ?></td>
                     <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
                     <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
-<!--                    <td><?php //$estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
-                    <td><?php //$this->escapeHtml($estagio->getSeguroApolice()); ?></td>
-                    <td><?php //$this->escapeHtml($estagio->getSeguroSeguradora()); ?></td>-->
-                    <td><?php echo $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
+                    <td><?php //$estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
+                    <td><?php //echo $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()); ?></td>
 
                     <td><button type="button" class="btn btn-primary btn-sm pull-center"
                            onclick="editarEstagio('<?php echo $estagio->getId();?>')"
@@ -36,9 +32,9 @@
                         <a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
                            title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
-                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                        <button type="button" class="btn btn-info btn-sm pull-center"
                            onclick="novoTermo('<?php echo $estagio->getId();?>')"
-                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                           title="Novo termo."><span class="glyphicon glyphicon-folder-open"></span></button>
                     </td>
                 </tr>
         </tbody>
