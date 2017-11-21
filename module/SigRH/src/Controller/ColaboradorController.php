@@ -100,8 +100,10 @@ class ColaboradorController extends AbstractActionController
                             }
                             if (null != $colaborador->getNatural()) {
                                 $form->get("natural_estado")->setValue($colaborador->getNatural()->getEstado()->getId());
+                                $form->get("natural")->setValue($colaborador->getNatural()->getId());
+                                
                             }
-                            $form->get("natural")->setValue($colaborador->getNatural()->getId());
+                            
                             $form->get("endereco")->setValue($colaborador->endereco->id);
                             $form->get("grupoSanguineo")->setValue($colaborador->grupoSanguineo->id);
                             $form->get("grauInstrucao")->setValue($colaborador->grauInstrucao->id);
