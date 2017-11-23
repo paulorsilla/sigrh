@@ -50,8 +50,9 @@ class TermoController extends AbstractActionController
 	public function saveModalAction()
 	{
                 $id = $this->params()->fromRoute('id', null);
+                $service_atividade = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Atividades::class);
 		//Cria o formulário
-		$form = new TermoForm($this->objectManager);
+		$form = new TermoForm($this->objectManager,$service_atividade);
 		
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
@@ -79,6 +80,8 @@ class TermoController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
+ 
+//                            $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
                             
                             
                             

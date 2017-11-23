@@ -11,14 +11,16 @@ use Zend\InputFilter\InputFilter;
 class TermoForm extends Form {
 
     protected $objectManager;
+    protected $serviceAtividade;
     /**
      * Construtor
      */
-    public function __construct($objectManager) {
+    public function __construct($objectManager,$serviceAtividade) {
         //Determina o nome do formulário
         parent::__construct('termo-form');
 
         $this->objectManager = $objectManager;
+        $this->serviceAtividade = $serviceAtividade;
         //Define o método POST para envio do formulário
         $this->setAttribute('method', 'post');
 
@@ -26,7 +28,7 @@ class TermoForm extends Form {
         $this->addInputFilter();
     }
 
-        public function setObjectManager(ObjectManager $objectManager) {
+    public function setObjectManager(ObjectManager $objectManager) {
         $this->objectManager = $objectManager;
     }
 
@@ -108,7 +110,19 @@ class TermoForm extends Form {
             ],
         ]);
         
-        
+        //Adiciona o campo "Atividade"
+        $this->add([
+            'type' => 'select',
+            'name' => 'atividade',
+            'attributes' => [
+                'id' => 'atividade',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Atividade',
+                'value_options' => [""=>"Selecione"] + $this->serviceAtividade->getListAtividadesParaCombo()
+            ],
+        ]);
         
         //Adiciona o campo "chSemanal"
         $this->add([
@@ -151,20 +165,20 @@ class TermoForm extends Form {
         ]);
         
 
-//        //Adiciona o campo "nivel"
+////        //Adiciona o campo "modalidadeBolsa"
 //        $this->add([
 //            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'nivel',
+//            'name' => 'modalidadeBolsa',
 //            'attributes' => [
-//                'id' => 'nivel',
+//                'id' => 'modalidadeBolsa',
 //                'class' => 'form-control',
-//                'placeholder' => 'Digite o nível aqui'
+//                'placeholder' => 'Digite a modalidade aqui'
 //            ],
 //            'options' => [
-//                'label' => 'Nivel',
+//                'label' => 'Modalidade bolsa',
 //                'empty_option' => 'Selecione',
 //                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\Nivel::class,
+//                'target_class' => \SigRH\Entity\ModalidadeBolsa::class,
 //                'property' => 'descricao',
 //                'display_empty_item' => true,
 //            ]
@@ -335,8 +349,8 @@ class TermoForm extends Form {
         
 
 //         $inputFilter->add([
-//            'name' => 'nivel',
-//            'required' => true,
+//            'name' => 'modalidadeBolsa',
+//            'required' => false,
 //        ]);
 //       
 //         $inputFilter->add([

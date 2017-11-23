@@ -52,6 +52,14 @@ class Termo extends AbstractRepository {
             $row->setEstagio($estagioObj);
         }
         
+//        //modalidade bolsa...
+//        if ( !empty($dados['nivel'] )) {
+//            $nivel = $this->getEntityManager()->find('SigRH\Entity\Nivel', $dados['nivel']); //busca as informações
+//            $row->setNivel($nivel);
+//        }
+//        unset($dados['nivel']);
+        
+        
         $row->setdataInicio(null);
         if ($dados ['dataInicio'] != "") {					
             $inicio = \DateTime::createFromFormat ("Y-m-d", $dados ['dataInicio']);

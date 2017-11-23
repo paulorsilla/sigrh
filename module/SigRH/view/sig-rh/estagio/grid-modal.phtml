@@ -42,8 +42,7 @@ foreach ($this->estagios as $estagio):
                                     <td><?= $this->escapeHtml($estagio->getSerie()); ?></td>
                                     <td><?php echo $this->escapeHtml(null!= $estagio->getDataInicioEfetivo() ? $estagio->getDataInicioEfetivo()->format("d/m/Y"): ''); ?></td>
                                     <td><?php echo $estagio->getFonteSeguro()?$this->escapeHtml($estagio->getFonteSeguro()->getDescricao()):""; ?></td>
-                                    <td><?php //echo $estagio->getInstituicao()->getDesRazaoSocial(); ?></td>
-                                    <td><?php //echo (null != $estagio->getInstituicao()) ? $this->escapeHtml($termo->getInstituicao()->getDesRazaoSocial()) : "";?></td>
+                                    <td><?php echo (null != $estagio->getInstituicao()) ? $this->escapeHtml($estagio->getInstituicao()->getDesRazaoSocial()) : "";?></td>
 
                                     <td><button type="button" class="btn btn-primary btn-sm pull-center"
                                            onclick="editarEstagio('<?php echo $estagio->getId();?>')"

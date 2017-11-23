@@ -31,6 +31,14 @@ class ColaboradorController extends AbstractActionController
 	
 	public function indexAction()
 	{
+            /* Exemplo de acesso ao serviço 
+                $service_atividade = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Atividades::class);
+                $list = $service_atividade->getListAtividades();
+                \Zend\Debug\Debug::dump($list);
+                die();
+             * 
+             */
+                
                 $repo = $this->entityManager->getRepository(Colaborador::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $search = $this->params()->fromPost();
