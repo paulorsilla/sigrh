@@ -7,33 +7,51 @@
         </h3>
         <hr>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('aditivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('aditivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('aditivo')); ?>  
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('tipoAditivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('tipoAditivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('tipoAditivo')); ?>                  
             </div>
-
-            <div class="col-md-4">
-                <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
-                <?php echo $this->formElement($this->form->get('chSemanal')); ?>
-                <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  
+            
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('dataInicio')); ?><br>
+                <?php echo $this->formElement($this->form->get('dataInicio')); ?>
+                <?php echo $this->formElementErrors($this->form->get('dataInicio')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('dataTermino')); ?><br>
+                <?php echo $this->formElement($this->form->get('dataTermino')); ?>
+                <?php echo $this->formElementErrors($this->form->get('dataTermino')); ?>                  
             </div>
         </div>
         
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
+                <?php echo $this->formElement($this->form->get('chSemanal')); ?>
+                <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('horarioFlexivel')); ?><br>
                 <?php echo $this->formElement($this->form->get('horarioFlexivel')); ?>
                 <?php echo $this->formElementErrors($this->form->get('horarioFlexivel')); ?>                  
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('valorBolsa')); ?><br>
+                <?php echo $this->formElement($this->form->get('valorBolsa')); ?>
+                <?php echo $this->formElementErrors($this->form->get('valorBolsa')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('processo')); ?><br>
                 <?php echo $this->formElement($this->form->get('processo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('processo')); ?>                  

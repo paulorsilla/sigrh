@@ -174,7 +174,7 @@ class EstagioForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Início efetivo'
             ],
         ]);

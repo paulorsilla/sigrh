@@ -52,6 +52,24 @@ class Termo extends AbstractRepository {
             $row->setEstagio($estagioObj);
         }
         
+        $row->setdataInicio(null);
+        if ($dados ['dataInicio'] != "") {					
+            $inicio = \DateTime::createFromFormat ("Y-m-d", $dados ['dataInicio']);
+            if ( !empty($inicio)  )
+               $row->setdataInicio($inicio);
+        }
+        unset($dados['dataInicio']);
+        
+        $row->setDataTermino(null);
+        if ($dados ['dataTermino'] != "") {					
+            $fim = \DateTime::createFromFormat ("Y-m-d", $dados ['dataTermino']);
+            if ( !empty($fim)  )
+               $row->setDataTermino($fim);
+        }
+        unset($dados['dataTermino']);
+        
+        
+        
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao

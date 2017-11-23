@@ -61,33 +61,35 @@ class TermoForm extends Form {
             ],
         ]);
         
-//        //Adiciona o campo "dataInicio"
-//        $this->add([
-//            'type' => 'Zend\Form\Element\Date',
-//            'name' => 'dataInicio',
-//            'attributes' => [
-//                'id' => 'dataInicio',
-//                'class' => 'form-control',
-//            ],
-//            'options' => [
-//                'format' => 'd/m/Y',
-//                'label' => 'Início'
-//            ],
-//        ]);
-//        
-//        //Adiciona o campo "dataTermino"
-//        $this->add([
-//            'type' => 'Zend\Form\Element\Date',
-//            'name' => 'dataTermino',
-//            'attributes' => [
-//                'id' => 'dataTermino',
-//                'class' => 'form-control',
-//            ],
-//            'options' => [
-//                'format' => 'd/m/Y',
-//                'label' => 'Término'
-//            ],
-//        ]);
+        //Adiciona o campo "dataInicio"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataInicio',
+            'attributes' => [
+                'id' => 'dataInicio',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Início'
+            ],
+        ]);
+        
+        //Adiciona o campo "dataTermino"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataTermino',
+            'attributes' => [
+                'id' => 'dataTermino',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Término'
+            ],
+        ]);
+        
+        
         
         //Adiciona o campo "horarioFlexivel"
         $this->add([
@@ -100,7 +102,6 @@ class TermoForm extends Form {
             'options' => [
                 'label' => 'Horário flexível',
                 'value_options' => [
-                    "" => "Selecione",
                     "0" => "Não",
                     "1" => "Sim"
                 ]
@@ -116,7 +117,7 @@ class TermoForm extends Form {
             'attributes' => [
                 'id' => 'chSemanal',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o tipo aditivo aqui'
+                'placeholder' => 'Digite a carga horária aqui'
             ],
             'options' => [
                 'label' => 'C.H Semanal'
@@ -136,18 +137,18 @@ class TermoForm extends Form {
             ],
         ]);
         
-//        $this->add([
-//            'type' => 'text',
-//            'name' => 'valorBolsa',
-//            'attributes' => [
-//                'id' => 'valorBolsa',
-//                'class' => 'form-control',
-//                'placeholder' => 'Digite o valor da bolsa'
-//            ],
-//            'options' => [
-//                'label' => 'Valor da bolsa'
-//            ],
-//        ]);
+        $this->add([
+            'type' => 'text',
+            'name' => 'valorBolsa',
+            'attributes' => [
+                'id' => 'valorBolsa',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o valor da bolsa'
+            ],
+            'options' => [
+                'label' => 'Valor da bolsa'
+            ],
+        ]);
         
 
 //        //Adiciona o campo "nivel"
@@ -332,28 +333,7 @@ class TermoForm extends Form {
         ]);
         
         
-        
-//        
-//        
-//         $inputFilter->add([
-//            'name' => 'previsaoConclusao',
-//            'required' => true,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 200
-//                    ],
-//                ],
-//            ],
-//        ]);
-//
+
 //         $inputFilter->add([
 //            'name' => 'nivel',
 //            'required' => true,
@@ -389,24 +369,44 @@ class TermoForm extends Form {
 //            ],
 //        ]);
 //         
-//         $inputFilter->add([
-//            'name' => 'dataInicioEfetivo',
-//            'required' => false,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 200
-//                    ],
-//                ],
-//            ],
-//        ]);
+         $inputFilter->add([
+            'name' => 'dataInicio',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'dataTermino',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
 //   
 //         $inputFilter->add([
 //            'name' => 'fonteSeguro',
