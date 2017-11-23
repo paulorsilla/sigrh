@@ -80,7 +80,7 @@ class Termo extends AbstractEntity {
     protected $chSemanal; 
     
      /**
-     * @ORM\Column(name="horario_flexivel", type="string")
+     * @ORM\Column(name="horario_flexivel", type="boolean")
      */
     protected $horarioFlexivel; 
     

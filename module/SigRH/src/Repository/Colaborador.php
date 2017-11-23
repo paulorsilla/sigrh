@@ -197,9 +197,9 @@ class Colaborador extends AbstractRepository {
         
         $row->setCtpsDataExpedicao(null);
         if ($dados ['ctpsDataExpedicao'] != "") {					
-            $rgDataEmissao = \DateTime::createFromFormat ( "Y-m-d", $dados ['ctpsDataExpedicao'] );
+            $ctpsDataExpedicao = \DateTime::createFromFormat ( "Y-m-d", $dados ['ctpsDataExpedicao'] );
             if ( !empty($ctpsDataExpedicao)  )
-                $row->setRgDataEmissao($ctpsDataExpedicao);
+                $row->setCtpsDataExpedicao($ctpsDataExpedicao);
         }
         unset($dados['ctpsDataExpedicao']);
         

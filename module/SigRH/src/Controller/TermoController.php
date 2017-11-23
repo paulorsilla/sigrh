@@ -80,8 +80,11 @@ class TermoController extends AbstractActionController
                         if ( !empty($row)){
                             $form->setData($row->toArray());
                             
+                            
+                            
 //                            $form->get("nivel")->setValue($row->nivel->id);
 //                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
+                            
                           
                         }
                     }

@@ -100,7 +100,7 @@ class Estagio extends AbstractRepository {
         
         $row->setDataInicioEfetivo(null);
         if ($dados ['dataInicioEfetivo'] != "") {					
-            $dataInicioEfetivo = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataInicioEfetivo'] );
+            $dataInicioEfetivo = \DateTime::createFromFormat ( "Y-m-d", $dados ['dataInicioEfetivo'] );
             if ( !empty($dataInicioEfetivo)  )
                $row->setDataInicioEfetivo($dataInicioEfetivo);
         }
