@@ -191,6 +191,20 @@ return [
                             ]
                         ]
                     ],
+                    'cracha' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/cracha[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CrachaController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'fonte-seguro' => [
                         'type' => Segment::class,
                         'options' => [
@@ -349,6 +363,7 @@ return [
             Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\CrachaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CursoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,

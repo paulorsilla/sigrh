@@ -582,6 +582,68 @@ class ColaboradorForm extends Form {
                 'label' => 'Observações'
             ],
         ]);
+        
+        //Adiciona o campo "loginSede"
+        $this->add([
+            'type' => 'text',
+            'name' => 'loginSede',
+            'attributes' => [
+                'id' => 'loginSede',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o login corporativo aqui'
+            ],
+            'options' => [
+                'label' => 'Login corporativo (Embrapa Sede)'
+            ],
+        ]);
+
+        //Adiciona o campo "loginLocal"
+        $this->add([
+            'type' => 'text',
+            'name' => 'loginLocal',
+            'attributes' => [
+                'id' => 'loginLocal',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o login local aqui'
+            ],
+            'options' => [
+                'label' => 'Login local (Embrapa Soja)'
+            ],
+        ]);
+        
+        //Adiciona o campo "emailCorporativo"
+        $this->add([
+            'type' => 'text',
+            'name' => 'emailCorporativo',
+            'attributes' => [
+                'id' => 'emailCorporativo',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o e-mail corporativo aqui'
+            ],
+            'options' => [
+                'label' => 'E-mail corporativo'
+            ],
+        ]);
+        
+        
+        //Adiciona o campo "linhaOnibus"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'linhaOnibus',
+            'attributes' => [
+                'id' => 'linhaOnibus',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Linha de ônibus',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\LinhaOnibus::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
 
         ////////////campos do endereço.../////////////////////////////////////////////
         //Adiciona o campo "Endereço"

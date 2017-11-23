@@ -169,15 +169,11 @@
         $(this).html("aguarde ...").attr("disabled",true);
         form =  $("form",$(obj).closest(".modal-content"));
         dados = $(form).serializeObject();
-        
         urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
-        
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
                 $("#DependenteModal").modal('hide');
                 refreshGridDependente($("input#matricula").val());
-                 
-                
             } else {
                 $(".modal-body",$(obj).closest(".modal-content")).html(data);
             }
@@ -185,13 +181,17 @@
         });
     } 
     
-    
     function refreshGridHorario(matricula){
         url = "/sig-rh/horario/grid-modal?matricula="+matricula;
         $('#gridHorarios').html('carregando...');
         $('#gridHorarios').load(url);
     }
-
+    
+    function refreshGridCracha(matricula){
+        url = "/sig-rh/cracha/grid-modal?matricula="+matricula;
+        $('#gridCracha').html('carregando...');
+        $('#gridCracha').load(url);
+    }
     
 $(document).ready(function () {
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());

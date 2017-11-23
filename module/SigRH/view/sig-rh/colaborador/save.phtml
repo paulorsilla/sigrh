@@ -40,7 +40,6 @@ $form->get('submit')->setAttributes([
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <!--<img class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px;" src="file:///home/aplicacoes/sigrh-arquivos/fotos/352468.bmp" data-holder-rendered="true">-->
                         <img id="imgFoto" style="height: 100%; width: 100%; object-fit: contain; border: 2px solid gray"/>
                     </div>
                 </div>
@@ -54,12 +53,13 @@ $form->get('submit')->setAttributes([
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#dadosPessoais">Dados Pessoais</a></li>
                     <li><a data-toggle="tab" href="#documentacao">Documentação</a></li>
+                    <li><a data-toggle="tab" href="#dadosInstitucionais">Dados institucionais</a></li>
+                    <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
                     <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
                     <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() != 1)):?>
                         <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
                     <?php endif;?>
-                    <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
-                    <li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>
+                    <!--<li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>-->
                     <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() == 1)):?>
                         <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
                     <?php endif;?>
@@ -102,13 +102,11 @@ $form->get('submit')->setAttributes([
                         <div class="row">
                             <div class="col-md-2"><?php echo $this->formRow($form->get('telefoneResidencial')); ?></div>
                             <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('ramal')); ?></div>
-                            <div class="col-md-6"><?= $this->formRow($form->get('email')); ?></div>
+                            <div class="col-md-8"><?= $this->formRow($form->get('email')); ?></div>
                         </div>
                     </div>
 
                     <div id="documentacao" class="tab-pane fade">
-
                         <div class="row">
                             <div class="col-md-4"><?= $this->formRow($form->get('rgNumero')); ?></div>
                             <div class="col-md-3"><?= $this->formRow($form->get('rgDataEmissao')); ?></div>
@@ -129,9 +127,51 @@ $form->get('submit')->setAttributes([
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('pis')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('pis')); ?></div>
                             <div class="col-md-8"></div>
                         </div>
+                    </div>
+                    
+                    <div id="dadosInstitucionais" class="tab-pane fade">
+
+                        <div class="row">
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('loginSede')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('loginLocal')); ?></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('ramal')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('linhaOnibus')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('emailCorporativo')); ?></div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <b>Crachás</b>
+                            </div>
+                            <div class="col-md-12" id="gridCracha">
+                               
+                            </div>
+                            
+                        </div>
+                        <?php if ( !empty($this->colaborador) ) { 
+                            $matricula = $this->colaborador->getMatricula();
+                            if ( !empty($matricula) ) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoCracha('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridCracha('<?php echo $matricula;?>');
+                                });
+                                </script>
+                        <?php }
+                        }?>
                     </div>
 
                     <div id="informacoesBancarias" class="tab-pane fade">

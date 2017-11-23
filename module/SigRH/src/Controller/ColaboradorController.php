@@ -96,6 +96,7 @@ class ColaboradorController extends AbstractActionController
                             $form->get("estadoCivil")->setValue((null != $colaborador->getEstadoCivil()) ? $colaborador->getEstadoCivil() : null);
                             $form->get("natural")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural() : null);
                             $form->get("ctpsUf")->setValue((null != $colaborador->getCtpsUf()) ? $colaborador->getCtpsUf() : null);
+                            $form->get("linhaOnibus")->setValue((null != $colaborador->getLinhaOnibus()) ? $colaborador->getLinhaOnibus() : null);
 
                             $endereco = $colaborador->getEndereco();
 //                            \Doctrine\Common\Util\Debug::dump($endereco); die();

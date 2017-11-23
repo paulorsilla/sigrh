@@ -1,0 +1,28 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Número do chip</th>
+            <th>Data de inclusão</th>
+            <th>Data de exclusão</th>
+            <th>Observações</th>
+            <th>Ativo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->crachas as $cracha): ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($cracha->getNumeroChip()); ?></td>
+                <td><?php echo $this->escapeHtml($cracha->getDataInclusao()->format("d/m/Y")); ?></td>
+                <td><?php echo $this->escapeHtml($cracha->getDataExclusao()->format("d/m/Y")); ?></td>
+                <td><?php echo $this->escapeHtml($cracha->getObservacoeso()); ?></td>
+                <td><?php echo ($cracha->getAtivo() ? Sim : Não); ?></td>
+
+                <td><a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/cracha', ['action' => 'save', 'id' => $cracha->getId()]) ?>"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </tbody>
+</table>
