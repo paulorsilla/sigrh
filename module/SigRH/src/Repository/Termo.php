@@ -53,11 +53,11 @@ class Termo extends AbstractRepository {
         }
         
 //        //modalidade bolsa...
-//        if ( !empty($dados['nivel'] )) {
-//            $nivel = $this->getEntityManager()->find('SigRH\Entity\Nivel', $dados['nivel']); //busca as informações
-//            $row->setNivel($nivel);
-//        }
-//        unset($dados['nivel']);
+        if ( !empty($dados['modalidadeBolsa'] )) {
+            $modalidade = $this->getEntityManager()->find('SigRH\Entity\ModalidadeBolsa', $dados['modalidadeBolsa']); //busca as informações
+            $row->setModalidadeBolsa($modalidade);
+        }
+        unset($dados['modalidadeBolsa']);
         
         
         $row->setdataInicio(null);

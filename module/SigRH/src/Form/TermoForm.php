@@ -166,23 +166,23 @@ class TermoForm extends Form {
         
 
 ////        //Adiciona o campo "modalidadeBolsa"
-//        $this->add([
-//            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'modalidadeBolsa',
-//            'attributes' => [
-//                'id' => 'modalidadeBolsa',
-//                'class' => 'form-control',
-//                'placeholder' => 'Digite a modalidade aqui'
-//            ],
-//            'options' => [
-//                'label' => 'Modalidade bolsa',
-//                'empty_option' => 'Selecione',
-//                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\ModalidadeBolsa::class,
-//                'property' => 'descricao',
-//                'display_empty_item' => true,
-//            ]
-//        ]);
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'modalidadeBolsa',
+            'attributes' => [
+                'id' => 'modalidadeBolsa',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a modalidade aqui'
+            ],
+            'options' => [
+                'label' => 'Modalidade bolsa',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\ModalidadeBolsa::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
 //
 //        //Adiciona o campo "curso"
 //        $this->add([

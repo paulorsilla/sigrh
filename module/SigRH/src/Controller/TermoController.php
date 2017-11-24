@@ -81,7 +81,7 @@ class TermoController extends AbstractActionController
                         if ( !empty($row)){
                             $form->setData($row->toArray());
  
-//                            $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
+                            $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
                             
                             
                             
