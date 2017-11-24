@@ -33,7 +33,6 @@ class DependenteController extends AbstractActionController
                 $this->objectManager = $objectManager;
 	}
 	
-	
         public function gridModalAction()
 	{
                 $grauParentesco = [1 => "Cônjuge", 2 => "Filho(a)", 3 => "Irmã(o)", 4 => "Pai", 5 => "Mãe", 99 => "Outros"];

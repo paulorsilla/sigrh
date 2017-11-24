@@ -24,27 +24,27 @@ class Cracha extends AbstractEntity{
      * */
     protected $colaboradorMatricula; //colaborador_matricula
 
-    /*
+    /**
      * @ORM\Column(name="numero_chip", type="integer")
      */
     protected $numeroChip;
 
-    /*
+    /**
      * @ORM\Column(name="data_inclusao", type="datetime")
      */
     protected $dataInclusao;
     
-    /*
+    /**
      * @ORM\Column(name="data_exclusao", type="datetime")
      */
     protected $dataExclusao;
     
-    /*
+    /**
      * @ORM\Column(name="ativo", type="boolean")
      */
     protected $ativo;
     
-    /*
+    /**
      * @ORM\Column(name="observacoes", type="string")
      */
     protected $observacoes;

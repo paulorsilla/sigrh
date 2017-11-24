@@ -163,6 +163,20 @@ return [
                             ]
                         ]
                     ],
+                    'importacao-ponto' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/importacao-ponto[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ImportacaoPontoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],                    
                     'nivel' => [
                         'type' => Segment::class,
                         'options' => [

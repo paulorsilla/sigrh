@@ -8,8 +8,23 @@ class Cracha extends AbstractRepository {
 
     public function getQuery($search = array()) {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('c')
-                ->from(CrachaEntity::class, 'c');
+        $qb->select('d')
+                ->from(CrachaEntity::class, 'd');
+        
+        //inclui a pesquisa por matricula por meio de um join
+        error_log("MATRICULA: ".$search['matricula']);
+        //inclui a pesquisa por matricula por meio de um join
+        if ( !empty($search['matricula'])){
+            $qb->join("d.colaboradorMatricula",'c');
+            $qb->where('c.matricula = :matricula');
+            $qb->setParameter("matricula",$search['matricula']);
+        }
+        
+        
+        echo "DQL: ".$qb->getDQL();
+        echo "<hr>";
+        echo "SQL: ".$qb->getQuery()->getSQL();
+        die();
        return $qb;
     }
     
