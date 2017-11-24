@@ -384,6 +384,7 @@ return [
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\InstituicaoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ImportacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,

@@ -1,0 +1,42 @@
+<?php
+//$this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
+$form = $this->form;
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro de colaboradores</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/importacao-ponto?page=<?php echo $this->page;?>" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?= $this->form()->openTag($form); ?>
+
+                <div class="form-group row">
+                        <div class="col-md-3"><?php echo $this->formRow($form->get('referencia')); ?></div>
+                        <div class="col-md-3"><?php echo $this->formRow($form->get('dataImportacao')); ?></div>
+                        <div class="col-md-6"><?php echo $this->formRow($form->get('usuario')); ?></div>
+                </div>
+                <div class="form-group row">
+                        <div class="col-md-12"><?php echo $this->formRow($form->get('arquivo')); ?></div>
+                </div>
+                
+                <hr>
+                <?= $this->formElement($form->get('submit')); ?>
+                <?= $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

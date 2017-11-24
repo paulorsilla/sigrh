@@ -4,6 +4,7 @@ namespace SigRH\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use SigRH\Form\ImportacaoPontoForm;
 use SigRH\Entity\ImportacaoPonto;
 
 class ImportacaoPontoController extends AbstractActionController
@@ -42,7 +43,7 @@ class ImportacaoPontoController extends AbstractActionController
                 $id = $this->params()->fromRoute('id', null);
 
                 //Cria o formulário
-		$form = new ImportacaoPontoForm();
+		$form = new ImportacaoPontoForm($this->entityManager);
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
 			
