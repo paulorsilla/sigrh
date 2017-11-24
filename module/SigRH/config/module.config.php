@@ -411,6 +411,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
+            Service\Atividades::class => Service\Factory\AtividadesFactory::class,
 //                            Service\AmostraManager::class => Service\Factory\AmostraManagerFactory::class,
         ]
     ],

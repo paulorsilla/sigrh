@@ -16,6 +16,16 @@ use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
 
 return [
+                'service_manager' => [
+                        'factories' => [
+                            'adapter_cti' => function($serviceLocator) // adaptador para acesso ao banco de dados de projetos
+                            {
+                                    $config = $serviceLocator->get('Config');
+                                    return new \Zend\Db\Adapter\Adapter($config['db_cti']);
+                            }       
+
+                        ]
+                ],
 		// Session configuration.
 		'session_config' => [
 				// Session cookie will expire in 1 day.

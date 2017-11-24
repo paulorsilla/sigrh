@@ -44,9 +44,9 @@ class Termo extends AbstractEntity {
     private $estagio;    //estagio_id
     
     /**
-     * @ORM\Column(name="plano_acao", type="integer") 
+     * @ORM\Column(name="atividade", type="integer") 
      */
-    protected $planoAcao; //plano_acao -> buscar via serviço
+    protected $atividade; //atividade -> buscar via serviço
 
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
