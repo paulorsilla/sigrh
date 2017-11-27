@@ -82,11 +82,11 @@ class TermoController extends AbstractActionController
                             $form->setData($row->toArray());
  
                             $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
+                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
+                            $form->get("fundacao")->setValue($row->fundacao->codInstituicao);
+                            $form->get("orientador")->setValue($row->orientador->matricula);
                             
                             
-                            
-//                            $form->get("nivel")->setValue($row->nivel->id);
-//                            $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                             
                           
                         }

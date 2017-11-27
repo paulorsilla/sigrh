@@ -55,6 +55,12 @@ class Termo extends AbstractEntity {
     protected $fundacao; 
     
      /**
+     * @ORM\Column(name="plano_acao", type="string")
+     */
+    protected $planoAcao; 
+
+    
+     /**
      * @ORM\Column(name="aditivo", type="string")
      */
     protected $aditivo; 
@@ -157,8 +163,11 @@ class Termo extends AbstractEntity {
     function getEstagio() {
         return $this->estagio;
     }
+    function getAtividade() {
+        return $this->atividade;
+    }
 
-            
+                
     /**
      * Sets user ID.
      * 
@@ -223,5 +232,9 @@ class Termo extends AbstractEntity {
     function setEstagio($estagio) {
         $this->estagio = $estagio;
     }
-    
+    function setAtividade($atividade) {
+        $this->atividade = $atividade;
+    }
+
+
 }

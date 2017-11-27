@@ -59,6 +59,26 @@ class Termo extends AbstractRepository {
         }
         unset($dados['modalidadeBolsa']);
         
+        //instituicao...
+        if ( !empty($dados['instituicao'] )) {
+            $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
+            $row->setInstituicao($instituicao);
+        }
+        unset($dados['instituicao']);
+        
+        //fundacao...
+        if ( !empty($dados['fundacao'] )) {
+            $fundacao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['fundacao']); //busca as informações
+            $row->setFundacao($fundacao);
+        }
+        unset($dados['fundacao']);
+        
+        //orientador...
+        if ( !empty($dados['orientador'] )) {
+            $orientador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $dados['orientador']); //busca as informações
+            $row->setOrientador($orientador);
+        }
+        unset($dados['orientador']);
         
         $row->setdataInicio(null);
         if ($dados ['dataInicio'] != "") {					
