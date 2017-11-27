@@ -138,6 +138,21 @@ class TermoForm extends Form {
             ],
         ]);
         
+        //Adiciona o campo "planoAcao"
+        $this->add([
+            'type' => 'text',
+            'name' => 'planoAcao',
+            'attributes' => [
+                'id' => 'planoAcao',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o plano de ação aqui'
+            ],
+            'options' => [
+                'label' => 'Plano de ação'
+            ],
+        ]);
+        
+        
         $this->add([
             'type' => 'text',
             'name' => 'processo',
@@ -165,7 +180,7 @@ class TermoForm extends Form {
         ]);
         
 
-////        //Adiciona o campo "modalidadeBolsa"
+        //Adiciona o campo "modalidadeBolsa"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
             'name' => 'modalidadeBolsa',
@@ -183,78 +198,77 @@ class TermoForm extends Form {
                 'display_empty_item' => true,
             ]
         ]);
-//
-//        //Adiciona o campo "curso"
-//        $this->add([
-//            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'curso',
-//            'attributes' => [
-//                'id' => 'curso',
-//                'class' => 'form-control',
-//                'placeholder' => 'Digite o curso aqui'
-//            ],
-//            'options' => [
-//                'label' => 'Curso',
-//                'empty_option' => 'Selecione',
-//                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\Curso::class,
-//                'property' => 'descricao',
-//                'display_empty_item' => true,
-//            ]
-//        ]);
-//        
-//        //Adiciona o campo "instituicao"
-//        $this->add([
-//            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'instituicao',
-//            'attributes' => [
-//                'id' => 'instituicao',
-//                'class' => 'form-control',
-//            ],
-//            'options' => [
-//                'label' => 'Instituição de ensino',
-//                'empty_option' => 'Selecione',
-//                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\Instituicao::class,
-//                'property' => 'desRazaoSocial',
-//                
-//                'find_method' => [
-//                    'name' => 'getQuery',
-//                    'params' => [
-//                        'search' => [
-//                            'combo' => 1
-//                        ]
-//                    ]
-//                ],
-//            ]
-//        ]);
-//        
-//        //Adiciona o campo "sublotacao"
-//        $this->add([
-//            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'sublotacao',
-//            'attributes' => [
-//                'id' => 'sublotacao',
-//                'class' => 'form-control',
-//            ],
-//            'options' => [
-//                'label' => 'Sublotação',
-//                'empty_option' => 'Selecione',
-//                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\Sublotacao::class,
-//                'property' => 'descricao',
-//                'find_method' => [
-//                    'name' => 'getQuery',
-//                    'params' => [
-//                        'search' => [
-//                            'combo' => 1,
-//                            'ano' => '2011'
-//                        ]
-//                    ]
-//                ],
-//            ]
-//        ]);
+
+        //Adiciona o campo "orientador"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'orientador',
+            'attributes' => [
+                'id' => 'orientador',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o orientador aqui'
+            ],
+            'options' => [
+                'label' => 'Orientador',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Colaborador::class,
+                'property' => 'nome',
+                'display_empty_item' => true,
+            ]
+        ]);
         
+        //Adiciona o campo "instituicao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'instituicao',
+            'attributes' => [
+                'id' => 'instituicao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Instituição de ensino',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Instituicao::class,
+                'property' => 'desRazaoSocial',
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
+            ]
+        ]);
+        
+//        //Adiciona o campo "fundacao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'fundacao',
+            'attributes' => [
+                'id' => 'fundacao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Fundacao',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Instituicao::class,
+                'property' => 'desRazaoSocial',
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
+            ]
+        ]);
         
         $this->add([
             'type' => 'submit',
