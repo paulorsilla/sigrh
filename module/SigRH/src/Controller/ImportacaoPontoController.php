@@ -44,6 +44,10 @@ class ImportacaoPontoController extends AbstractActionController
 
                 //Cria o formulário
 		$form = new ImportacaoPontoForm($this->entityManager);
+
+                $user = $this->entityManager->getRepository(\User\Entity\User::class)->findOneByLogin($this->identity());
+                $dataAtual = new \DateTime();
+                
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
 			
@@ -59,7 +63,11 @@ class ImportacaoPontoController extends AbstractActionController
 				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'save']);
 			}
 		} else {
-                    if ( !empty($id)){
+                    $form->get("usuario")->setValue($user);
+//                    $form->get("dataImportacao")->setValue($dataAtual->format("Y-m-d"));
+                    $form->get("dataServidor")->setValue($dataAtual->format("Y-m-d"));
+
+                    if ( !empty($id)) {
                         $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
                         $row = $repo->find($id);
                         if ( !empty($row)){

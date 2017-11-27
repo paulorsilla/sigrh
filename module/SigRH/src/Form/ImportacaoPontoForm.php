@@ -38,6 +38,16 @@ class ImportacaoPontoForm extends Form {
     }
 
     protected function addElements() {
+
+        //Adiciona o campo "dataServidor"
+        $this->add([
+            'type' => 'hidden',
+            'name' => 'dataServidor',
+            'attributes' => [
+                'id' => 'dataServidor',
+            ],
+        ]);
+        
         //Adiciona o campo "referência"
         $this->add([
             'type' => 'text',
@@ -60,7 +70,8 @@ class ImportacaoPontoForm extends Form {
             'attributes' => [
                 'id' => 'usuario',
                 'class' => 'form-control',
-            ],
+                'disabled' => 'disabled'
+                ],
             'options' => [
                 'label' => 'Usuário',
                 'object_manager' => $this->getObjectManager(),
@@ -77,6 +88,7 @@ class ImportacaoPontoForm extends Form {
             'attributes' => [
                 'id' => 'dataImportacao',
                 'class' => 'form-control',
+                'readonly' => 'readonly'
             ],
             'options' => [
                 'format' => 'Y-m-d',
@@ -112,7 +124,7 @@ class ImportacaoPontoForm extends Form {
         $this->setInputFilter($inputFilter);
 
         $inputFilter->add([
-            'name' => 'descricao',
+            'name' => 'referencia',
             'required' => true,
             'filters' => [
                 ['name' => 'StringTrim'],
@@ -123,12 +135,28 @@ class ImportacaoPontoForm extends Form {
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 2,
-                        'max' => 200
+                        'min' => 7,
+                        'max' => 7
                     ],
                 ],
             ],
         ]);
+        
+        $inputFilter->add([
+            'name' => 'dataImportacao',
+            'required' => false,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'usuario',
+            'required' => false,
+        ]);
+
+        $inputFilter->add([
+            'name' => 'arquivo',
+            'required' => true,
+        ]);
+
 
     }
 
