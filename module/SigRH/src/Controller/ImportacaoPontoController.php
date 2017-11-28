@@ -70,6 +70,7 @@ class ImportacaoPontoController extends AbstractActionController
                                 $log = $serviceImportacao->uploadPonto($file, $importacaoPonto);
 
                                 $repo->incluir_ou_editar($data, $user, $log, $importacaoPonto->getId());
+                                $this->entityManager->flush();
                                 
 				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'index']);
 			} else {

@@ -50,6 +50,20 @@ return [
                             ]
                         ]
                     ],
+                    'batida-ponto' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/batida-ponto[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\BatidaPontoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -368,6 +382,7 @@ return [
         'factories' => [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\BatidaPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
