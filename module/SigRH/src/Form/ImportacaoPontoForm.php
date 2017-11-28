@@ -65,7 +65,7 @@ class ImportacaoPontoForm extends Form {
         
         //Adiciona o campo "usuario"
         $this->add([
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
             'name' => 'usuario',
             'attributes' => [
                 'id' => 'usuario',
@@ -83,7 +83,7 @@ class ImportacaoPontoForm extends Form {
         
         //Adiciona o campo "dataImportação"
         $this->add([
-            'type' => 'Zend\Form\Element\Date',
+            'type' => \Zend\Form\Element\Date::class,
             'name' => 'dataImportacao',
             'attributes' => [
                 'id' => 'dataImportacao',
@@ -98,11 +98,10 @@ class ImportacaoPontoForm extends Form {
         
         //Adiciona o campo "arquivo"
         $this->add([
-            'type' => 'file',
+            'type' => \Zend\Form\Element\File::class,
             'name' => 'arquivo',
             'attributes' => [
                 'id' => 'arquivo',
-
             ],
             'options' => [
                 'label' => 'Selecione o arquivo'
@@ -154,9 +153,30 @@ class ImportacaoPontoForm extends Form {
 
         $inputFilter->add([
             'name' => 'arquivo',
-            'required' => true,
+            'required' => false,
         ]);
-
+        
+        $inputFilter->add([
+            'type'     => \Zend\InputFilter\FileInput::class,
+            'name'     => 'arquivo',  // Element's name.
+            'required' => true,    // Whether the field is required.
+            
+            'filters'  => [        // Filters.
+                ['name' => 'StripTags'],
+                ['name' => 'StringTrim'],
+            ],                
+            'validators' => [      // Validators.
+                [
+                    'name' => '\Zend\Validator\File\UploadFile',
+                ],
+                [
+                    'name' => '\Zend\Validator\File\Size',
+                    'options' => [
+                        'max' => '20MB',
+                    ]
+                ],
+        ]        
+    ]); 
 
     }
 

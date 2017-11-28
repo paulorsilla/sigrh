@@ -22,6 +22,8 @@ $form->get('submit')->setAttributes([
             </div>
 
             <div class="panel-body">
+                <?php $this->form->prepare(); ?>
+                
                 <?php echo $this->form()->openTag($form); ?>
                 <?php echo $this->formRow($form->get('dataServidor')); ?>
 

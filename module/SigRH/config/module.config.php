@@ -412,6 +412,7 @@ return [
     'service_manager' => [
         'factories' => [
             Service\Atividades::class => Service\Factory\AtividadesFactory::class,
+            Service\FileUpload::class => Service\Factory\FileUploadFactory::class
 //                            Service\AmostraManager::class => Service\Factory\AmostraManagerFactory::class,
         ]
     ],

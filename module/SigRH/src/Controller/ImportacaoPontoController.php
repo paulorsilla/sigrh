@@ -50,18 +50,32 @@ class ImportacaoPontoController extends AbstractActionController
                 
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
+		
+                    $post = array_merge($this->getRequest()->getPost()->toArray(), $this->getRequest()->getFiles()->toArray());
+                    $form->setData($post);
+
+                    //Recebe os dados via POST
+		    //$data = $this->params()->fromPost();
 			
-			//Recebe os dados via POST
-			$data = $this->params()->fromPost();
-			
-			//Preenche o form com os dados recebidos e o valida
-			$form->setData($data);
+		    //Preenche o form com os dados recebidos e o valida
+		    //$form->setData($data);
 			if ($form->isValid()) {
 				$data = $form->getData();
+                                
+                                $file = $this->params()->fromFiles('arquivo');
+                                
+                                $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
+                                $serviceImportacao->uploadPonto($file);
+                                
+                                error_log("USUARIO: ".$user->getNome());
+                                
                                 $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
-                                $repo->incluir_ou_editar($data, $id);
+                                $repo->incluir_ou_editar($data, $user, $id);
 				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'save']);
-			}
+			} else {
+                            print_r($form->getMessages());
+                            die();
+                        }
 		} else {
                     $form->get("usuario")->setValue($user);
 //                    $form->get("dataImportacao")->setValue($dataAtual->format("Y-m-d"));
