@@ -7,14 +7,18 @@
                 <th>Referência</th>
                 <th>Data da importação</th>
                 <th>Usuário</th>
+                <th>Log</th>
+                <th>Opções</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($this->importacoesPonto as $importacao): ?>
                 <tr>
-                    <td><?= $this->escapeHtml($importacao->getReferencia()); ?></td>
-                    <td><?= $this->escapeHtml($importacao->getDataImportacao()->format("d-m-Y")); ?></td>
-                    <td><?= $this->escapeHtml($importacao->getUsuario()->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml($importacao->getReferencia()); ?></td>
+                    <td><?php echo $this->escapeHtml($importacao->getDataImportacao()->format("d-m-Y")); ?></td>
+                    <td><?php echo $this->escapeHtml($importacao->getUsuario()->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml(substr($importacao->getLog(), 0, 80)." ..."); ?></td>
+                    <td></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -22,7 +22,7 @@ class ImportacaoPonto extends AbstractRepository {
         }
     }
 
-    public function incluir_ou_editar($dados, $user, $id = null) {
+    public function incluir_ou_editar($dados, $user, $log, $id = null) {
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
             $row = $this->find($id); // busca o registro do campo para poder alterar
@@ -41,6 +41,7 @@ class ImportacaoPonto extends AbstractRepository {
         unset($dados['usuario']);
         
         $row->setUsuario($user);
+        $row->setLog($log);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

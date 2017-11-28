@@ -62,16 +62,16 @@ class ImportacaoPontoController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 
-                                $file = $this->params()->fromFiles('arquivo');
-                                
-                                $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
-                                $serviceImportacao->uploadPonto($file);
-                                
-                                error_log("USUARIO: ".$user->getNome());
-                                
                                 $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
-                                $repo->incluir_ou_editar($data, $user, $id);
-				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'save']);
+                                $importacaoPonto = $repo->incluir_ou_editar($data, $user, null, $id);
+
+                                $file = $this->params()->fromFiles('arquivo');
+                                $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
+                                $log = $serviceImportacao->uploadPonto($file, $importacaoPonto);
+
+                                $repo->incluir_ou_editar($data, $user, $log, $importacaoPonto->getId());
+                                
+				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'index']);
 			} else {
                             print_r($form->getMessages());
                             die();
