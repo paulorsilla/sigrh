@@ -19,6 +19,20 @@ class Colaborador extends AbstractRepository {
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
+        if ( (null != $search['tipoColaborador']) && ($search['tipoColaborador'] == 2)) {
+            unset($search['tipoColaborador']);
+            $qb->andWhere('c.tipoColaborador = 2');
+            $qb->orWhere('c.tipoColaborador = 4');
+            $qb->orWhere('c.tipoColaborador = 5');
+            $qb->orWhere('c.tipoColaborador = 6');
+            $qb->orWhere('c.tipoColaborador = 8');
+        }
+        if( null != $search['query']) {
+            $qb->andWhere('c.nome like :query' );
+             $qb->setParameter('query', "%".$search['query']."%");
+        }
+        unset($search['query']);
+        
         if (null != $search['ativo']) {
             if ($search['ativo'] == 'S') {
                 $qb->andWhere('c.dataDesligamento is NULL');
@@ -27,10 +41,8 @@ class Colaborador extends AbstractRepository {
             }
             unset($search['ativo']);
         }
-        if ( (null != $search['tipoColaborador']) && ($search['tipoColaborador'] == 2)) {
-            unset($search['tipoColaborador']);
-            $qb->andWhere('c.tipoColaborador > 1');
-        }
+
+        
         foreach($search as $key => $value) {
             $qb->andWhere('c.'.$key.' = :'.$key);
             $qb->setParameter($key, $value);

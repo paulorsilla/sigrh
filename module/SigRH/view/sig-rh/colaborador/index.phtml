@@ -1,4 +1,17 @@
 <h1>Colaboradores cadastrados</h1>
+
+<form method="get" action="/sig-rh/colaborador/index">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6"></div>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="nome" placeholder="Digite o nome aqui para pesquisar" id="nome" value="<?php echo (null != $this->nome) ? $this->nome : ''; ?>">
+        </div>
+        <div class="col-md-1">
+            <button class="btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</form>
+<hr>
 <div class="row">
 
     <table class="table table-striped table-hover">
@@ -15,7 +28,7 @@
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->getMatricula()); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->getNome()); ?></td>
-                    <td><?php echo $this->escapeHtml($colaborador->getTipoColaborador()->getDescricao());?>
+                    <td><?php echo $this->escapeHtml($colaborador->getTipoColaborador()->getDescricao()); ?>
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
@@ -28,7 +41,7 @@
         </tbody>
     </table>
     <span class="pull-right">
-        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/colaborador']); ?>
+        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator_colaborador', ['route' => 'sig-rh/colaborador', 'nome' => $this->nome]); ?>
     </span>
 </div>
 
