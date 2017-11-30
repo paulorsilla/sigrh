@@ -21,9 +21,8 @@ class FileUpload {
 
         $fileName = $file['tmp_name'];
         $log = "Crachás não encontrados: ";
-        $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\BatidaPonto::class);
-        $sequencia = [];
-
+        $batidasPonto = [];
+        
         $ponteiro = fopen ( $fileName, 'r' );
 	while ( ! feof ( $ponteiro ) ) {
             $linha = fgets($ponteiro);
@@ -38,22 +37,24 @@ class FileUpload {
                 if (!$cracha) {
                     $log .= $numeroChip.";";
                 } else {
-                    if (empty($sequencia[$numeroChip.$ano.$mes.$dia])) {
-                        $sequencia[$numeroChip.$ano.$mes.$dia] = 1;
+//                    $data['horaBatida'] = $hora."-".$minuto;
+//                    $data['dataBatida'] = $ano."-".$mes."-".$dia;
+//                    $data['colaboradorMatricula'] = $cracha->getColaboradorMatricula()->getMatricula();
+                    $matricula = $cracha->getColaboradorMatricula()->getMatricula();
+                    if(empty($batidasPonto[$matricula.$ano.$mes.$dia])) {
+                        $batidasPonto[$matricula.$ano.$mes.$dia] = $hora."-".$minuto;
                     } else {
-                        $sequencia[$numeroChip.$ano.$mes.$dia] += 1;
+                        $batidasPonto[$matricula.$ano.$mes.$dia] .= ";".$hora."-".$minuto;
                     }
-                    $data['horaBatida'] = $hora."-".$minuto;
-                    $data['dataBatida'] = $ano."-".$mes."-".$dia;
-                    $data['colaboradorMatricula'] = $cracha->getColaboradorMatricula()->getMatricula();
-                    $data['importacaoPontoId'] = $importacaoPonto->getId();
-                    $data['sequencia'] = $sequencia[$numeroChip.$ano.$mes.$dia];
-
-                    $repo->incluir_ou_editar($data, null);
+//                    $data['importacaoPontoId'] = $importacaoPonto->getId();
+//                    $repo->incluir_ou_editar($data, null);
                 }
             }
         }
         fclose($ponteiro);
+        $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\BatidaPonto::class);
+        $repo->incluir($batidasPonto, $importacaoPonto);
+
         return $log;
     }
 }

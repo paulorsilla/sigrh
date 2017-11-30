@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe banco.
@@ -24,16 +25,6 @@ class BatidaPonto extends AbstractEntity {
     protected $dataBatida;
     
     /**
-     * @ORM\Column(name="hora", type="time")
-     */
-    protected $horaBatida;
-    
-    /**
-     * @ORM\Column(name="sequencia", type="integer")
-     */
-    protected $sequencia;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Colaborador")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
      * */    
@@ -45,6 +36,17 @@ class BatidaPonto extends AbstractEntity {
      * */    
     protected $importacaoPonto;
     
+    /**
+     * @ORM\OneToMany(targetEntity="HoraBatidaPonto", mappedBy="batidaPonto")
+     * @ORM\OrderBy({"horaBatida" = "ASC"})
+     * 
+     */
+    protected $horarios;
+    
+    public function __construct() {
+        $this->horarios = new ArrayCollection();
+    }
+    
     public function getId() {
         return $this->id;
     }
@@ -53,12 +55,8 @@ class BatidaPonto extends AbstractEntity {
         return $this->dataBatida;
     }
 
-    public function getHoraBatida() {
-        return $this->horaBatida;
-    }
-
-    public function getSequencia() {
-        return $this->sequencia;
+    public function getHorarios() {
+        return $this->horarios;
     }
 
     public function getColaboradorMatricula() {
@@ -92,7 +90,4 @@ class BatidaPonto extends AbstractEntity {
     public function setImportacaoPonto($importacaoPonto) {
         $this->importacaoPonto = $importacaoPonto;
     }
-
-
-    
 }
