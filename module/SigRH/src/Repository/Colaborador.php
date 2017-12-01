@@ -27,11 +27,11 @@ class Colaborador extends AbstractRepository {
             $qb->orWhere('c.tipoColaborador = 6');
             $qb->orWhere('c.tipoColaborador = 8');
         }
-        if( null != $search['query']) {
-            $qb->andWhere('c.nome like :query' );
-             $qb->setParameter('query', "%".$search['query']."%");
+        if( null != $search['nome']) {
+            $qb->andWhere('c.nome like :nome' );
+             $qb->setParameter('nome', "%".$search['nome']."%");
         }
-        unset($search['query']);
+//        unset($search['nome']);
         
         if (null != $search['ativo']) {
             if ($search['ativo'] == 'S') {
@@ -39,14 +39,14 @@ class Colaborador extends AbstractRepository {
             } else {
                 $qb->andWhere('c.dataDesligamento is NOT NULL');
             }
-            unset($search['ativo']);
+  //          unset($search['ativo']);
         }
 
-        
-        foreach($search as $key => $value) {
-            $qb->andWhere('c.'.$key.' = :'.$key);
-            $qb->setParameter($key, $value);
-        }
+//        
+//        foreach($search as $key => $value) {
+//            $qb->andWhere('c.'.$key.' = :'.$key);
+//            $qb->setParameter($key, $value);
+//        }
         
         if ($combo) {
             return $qb->getQuery()->getResult();
