@@ -71,27 +71,39 @@ class Estagio extends AbstractRepository {
         unset($dados['nivel']);
         
         //curso...
-        if ( !empty($dados['curso'] )) {
-            $curso = $this->getEntityManager()->find('SigRH\Entity\Curso', $dados['curso']); //busca as informações
-            $row->setCurso($curso);
+        if ( isset($dados['curso']) ) {
+            if ( !empty($dados['curso'] )) {
+                $curso = $this->getEntityManager()->find('SigRH\Entity\Curso', $dados['curso']); //busca as informações
+                $row->setCurso($curso);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setCurso(null);
+            }
         }
         unset($dados['curso']);
         
         //fonte seguro...
-        if ( !empty($dados['fonteSeguro'] )) {
-            $fonteSeguro = $this->getEntityManager()->find('SigRH\Entity\FonteSeguro', $dados['fonteSeguro']); //busca as informações
-            $row->setFonteSeguro($fonteSeguro);
-        }
+        if ( isset($dados['fonteSeguro']) ) {
+            if ( !empty($dados['fonteSeguro'] )) {
+                $fonteSeguro = $this->getEntityManager()->find('SigRH\Entity\FonteSeguro', $dados['fonteSeguro']); //busca as informações
+                $row->setFonteSeguro($fonteSeguro);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setFonteSeguro(null);
+            }
+        }    
         unset($dados['fonteSeguro']);
         
         //instituicao...
-        if ( !empty($dados['instituicao'] )) {
-            $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
-            $row->setInstituicao($instituicao);
-        }
+        if ( isset($dados['instituicao']) ) {
+            if ( !empty($dados['instituicao'] )) {
+                $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
+                $row->setInstituicao($instituicao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setInstituicao(null);
+            }
+        }    
         unset($dados['instituicao']);
         
-        //instituicao...
+        //sublotacao...
         if ( !empty($dados['sublotacao'] )) {
             $sublotacao = $this->getEntityManager()->find('SigRH\Entity\Sublotacao', $dados['sublotacao']); //busca as informações
             $row->setSublotacao($sublotacao);
@@ -106,6 +118,9 @@ class Estagio extends AbstractRepository {
         }
         unset($dados['dataInicioEfetivo']);
         
+        if ( isset($dados['preContrato']) && $dados['preContrato'] === '' ){
+            $dados['preContrato'] = null;
+        }
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         // \Doctrine\Common\Util\Debug::dump($row); nunca usar print_r para elemento doctrine

@@ -78,7 +78,8 @@ class EstagioController extends AbstractActionController
                             $form->setData($row->toArray());
                             $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("curso")->setValue($row->curso->id);
-                            $form->get("fonteSeguro")->setValue($row->fonteSeguro->id);
+                            $form->get("nivel")->setValue($row->nivel->id);
+                            $form->get("preContrato")->setValue("$row->preContrato"); // setar o valor como string pois senão o valor 0 não é reconhecido
                             $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                           
                         }

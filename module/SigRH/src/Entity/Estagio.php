@@ -80,7 +80,7 @@ class Estagio extends AbstractEntity {
     protected $colaboradorMatricula; //colaborador_matricula
     
     /**
-     * @ORM\Column(name="pre_contrato", type="boolean")
+     * @ORM\Column(name="pre_contrato", type="integer")
      */
     protected $preContrato;
 

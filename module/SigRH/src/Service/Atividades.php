@@ -49,7 +49,7 @@ class Atividades {
         }
         return $retorno;
     }
-    public function getListAtividadesParaCombo($limit = 0,$func = null){
+    public function getListAtividadesParaCombo($limit = 0,$func = null,$idsPermitidos=null){
     
         $select = "select a.* from prj_tb_atividades a";
         if ( $func != null )
@@ -62,8 +62,16 @@ class Atividades {
         $registros = $query->execute();
 
         $retorno = array();
-        foreach($registros as $ativ){
-            $retorno[ $ativ['cod_atividade'] ] = $ativ['num_atividade'];
+        if ( is_array($idsPermitidos) ) {
+            //var_dump($idsPermitidos); die();
+            foreach($registros as $ativ){
+                 if ( in_array($ativ['cod_atividade'],$idsPermitidos) )
+                    $retorno[ $ativ['cod_atividade'] ] = $ativ['num_atividade'];
+            }
+        } else {
+            foreach($registros as $ativ){
+                $retorno[ $ativ['cod_atividade'] ] = $ativ['num_atividade'];
+            }
         }
         return $retorno;
     }

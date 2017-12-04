@@ -11,16 +11,16 @@ use Zend\InputFilter\InputFilter;
 class TermoForm extends Form {
 
     protected $objectManager;
-    protected $serviceAtividade;
+    protected $serviceEmbraorc;
     /**
      * Construtor
      */
-    public function __construct($objectManager,$serviceAtividade) {
+    public function __construct($objectManager,$serviceEmbraorc) {
         //Determina o nome do formulário
         parent::__construct('termo-form');
 
         $this->objectManager = $objectManager;
-        $this->serviceAtividade = $serviceAtividade;
+        $this->serviceEmbraorc = $serviceEmbraorc;
         //Define o método POST para envio do formulário
         $this->setAttribute('method', 'post');
 
@@ -110,6 +110,7 @@ class TermoForm extends Form {
             ],
         ]);
         
+        
         //Adiciona o campo "Atividade"
         $this->add([
             'type' => 'select',
@@ -120,7 +121,7 @@ class TermoForm extends Form {
             ],
             'options' => [
                 'label' => 'Atividade',
-                'value_options' => [""=>"Selecione"] + $this->serviceAtividade->getListAtividadesParaCombo()
+                //'value_options' => [""=>"Selecione"] + $this->serviceEmbraorc->getListAtividadesParaCombo()
             ],
         ]);
         
