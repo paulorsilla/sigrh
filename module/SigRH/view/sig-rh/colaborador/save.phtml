@@ -25,18 +25,18 @@ $form->get('submit')->setAttributes([
                 <?= $this->form()->openTag($form); ?>
 
                 <div class="form-group row">
-                    <div class="col-md-2"><?= $this->formRow($form->get('matricula')); ?></div>
-                    <div class="col-md-6"><?= $this->formRow($form->get('nome')); ?></div>
-                    <div class="col-md-2"><?= $this->formRow($form->get('tipoColaborador')); ?></div>
-                    <div class="col-md-2"><?= $this->formRow($form->get('apelido')); ?></div>
+                    <div class="col-md-2"><?php echo $this->formRow($form->get('matricula')); ?></div>
+                    <div class="col-md-6"><?php echo $this->formRow($form->get('nome')); ?></div>
+                    <div class="col-md-2"><?php echo $this->formRow($form->get('tipoColaborador')); ?></div>
+                    <div class="col-md-2"><?php echo $this->formRow($form->get('apelido')); ?></div>
                 </div>
                 
                 <div class="form-group row">
                     <div class="col-md-10">
                         <div class="form-group row">
-                            <div class="col-md-6"><?= $this->formRow($form->get('supervisor')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('dataAdmissao')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('dataDesligamento')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('supervisor')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('dataAdmissao')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('dataDesligamento')); ?></div>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -46,7 +46,7 @@ $form->get('submit')->setAttributes([
                 
                 <div class="form-group row">
                     <div class="col-md-10"></div>
-                    <div class="col-md-2"><?= $this->formRow($form->get('foto')); ?></div>
+                    <div class="col-md-2"><?php echo $this->formRow($form->get('foto')); ?></div>
                 </div>
                 <hr>
 

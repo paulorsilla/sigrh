@@ -53,8 +53,7 @@ class FileUpload {
         }
         fclose($ponteiro);
         $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\BatidaPonto::class);
-        $repo->incluir($batidasPonto, $importacaoPonto);
-
+        $repo->incluir_ou_editar($batidasPonto, $importacaoPonto);
         return $log;
     }
 }

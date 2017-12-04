@@ -86,7 +86,6 @@ class Colaborador extends AbstractRepository {
         if ( empty($row)) {
             $row = new ColaboradorEntity();
         }
-
         
         //tipoColaborador...
         if ( !empty($dados['tipoColaborador'] )) {
@@ -114,15 +113,12 @@ class Colaborador extends AbstractRepository {
         $endereco->setBairro($dados['bairro']);
         unset($dados['bairro']);
         
-        
         //cidade...
         if ( !empty($dados['cidade'] )) {
             $cidade = $this->getEntityManager()->find('SigRH\Entity\Cidade', $dados['cidade']); //busca as informações
             $endereco->setCidade($cidade);
         }
         unset($dados['cidade']);
-        
-        
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,7 +211,11 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['ctpsDataExpedicao']);
         
-        
+        if ( !empty($dados['linhaOnibus'] )) {
+            $estadoCivil = $this->getEntityManager()->find('SigRH\Entity\LinhaOnibus', $dados['linhaOnibus']); //busca as informações
+            $row->setLinhaOnibus($linhaOnibus);
+        }
+        unset($dados['linhaOnibus']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($endereco);

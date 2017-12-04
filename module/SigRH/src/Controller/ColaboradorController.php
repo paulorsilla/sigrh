@@ -87,7 +87,7 @@ class ColaboradorController extends AbstractActionController
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Colaborador::class);
                                 $repo->incluir_ou_editar($data, $id);
-				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'save']);
+				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'index']);
 			}
 		} else {
                     if ( !empty($id)){
