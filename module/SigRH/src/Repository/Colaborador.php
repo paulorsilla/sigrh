@@ -60,6 +60,18 @@ class Colaborador extends AbstractRepository {
 //       return $qb;
     }
     
+    public function getEstagiariosGraduacao()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('c')
+                ->from(ColaboradorEntity::class, 'c')
+                ->orderby('c.nome','ASC')
+                ->where('c.tipoColaborador = 2')
+                ->andWhere('c.dataDesligamento is NOT NULL');
+       return $qb;
+        
+    }
+    
     public function getListParaCombo(){
         
         $array = array();

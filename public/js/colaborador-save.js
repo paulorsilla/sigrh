@@ -171,7 +171,7 @@
         dados = $(form).serializeObject();
         urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
         $.post(urlPost,dados,function(data){
-            if ( data.success == 1 ){
+            if ( data.success == 1 ) {
                 $("#DependenteModal").modal('hide');
                 refreshGridDependente($("input#matricula").val());
             } else {
