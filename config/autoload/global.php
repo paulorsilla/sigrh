@@ -22,7 +22,14 @@ return [
                             {
                                     $config = $serviceLocator->get('Config');
                                     return new \Zend\Db\Adapter\Adapter($config['db_cti']);
-                            }       
+                            },   
+                            
+                            'adapter_embraorc' => function($serviceLocator)
+                                {
+                                    $config = $serviceLocator->get('Config');
+                                    return new \Zend\Db\Adapter\Adapter($config['db_embraorc']);
+                                },
+                            
 
                         ]
                 ],

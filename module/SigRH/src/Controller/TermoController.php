@@ -50,13 +50,27 @@ class TermoController extends AbstractActionController
 	public function saveModalAction()
 	{
                 $id = $this->params()->fromRoute('id', null);
-                $service_atividade = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Atividades::class);
+                $serviceEmbraorc = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Embraorc::class);
+                $serviceAtividades = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Atividades::class);
 		//Cria o formulário
-		$form = new TermoForm($this->objectManager,$service_atividade);
-		
+		$form = new TermoForm($this->objectManager,$serviceEmbraorc);
+		$listIdsAtivs = null;
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
-			
+                        $dataInicio = $this->params()->fromPost('dataInicio');
+                        if ( !empty($dataInicio) ){
+                            $dataInicioObj = \DateTime::createFromFormat('Y-m-d',$dataInicio);
+                            if ( !empty($dataInicioObj )){
+                                $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo($dataInicioObj->format('Y'));
+                            }
+                        }
+                            
+                        if ( empty($listIdsAtivs) )    
+                            $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                        
+                        $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                        $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                        
 			//Recebe os dados via POST
 			$data = $this->params()->fromPost();
 			
@@ -79,17 +93,29 @@ class TermoController extends AbstractActionController
                         $repo = $this->entityManager->getRepository(Termo::class);
                         $row = $repo->find($id);
                         if ( !empty($row)){
+                            $dataInicioObj = $row->getDataInicio();
+                            if ( !empty($dataInicioObj )){
+                                $listIdsAtivs=  $serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo($dataInicioObj->format('Y'));
+                            }
+                            
+                            if ( empty($listIdsAtivs) )    
+                                $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                            $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                            $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                            
                             $form->setData($row->toArray());
  
                             $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
                             $form->get("instituicao")->setValue($row->instituicao->codInstituicao);
                             $form->get("fundacao")->setValue($row->fundacao->codInstituicao);
                             $form->get("orientador")->setValue($row->orientador->matricula);
-                            
-                            
-                            
                           
                         }
+                    } else {
+                        $listIdsAtivs = $serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                        $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                        $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                        //var_dump($listAtiv); die();
                     }
                 }
                 $view = new ViewModel([

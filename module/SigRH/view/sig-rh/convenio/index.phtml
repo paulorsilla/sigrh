@@ -1,3 +1,33 @@
+<form method="get" action="/sig-rh/convenio/index">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6"></div>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="search" placeholder="Digite aqui para pesquisar" id="numeroContrato" value="<?php echo (null != $this->search) ? $this->search : ''; ?>">
+            <select class="form-control" name="tipo" id="tipo">
+                <option value="">Todos Tipos</option>
+                <?php foreach($this->lista_tipo as $id=>$value) { ?>
+                <option value="<?php echo $id;?>" <?php echo $id==$this->tipo?"selected":"";?> ><?php echo $value;?></option>
+                <?php } ?>
+            </select> 
+            
+            <div class="col-sm-6 form-group" >
+                            <label>Período:</label>                
+                            <input type="text" name="data_ini" class="date form-control" size="12"  maxlength="40" value="<?php echo \Datetime::createFromFormat("d-m-Y", $search["data_ini"]); ?>" placeholder="Início"/>
+                            <input type="text" name="data_fim" class="date form-control" size="12"  maxlength="40" value="<?php echo \Datetime::createFromFormat("d-m-Y",$search["data_fim"]); ?>" placeholder="Fim"/>
+
+             </div>
+            
+        </div>
+        <div class="col-md-1">
+            <button class="btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</form>
+
+<div class="row titulo" >
+</div>
+
+
 <h1>Convênios cadastrados</h1>
 <div class="row">
 
@@ -16,7 +46,7 @@
         <tbody>
             <?php foreach ($this->convenios as $convenio): ?>
                 <tr>
-                    <td><?= $this->escapeHtml($this->tipo[$convenio->getTipo()]); ?></td>
+                    <td><?= $this->escapeHtml($this->lista_tipo[$convenio->getTipo()]); ?></td>
                     <td><?= $this->escapeHtml($convenio->getConvenioNumero()); ?></td>
                     <td><?php echo $this->escapeHtml(null!= $convenio->getConvenioInicio() ? $convenio->getConvenioInicio()->format("d/m/Y"): ''); ?></td>
                     <td><?php echo $this->escapeHtml(null!= $convenio->getConvenioTermino() ? $convenio->getConvenioTermino()->format("d/m/Y"): ''); ?></td>
@@ -42,3 +72,7 @@
     <a class="btn btn-primary pull-left" href="/sig-rh/convenio/save">Novo
         registro</a>
 </div>
+
+
+
+

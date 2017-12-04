@@ -10,12 +10,39 @@ class Convenio extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ConvenioEntity::class, 'c')
-                ->orderby('c.id','ASC');
+                ->orderby('c.convenioNumero','ASC');
+
         
         if ( !empty($search['search'])){
-            $qb->where('c.id like :busca');
+            $qb->andWhere('(c.convenioNumero like :busca or c.responsavelNome like :busca)');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
+        
+        if ( !empty($search['tipo'])){
+            $qb->andWhere('c.tipo = :tipo ');
+            $qb->setParameter("tipo",$search['tipo']);
+        }
+        
+        if ( !empty($search["data_ini"]) ){
+             $data_ini = \Datetime::createFromFormat("Y-m-d", $search["data_ini"]); 
+             $qb->andWhere('c.convenioInicio >= :data_ini');
+            $qb->setParameter(":data_ini",$data_ini);
+        }
+        
+        if ( !empty($search["data_fim"]) ){
+            $data_fim = \Datetime::createFromFormat("Y-m-d", $search["data_fim"]);
+            $qb->andwhere('c.convenioTermino <= :data_fim');
+            $qb->setParameter(":data_fim", $data_fim); 
+            
+        }
+        
+        
+
+//        echo "DQL: ".$qb->getDQL();
+//        echo "<hr>";
+//        echo "SQL: ".$qb->getQuery()->getSQL();
+//        die();
+        
        return $qb;
     }
     
