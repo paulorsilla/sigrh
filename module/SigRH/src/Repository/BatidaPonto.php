@@ -46,7 +46,7 @@ class BatidaPonto extends AbstractRepository {
         }
     }
 
-    public function incluir_ou_editar($dados, $id = null) {
+//    public function incluir_ou_editar($dados, $id = null) {
 //        $row = null;
 //        if (!empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
 //            $row = $this->find($id); // busca o registro para poder alterar
@@ -89,9 +89,9 @@ class BatidaPonto extends AbstractRepository {
 ////        $this->getEntityManager()->flush(); // Confirma a atualizacao
 //        
 //        return $row;
-    }
+//    }
     
-    public function incluir($batidasPonto, $importacaoPonto) {
+    public function incluir_ou_editar($batidasPonto, $importacaoPonto) {
         foreach($batidasPonto as $k => $value) {
             $matricula = substr($k, 0, 6);
             $ano = substr($k, 6, 4);
@@ -99,7 +99,12 @@ class BatidaPonto extends AbstractRepository {
             $dia = substr($k, 12, 2);
             $dataBatida = \DateTime::createFromFormat( "Y-m-d", $ano."-".$mes."-".$dia);
             $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
-            $row = new BatidaPontoEntity();
+            
+            $row = $this->findOneBy(['dataBatida' => $dataBatida, 'colaboradorMatricula' => $colaborador]);
+            if (!$row) {
+                $row = new BatidaPontoEntity();
+            }
+            
             $row->setColaboradorMatricula($colaborador);
             $row->setDataBatida($dataBatida);
             $row->setImportacaoPonto($importacaoPonto);

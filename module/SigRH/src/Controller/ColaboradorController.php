@@ -41,18 +41,22 @@ class ColaboradorController extends AbstractActionController
                 
                 $repo = $this->entityManager->getRepository(Colaborador::class);
                 $page = $this->params()->fromQuery('page', 1);
-                $search = $this->params()->fromPost();
-                $search['tipoColaborador'] = 2;
-                $search['ativo'] = 'S';
-                $query = $this->params()->fromQuery("nome");
-                if ($query != "") {
-                    $search['query'] = $query;
-                }
+
+                $search = $this->params()->fromQuery();
+
+//                $search['tipoColaborador'] = 2;
+//                $search['ativo'] = 'S';
+                
+//                $query = $this->params()->fromQuery("nome");
+//                if ($query != "") {
+//                    $search['query'] = $query;
+//                }
                 $paginator = $repo->getPaginator($page, $search);
 		return new ViewModel([
 				'colaboradores' => $paginator,
                                 'page' => $page,
-                                'nome' => $query
+                                'nome' => $search['nome'],
+                                'ativo' => $search['ativo']
 		]);
 	}
 	
@@ -83,7 +87,7 @@ class ColaboradorController extends AbstractActionController
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Colaborador::class);
                                 $repo->incluir_ou_editar($data, $id);
-				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'save']);
+				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'index']);
 			}
 		} else {
                     if ( !empty($id)){

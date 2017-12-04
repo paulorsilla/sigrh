@@ -2,10 +2,18 @@
 
 <form method="get" action="/sig-rh/colaborador/index">
     <div class="row" style="padding-top: 10px;">
-        <div class="col-md-6"></div>
+        <div class="col-md-4"></div>
         <div class="col-md-5">
             <input class="form-control" type="text" name="nome" placeholder="Digite o nome aqui para pesquisar" id="nome" value="<?php echo (null != $this->nome) ? $this->nome : ''; ?>">
         </div>
+        <div class="col-md-2">
+            <select class="form-control" name="ativo" id="ativo" value="<?php echo $this->ativo; ?>">
+                <option value="S" <?php echo ($this->ativo == 'S') ? 'selected' : ''?>  >Ativos</option>
+                <option value="N" <?php echo ($this->ativo == 'N') ? 'selected' : ''?>>Inativos</option>
+                <option value="" <?php echo ($this->ativo == '') ? 'selected' : ''?>>Todos</option>
+            </select>
+        </div>
+        <input type="hidden" name="tipoColaborador" id="tipoColaborador" value="2">
         <div class="col-md-1">
             <button class="btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
         </div>
@@ -41,7 +49,7 @@
         </tbody>
     </table>
     <span class="pull-right">
-        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator_colaborador', ['route' => 'sig-rh/colaborador', 'nome' => $this->nome]); ?>
+        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator_colaborador', ['route' => 'sig-rh/colaborador', 'query' => ['nome' => $this->nome, 'ativo' => $this->ativo]]); ?>
     </span>
 </div>
 

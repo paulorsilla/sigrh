@@ -27,11 +27,11 @@ class Colaborador extends AbstractRepository {
             $qb->orWhere('c.tipoColaborador = 6');
             $qb->orWhere('c.tipoColaborador = 8');
         }
-        if( null != $search['query']) {
-            $qb->andWhere('c.nome like :query' );
-             $qb->setParameter('query', "%".$search['query']."%");
+        if( null != $search['nome']) {
+            $qb->andWhere('c.nome like :nome' );
+             $qb->setParameter('nome', "%".$search['nome']."%");
         }
-        unset($search['query']);
+//        unset($search['nome']);
         
         if (null != $search['ativo']) {
             if ($search['ativo'] == 'S') {
@@ -39,14 +39,14 @@ class Colaborador extends AbstractRepository {
             } else {
                 $qb->andWhere('c.dataDesligamento is NOT NULL');
             }
-            unset($search['ativo']);
+  //          unset($search['ativo']);
         }
 
-        
-        foreach($search as $key => $value) {
-            $qb->andWhere('c.'.$key.' = :'.$key);
-            $qb->setParameter($key, $value);
-        }
+//        
+//        foreach($search as $key => $value) {
+//            $qb->andWhere('c.'.$key.' = :'.$key);
+//            $qb->setParameter($key, $value);
+//        }
         
         if ($combo) {
             return $qb->getQuery()->getResult();
@@ -86,7 +86,6 @@ class Colaborador extends AbstractRepository {
         if ( empty($row)) {
             $row = new ColaboradorEntity();
         }
-
         
         //tipoColaborador...
         if ( !empty($dados['tipoColaborador'] )) {
@@ -114,15 +113,12 @@ class Colaborador extends AbstractRepository {
         $endereco->setBairro($dados['bairro']);
         unset($dados['bairro']);
         
-        
         //cidade...
         if ( !empty($dados['cidade'] )) {
             $cidade = $this->getEntityManager()->find('SigRH\Entity\Cidade', $dados['cidade']); //busca as informações
             $endereco->setCidade($cidade);
         }
         unset($dados['cidade']);
-        
-        
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,7 +211,11 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['ctpsDataExpedicao']);
         
-        
+        if ( !empty($dados['linhaOnibus'] )) {
+            $estadoCivil = $this->getEntityManager()->find('SigRH\Entity\LinhaOnibus', $dados['linhaOnibus']); //busca as informações
+            $row->setLinhaOnibus($linhaOnibus);
+        }
+        unset($dados['linhaOnibus']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($endereco);

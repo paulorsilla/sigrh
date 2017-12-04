@@ -3,9 +3,11 @@
         <ul class="pagination">
 
             <!-- Previous page link -->
-            <?php if (isset($this->previous)): ?>
+            <?php if (isset($this->previous)): 
+                    $query = array_merge($this->query, ['page' => $this->previous]);
+                ?>
                 <li><a
-                        href="<?= $this->url($this->route, [], ['query' => ['page' => $this->previous, 'nome' => $this->nome]]); ?>"
+                        href="<?= $this->url($this->route, [], ['query' => $query]); ?>"
                         aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                     </a></li>  
             <?php else: ?>
@@ -14,9 +16,11 @@
 
             <!-- Numbered page links -->
             <?php foreach ($this->pagesInRange as $page): ?>
-                <?php if ($page != $this->current): ?>
+                <?php if ($page != $this->current): 
+                        $query = array_merge($this->query, ['page' => $page]);
+                ?>
                     <li><a
-                            href="<?php echo $this->url($this->route, [], ['query' => ['page' => $page, 'nome' => $this->nome]]); ?>"><?= $this->escapeHtml($page); ?></a>
+                            href="<?php echo $this->url($this->route, [], ['query' => $query]); ?>"><?= $this->escapeHtml($page); ?></a>
                     </li>    
                 <?php else: ?>
                     <li><span aria-hidden="true"><b><?= $this->escapeHtml($page); ?></b></span>
@@ -25,9 +29,11 @@
             <?php endforeach; ?>
 
             <!-- Next page link -->
-            <?php if (isset($this->next)): ?>
+            <?php if (isset($this->next)): 
+                    $query = array_merge($this->query, ['page' => $this->next]);
+                ?>
                 <li><a
-                        href="<?php echo $this->url($this->route, [], ['query' => ['page' => $this->next, 'nome' => $this->nome]]); ?>"
+                        href="<?php echo $this->url($this->route, [], ['query' => $query]); ?>"
                         aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                     </a></li>  
             <?php else: ?>

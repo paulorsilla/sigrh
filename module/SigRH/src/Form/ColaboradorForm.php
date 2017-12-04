@@ -502,6 +502,7 @@ class ColaboradorForm extends Form {
                 'id' => 'ctpsNumero',
                 'class' => 'form-control',
                 'placeholder' => 'Digite o número da CTPS aqui',
+                'required' => false,
             ],
             'options' => [
                 'label' => 'Número da CTPS'
@@ -547,6 +548,7 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'ctpsDataExpedicao',
                 'class' => 'form-control',
+                'required' => false,
             ],
             'options' => [
                 'format' => 'Y-m-d',
@@ -897,12 +899,23 @@ class ColaboradorForm extends Form {
             'required' => false,
         ]);
         
+        //ctps_data_expedicao
+        $inputFilter->add([
+            'name' => 'ctpsDataExpedicao',
+            'required' => false,
+        ]);
+        
         //tipo_colaborador
         $inputFilter->add([
             'name' => 'tipoColaborador',
             'required' => false,
         ]);
         
+        //linha_onibus
+        $inputFilter->add([
+            'name' => 'linhaOnibus',
+            'required' => false,
+        ]);
         
  //////////////////////////////////////////////////////////////////////////////       
 
