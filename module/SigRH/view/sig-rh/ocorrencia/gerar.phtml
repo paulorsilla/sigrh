@@ -1,0 +1,20 @@
+<script src="/js/inputmask.js"></script>
+<script src="/js/jquery.inputmask.js"></script>
+
+<h1>Gerar ocorrências</h1>
+<form method="get" action="/sig-rh/ocorrencia/gerar">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)"class="form-control" placeholder="Período (mm/aaaa)" value="" name="periodoReferencia" id="periodoReferencia">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-sm" value="Enviar">
+        </div>
+    </div>
+</form>
+
+<script>
+    $("#periodoReferencia").inputmask("99/9999");
+</script>

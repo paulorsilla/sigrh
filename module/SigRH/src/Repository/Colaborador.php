@@ -62,14 +62,23 @@ class Colaborador extends AbstractRepository {
     
     public function getEstagiariosGraduacao()
     {
+        $dataAtual = Date("Y-m-d");
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
-                ->where('c.tipoColaborador = 2')
-                ->andWhere('c.dataDesligamento is NOT NULL');
-       return $qb;
-        
+                ->join('c.estagios', 'e')
+                ->join('e.termos', 't')
+                ->where('c.nome is not NULL')
+                ->andWhere('c.nome != :empty')
+                ->andWhere('c.tipoColaborador = 2')
+                ->andWhere('c.dataDesligamento is NULL')
+                ->andWhere('e.nivel = 3') //graduacao
+                ->andWhere('t.dataTermino < :dataAtual')
+                ->setParameter('empty', ' ')
+                ->setParameter('dataAtual', $dataAtual);
+
+       return $qb->getQuery()->getResult();
     }
     
     public function getListParaCombo(){
