@@ -5,6 +5,7 @@ namespace SigRH\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\BatidaPonto;
+use SigRH\Entity\Colaborador;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
@@ -55,6 +56,40 @@ class BatidaPontoController extends AbstractActionController {
             'periodoMovimentacao' => $periodoMovimentacao,
             'batidasPonto' => $paginator
         ]);
+    }
+    
+    public function folhaPontoAction()
+    {
+            $request = $this->getRequest();
+            $registros = null;
+            $dataInicio = null;
+            if ($request->isGet()) { 
+                $periodoReferencia = $this->params()->fromQuery('periodoReferencia');
+                if($periodoReferencia != '') {
+                    $dataAux = explode("/", $periodoReferencia);
+                    if (count($dataAux) == 2) {
+                        $mes = $dataAux[0];
+                        $ano = $dataAux[1];
+                        $dataInicio = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-01");
+                        $dataTermino = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-31");
+                    }
+
+                    //busca estagiarios 
+                    $repoColaborador = $this->entityManager->getRepository(Colaborador::class);
+                    $colaboradores = $repoColaborador->getEstagiarios();
+                    $registros = [];
+                    foreach ($colaboradores as $colaborador) {
+                            $batidasPonto = $this->entityManager->getRepository(BatidaPonto::class)->findBatidaByMatricula($colaborador->getMatricula(), $dataInicio, $dataTermino)->getResult();
+                            $registros[$colaborador->getMatricula()] = $batidasPonto;
+                    }
+                }
+            }
+            return new ViewModel([
+                'colaboradores' => $colaboradores,
+                'registros' => $registros,
+                'dataPesquisaInicial' => $dataInicio
+            ]);
+
     }
 
 //    public function index1Action() {

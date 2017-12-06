@@ -1,0 +1,96 @@
+<script src="/js/inputmask.js"></script>
+<script src="/js/jquery.inputmask.js"></script>
+
+<h1>Folha ponto</h1>
+<div class='row'>
+    <?php if ($this->colaboradores == null): ?>
+        <form method="get" action="/sig-rh/batida-ponto/folha-ponto">
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="text" pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)" class="form-control" placeholder="Período (mm/aaaa)" value="" name="periodoReferencia" id="periodoReferencia">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-sm" value="Enviar">
+                </div>
+            </div>
+        </form>
+    </div>
+<?php else: 
+    $diasSemana = [0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"];
+
+    foreach ($this->colaboradores as $colaborador):
+        $minutosPeriodo = 0;
+        $dataPesquisa = \DateTime::createFromFormat("Y-m-d", $this->dataPesquisaInicial->format("Y-m-d"));
+        $dataPesquisa->setTime(0, 0);
+        $batidasPonto = $this->registros[$colaborador->getMatricula()];
+        echo $colaborador->getNome()."<br>";?>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Dia da semana</th>
+                    <th>Hora do registro</th>
+                    <th>Total de horas no dia</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <?php foreach ($batidasPonto as $batida):
+                    $batida->getDataBatida()->setTime(0, 0);
+                    while($dataPesquisa != $batida->getDataBatida()): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($dataPesquisa->format("d/m/Y")); ?></td>
+                            <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <?php $dataPesquisa->add(new \DateInterval('P1D'));
+                    endwhile;?>
+                    
+                    <tr>
+                        <td><?php echo $this->escapeHtml($batida->getDataBatida()->format("d/m/Y")); ?></td>
+                        <td><?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?></td>
+                        <td><?php
+                                $horarios = $batida->getHorarios();
+                                $minutosDia = 0;
+                                foreach ($horarios as $k => $horario):
+                                    echo $this->escapeHtml($horario->getHoraBatida()->format("H:i")) . " ";
+                                    if (!($k % 2) == 0) {
+                                        $primeiroRegistro = $horarios[$k - 1]->getHoraBatida();
+                                        $segundoRegistro = $horario->getHoraBatida();
+                                        $diferenca = abs($segundoRegistro->getTimestamp() - $primeiroRegistro->getTimestamp()) / 60;
+                                        $minutosDia += $diferenca;
+                                    }
+                            endforeach;
+                        ?></td>
+                        <td><?php
+                            echo date('H:i', mktime(0, $minutosDia));
+                            $minutosPeriodo += $minutosDia;
+                        ?></td>
+                    </tr>
+        <?php $dataPesquisa->add(new \DateInterval('P1D'));
+        endforeach; 
+        while($dataPesquisa->format('m') == $this->dataPesquisaInicial->format('m')):?>
+            <tr>
+                <td><?php echo $this->escapeHtml($dataPesquisa->format("d/m/Y")); ?></td>
+                <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <?php $dataPesquisa->add(new \DateInterval('P1D'));
+        endwhile;?>
+        </tbody>
+    </table>
+    <h4>Total de horas trabalhadas: <?php echo intdiv($minutosPeriodo, 60) . ":" . ($minutosPeriodo % 60); ?></h4>
+    <hr>
+    <?php endforeach;
+    endif;
+    ?>
+
+    <script>
+        $("#periodoReferencia").inputmask("99/9999");
+    </script>
+    
+    
