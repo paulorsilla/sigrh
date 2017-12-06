@@ -44,7 +44,7 @@ class OcorrenciaController extends AbstractActionController
                     $repoColaborador = $this->entityManager->getRepository(Colaborador::class);
                     
                     //busca estagiarios de graduacao
-                    $colaboradores = $repoColaborador->getEstagiariosGraduacao();
+                    $colaboradores = $repoColaborador->getEstagiarios(true);
                     foreach($colaboradores as $colaborador) {
                         $dataPesquisa = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-01");
                         

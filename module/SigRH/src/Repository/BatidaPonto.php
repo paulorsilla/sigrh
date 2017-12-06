@@ -35,7 +35,7 @@ class BatidaPonto extends AbstractRepository {
                 ->setParameter('matricula',  $matricula)
                 ->setParameter('dataInicio', $dataInicio->format('Y-m-d'))
                 ->setParameter('dataTermino', $dataTermino->format('Y-m-d'));
-        return $qb->getQuery();
+        return $qb->getQuery();//->getResult();
     }
 
     public function delete($id) {

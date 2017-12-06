@@ -1,13 +1,17 @@
+<script src="/js/inputmask.js"></script>
+<script src="/js/jquery.inputmask.js"></script>
+
+
 <h1>Registro das batidas de ponto</h1>
 <form method="get" action="/sig-rh/batida-ponto/index">
     <div class="row">
         <div class="col-md-2">
             <label for="matricula">Matrícula</label>
-            <input class="form-control" type="text" name="matricula" id="matricula" value="<?php echo (null != $this->colaborador) ? $this->colaborador->getMatricula() : '';?>">
+            <input class="form-control" type="text" name="matricula" id="matricula" value="<?php echo (null != $this->colaborador) ? $this->colaborador->getMatricula() : ''; ?>">
         </div>
         <div class="col-md-2">
             <label for="periodoMovimentacao">Período (mês/ano)</label>
-            <input class="form-control" type="text" name="periodoMovimentacao" id="periodoMovimentacao" value="<?php echo (null != $this->periodoMovimentacao) ? $this->periodoMovimentacao : '';?>">
+            <input pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)" class="form-control" type="text" name="periodoMovimentacao" id="periodoMovimentacao" value="<?php echo (null != $this->periodoMovimentacao) ? $this->periodoMovimentacao : ''; ?>">
         </div>
     </div>
     <div class="row">
@@ -16,41 +20,62 @@
         </div>
     </div>
 </form>
-<?php if ($this->batidasPonto != null):
-    
-$diasSemana = [0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"];    
-    
-?>
+<?php
+if ($this->batidasPonto != null):
+
+    $diasSemana = [0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"];
+    $minutosPeriodo = 0;
+    ?>
     <hr>
-    <h3><a href="/sig-rh/colaborador/save/<?php echo $this->colaborador->getMatricula();?>">
-        <?php echo $this->escapeHtml($this->colaborador->getNome()); ?></a>
+    <h3><a href="/sig-rh/colaborador/save/<?php echo $this->colaborador->getMatricula(); ?>">
+            <?php echo $this->escapeHtml($this->colaborador->getNome()); ?></a>
     </h3>
     <hr>
 
     <div class="row">
-            <table class="table table-striped table-hover">
-                <thead>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Dia da semana</th>
+                    <th>Hora do registro</th>
+                    <th>Total de horas no dia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->batidasPonto as $batida): ?>
                     <tr>
-                        <th>Data</th>
-                        <th>Dia da semana</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($this->batidasPonto as $batida): ?>
-                        <tr>
-                            <td><?php echo $this->escapeHtml($batida->getDataBatida()->format("d/m/Y")); ?></td>
-                            <td><?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?></td>
-                            <td><?php foreach($batida->getHorarios() as $k => $horario):
-                                    echo $this->escapeHtml($horario->getHoraBatida()->format("H:i"))." ";
-                                endforeach;
+                        <td><?php echo $this->escapeHtml($batida->getDataBatida()->format("d/m/Y")); ?></td>
+                        <td><?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?></td>
+                        <td><?php
+                            $horarios = $batida->getHorarios();
+                            $minutosDia = 0;
+                            foreach ($horarios as $k => $horario):
+                                echo $this->escapeHtml($horario->getHoraBatida()->format("H:i")) . " ";
+                                if (!($k % 2) == 0) {
+                                    $primeiroRegistro = $horarios[$k - 1]->getHoraBatida();
+                                    $segundoRegistro = $horario->getHoraBatida();
+                                    $diferenca = abs($segundoRegistro->getTimestamp() - $primeiroRegistro->getTimestamp()) / 60;
+                                    $minutosDia += $diferenca;
+                                }
+                            endforeach;
                             ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <span class="pull-right">
-                <?php echo $this->paginationControl($this->batidasPonto, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/batida-ponto', 'matricula' => $colaborador->getMatricula()]); ?>
-            </span>
-        </div>
-    <?php endif;?>
+                        <td><?php 
+                                echo date('H:i', mktime(0, $minutosDia));
+                                $minutosPeriodo += $minutosDia;
+                            ?></td>
+                    </tr>
+    <?php endforeach; ?>
+            </tbody>
+        </table>
+        <h4>Total de horas trabalhadas: <?php echo intdiv($minutosPeriodo, 60). ":". ($minutosPeriodo % 60);?></h4>
+        <span class="pull-right">
+    <?php echo $this->paginationControl($this->batidasPonto, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/batida-ponto', 'matricula' => $colaborador->getMatricula()]); ?>
+        </span>
+    </div>
+<?php endif; ?>
+
+<script>
+    $("#matricula").inputmask("999999");
+    $("#periodoMovimentacao").inputmask("99/9999");
+</script>
