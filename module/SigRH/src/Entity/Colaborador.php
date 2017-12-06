@@ -96,7 +96,7 @@ class Colaborador extends AbstractEntity {
 
     /**
      * One Colaborador has Many estagios
-     * @ORM\OneToMany(targetEntity="Dependente", mappedBy="colaboradorMatricula")
+     * @ORM\OneToMany(targetEntity="Estagio", mappedBy="colaboradorMatricula")
      */
     protected $estagios;
 

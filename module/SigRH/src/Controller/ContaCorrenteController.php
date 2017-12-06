@@ -7,9 +7,6 @@ use SigRH\Form\ContaCorrenteForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\ContaCorrente;
 use SigRH\Entity\Colaborador;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
 
 class ContaCorrenteController extends AbstractActionController
 {
@@ -41,24 +38,17 @@ class ContaCorrenteController extends AbstractActionController
                 $paginator = $repo->getPaginator($page,$search);
             
 		return new ViewModel([
-				'contasCorrente' => $paginator,
+			'contasCorrente' => $paginator,
 		]);	
 	}
 	
         public function gridModalAction()
 	{
-//                $repo = $this->entityManager->getRepository(ContaCorrente::class);
-//                $page = $this->params()->fromQuery('page', 1);
                 $matricula = $this->params()->fromQuery('matricula',0);
                 $colaborador = $this->entityManager->find(Colaborador::class, $matricula);
-                        
-//                $search = $this->params()->fromPost();
-//                $search['matricula'] = $matricula;
-//                $paginator = $repo->getPaginator($page,$search);
             
                 $view = new ViewModel([
-//				'contasCorrente' => $paginator,
-                                'contasCorrente' => $colaborador->getContasCorrente()
+                        'contasCorrente' => $colaborador->getContasCorrente()
 		]);
 		return 	$view->setTerminal(true);
 	}

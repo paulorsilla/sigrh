@@ -193,6 +193,23 @@
         $('#gridCracha').load(url);
     }
     
+    function novoHorario(matricula){
+        url = "/sig-rh/horario/save-modal?matricula="+matricula;
+        $('#HorarioModal .modal-body').html('carregando...');
+        $('#HorarioModal .modal-body').attr('url',url);
+        $('#HorarioModal .modal-body').load(url);
+        $('#HorarioModal').modal('show');
+    }
+    
+    function editarHorario(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/horario/save-modal/"+id+"?matricula="+matricula;
+        $('#HorarioModal .modal-body').html('carregando...');
+        $('#HorarioModal .modal-body').attr('url',url);
+        $('#HorarioModal .modal-body').load(url);
+        $('#HorarioModal').modal('show');
+    }
+    
 $(document).ready(function () {
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());
     
