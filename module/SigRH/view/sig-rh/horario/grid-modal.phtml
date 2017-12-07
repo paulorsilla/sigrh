@@ -19,13 +19,16 @@
                 <td><?php echo $this->escapeHtml($horario->getEscala()->getEntrada2()->format("H:i")); ?></td>
                 <td><?php echo $this->escapeHtml($horario->getEscala()->getSaida2()->format("H:i")); ?></td>
 
-                <td><a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/horario', ['action' => 'save', 'id' => $horario->getId()]) ?>"
-                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/horario', ['action' => 'delete', 'id' => $horario->getId()]) ?>"
-                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                
+                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                            onclick="editarHorario('<?php echo $horario->getId();?>')"
+                       href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button type="button" class="btn btn-primary btn-sm pull-center" 
+                               onclick="excluirHorario('<?php echo $horario->getId();?>')"
+                       href="#" title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
+
                 </td>
+                
             </tr>
         <?php endforeach; ?>
 

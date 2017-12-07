@@ -1,0 +1,26 @@
+<?= $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('diaSemana')); ?><br>
+                <?php echo $this->formElement($this->form->get('diaSemana')); ?>
+                <?php echo $this->formElementErrors($this->form->get('diaSemana')); ?>  
+            </div>
+            
+            <div class="col-md-4">
+                <?php //echo $this->formLabel($this->form->get('escala')); ?><br>
+                <?php //echo $this->formElement($this->form->get('escala')); ?>
+                <?php //echo $this->formElementErrors($this->form->get('escala')); ?>  
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+<?= $this->form()->closeTag(); ?>
