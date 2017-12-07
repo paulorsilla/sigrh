@@ -63,6 +63,8 @@ class BatidaPontoController extends AbstractActionController {
             $request = $this->getRequest();
             $registros = null;
             $dataInicio = null;
+            $colaboradores = null;
+
             if ($request->isGet()) { 
                 $periodoReferencia = $this->params()->fromQuery('periodoReferencia');
                 if($periodoReferencia != '') {
@@ -82,6 +84,7 @@ class BatidaPontoController extends AbstractActionController {
                             $batidasPonto = $this->entityManager->getRepository(BatidaPonto::class)->findBatidaByMatricula($colaborador->getMatricula(), $dataInicio, $dataTermino)->getResult();
                             $registros[$colaborador->getMatricula()] = $batidasPonto;
                     }
+                    $this->layout ()->setTemplate ( "layout/layout-relatorio" )->setVariable ( "titulo_impressao", "Folha ponto" );
                 }
             }
             return new ViewModel([
@@ -89,6 +92,24 @@ class BatidaPontoController extends AbstractActionController {
                 'registros' => $registros,
                 'dataPesquisaInicial' => $dataInicio
             ]);
+            
+            
+            
+            
+		
+//		$this->layout ()->setTemplate ( "layout/layout-relatorio" )->setVariable ( "titulo_impressao", "Folha ponto" );
+		
+//		$view = new \Zend\View\Model\ViewModel ();
+//		$view->setVariable ( 'instrumento', $instrumento );
+		
+//		// adiciona o arquivo instrumento-juridico-consulta ao head da página
+//		$renderer = $this->getServiceLocator ()->get ( 'Zend\View\Renderer\PhpRenderer' );
+//		$renderer->headScript ()->appendFile ( '/js/instrumento-juridico-consulta.js' );
+//		$renderer->headScript ()->appendFile ( '/js/jquery.ui.widget.js' );
+		
+//		return $view;
+            
+            
 
     }
 
