@@ -1,0 +1,32 @@
+<?php
+//use Zend\Http\Header\Location;
+echo $this->doctype();?>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
+        <?php
+        echo $this->headLink(array(
+                    'rel' => 'shortcut icon',
+                    'type' => 'image/vnd.microsoft.icon',
+                    'href' => $this->basePath() . '/images/favicon.ico'
+                ))->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css', 'screen, print')->// especificar que eh pra impressão tb
+                prependStylesheet($this->basePath() . '/css/bootstrap.min.css', 'screen,print')->prependStylesheet($this->basePath() . '/css/jquery-ui.css');
+        ?>
+
+        <!-- Scripts -->
+        <?php
+        echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array(
+            'conditional' => 'lt IE 9'
+        ))->prependFile($this->basePath() . '/js/layout.js')->prependFile($this->basePath() . '/js/jquery-ui.js')->prependFile($this->basePath() . '/js/jquery.js');
+        ?>
+    </head>
+    <body>
+        <!--div style="width:900px;margin-left: auto;margin-right: auto;"-->
+        <div class="container">
+            <?php
+            echo $this->content;
+            ?>
+        </div>
+    </body>
+</html>

@@ -1,12 +1,13 @@
 <script src="/js/inputmask.js"></script>
 <script src="/js/jquery.inputmask.js"></script>
 
-<h1>Folha ponto</h1>
 <div class='row'>
     <?php if ($this->colaboradores == null): ?>
+    <h1>Emissão da folha ponto dos estagiários</h1>
         <form method="get" action="/sig-rh/batida-ponto/folha-ponto">
             <div class="row">
                 <div class="col-md-2">
+                    <label for="periodoReferencia">Informe o período:</label>
                     <input type="text" pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)" class="form-control" placeholder="Período (mm/aaaa)" value="" name="periodoReferencia" id="periodoReferencia">
                 </div>
             </div>
@@ -22,37 +23,102 @@
 
     foreach ($this->colaboradores as $colaborador):
         $minutosPeriodo = 0;
+        $estagio = $colaborador->getEstagios()->last();
+        $termo = $estagio->getTermos()->last();
+        $orientador = $termo->getOrientador();
+        $sublotacao = $estagio->getSublotacao();
+        $cargaHoraria = $termo->getChSemanal();
         $dataPesquisa = \DateTime::createFromFormat("Y-m-d", $this->dataPesquisaInicial->format("Y-m-d"));
         $dataPesquisa->setTime(0, 0);
-        $batidasPonto = $this->registros[$colaborador->getMatricula()];
-        echo $colaborador->getNome()."<br>";?>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Dia da semana</th>
-                    <th>Hora do registro</th>
-                    <th>Total de horas no dia</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <?php foreach ($batidasPonto as $batida):
-                    $batida->getDataBatida()->setTime(0, 0);
-                    while($dataPesquisa != $batida->getDataBatida()): ?>
-                        <tr>
-                            <td><?php echo $this->escapeHtml($dataPesquisa->format("d/m/Y")); ?></td>
-                            <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <?php $dataPesquisa->add(new \DateInterval('P1D'));
-                    endwhile;?>
-                    
-                    <tr>
-                        <td><?php echo $this->escapeHtml($batida->getDataBatida()->format("d/m/Y")); ?></td>
-                        <td><?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?></td>
-                        <td><?php
+        $batidasPonto = $this->registros[$colaborador->getMatricula()];?>
+
+        <div class="row">
+            <div class="col-xs-2"><img src="/img/embrapa-cor.png" height="40"></div>
+            <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL - ESTÁGIO</h4></div>
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-xs-2">
+                <b>Mês/Ano:</b><br>
+                <?php echo $this->escapeHtml($dataPesquisa->format("m/Y"));?>
+            </div>
+
+            <div class="col-xs-2">
+                <b>Unidade:</b><br>
+                Embrapa Soja
+            </div>
+            <div class="col-xs-2">
+                <b>CH Semanal:</b><br>
+                <?php echo $this->escapeHtml($cargaHoraria)." horas";?>
+            </div>
+
+            <div class="col-xs-6">
+                <b>Área:</b><br>
+                <?php echo (null != $sublotacao) ? $this->escapeHtml($sublotacao->getDescricao()) : "";?>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4">
+                <b>Nome:</b><br>
+                <?php echo $this->escapeHtml($colaborador->getNome());?>
+            </div>
+            <div class="col-xs-2">
+                <b>Matrícula:</b><br>
+                <?php echo $this->escapeHtml($colaborador->getMatricula());?>
+            </div>
+            <div class="col-xs-6">
+                <b>Orientador:</b><br>
+                <?php echo (null != $orientador) ? $this->escapeHtml($orientador->getNome()) : "";?>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-2">
+                <b>Dia</b>
+            </div>
+            <div class="col-xs-3">
+                <b>Dia da semana</b>
+            </div>
+            <div class="col-xs-3">
+                <b>Registro(s)</b>
+            </div>
+            <div class="col-xs-4">
+                <b>Total de horas no dia</b>
+            </div>
+        </div>
+        <hr>
+        <?php foreach ($batidasPonto as $batida):
+                $batida->getDataBatida()->setTime(0, 0);
+        
+                while($dataPesquisa != $batida->getDataBatida()): ?>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <?php echo $this->escapeHtml($dataPesquisa->format("d")); ?>
+                        </div>
+                        <div class="col-xs-3">
+                            <?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?>
+                        </div>
+                        <div class="col-xs-3">
+                            <b>-</b>
+                        </div>
+                        <div class="col-xs-4">
+                            <b>-</b>
+                        </div>
+                    </div>
+                    <?php $dataPesquisa->add(new \DateInterval('P1D'));
+                endwhile;?>
+
+                <div class="row">
+                        <div class="col-xs-2">
+                            <?php echo $this->escapeHtml($batida->getDataBatida()->format("d")); ?>
+                        </div>
+                        <div class="col-xs-3">
+                            <?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?>
+                        </div>
+                        <div class="col-xs-3">
+                        <?php
                                 $horarios = $batida->getHorarios();
                                 $minutosDia = 0;
                                 foreach ($horarios as $k => $horario):
@@ -64,27 +130,58 @@
                                         $minutosDia += $diferenca;
                                     }
                             endforeach;
-                        ?></td>
-                        <td><?php
-                            echo date('H:i', mktime(0, $minutosDia));
-                            $minutosPeriodo += $minutosDia;
-                        ?></td>
-                    </tr>
+                            ?>
+                        </div>
+                        <div class="col-xs-4">
+                            <?php
+                                echo date('H:i', mktime(0, $minutosDia));
+                                $minutosPeriodo += $minutosDia;
+                            ?>
+                        </div>
+                </div>
         <?php $dataPesquisa->add(new \DateInterval('P1D'));
         endforeach; 
+
         while($dataPesquisa->format('m') == $this->dataPesquisaInicial->format('m')):?>
-            <tr>
-                <td><?php echo $this->escapeHtml($dataPesquisa->format("d/m/Y")); ?></td>
-                <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
+            <div class="row">
+                <div class="col-xs-2">
+                   <?php echo $this->escapeHtml($dataPesquisa->format("d")); ?>
+                </div>
+                <div class="col-xs-3">
+                    <?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?>
+                </div>
+                <div class="col-xs-3">
+                    <b>-</b>
+                </div>
+                <div class="col-xs-4">
+                    <b>-</b>
+                </div>
+            </div>
             <?php $dataPesquisa->add(new \DateInterval('P1D'));
         endwhile;?>
-        </tbody>
-    </table>
-    <h4>Total de horas trabalhadas: <?php echo intdiv($minutosPeriodo, 60) . ":" . ($minutosPeriodo % 60); ?></h4>
     <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <p>Quantidade de horas trabalhadas: <?php echo intdiv($minutosPeriodo, 60) . ":" . ($minutosPeriodo % 60); ?></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <p>De acordo:</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-3">Londrina,__de______de__</div>
+        <div class="col-xs-4" style="text-align: center; border-top: 1px solid black;">
+            <p><?php echo $this->escapeHtml($colaborador->getNome());?></p>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-4" style="text-align: center;  border-top: 1px solid black;">
+            <p><?php echo $this->escapeHtml($orientador->getNome());?></p>
+        </div>
+    </div>
+    <p style="page-break-after: always">&nbsp;</p>
     <?php endforeach;
     endif;
     ?>
