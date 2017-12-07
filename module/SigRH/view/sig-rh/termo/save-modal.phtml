@@ -34,6 +34,12 @@
         
         <div class="row">
             <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('dataDesligamento')); ?><br>
+                <?php echo $this->formElement($this->form->get('dataDesligamento')); ?>
+                <?php echo $this->formElementErrors($this->form->get('dataDesligamento')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
                 <?php echo $this->formElement($this->form->get('chSemanal')); ?>
                 <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  

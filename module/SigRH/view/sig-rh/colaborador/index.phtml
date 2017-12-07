@@ -40,9 +40,9 @@
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"
-                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                        <!--a class="btn btn-primary btn-sm pull-center"
+                           href="<?php //echo $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a-->
                     </td>
                 </tr>
             <?php endforeach; ?>

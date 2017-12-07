@@ -47,9 +47,9 @@ foreach ($this->estagios as $estagio):
                                     <td><button type="button" class="btn btn-primary btn-sm pull-center"
                                            onclick="editarEstagio('<?php echo $estagio->getId();?>')"
                                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <a class="btn btn-primary btn-sm pull-center"
-                                           href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
-                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                                        <!--a class="btn btn-primary btn-sm pull-center"
+                                           href="<?php //echo $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $estagio->getId()]) ?>"
+                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a-->
                                         
                                     </td>
                                 </tr>
@@ -69,7 +69,7 @@ foreach ($this->estagios as $estagio):
                                 <th>Horário flexível</th>
                                 <th>Orientador</th>
                                 <th>Instituição de fomento</th>
-                                <th>Opções/<th>
+                                <th>Opções<th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,9 +85,9 @@ foreach ($this->estagios as $estagio):
                                     <td><button type="button" class="btn btn-primary btn-sm pull-center"
                                            onclick="editarTermo('<?php echo $termo->getId();?>')"
                                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <a class="btn btn-primary btn-sm pull-center"
-                                           href="<?= $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $termo->getId()]) ?>"
-                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                                        <!--a class="btn btn-primary btn-sm pull-center"
+                                           href="<?php //echo $this->url('sig-rh/estagio', ['action' => 'delete', 'id' => $termo->getId()]) ?>"
+                                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a-->
                                     </td>
 
                                 </tr>

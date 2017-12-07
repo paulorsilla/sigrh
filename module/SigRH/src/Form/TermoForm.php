@@ -91,6 +91,21 @@ class TermoForm extends Form {
             ],
         ]);
         
+        //Adiciona o campo "dataDesligamento"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataDesligamento',
+            'attributes' => [
+                'id' => 'dataDesligamento',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Desligamento'
+            ],
+        ]);
+        
+        
         
         
         //Adiciona o campo "horarioFlexivel"
@@ -363,10 +378,10 @@ class TermoForm extends Form {
         
         
 
-//         $inputFilter->add([
-//            'name' => 'modalidadeBolsa',
-//            'required' => false,
-//        ]);
+         $inputFilter->add([
+            'name' => 'atividade',
+            'required' => false,
+        ]);
 //       
 //         $inputFilter->add([
 //            'name' => 'curso',
@@ -435,6 +450,26 @@ class TermoForm extends Form {
                 ],
             ],
         ]);
+         
+         $inputFilter->add([
+            'name' => 'dataDesligamento',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
          
 //   
 //         $inputFilter->add([

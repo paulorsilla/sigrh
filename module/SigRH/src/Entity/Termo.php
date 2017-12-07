@@ -81,6 +81,12 @@ class Termo extends AbstractEntity {
     protected $dataTermino; 
     
      /**
+     * @ORM\Column(name="data_desligamento", type="datetime")
+     */
+    protected $dataDesligamento; 
+    
+    
+     /**
      * @ORM\Column(name="ch_semanal", type="string")
      */
     protected $chSemanal; 
@@ -167,7 +173,11 @@ class Termo extends AbstractEntity {
         return $this->atividade;
     }
 
-                
+    function getDataDesligamento() {
+        return $this->dataDesligamento;
+    }
+
+                    
     /**
      * Sets user ID.
      * 
@@ -234,6 +244,10 @@ class Termo extends AbstractEntity {
     }
     function setAtividade($atividade) {
         $this->atividade = $atividade;
+    }
+
+    function setDataDesligamento($dataDesligamento) {
+        $this->dataDesligamento = $dataDesligamento;
     }
 
 

@@ -60,10 +60,14 @@ class Termo extends AbstractRepository {
         unset($dados['modalidadeBolsa']);
         
         //instituicao...
-        if ( !empty($dados['instituicao'] )) {
-            $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
-            $row->setInstituicao($instituicao);
-        }
+        if ( isset($dados['instituicao']) ) {
+            if ( !empty($dados['instituicao'] )) {
+                $instituicao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['instituicao']); //busca as informações
+                $row->setInstituicao($instituicao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setInstituicao(null);
+            }
+        }    
         unset($dados['instituicao']);
         
         //fundacao...
@@ -96,7 +100,21 @@ class Termo extends AbstractRepository {
         }
         unset($dados['dataTermino']);
         
+        $row->setDataDesligamento(null);
+        if ($dados ['dataDesligamento'] != "") {					
+            $desligamento = \DateTime::createFromFormat ("Y-m-d", $dados ['dataDesligamento']);
+            if ( !empty($desligamento)  )
+               $row->setDataDesligamento($desligamento);
+        }
+        unset($dados['dataDesligamento']);
         
+        //atividade...
+        if ( isset($dados['atividade']) ) {
+            if ( empty($dados['atividade'] )) {
+                $row->setAtividade(null);
+            }
+        }    
+        unset($dados['atividade']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
