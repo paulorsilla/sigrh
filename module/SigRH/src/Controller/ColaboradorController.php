@@ -44,7 +44,7 @@ class ColaboradorController extends AbstractActionController
 
                 $search = $this->params()->fromQuery();
 
-//                $search['tipoColaborador'] = 2;
+                $search['tipoColaborador'] = 2;
 //                $search['ativo'] = 'S';
                 
 //                $query = $this->params()->fromQuery("nome");

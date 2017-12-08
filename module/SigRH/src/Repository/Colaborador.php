@@ -8,7 +8,7 @@ class Colaborador extends AbstractRepository {
 
     public function getQuery($search = []) {
         $combo = false;
-        if ( (isset($search['combo']) && $search['combo'] == 1)) {
+        if ( (isset($search['combo'])) && ($search['combo'] == 1)) {
             $combo = true;
             unset($search['combo']);
         }
@@ -19,7 +19,7 @@ class Colaborador extends AbstractRepository {
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
-        if ( (null != $search['tipoColaborador']) && ($search['tipoColaborador'] == 2)) {
+        if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
             unset($search['tipoColaborador']);
             $qb->andWhere('c.tipoColaborador = 2');
             $qb->orWhere('c.tipoColaborador = 4');
@@ -27,13 +27,13 @@ class Colaborador extends AbstractRepository {
             $qb->orWhere('c.tipoColaborador = 6');
             $qb->orWhere('c.tipoColaborador = 8');
         }
-        if( null != $search['nome']) {
+        if( isset($search['nome'])) {
             $qb->andWhere('c.nome like :nome' );
              $qb->setParameter('nome', "%".$search['nome']."%");
         }
 //        unset($search['nome']);
         
-        if (null != $search['ativo']) {
+        if (isset($search['ativo'])) {
             if ($search['ativo'] == 'S') {
                 $qb->andWhere('c.dataDesligamento is NULL');
             } else {
