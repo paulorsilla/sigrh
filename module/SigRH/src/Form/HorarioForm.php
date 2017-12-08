@@ -50,23 +50,25 @@ class HorarioForm extends Form {
         ]);
         
         //Adiciona o campo "escala"
-//        $this->add([
-//            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-//            'name' => 'escala',
-//            'attributes' => [
-//                'id' => 'escala',
-//                'class' => 'form-control',
-//                'placeholder' => 'Escolha a escala aqui'
-//            ],
-//            'options' => [
-//                'label' => 'Escala',
-//                'empty_option' => 'Selecione',
-//                'object_manager' => $this->getObjectManager(),
-//                'target_class' => \SigRH\Entity\Escala::class,
-//                'property' => 'entrada1',
-//                'display_empty_item' => true,
-//            ]
-//        ]);
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'escala',
+            'attributes' => [
+                'id' => 'escala',
+                'class' => 'form-control',
+                'placeholder' => 'Escolha a escala aqui'
+            ],
+            'options' => [
+                'label' => 'Escala',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Escala::class,
+//                'property' => 'id',
+                'property'        => 'EscalaComposta',    
+                
+                'display_empty_item' => true,
+            ]
+        ]);
         
 
     }

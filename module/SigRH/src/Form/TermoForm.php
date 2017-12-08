@@ -393,6 +393,10 @@ class TermoForm extends Form {
 //            'required' => false,
 //        ]);
 //         
+         $inputFilter->add([
+            'name' => 'fundacao',
+            'required' => false,
+        ]);
 //         
 //         $inputFilter->add([
 //            'name' => 'serie',
@@ -469,6 +473,26 @@ class TermoForm extends Form {
                 ],
             ],
         ]);
+         
+         $inputFilter->add([
+            'name' => 'valorBolsa',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
          
          
 //   

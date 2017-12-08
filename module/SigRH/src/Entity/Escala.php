@@ -79,4 +79,9 @@ class Escala extends AbstractEntity {
     public function setSaida2($saida2) {
         $this->saida2 = $saida2;
     }
+    
+    public function getEscalaComposta(){
+        return $this->id.' E1 = '.$this->entrada1.'E2'.'->'.$this->entrada2;
+    }
+    
 }

@@ -70,11 +70,15 @@ class Termo extends AbstractRepository {
         }    
         unset($dados['instituicao']);
         
-        //fundacao...
-        if ( !empty($dados['fundacao'] )) {
-            $fundacao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['fundacao']); //busca as informações
-            $row->setFundacao($fundacao);
-        }
+            //fundacao...
+        if ( isset($dados['fundacao']) ) {
+            if ( !empty($dados['fundacao'] )) {
+                $fundacao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['fundacao']); //busca as informações
+                $row->setFundacao($fundacao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setFundacao(null);
+            }
+        }    
         unset($dados['fundacao']);
         
         //orientador...
@@ -115,6 +119,15 @@ class Termo extends AbstractRepository {
             }
         }    
         unset($dados['atividade']);
+        
+        //valor bolsa...
+        if ( isset($dados['valorBolsa']) ) {
+            if ( empty($dados['valorBolsa'] )) {
+                $row->setValorBolsa(null);
+            }
+        }    
+        unset($dados['valorBolsa']);
+        
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
