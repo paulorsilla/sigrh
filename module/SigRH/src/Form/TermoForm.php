@@ -136,7 +136,6 @@ class TermoForm extends Form {
             ],
             'options' => [
                 'label' => 'Atividade',
-                //'value_options' => [""=>"Selecione"] + $this->serviceEmbraorc->getListAtividadesParaCombo()
             ],
         ]);
         
@@ -321,7 +320,7 @@ class TermoForm extends Form {
         
         $inputFilter->add([
             'name' => 'tipoAditivo',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -382,41 +381,22 @@ class TermoForm extends Form {
             'name' => 'atividade',
             'required' => false,
         ]);
-//       
-//         $inputFilter->add([
-//            'name' => 'curso',
-//            'required' => true,
-//        ]);
-//         
-//         $inputFilter->add([
-//            'name' => 'instituicao',
-//            'required' => false,
-//        ]);
-//         
+       
+         $inputFilter->add([
+            'name' => 'modalidadeBolsa',
+            'required' => false,
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'instituicao',
+            'required' => false,
+        ]);
+         
          $inputFilter->add([
             'name' => 'fundacao',
             'required' => false,
         ]);
-//         
-//         $inputFilter->add([
-//            'name' => 'serie',
-//            'required' => false,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 200
-//                    ],
-//                ],
-//            ],
-//        ]);
-//         
+
          $inputFilter->add([
             'name' => 'dataInicio',
             'required' => false,
@@ -495,49 +475,6 @@ class TermoForm extends Form {
          
          
          
-//   
-//         $inputFilter->add([
-//            'name' => 'fonteSeguro',
-//            'required' => true,
-//        ]);
-//         
-//         $inputFilter->add([
-//            'name' => 'seguroApolice',
-//            'required' => false,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 200
-//                    ],
-//                ],
-//            ],
-//        ]);
-//
-//         $inputFilter->add([
-//            'name' => 'seguroSeguradora',
-//            'required' => false,
-//            'filters' => [
-//                ['name' => 'StringTrim'],
-//                ['name' => 'StripTags'],
-//                ['name' => 'StripNewlines'],
-//            ],
-//            'validators' => [
-//                [
-//                    'name' => 'StringLength',
-//                    'options' => [
-//                        'min' => 1,
-//                        'max' => 200
-//                    ],
-//                ],
-//            ],
-//        ]);
          
     }
 

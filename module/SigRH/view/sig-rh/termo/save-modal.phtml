@@ -7,13 +7,13 @@
         </h3>
         <hr>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-1">
                 <?php echo $this->formLabel($this->form->get('aditivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('aditivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('aditivo')); ?>  
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('tipoAditivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('tipoAditivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('tipoAditivo')); ?>                  
@@ -30,28 +30,29 @@
                 <?php echo $this->formElement($this->form->get('dataTermino')); ?>
                 <?php echo $this->formElementErrors($this->form->get('dataTermino')); ?>                  
             </div>
-        </div>
-        
-        <div class="row">
+            
             <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('dataDesligamento')); ?><br>
                 <?php echo $this->formElement($this->form->get('dataDesligamento')); ?>
                 <?php echo $this->formElementErrors($this->form->get('dataDesligamento')); ?>                  
             </div>
             
-            <div class="col-md-3">
+        </div>
+        
+        <div class="row">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
                 <?php echo $this->formElement($this->form->get('chSemanal')); ?>
                 <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('horarioFlexivel')); ?><br>
                 <?php echo $this->formElement($this->form->get('horarioFlexivel')); ?>
                 <?php echo $this->formElementErrors($this->form->get('horarioFlexivel')); ?>                  
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('valorBolsa')); ?><br>
                 <?php echo $this->formElement($this->form->get('valorBolsa')); ?>
                 <?php echo $this->formElementErrors($this->form->get('valorBolsa')); ?>                  
@@ -68,36 +69,39 @@
                 <?php echo $this->formElement($this->form->get('modalidadeBolsa')); ?>
                 <?php echo $this->formElementErrors($this->form->get('modalidadeBolsa')); ?>                  
             </div>
+        </div>
             
-            <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6">
                 <?php echo $this->formLabel($this->form->get('instituicao')); ?><br>
                 <?php echo $this->formElement($this->form->get('instituicao')); ?>
                 <?php echo $this->formElementErrors($this->form->get('instituicao')); ?>                  
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <?php echo $this->formLabel($this->form->get('fundacao')); ?><br>
                 <?php echo $this->formElement($this->form->get('fundacao')); ?>
                 <?php echo $this->formElementErrors($this->form->get('fundacao')); ?>                  
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('planoAcao')); ?><br>
+                <?php echo $this->formElement($this->form->get('planoAcao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('planoAcao')); ?>                  
+            </div>
+
+            <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('atividade')); ?><br>
                 <?php echo $this->formElement($this->form->get('atividade')); ?>
                 <?php echo $this->formElementErrors($this->form->get('atividade')); ?>                  
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('orientador')); ?><br>
                 <?php echo $this->formElement($this->form->get('orientador')); ?>
                 <?php echo $this->formElementErrors($this->form->get('orientador')); ?>                  
             </div>
 
-            <div class="col-md-3">
-                <?php echo $this->formLabel($this->form->get('planoAcao')); ?><br>
-                <?php echo $this->formElement($this->form->get('planoAcao')); ?>
-                <?php echo $this->formElementErrors($this->form->get('planoAcao')); ?>                  
-            </div>
             
         </div>
         
