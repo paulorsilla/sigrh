@@ -121,6 +121,27 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
+    function fncSalvarHorario(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        
+        $.post(urlPost,dados,function(data){
+            if ( data.success == 1 ){
+                
+                $("#HorarioModal").modal('hide');
+                refreshGridHorario($("input#matricula").val());
+                 
+                
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    } 
+    
     
     function fncSalvarTermo(obj){
         $(this).html("aguarde ...").attr("disabled",true);
@@ -192,18 +213,10 @@
         $('#gridCracha').html('carregando...');
         $('#gridCracha').load(url);
     }
+
     
-    function novoHorario(matricula){
+    function editarHorario(matricula){
         url = "/sig-rh/horario/save-modal?matricula="+matricula;
-        $('#HorarioModal .modal-body').html('carregando...');
-        $('#HorarioModal .modal-body').attr('url',url);
-        $('#HorarioModal .modal-body').load(url);
-        $('#HorarioModal').modal('show');
-    }
-    
-    function editarHorario(id){
-        var matricula = $("input#matricula").val();
-        url = "/sig-rh/horario/save-modal/"+id+"?matricula="+matricula;
         $('#HorarioModal .modal-body').html('carregando...');
         $('#HorarioModal .modal-body').attr('url',url);
         $('#HorarioModal .modal-body').load(url);

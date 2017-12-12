@@ -25,6 +25,7 @@ return [
                     ],
                 ],
             ],
+            
             'sig-rh' => [
                 'type' => Literal::class,
                 'options' => [
@@ -34,6 +35,7 @@ return [
                         'action' => 'index',
                     ],
                 ],
+                
                 'may_terminate' => true,
                 'child_routes' => [
                     'banco' => [
@@ -50,6 +52,7 @@ return [
                             ]
                         ]
                     ],
+                    
                     'batida-ponto' => [
                         'type' => Segment::class,
                         'options' => [
@@ -64,6 +67,22 @@ return [
                             ]
                         ]
                     ],
+                    
+                    'cidade' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/cidade[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\CidadeController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -79,62 +98,37 @@ return [
                             ]
                         ]
                     ],
-                    'cidade' => [
+                    
+                    'convenio' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/cidade[/:action[/:id]]',
+                            'route' => '/convenio[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\CidadeController::class,
+                                'controller' => Controller\ConvenioController::class,
                                 'action' => 'index'
                             ]
                         ]
                     ],
-                    'tipo-colaborador' => [
+                    
+                    'conta-corrente' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/tipo-colaborador[/:action[/:id]]',
+                            'route' => '/conta-corrente[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\TipoColaboradorController::class,
+                                'controller' => Controller\ContaCorrenteController::class,
                                 'action' => 'index'
                             ]
                         ]
                     ],
-                    'linha-onibus' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/linha-onibus[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\LinhaOnibusController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'grau-instrucao' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/grau-instrucao[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\GrauInstrucaoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
+                    
                     'cor-pele' => [
                         'type' => Segment::class,
                         'options' => [
@@ -149,58 +143,17 @@ return [
                             ]
                         ]
                     ],
-                    'grupo-sanguineo' => [
+                    
+                    'cracha' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/grupo-sanguineo[/:action[/:id]]',
+                            'route' => '/cracha[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\GrupoSanguineoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'estado-civil' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/estado-civil[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\EstadoCivilController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'importacao-ponto' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/importacao-ponto[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\ImportacaoPontoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],                    
-                    'nivel' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/nivel[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\NivelController::class,
+                                'controller' => Controller\CrachaController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -219,62 +172,7 @@ return [
                             ]
                         ]
                     ],
-                    'cracha' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/cracha[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\CrachaController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'fonte-seguro' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/fonte-seguro[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\FonteSeguroController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'modalidade-bolsa' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/modalidade-bolsa[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\ModalidadeBolsaController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
-                    'conta-corrente' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/conta-corrente[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\ContaCorrenteController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
+                    
                     'dependente' => [
                         'type' => Segment::class,
                         'options' => [
@@ -289,6 +187,22 @@ return [
                             ]
                         ]
                     ],
+                    
+                    'estado-civil' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/estado-civil[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\EstadoCivilController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'estagio' => [
                         'type' => Segment::class,
                         'options' => [
@@ -303,6 +217,52 @@ return [
                             ]
                         ]
                     ],
+                    
+                    'fonte-seguro' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/fonte-seguro[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\FonteSeguroController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
+                    'grau-instrucao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/grau-instrucao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\GrauInstrucaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
+                    'grupo-sanguineo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/grupo-sanguineo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\GrupoSanguineoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'horario' => [
                         'type' => Segment::class,
                         'options' => [
@@ -317,20 +277,22 @@ return [
                             ]
                         ]
                     ],
-                    'sublotacao' => [
+                    
+                    'importacao-ponto' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/sublotacao[/:action[/:id]]',
+                            'route' => '/importacao-ponto[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\SublotacaoController::class,
+                                'controller' => Controller\ImportacaoPontoController::class,
                                 'action' => 'index'
                             ]
                         ]
-                    ],
+                    ], 
+                    
                     'instituicao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -345,20 +307,51 @@ return [
                             ]
                         ]
                     ],
-                    'convenio' => [
+                    
+                    'linha-onibus' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/convenio[/:action[/:id]]',
+                            'route' => '/linha-onibus[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\ConvenioController::class,
+                                'controller' => Controller\LinhaOnibusController::class,
                                 'action' => 'index'
                             ]
                         ]
                     ],
+                    
+                    'modalidade-bolsa' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/modalidade-bolsa[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ModalidadeBolsaController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    'nivel' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/nivel[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\NivelController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'ocorrencia' => [
                         'type' => Segment::class,
                         'options' => [
@@ -373,6 +366,21 @@ return [
                             ]
                         ]
                     ],                    
+                    
+                    'sublotacao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/sublotacao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\SublotacaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'termo' => [
                         'type' => Segment::class,
                         'options' => [
@@ -388,6 +396,21 @@ return [
                         ]
                     ],
                     
+                    'tipo-colaborador' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/tipo-colaborador[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\TipoColaboradorController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                 ],
             ],
         ],
@@ -397,21 +420,21 @@ return [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BatidaPontoController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\HorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CrachaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CursoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\HorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\InstituicaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ImportacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,

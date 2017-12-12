@@ -81,7 +81,19 @@ class Escala extends AbstractEntity {
     }
     
     public function getEscalaComposta(){
-        return $this->id.' E1 = '.$this->entrada1.'E2'.'->'.$this->entrada2;
+        $periodos = array();
+        if ( $this->entrada1 != null && $this->saida1 != null  ){
+            $periodos[] = 'P1: '.$this->entrada1->format('H:i').' às '.$this->saida1->format('H:i');
+        }
+        if ( $this->entrada2 != null && $this->saida2 != null  ){
+            $periodos[] = 'P2: '.$this->entrada2->format('H:i').' às '.$this->saida2->format('H:i');
+        }
+        if ( count($periodos) == 0 ){
+            return $this->id.'-> [ sem periodo configurado ] ';
+        }
+        
+
+        return $this->id.'-> ['.implode(' e ',$periodos).' ]' ;
     }
     
 }

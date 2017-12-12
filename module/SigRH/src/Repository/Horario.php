@@ -27,28 +27,29 @@ class Horario extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
-    public function incluir_ou_editar($dados,$id = null){
-        $row = null;
-        if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
-            $row = $this->find($id); // busca o registro do banco para poder alterar
-        }    
+    public function incluir_ou_editar($dados,$colaborador){
         
-        if ( empty($row)) {
-            $row = new HorarioEntity();
+        foreach( $colaborador->horarios as $horario ){
+             $this->getEntityManager()->remove($horario);
+        }
+        $campos=array(1=>"escalaDomingo",2=>"escalaSegunda",3=>"escalaTerca",4=>"escalaQuarta",5=>"escalaQuinta",6=>"escalaSexta",7=>"escalaSabado");
+        $repoEscala = $this->getEntityManager()->getRepository(\SigRH\Entity\Escala::class);
+        foreach ( $campos as $diaSemana=>$escalaId){
+            if ( !empty($dados[$escalaId])){
+                $escalaObj = $repoEscala->find($dados[$escalaId]);
+                if ( !empty($escalaObj)){
+                    $horario = new HorarioEntity();
+                    $horario->setColaboradorMatricula($colaborador);
+                    $horario->setDiaSemana($diaSemana);
+                    $horario->setEscala($escalaObj);
+                    $this->getEntityManager()->persist($horario); // persiste o model no mando ( preparar o insert / update)
+                }
+            }
         }
         
-//        //escala...
-//        if ( !empty($dados['escala'] )) {
-//            $escala = $this->getEntityManager()->find('SigRH\Entity\Escala', $dados['escala']); //busca as informações
-//            $row->setNivel($escala);
-//        }
-//        unset($dados['escala']);
-        
-        $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
-        $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         
-        return $row;
+        return true;
     }
 
 }

@@ -7,19 +7,71 @@
         </h3>
         <hr>
         <div class="row">
-            <div class="col-md-4">
-                <?php echo $this->formLabel($this->form->get('diaSemana')); ?><br>
-                <?php echo $this->formElement($this->form->get('diaSemana')); ?>
-                <?php echo $this->formElementErrors($this->form->get('diaSemana')); ?>  
+            <div class="col-md-6">
+                <label>Dia da Semana</label>
             </div>
             
-            <div class="col-md-4">
-                <?php echo $this->formLabel($this->form->get('escala')); ?><br>
-                <?php echo $this->formElement($this->form->get('escala')); ?>
-                <?php echo $this->formElementErrors($this->form->get('escala')); ?>  
+            <div class="col-md-6">
+                <label>Escala</label>
             </div>
-            
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                Segunda-Feira
+            </div>
+            
+            <div class="col-md-6">
+                <?php echo $this->formElement($this->form->get('escalaSegunda')); ?>
+                <?php echo $this->formElementErrors($this->form->get('escalaSegunda')); ?>  
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                Terça-Feira
+            </div>
+            
+            <div class="col-md-6">
+                <?php echo $this->formElement($this->form->get('escalaTerca')); ?>
+                <?php echo $this->formElementErrors($this->form->get('escalaTerca')); ?>  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                Quarta-Feira 
+            </div>
+            
+            <div class="col-md-6">
+                <?php echo $this->formElement($this->form->get('escalaQuarta')); ?>
+                <?php echo $this->formElementErrors($this->form->get('escalaQuarta')); ?>  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                Quinta-Feira
+            </div>
+            
+            <div class="col-md-6">
+                <?php echo $this->formElement($this->form->get('escalaQuinta')); ?>
+                <?php echo $this->formElementErrors($this->form->get('escalaQuinta')); ?>  
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                Sexta-Feira
+            </div>
+            
+            <div class="col-md-6">
+                <?php echo $this->formElement($this->form->get('escalaSexta')); ?>
+                <?php echo $this->formElementErrors($this->form->get('escalaSexta')); ?>  
+            </div>
+        </div>
+        
+        
 
     </div>
 </div>

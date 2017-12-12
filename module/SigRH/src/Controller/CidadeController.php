@@ -1,6 +1,10 @@
 <?php
 
 namespace SigRH\Controller;
+use SigRH\Form\CidadeForm;
+use Zend\View\Model\ViewModel;
+use SigRH\Entity\Cidade;
+
 
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -20,8 +24,53 @@ class CidadeController extends AbstractActionController {
     }
     
     public function indexAction() {
-        //TODO
+        $repo = $this->entityManager->getRepository(Cidade::class);
+        $page = $this->params()->fromQuery('page', 1);
+        $search = $this->params()->fromPost();
+        $paginator = $repo->getPaginator($page,$search);
+
+        return new ViewModel([
+                        'cidades' => $paginator,
+        ]);	
     }
+    
+	/**
+	 * Action para salvar um novo registro
+	 */
+	public function saveAction()
+	{
+                $id = $this->params()->fromRoute('id', null);
+		//Cria o formulário
+		$form = new CidadeForm();
+		
+		//Verifica se a requisição utiliza o método POST
+		if ($this->getRequest()->isPost()) {
+			
+			//Recebe os dados via POST
+			$data = $this->params()->fromPost();
+			
+			//Preenche o form com os dados recebidos e o valida
+			$form->setData($data);
+			if ($form->isValid()) {
+				$data = $form->getData();
+                                $repo = $this->entityManager->getRepository(Cidade::class);
+                                $repo->incluir_ou_editar($data,$id);
+				return $this->redirect()->toRoute('sig-rh/cidade', ['action' => 'save']);
+			}
+		} else {
+                    if ( !empty($id)){
+                        $repo = $this->entityManager->getRepository(Cidade::class);
+                        $row = $repo->find($id);
+                        if ( !empty($row)){
+                            $form->setData($row->toArray());
+                        }
+                    }
+                }
+		return new ViewModel([
+				'form' => $form
+		]);
+	}
+    
 
     public function buscaCidadesAction() {
         $request = $this->getRequest();

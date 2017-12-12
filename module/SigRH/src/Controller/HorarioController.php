@@ -58,8 +58,16 @@ class HorarioController extends AbstractActionController
 	 */
 	public function saveModalAction()
 	{
-                error_log('hi');
-                $id = $this->params()->fromRoute('id', null);
+                $matricula = $this->params()->fromQuery('matricula',null);
+                if ( empty($matricula))
+                    die('Matricula em branco');
+                
+                $repoColaborador = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
+                
+                $colaborador = $repoColaborador->find($matricula);
+                if ( empty($colaborador) )
+                    die('Matricula não encontrada');
+                 
 		//Cria o formulário
 		$form = new HorarioForm($this->objectManager);
 		
@@ -75,21 +83,20 @@ class HorarioController extends AbstractActionController
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Horario::class);
                                 $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$id,$matricula);
+                                $repo->incluir_ou_editar($data,$colaborador);
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
-			}
+			} 
 		} else {
-                    if ( !empty($id)){
-                        $repo = $this->entityManager->getRepository(Horario::class);
-                        $row = $repo->find($id);
-                        if ( !empty($row)){
-                            $form->setData($row->toArray());
-//                            $form->get("escla")->setValue($row->escala->id);
-                          
+                        $dados = array();
+                        $campos=array(1=>"escalaDomingo",2=>"escalaSegunda",3=>"escalaTerca",4=>"escalaQuarta",5=>"escalaQuinta",6=>"escalaSexta",7=>"escalaSabado");
+                        foreach ( $colaborador->horarios as $horario ) {
+                            $dados[ $campos[ $horario->diaSemana ] ] = $horario->escala->id;
                         }
-                    }
+                       // var_dump($dados); die();
+                        $form->setData($dados);
+                    
                 }
                 $view = new ViewModel([
 				'form' => $form

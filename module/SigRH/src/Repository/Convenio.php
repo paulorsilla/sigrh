@@ -14,7 +14,7 @@ class Convenio extends AbstractRepository {
 
         
         if ( !empty($search['search'])){
-            $qb->andWhere('(c.convenioNumero like :busca or c.responsavelNome like :busca)');
+            $qb->andWhere('(c.convenioNumero like :busca or c.responsavelNome like :busca or c.responsavelCargo like :busca)'); 
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
         

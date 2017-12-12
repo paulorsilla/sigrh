@@ -35,24 +35,12 @@ class HorarioForm extends Form {
     }
     
     protected function addElements() {
-        //Adiciona o campo "descricao"
-        $this->add([
-            'type' => 'text',
-            'name' => 'diaSemana',
-            'attributes' => [
-                'id' => 'diaSemana',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o início aqui'
-            ],
-            'options' => [
-                'label' => 'Dia da Semana'
-            ],
-        ]);
-        
+
+
         //Adiciona o campo "escala"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'escala',
+            'name' => 'escalaSegunda',
             'attributes' => [
                 'id' => 'escala',
                 'class' => 'form-control',
@@ -63,8 +51,97 @@ class HorarioForm extends Form {
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Escala::class,
-//                'property' => 'id',
                 'property'        => 'EscalaComposta',    
+                'is_method'      => true, //utilizar este metodo pra campos compostos ou para utilizar a property como uma funcao...
+                
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+
+        //Adiciona o campo "escala"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'escalaTerca',
+            'attributes' => [
+                'id' => 'escalaTerca',
+                'class' => 'form-control',
+                'placeholder' => 'Escolha a escala aqui'
+            ],
+            'options' => [
+                'label' => 'Escala',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Escala::class,
+                'property'        => 'EscalaComposta',    
+                'is_method'      => true,    
+                
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+
+        //Adiciona o campo "escala"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'escalaQuarta',
+            'attributes' => [
+                'id' => 'escalaQuarta',
+                'class' => 'form-control',
+                'placeholder' => 'Escolha a escala aqui'
+            ],
+            'options' => [
+                'label' => 'Escala',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Escala::class,
+                'property'        => 'EscalaComposta',    
+                'is_method'      => true,   
+                
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+
+        //Adiciona o campo "escala"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'escalaQuinta',
+            'attributes' => [
+                'id' => 'escalaQuinta',
+                'class' => 'form-control',
+                'placeholder' => 'Escolha a escala aqui'
+            ],
+            'options' => [
+                'label' => 'Escala',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Escala::class,
+                'property'        => 'EscalaComposta',    
+                'is_method'      => true,   
+                
+                'display_empty_item' => true,
+            ]
+        ]);
+        
+        
+        
+        //Adiciona o campo "escala"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'escalaSexta',
+            'attributes' => [
+                'id' => 'escalaSexta',
+                'class' => 'form-control',
+                'placeholder' => 'Escolha a escala aqui'
+            ],
+            'options' => [
+                'label' => 'Escala',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Escala::class,
+                'property'        => 'EscalaComposta',    
+                'is_method'      => true,   
                 
                 'display_empty_item' => true,
             ]
@@ -77,24 +154,24 @@ class HorarioForm extends Form {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
 
-        $inputFilter->add([
-            'name' => 'diaSemana',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 100
-                    ],
-                ],
-            ],
-        ]);
+//        $inputFilter->add([
+//            'name' => 'diaSemana',
+//            'required' => true,
+//            'filters' => [
+//                ['name' => 'StringTrim'],
+//                ['name' => 'StripTags'],
+//                ['name' => 'StripNewlines'],
+//            ],
+//            'validators' => [
+//                [
+//                    'name' => 'StringLength',
+//                    'options' => [
+//                        'min' => 1,
+//                        'max' => 100
+//                    ],
+//                ],
+//            ],
+//        ]);
         
         
          

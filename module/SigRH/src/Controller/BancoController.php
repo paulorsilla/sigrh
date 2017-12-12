@@ -6,9 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Form\BancoForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Banco;
-//use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-//use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-//use Zend\Paginator\Paginator;
 
 class BancoController extends AbstractActionController
 {
@@ -28,23 +25,6 @@ class BancoController extends AbstractActionController
 	
 	public function indexAction()
 	{
-                /*
-		$queryBuilder = $this->entityManager->createQueryBuilder();
-		$queryBuilder->select('b')
-					->from(Banco::class, 'b')
-					->orderBy('b.banco', 'ASC');
-		$query = $queryBuilder->getQuery();
-            
-		$page = $this->params()->fromQuery('page', 1);
-		
-                
-		$adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-		$paginator = new Paginator($adapter);
-		$paginator->setDefaultItemCountPerPage(11);
-		$paginator->setCurrentPageNumber($page);
-		
-                 * 
-                 */
                 $repo = $this->entityManager->getRepository(Banco::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $search = $this->params()->fromPost();
@@ -74,14 +54,6 @@ class BancoController extends AbstractActionController
 			$form->setData($data);
 			if ($form->isValid()) {
 				$data = $form->getData();
-                                /*
-                                $banco = new Banco();
-                                $banco->setBanco($data['banco']);
-                                $banco->setCodigo($data['codigo']);
-                    		$this->entityManager->persist($banco);
-                		$this->entityManager->flush();
-                                 * 
-                                 */
                                 $repo = $this->entityManager->getRepository(Banco::class);
                                 $repo->incluir_ou_editar($data,$id);
 				return $this->redirect()->toRoute('sig-rh/banco', ['action' => 'save']);
@@ -100,33 +72,6 @@ class BancoController extends AbstractActionController
 		]);
 	}
 	
-//	public function editAction()
-//	{
-//		$form = new BancoForm();
-//		$id = $this->params()->fromRoute('id', -1);
-//		$saprofita = $this->entityManager->getRepository(Banco::class)->findOneById($id);
-//		if ($saprofita == null) {
-//			$this->getResponse()->setStatusCode(404);
-//			return;
-//		}
-//		if ($this->getRequest()->isPost()) {
-//			$data = $this->params()->fromPost();
-//			$form->setData($data);
-//			if($form->isValid()) {
-//				$data = $form->getData();
-//				$this->bancoManager->update($banco, $data);
-//				return $this->redirect()->toRoute('application/banco');
-//			}
-//		} else {
-//			$form->bind($banco);
-//			$form->get('submit')->setAttribute('value', 'Editar');
-//		}
-//		return new ViewModel([
-//				'form' => $form,
-//				'banco' => $banco
-//		]);
-//	}
-//	
 	public function deleteAction()
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);

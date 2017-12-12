@@ -18,14 +18,6 @@
                 <td><?php echo (null != $horario->getEscala()->getSaida1()) ? $this->escapeHtml($horario->getEscala()->getSaida1()->format("H:i")) : ""; ?></td>
                 <td><?php echo (null != $horario->getEscala()->getEntrada2()) ? $this->escapeHtml($horario->getEscala()->getEntrada2()->format("H:i")) : ""; ?></td>
                 <td><?php echo (null != $horario->getEscala()->getSaida2()) ? $this->escapeHtml($horario->getEscala()->getSaida2()->format("H:i")) : ""; ?></td>
-                
-                <td><button type="button" class="btn btn-primary btn-sm pull-center"
-                            onclick="editarHorario('<?php echo $horario->getId();?>')"
-                       href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button type="button" class="btn btn-primary btn-sm pull-center" 
-                               onclick="excluirHorario('<?php echo $horario->getId();?>')"
-                       href="#" title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
-                </td>
             </tr>
         <?php endforeach; ?>
 

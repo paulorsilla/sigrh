@@ -1,0 +1,36 @@
+<h1>Cidades cadastradas</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cidade</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->cidades as $cidade): ?>
+                <tr>
+                    <td><?= $this->escapeHtml($cidade->getId()); ?></td>
+                    <td><?= $this->escapeHtml($cidade->getCidade()); ?></td>
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/cidade', ['action' => 'save', 'id' => $cidade->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <!--a class="btn btn-primary btn-sm pull-center"
+                           href="<?php //echo $this->url('sig-rh/cidade', ['action' => 'delete', 'id' => $cidade->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a-->
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->cidades, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/cidade']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/cidade/save">Novo
+        registro</a>
+</div>
