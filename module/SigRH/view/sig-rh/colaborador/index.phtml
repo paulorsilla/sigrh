@@ -10,7 +10,7 @@
             <select class="form-control" name="ativo" id="ativo" value="<?php echo $this->ativo; ?>">
                 <option value="S" <?php echo ($this->ativo == 'S') ? 'selected' : ''?>  >Ativos</option>
                 <option value="N" <?php echo ($this->ativo == 'N') ? 'selected' : ''?>>Inativos</option>
-                <option value="" <?php echo ($this->ativo == '') ? 'selected' : ''?>>Todos</option>
+                <option value="T" <?php echo ($this->ativo == 'T') ? 'selected' : ''?>>Todos</option>
             </select>
         </div>
         <input type="hidden" name="tipoColaborador" id="tipoColaborador" value="2">
@@ -38,7 +38,7 @@
                     <td><?php echo $this->escapeHtml($colaborador->getNome()); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->getTipoColaborador()->getDescricao()); ?>
                     <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'page' => $this->page]) ?>"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => $this->ativo, 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         <!--a class="btn btn-primary btn-sm pull-center"
                            href="<?php //echo $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"

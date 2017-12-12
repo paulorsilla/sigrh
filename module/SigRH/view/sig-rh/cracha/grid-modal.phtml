@@ -11,7 +11,7 @@
     <tbody>
         <?php foreach ($this->crachas as $cracha): ?>
             <tr>
-                <td><?php error_log($cracha->getNumeroChip()); echo $this->escapeHtml($cracha->getNumeroChip()); ?></td>
+                <td><?php echo $this->escapeHtml($cracha->getNumeroChip()); ?></td>
                 <td><?php echo (null != $cracha->getDataInclusao() ? $this->escapeHtml($cracha->getDataInclusao()->format("d/m/Y")) : ""); ?></td>
                 <td><?php echo (null != $cracha->getDataExclusao() ? $this->escapeHtml($cracha->getDataExclusao()->format("d/m/Y")) : ""); ?></td>
                 <td><?php echo $this->escapeHtml($cracha->getObservacoes()); ?></td>
