@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\BatidaPonto;
 use SigRH\Entity\Colaborador;
+use SigRH\Entity\Ocorrencia;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
@@ -49,12 +50,21 @@ class BatidaPontoController extends AbstractActionController {
                 $paginator = new Paginator($adapter);
                 $paginator->setDefaultItemCountPerPage(25);
                 $paginator->setCurrentPageNumber($page);
+                
+                $ocorrencias = $this->entityManager->getRepository(Ocorrencia::class)->findOcorrenciaByMatricula($colaborador->getMatricula(), $dataInicio, $dataTermino)->getResult();
+                $registroOcorrencias = [];
+                foreach($ocorrencias as $ocorrencia) {
+                    $registroOcorrencias[$ocorrencia->getDataOcorrencia()->format("Ymd")] = $ocorrencia->getDescricao();
+                }
+                
             }
         }
         return new ViewModel([
             'colaborador' => $colaborador,
             'periodoMovimentacao' => $periodoMovimentacao,
-            'batidasPonto' => $paginator
+            'batidasPonto' => $paginator,
+            'dataPesquisaInicial' => $dataInicio,
+            'registroOcorrencias' => $registroOcorrencias
         ]);
     }
     
@@ -75,7 +85,6 @@ class BatidaPontoController extends AbstractActionController {
                         $dataInicio = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-01");
                         $dataTermino = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-31");
                     }
-
                     //busca estagiarios 
                     $repoColaborador = $this->entityManager->getRepository(Colaborador::class);
                     $colaboradores = $repoColaborador->getEstagiarios();

@@ -5,7 +5,12 @@
 <form method="get" action="/sig-rh/ocorrencia/gerar">
     <div class="row">
         <div class="col-md-2">
-            <input type="text" pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)" class="form-control" placeholder="Período (mm/aaaa)" value="" name="periodoReferencia" id="periodoReferencia">
+            <label for="dataInicio">Data início:</label>
+            <input type="date" title="Data de início (dd/mm/aaaa)" class="form-control" value="" name="dataInicio" id="dataInicio">
+        </div>
+        <div class="col-md-2">
+            <label for="dataTermino">Data término:</label>
+            <input type="date" title="Data de término (dd/mm/aaaa)" class="form-control" value="" name="dataTermino" id="dataTermino">
         </div>
     </div>
     <div class="row">
