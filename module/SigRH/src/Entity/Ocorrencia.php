@@ -1,7 +1,6 @@
 <?php
 
 namespace SigRH\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +33,11 @@ class Ocorrencia extends AbstractEntity {
      * @ORM\JoinColumn(name="batida_ponto_id", referencedColumnName="id")
      * */
     protected $batidaPonto;
+ 
+    /**
+     * @ORM\Column(name="descricao", type="string")
+     */
+    protected $descricao;
     
     /**
      * Returns user ID.
@@ -52,6 +56,10 @@ class Ocorrencia extends AbstractEntity {
     public function getBatidaPonto() {
         return $this->batidaPonto;
     }
+    
+    public function getDescricao() {
+        return $this->descricao;
+    }
             
     /**
      * Sets user ID.
@@ -69,5 +77,8 @@ class Ocorrencia extends AbstractEntity {
     }
     public function setBatidaPonto($batidaPonto) {
         $this->batidaPonto = $batidaPonto;
+    }
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
     }
 }

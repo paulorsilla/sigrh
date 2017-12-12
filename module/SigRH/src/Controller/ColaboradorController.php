@@ -68,7 +68,6 @@ class ColaboradorController extends AbstractActionController
                 $id = $this->params()->fromRoute('id', null);
                 $page = $this->params()->fromRoute('page', null);
                 $ativo = $this->params()->fromRoute('ativo');
-                error_log("ativo ".$ativo);
 		
                 //Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
