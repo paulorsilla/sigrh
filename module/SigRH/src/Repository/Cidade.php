@@ -46,6 +46,12 @@ class Cidade extends AbstractRepository {
             $row = new CidadeEntity();
         }
         
+        //estado...
+        if ( !empty($dados['estado'] )) {
+            $estado = $this->getEntityManager()->find('SigRH\Entity\Estado', $dados['estado']); //busca as informações
+            $row->setEstado($estado);
+        }
+        unset($dados['estado']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

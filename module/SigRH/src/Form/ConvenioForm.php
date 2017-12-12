@@ -33,6 +33,7 @@ class ConvenioForm extends Form {
     public function getObjectManager() {
         return $this->objectManager;
     }
+    
     protected function addElements() {
         //Adiciona o campo "tipo"
         $this->add([

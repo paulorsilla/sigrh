@@ -17,15 +17,29 @@
             <div class="panel-body">
                 <?= $this->form()->openTag($form); ?>
 
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <?= $this->formLabel($form->get('cidade')); ?><br>
                 <?= $this->formElement($form->get('cidade')); ?>
                 <?= $this->formElementErrors($form->get('cidade')); ?>                  
+            </div>
 
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <?php echo $this->formLabel($form->get('estado')); ?><br>
+                <?php echo $this->formElement($form->get('estado')); ?>
+                <?php echo $this->formElementErrors($form->get('estado')); ?>                  
+            </div>
+                
+            <div class="row" style="margin-top: 20px">
+            <div class="col-sm-12 col-md-4 col-lg-3">
                 <br>
-                <br>
-                <?= $this->formElement($form->get('submit')); ?>
+                <div class="col-sm-12" >
+                    <?= $this->formElement($form->get('submit')); ?>
+                </div>
+            </div>
+                
 
-                <?= $this->form()->closeTag(); ?>
+            <?= $this->form()->closeTag(); ?>
+                
             </div>
         </div>
     </div>

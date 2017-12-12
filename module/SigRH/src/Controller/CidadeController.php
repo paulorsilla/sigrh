@@ -19,9 +19,12 @@ class CidadeController extends AbstractActionController {
     /**
      * Construtor da classe, utilizado para injetar as dependências no controller
      */
-    public function __construct($entityManager) {
-        $this->entityManager = $entityManager;
-    }
+    
+    public function __construct($entityManager, $objectManager)	{
+		$this->entityManager = $entityManager;
+                $this->objectManager = $objectManager;
+	}
+    
     
     public function indexAction() {
         $repo = $this->entityManager->getRepository(Cidade::class);
@@ -41,7 +44,7 @@ class CidadeController extends AbstractActionController {
 	{
                 $id = $this->params()->fromRoute('id', null);
 		//Cria o formulário
-		$form = new CidadeForm();
+		$form = new CidadeForm($this->entityManager);
 		
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
@@ -63,6 +66,9 @@ class CidadeController extends AbstractActionController {
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
+                            
+                        $form->get("estado")->setValue($row->estado->id);
+                            
                         }
                     }
                 }
