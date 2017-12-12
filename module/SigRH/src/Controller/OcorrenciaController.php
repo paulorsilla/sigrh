@@ -45,7 +45,9 @@ class OcorrenciaController extends AbstractActionController
                     
                     //busca estagiarios de graduacao
                     $colaboradores = $repoColaborador->getEstagiarios(true);
-                    foreach($colaboradores as $colaborador) {
+
+                    $colaborador = $this->entityManager->find(SigRH\Entity\Colaborador::class, '503361');
+//                    foreach($colaboradores as $colaborador) {
                         $dataPesquisa = \DateTime::createFromFormat("Y-m-d", $ano."-".$mes."-01");
                         
                         error_log("COLABORADOR: ".$colaborador->getMatricula()." - ".$colaborador->getNome());
@@ -68,7 +70,7 @@ class OcorrenciaController extends AbstractActionController
                                     //busca os registros na catraca para o dia em questão
                                     $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
                                     if ($batidaPonto) {
-                                        foreach($batidaPonto->getHorarios() as $horario) {
+                                        foreach($batidaPonto->getHorarios() as $k => $horario) {
                                             error_log("Horario".$horario->getHoraBatida()->format("H:i"));
                                         }
                                     } else { 
@@ -81,7 +83,7 @@ class OcorrenciaController extends AbstractActionController
                             
                         }
                         
-                    }
+//                    }//foreach colaboradores
                     return $this->redirect()->toRoute('sig-rh/ocorrencia', ['action' => 'index']);
                 }
             }

@@ -34,12 +34,10 @@ class Colaborador extends AbstractRepository {
 //        unset($search['nome']);
         
         if (isset($search['ativo'])) {
-            if ($search['ativo'] == 'S') {
-                $qb->andWhere('c.dataDesligamento is NULL');
-            } else {
-                $qb->andWhere('c.dataDesligamento is NOT NULL');
+            switch($search['ativo']) {
+                case 'S': $qb->andWhere('c.dataDesligamento is NULL'); break;
+                case 'N': $qb->andWhere('c.dataDesligamento is NOT NULL');
             }
-  //          unset($search['ativo']);
         }
 
 //        

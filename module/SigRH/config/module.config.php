@@ -86,7 +86,7 @@ return [
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/colaborador[/:action[/:id][/:page]]',
+                            'route' => '/colaborador[/:action[/:id][/:ativo][/:page]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
