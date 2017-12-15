@@ -242,7 +242,7 @@ class TermoForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Instituição de ensino',
+                'label' => 'Instituição de fomento',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Instituicao::class,

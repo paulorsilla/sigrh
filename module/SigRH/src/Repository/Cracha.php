@@ -11,8 +11,7 @@ class Cracha extends AbstractRepository {
         $qb->select('d')
                 ->from(CrachaEntity::class, 'd');
         
-        //inclui a pesquisa por matricula por meio de um join
-        error_log("MATRICULA: ".$search['matricula']);
+//        error_log("MATRICULA: ".$search['matricula']);
         //inclui a pesquisa por matricula por meio de um join
         if ( !empty($search['matricula'])){
             $qb->join("d.colaboradorMatricula",'c');
@@ -21,12 +20,14 @@ class Cracha extends AbstractRepository {
         }
         
         
-        echo "DQL: ".$qb->getDQL();
-        echo "<hr>";
-        echo "SQL: ".$qb->getQuery()->getSQL();
-        die();
+//        echo "DQL: ".$qb->getDQL();
+//        echo "<hr>";
+//        echo "SQL: ".$qb->getQuery()->getSQL();
+//        die();
        return $qb;
     }
+    
+    
     
 //    public function getListParaCombo(){
 //        
@@ -45,22 +46,23 @@ class Cracha extends AbstractRepository {
 //                $this->getEntityManager()->flush();
 //        }
 //    }
-//    public function incluir_ou_editar($dados,$id = null){
-//        
-//        $row = null;
-//        if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
-//            $row = $this->find($id); // busca o registro do campo para poder alterar
-//        }    
-//        if ( empty($row)) {
-//            $row = new CursoEntity();
-//        }
-//        
-//        
-//        $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
-//        $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
-//        $this->getEntityManager()->flush(); // Confirma a atualizacao
-//        
-//        return $row;
-//    }
+    
+    public function incluir_ou_editar($dados,$id = null){
+        
+        $row = null;
+        if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
+            $row = $this->find($id); // busca o registro do campo para poder alterar
+        }    
+        if ( empty($row)) {
+            $row = new CrachaEntity();
+        }
+        
+        
+        $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
+        $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
+        $this->getEntityManager()->flush(); // Confirma a atualizacao
+        
+        return $row;
+    }
 
 }

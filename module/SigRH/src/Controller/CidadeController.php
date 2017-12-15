@@ -28,14 +28,26 @@ class CidadeController extends AbstractActionController {
     
     public function indexAction() {
         $repo = $this->entityManager->getRepository(Cidade::class);
-        $page = $this->params()->fromQuery('page', 1);
-        $search = $this->params()->fromPost();
-        $paginator = $repo->getPaginator($page,$search);
+//        $page = $this->params()->fromQuery('page', 1);
+//        $search = $this->params()->fromPost();
+//        $paginator = $repo->getPaginator($page,$search);
 
         return new ViewModel([
-                        'cidades' => $paginator,
-        ]);	
+//                        'cidades' => $paginator,
+                        'search' => $this->params()->fromQuery("search"), //get no form eu uso -> fromQuery; post no form eu uso -> fromPost; 
+  			'cidades' => $repo->getPaginator(
+                                $this->params()->fromQuery("page"),
+                                array("search"=>$this->params()->fromQuery("search"),
+                                    )
+                                )
+          
+        ]);
+        
+        
     }
+    
+  
+    
     
 	/**
 	 * Action para salvar um novo registro

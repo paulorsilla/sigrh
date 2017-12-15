@@ -3,7 +3,7 @@
 namespace SigRH\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-//use SigRH\Form\CrachaForm;
+use SigRH\Form\CrachaForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Cracha;
 
@@ -37,6 +37,22 @@ class CrachaController extends AbstractActionController
         
         public function gridModalAction()
 	{
+                $repo = $this->entityManager->getRepository(Cracha::class);
+                $page = $this->params()->fromQuery('page', 1);
+                $colaborador = $this->params()->fromQuery('matricula',0);
+                $search = $this->params()->fromPost();
+                $search['matricula'] = $colaborador;
+                $paginator = $repo->getPaginator($page,$search);
+            
+                $view = new ViewModel([
+				'crachas' => $paginator,
+		]);
+		return 	$view->setTerminal(true);
+	}
+        
+        
+        public function grid2ModalAction()
+	{
 //                $repo = $this->entityManager->getRepository(Cracha::class);
 //                $page = $this->params()->fromQuery('page', 1);
                 $matricula = $this->params()->fromQuery('matricula', 0);
@@ -55,39 +71,39 @@ class CrachaController extends AbstractActionController
 	/**
 	 * Action para salvar um novo registro
 	 */
-//	public function saveAction()
-//	{
-//                $id = $this->params()->fromRoute('id', null);
-//		//Cria o formulário
-//		$form = new CrachaForm();
-//		
-//		//Verifica se a requisição utiliza o método POST
-//		if ($this->getRequest()->isPost()) {
-//			
-//			//Recebe os dados via POST
-//			$data = $this->params()->fromPost();
-//			
-//			//Preenche o form com os dados recebidos e o valida
-//			$form->setData($data);
-//			if ($form->isValid()) {
-//				$data = $form->getData();
-//                                $repo = $this->entityManager->getRepository(Cracha::class);
-//                                $repo->incluir_ou_editar($data,$id);
-//				return $this->redirect()->toRoute('sig-rh/cracha', ['action' => 'save']);
-//			}
-//		} else {
-//                    if ( !empty($id)){
-//                        $repo = $this->entityManager->getRepository(Cracha::class);
-//                        $row = $repo->find($id);
-//                        if ( !empty($row)){
-//                            $form->setData($row->toArray());
-//                        }
-//                    }
-//                }
-//		return new ViewModel([
-//				'form' => $form
-//		]);
-//	}
+	public function saveAction()
+	{
+                $id = $this->params()->fromRoute('id', null);
+		//Cria o formulário
+		$form = new CrachaForm();
+		
+		//Verifica se a requisição utiliza o método POST
+		if ($this->getRequest()->isPost()) {
+			
+			//Recebe os dados via POST
+			$data = $this->params()->fromPost();
+			
+			//Preenche o form com os dados recebidos e o valida
+			$form->setData($data);
+			if ($form->isValid()) {
+				$data = $form->getData();
+                                $repo = $this->entityManager->getRepository(Cracha::class);
+                                $repo->incluir_ou_editar($data,$id);
+				return $this->redirect()->toRoute('sig-rh/cracha', ['action' => 'save']);
+			}
+		} else {
+                    if ( !empty($id)){
+                        $repo = $this->entityManager->getRepository(Cracha::class);
+                        $row = $repo->find($id);
+                        if ( !empty($row)){
+                            $form->setData($row->toArray());
+                        }
+                    }
+                }
+		return new ViewModel([
+				'form' => $form
+		]);
+	}
 //	
 //	public function deleteAction()
 //	{
