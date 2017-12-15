@@ -32,30 +32,32 @@ class OcorrenciaController extends AbstractActionController {
             $dataInicio = $this->params()->fromQuery('dataInicio');
             $dataTermino = $this->params()->fromQuery('dataTermino');
 
-            if ( ($dataInicio != "") && ($dataTermino != "") ) {
+            if (($dataInicio != "") && ($dataTermino != "")) {
 
                 $dataPesquisaInicial = \DateTime::createFromFormat("Y-m-d", $dataInicio);
                 $dataPesquisaFinal = \DateTime::createFromFormat("Y-m-d", $dataTermino);
                 $dataPesquisaFinal->setTime(0, 0);
                 $dataPesquisaFinal->setTime(0, 0);
-                
+
                 $repoColaborador = $this->entityManager->getRepository(Colaborador::class);
 
                 //busca estagiarios de graduacao
                 $colaboradores = $repoColaborador->getEstagiarios(true);
 
                 $colaborador = $this->entityManager->find(\SigRH\Entity\Colaborador::class, '503361');
-                
+
 //                    foreach($colaboradores as $colaborador) {
                 $dataPesquisa = $dataPesquisaInicial;
 
                 error_log("COLABORADOR: " . $colaborador->getMatricula() . " - " . $colaborador->getNome());
-                
+
                 $repo = $this->entityManager->getRepository(Ocorrencia::class);
-                
-                while ( (int) $dataPesquisa->format('Ymd') <= (int) $dataPesquisaFinal->format('Ymd')) {
+
+                while ((int) $dataPesquisa->format('Ymd') <= (int) $dataPesquisaFinal->format('Ymd')) {
                     $diaSemana = $dataPesquisa->format("w");
-                    
+
+                    error_log("Data: " . $dataPesquisa->format("d-m-Y"));
+
                     //busca a escala de horarios do colaborador
                     $escala = null;
                     foreach ($colaborador->getHorarios() as $horarioEscala) {
@@ -64,15 +66,24 @@ class OcorrenciaController extends AbstractActionController {
                             break;
                         }
                     }
-                    
+
                     //busca os registros na catraca para o dia em questão
                     $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
-                    if ($batidaPonto) {
+                    if ($batidaPonto && $escala) {
                         foreach ($batidaPonto->getHorarios() as $k => $horario) {
-                            error_log("Horario: " . $horario->getHoraBatida()->format("H:i"));
+                            error_log("Hora registrada: " . $horario->getHoraBatida()->format("H:i"));
+
+                            $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
+                            $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
+
+                            if ( (int) $intervaloE1->format("%H%I") < (int) $intervaloS1->format("%H%I")) {
+                                error_log("Entrada 1");
+                            } else {
+                                error_log("Saida 1");
+                            }
                         }
-                    } else if ($escala != null) {
-                        $repo->incluir_ou_editar($colaborador, $dataPesquisa, null, 'Omissão de ponto - dia todo.', null);
+                    } else if ($escala != null && $batidaPonto == null) {
+                        //$repo->incluir_ou_editar($colaborador, $dataPesquisa, null, 'Omissão de ponto - dia todo.', null);
                     }
                     $dataPesquisa->add(new \DateInterval('P1D'));
                 }

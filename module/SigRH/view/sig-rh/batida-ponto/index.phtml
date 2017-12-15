@@ -50,18 +50,26 @@ if ($this->batidasPonto != null):
                 <?php foreach ($this->batidasPonto as $batida): 
                     $batida->getDataBatida()->setTime(0, 0);
 
-                    while($dataPesquisa != $batida->getDataBatida()): ?>
-                        <tr>
+                    while($dataPesquisa != $batida->getDataBatida()):
+                        if( ($dataPesquisa->format('w') == 0) || ($dataPesquisa->format('w') == 6) ) {?>
+                            <tr style="background-color: #F0FFFF;">
+                        <?php } else {?>
+                            <tr>
+                        <?php }?>
                             <td><?php echo $this->escapeHtml($dataPesquisa->format("d")); ?></td>
                             <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
                             <td>-</td>
                             <td>-</td>
-                            <td><?php echo (null != $this->registroOcorrencias[$dataPesquisa->format("Ymd")]) ? $this->registroOcorrencias[$dataPesquisa->format("Ymd")] : "";?> </td>
+                            <td><?php echo (!empty($this->registroOcorrencias[$dataPesquisa->format("Ymd")])) ? $this->registroOcorrencias[$dataPesquisa->format("Ymd")] : "";?> </td>
                         </tr>
                         <?php $dataPesquisa->add(new \DateInterval('P1D'));
-                    endwhile;?>
-                
-                    <tr>
+                    endwhile;
+                    
+                    if( ($dataPesquisa->format('w') == 0) || ($dataPesquisa->format('w') == 6) ) {?>
+                        <tr style="background-color: #F0FFFF;">
+                    <?php } else {?>
+                        <tr>
+                    <?php }?>
                         <td><?php echo $this->escapeHtml($batida->getDataBatida()->format("d")); ?></td>
                         <td><?php echo $this->escapeHtml($diasSemana[$batida->getDataBatida()->format("w")]); ?></td>
                         <td><?php
@@ -87,8 +95,12 @@ if ($this->batidasPonto != null):
                         $dataPesquisa->add(new \DateInterval('P1D'));
                         endforeach;
                     
-                        while($dataPesquisa->format('m') == $this->dataPesquisaInicial->format('m')):?>
-                        <tr>
+                        while($dataPesquisa->format('m') == $this->dataPesquisaInicial->format('m')):
+                            if( ($dataPesquisa->format('w') == 0) || ($dataPesquisa->format('w') == 6) ) {?>
+                                <tr style="background-color: #F0FFFF;">
+                            <?php } else {?>
+                                <tr>
+                            <?php }?>
                             <td><?php echo $this->escapeHtml($dataPesquisa->format("d")); ?></td>
                             <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
                             <td>-</td>
