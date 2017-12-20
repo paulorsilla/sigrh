@@ -122,6 +122,28 @@ class Estagio extends AbstractRepository {
             $dados['preContrato'] = null;
         }
         
+        //lotacao
+        if ( isset($dados['lotacao']) ) {
+            if ( !empty($dados['lotacao'] )) {
+                $lotacao = $this->getEntityManager()->find('SigRH\Entity\Instituicao', $dados['lotacao']); //busca as informações
+                $row->setLotacao($lotacao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setLotacao(null);
+            }
+        }    
+        unset($dados['lotacao']);
+
+        //localizacao
+        if ( isset($dados['localizacao']) ) {
+            if ( !empty($dados['localizacao'] )) {
+                $localizacao = $this->getEntityManager()->find('SigRH\Entity\Localizacao', $dados['localizacao']); //busca as informações
+                $row->setLocalizacao($localizacao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setLocalizacao(null);
+            }
+        }    
+        unset($dados['localizacao']);
+        
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         // \Doctrine\Common\Util\Debug::dump($row); nunca usar print_r para elemento doctrine
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

@@ -76,6 +76,7 @@ class EstagioController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
+                            $form->get("obrigatorio")->setValue($row->obrigatorio);
                             $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("curso")->setValue($row->curso->id);
                             $form->get("nivel")->setValue($row->nivel->id);

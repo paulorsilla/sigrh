@@ -179,7 +179,6 @@ class EstagioForm extends Form {
             ],
         ]);
         
-        
         //Adiciona o campo "fonteSeguro"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
@@ -242,6 +241,77 @@ class EstagioForm extends Form {
                     "1" => "Sim"
                 ]
             ],
+        ]);
+
+        //Adiciona o campo "obrigatorio"
+        $this->add([
+            'type' => 'select',
+            'name' => 'obrigatorio',
+            'attributes' => [
+                'id' => 'obrigatorio',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Obrigatório',
+                'value_options' => [
+                    "" => "Selecione",
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+        
+        //Adiciona o campo "lotacao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'lotacao',
+            'attributes' => [
+                'id' => 'lotacao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Lotação',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Instituicao::class,
+                'property' => 'desRazaoSocial',
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
+            ]
+        ]);
+        
+        //Adiciona o campo "localizacao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'localizacao',
+            'attributes' => [
+                'id' => 'localizacao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Localização',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Localizacao::class,
+                'property' => 'descricao',
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                        'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+
+                ],
+            ]
         ]);
         
         $this->add([
@@ -412,8 +482,20 @@ class EstagioForm extends Form {
                 ],
             ],
         ]);
-         
-         
+        
+        $inputFilter->add([
+            'name' => 'obrigatorio',
+            'required' => true,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'lotacao',
+            'required' => true,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'localizacao',
+            'required' => true,
+        ]);
     }
-
 }

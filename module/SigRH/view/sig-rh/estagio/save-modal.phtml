@@ -7,38 +7,60 @@
         </h3>
         <hr>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('inicio')); ?><br>
                 <?php echo $this->formElement($this->form->get('inicio')); ?>
                 <?php echo $this->formElementErrors($this->form->get('inicio')); ?>  
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('previsaoConclusao')); ?><br>
                 <?php echo $this->formElement($this->form->get('previsaoConclusao')); ?>
                 <?php echo $this->formElementErrors($this->form->get('previsaoConclusao')); ?>                  
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('dataInicioEfetivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('dataInicioEfetivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('dataInicioEfetivo')); ?>                  
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8">
-                <?php echo $this->formLabel($this->form->get('sublotacao')); ?><br>
-                <?php echo $this->formElement($this->form->get('sublotacao')); ?>
-                <?php echo $this->formElementErrors($this->form->get('sublotacao')); ?>                  
+
+            <div class="col-md-2">
+                <?php echo $this->formLabel($this->form->get('obrigatorio')); ?><br>
+                <?php echo $this->formElement($this->form->get('obrigatorio')); ?>
+                <?php echo $this->formElementErrors($this->form->get('obrigatorio')); ?>                  
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('preContrato')); ?><br>
                 <?php echo $this->formElement($this->form->get('preContrato')); ?>
                 <?php echo $this->formElementErrors($this->form->get('preContrato')); ?>                  
             </div>
+            
         </div>
+        
+        <div class="row">
+            <div class="col-md-5">
+                <?php echo $this->formLabel($this->form->get('lotacao')); ?><br>
+                <?php echo $this->formElement($this->form->get('lotacao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('lotacao')); ?>                  
+            </div>
+            
+            <div class="col-md-4">
+                <?php echo $this->formLabel($this->form->get('sublotacao')); ?><br>
+                <?php echo $this->formElement($this->form->get('sublotacao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('sublotacao')); ?>                  
+            </div>
+
+            
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('localizacao')); ?><br>
+                <?php echo $this->formElement($this->form->get('localizacao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('localizacao')); ?>                  
+            </div>
+
+        </div>
+        
         
         <div class="row">
             <div class="col-md-8">
@@ -68,7 +90,6 @@
             </div>
         </div>
         <hr>
-
         <div class="row">
             <div class="col-md-4">
                 <?php echo $this->formLabel($this->form->get('fonteSeguro')); ?><br>

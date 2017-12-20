@@ -322,7 +322,20 @@ return [
                             ]
                         ]
                     ],
-                    
+                    'localizacao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/localizacao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\LocalizacaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'modalidade-bolsa' => [
                         'type' => Segment::class,
                         'options' => [
@@ -438,6 +451,7 @@ return [
             Controller\InstituicaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ImportacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\LocalizacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,

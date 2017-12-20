@@ -1,9 +1,11 @@
 <?php
-$this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
-$form = $this->form;
-$form->get('submit')->setAttributes([
-    'class' => 'btn btn-primary'
-]);
+    $this->headScript()->appendFile('/js/inputmask.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/jquery.inputmask.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/colaborador-save.js', 'text/javascript');
+    $form = $this->form;
+    $form->get('submit')->setAttributes([
+        'class' => 'btn btn-primary'
+    ]);
 ?>
 
 <h1>Cadastro de colaboradores</h1>

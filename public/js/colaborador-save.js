@@ -141,8 +141,7 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
-    
-    
+
     function fncSalvarTermo(obj){
         $(this).html("aguarde ...").attr("disabled",true);
         form =  $("form",$(obj).closest(".modal-content"));
@@ -223,7 +222,14 @@
         $('#HorarioModal').modal('show');
     }
     
+    function mascarasEntrada()
+    {
+        $("#cpf").inputmask("999.999.999-99");
+        $("#cep").inputmask("99999-999");
+    }
+    
 $(document).ready(function () {
+    mascarasEntrada();
     $("#imgFoto").attr("src", "/img/fotos/"+$("#foto").val());
     
 // Carregar as cidades do banco de dados e salvar na variavel vCidades em JSON
