@@ -3,6 +3,7 @@
 namespace SigRH\Repository;
 
 use SigRH\Entity\Colaborador as ColaboradorEntity;
+use SigRH\Entity\Vinculo as VinculoEntity;
 
 class Colaborador extends AbstractRepository {
 
@@ -63,7 +64,7 @@ class Colaborador extends AbstractRepository {
         
         if ( !empty($search["grauInstrucao"]) ){
              $qb->andWhere('c.grauInstrucao in ( :grauInstrucao )');
-            $qb->setParameter("grauInstrucao",$search["grauInstrucao"]);
+            $qb->setParameter("grauInstrucao", $search["grauInstrucao"]);
         }
         
         if ( !empty($search["necessidadeEspecial"]) ){
@@ -71,11 +72,27 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("necessidadeEspecial",$search["necessidadeEspecial"]);
         }
         
-        echo "SQL: ".$qb->getQuery()->getSQL();
-//        die();
+        $joinVinculo = false;
+        if ( !empty($search["inicioVigencia"]) ) {
+            $joinVinculo = true;
+            $dataInicio = \DateTime::createFromFormat("Y-m-d", $search["inicioVigencia"]);
+            $qb->join('c.vinculos', 'v')
+                ->andWhere("v.dataInicio >= :dataInicio")
+                ->setParameter("dataInicio", $dataInicio->format("Ymd"));
+        }
+        if ( !empty($search["terminoVigencia"]) ) {
+            $dataTermino = \DateTime::createFromFormat("Y-m-d", $search["terminoVigencia"]);
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere("v.dataTermino >= :dataTermino")
+                ->setParameter("dataTermino", $dataTermino->format("Ymd"));
+        }
         
-
-//        
+//        echo "SQL: ".$qb->getQuery()->getSQL();
+//        die();
+          
 //        foreach($search as $key => $value) {
 //            $qb->andWhere('c.'.$key.' = :'.$key);
 //            $qb->setParameter($key, $value);

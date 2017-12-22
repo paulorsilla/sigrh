@@ -30,16 +30,16 @@ class RelColaboradorController extends AbstractActionController
             
             // Exibir o formulario
                 
-  
-            $search = array(
-                "nome" => $this->params()->fromQuery("nome"),
-                "matricula"            => $this->params()->fromQuery("matricula"),
-                "combo_sexo"           => $this->params()->fromQuery("combo_sexo"),
-                "combo_grupoSanguineo" => $this->params()->fromQuery("combo_grupoSanguineo"),
-                "combo_estadoCivil"    => $this->params()->fromQuery("combo_estadoCivil"),
-                "combo_grauInstrucao"    => $this->params()->fromQuery("combo_grauInstrucao"),
-                "necessidadeEspecial"           => $this->params()->fromQuery("necessidadeEspecial"),
-                
+            $search = [
+                "nome"                  => $this->params()->fromQuery("nome"),
+                "matricula"             => $this->params()->fromQuery("matricula"),
+                "combo_sexo"            => $this->params()->fromQuery("combo_sexo"),
+                "combo_grupoSanguineo"  => $this->params()->fromQuery("combo_grupoSanguineo"),
+                "combo_estadoCivil"     => $this->params()->fromQuery("combo_estadoCivil"),
+                "combo_grauInstrucao"   => $this->params()->fromQuery("combo_grauInstrucao"),
+                "necessidadeEspecial"   => $this->params()->fromQuery("necessidadeEspecial"),
+                "inicioVigencia"        => $this->params()->fromQuery("inicioVigencia"),
+                "terminoVigencia"       => $this->params()->fromQuery("terminoVigencia"),
                 
 /*              "combo_lote" => $this->params()->fromQuery("combo_lote"),
                 "combo_material" => $this->params()->fromQuery("combo_material"),
@@ -55,7 +55,7 @@ class RelColaboradorController extends AbstractActionController
                 "data_fim" => $this->params()->fromQuery("data_fim"),*/
                 
                 
-            );
+            ];
             
                 $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
                  /////montando as selectbox...  
@@ -111,18 +111,23 @@ class RelColaboradorController extends AbstractActionController
         
         public function gerarHtmlAction(){
             
-        $search = array(
+        $search = [
                 "nome"                 => $this->params()->fromQuery("nome"),
                 "matricula"            => $this->params()->fromQuery("matricula"),
                 "sexo"                 => $this->params()->fromQuery("sexo"),
                 "combo_grupoSanguineo" => $this->params()->fromQuery("combo_grupoSanguineo"),
                 "combo_estadoCivil"    => $this->params()->fromQuery("combo_estadoCivil"),
-                "combo_grauInstrucao"    => $this->params()->fromQuery("combo_grauInstrucao"),
-                "necessidadeEspecial"    => $this->params()->fromQuery("necessidadeEspecial"),
-            );
+                "combo_grauInstrucao"  => $this->params()->fromQuery("combo_grauInstrucao"),
+                "necessidadeEspecial"  => $this->params()->fromQuery("necessidadeEspecial"),
+                "inicioVigencia"        => $this->params()->fromQuery("inicioVigencia"),
+                "terminoVigencia"       => $this->params()->fromQuery("terminoVigencia"),
+            ];
         
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
         $colaboradores = $repo->getQuery($search)->getResult();
+        foreach($colaboradores as $colaborador) {
+            error_log("matricula: ".$colaborador->getMatricula());
+        }
         /*        
                 "combo_lote" => $this->params()->fromQuery("combo_lote"),
                 "material_id" => $this->params()->fromQuery("material_id"),
@@ -175,8 +180,7 @@ class RelColaboradorController extends AbstractActionController
                     ->setTemplate("layout/impressao")
                     ->setVariable("titulo_impressao", "Extrato da movimentação");
             $view = new \Zend\View\Model\ViewModel();
-            $view->setVariables(["colaboradores"=>$colaboradores,
-                ]);
+            $view->setVariables(["colaboradores" => $colaboradores]);
             return $view;
 //}
             

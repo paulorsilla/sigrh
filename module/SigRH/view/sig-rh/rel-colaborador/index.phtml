@@ -1,28 +1,24 @@
 <form action="/sig-rh/rel-colaborador/gerar-html" method="get">
     <br>    
 <div class="row">
-     
-    
-       <div class="col-sm-4 form-group" >
-                                        <label>Nome:</label>                
-                                        <input type="text" name="nome" class="form-control" size="12"  maxlength="40" value="<?php echo $search["nome"];?>" placeholder="Nome"/>
-                                                            
-        </div>
+    <div class="col-sm-4 form-group" >
+        <label>Nome:</label>                
+        <input type="text" name="nome" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["nome"])) ? $search["nome"] : "";?>" placeholder="Nome"/>
+    </div>
     
     <div class="col-sm-3 form-group" >
-                                        <label>Matrícula:</label>                
-                                        <input type="text" name="matricula" class="form-control" size="12"  maxlength="40" value="<?php echo $search["matricula"];?>" placeholder="Matrícula"/>
-                                                            
-        </div>
+        <label>Matrícula:</label>                
+        <input type="text" name="matricula" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["matricula"])) ? $search["matricula"] : "";?>" placeholder="Matrícula"/>
+    </div>
     
-        <div class="col-sm-2 form-group" >
-                 <label>Sexo: </label>
-                                <select name="sexo" class="form-control">
-                                 <option value="">Selecione aqui...</option>
-                                 <option value="F" <?php if ( "F" == $search["sexo"]){ echo "selected";}?>>Feminino</option>
-                                 <option value="M" <?php if ( "M" == $search["sexo"]){ echo "selected";}?>>Masculino</option>
-                               </select>                      
-        </div>
+    <div class="col-sm-2 form-group" >
+        <label>Sexo: </label>
+        <select name="sexo" class="form-control">
+            <option value="">Selecione aqui...</option>
+            <option value="F" <?php if ( "F" == $search["sexo"]){ echo "selected";}?>>Feminino</option>
+            <option value="M" <?php if ( "M" == $search["sexo"]){ echo "selected";}?>>Masculino</option>
+        </select>                      
+    </div>
     
         <div class="col-sm-2 form-group" >
                  <label>Estado civil: </label>
@@ -35,8 +31,8 @@
                                      <?php } ?>
                                </select>                      
         </div>
-    
-    
+    </div>
+    <div class="row">
         <div class="col-sm-2 form-group" >
                      <label>Grupo sanguíneo: </label>
                                     <select name="combo_grupoSanguineo" class="form-control">
@@ -61,7 +57,7 @@
                                    </select>                      
         </div>
     
-        <div class="col-sm-2 form-group" >
+        <div class="col-sm-3 form-group" >
                  <label>Necessidades especiais: </label>
                                 <select name="necessidadeEspecial" class="form-control">
                                  <option value="">Selecione aqui...</option>
@@ -70,6 +66,15 @@
                                </select>                      
         </div>
 
+        <div class="col-sm-2 form-group">
+            <label for="inicioVigencia">Inicio vigência:</label>
+            <input class="form-control" type="date" value="" name="inicioVigencia" id="inicioVigencia"> 
+        </div>
+        
+        <div class="col-sm-2 form-group">
+            <label for="inicioVigencia">Término vigência:</label>
+            <input class="form-control" type="date" value="" name="terminoVigencia" id="terminoVigencia"> 
+        </div>
 
        <div class="col-sm-3 form-group" style="padding-top: 25px;">                           
                     
