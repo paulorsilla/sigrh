@@ -99,6 +99,12 @@ class Colaborador extends AbstractEntity {
      * @ORM\OneToMany(targetEntity="Estagio", mappedBy="colaboradorMatricula")
      */
     protected $estagios;
+    
+    /**
+     * One Colaborador has Many vinculos
+     * @ORM\OneToMany(targetEntity="Vinculo", mappedBy="colaboradorMatricula")
+     */
+    protected $vinculos;
 
     /**
      * One Colaborador has Many horarios
@@ -250,6 +256,7 @@ class Colaborador extends AbstractEntity {
         $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
         $this->dependentes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->estagios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->vinculos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->horarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->crachas = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -421,6 +428,10 @@ class Colaborador extends AbstractEntity {
     
     function getEstagios() {
         return $this->estagios;
+    }
+
+    function getVinculos() {
+        return $this->vinculos;
     }
 
     public function getHorarios() {
@@ -608,6 +619,10 @@ class Colaborador extends AbstractEntity {
         $this->estagios = $estagios;
     }
     
+    function setVinculos($vinculos) {
+        $this->vinculos = $vinculos;
+    }
+
     public function setCrachas($crachas) {
         $this->crachas = $crachas;
     }

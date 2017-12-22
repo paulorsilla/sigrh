@@ -19,7 +19,7 @@ class Vinculo extends AbstractEntity {
     protected $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Colaborador")
+     * @ORM\ManyToOne(targetEntity="Colaborador", inversedBy="vinculos")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
      * */
     protected $colaboradorMatricula; //colaborador_matricula
@@ -115,11 +115,6 @@ class Vinculo extends AbstractEntity {
     protected $previsaoConclusao; //previsao_conclusao
 
     /**
-     * @ORM\Column(name="serie", type="string")
-     */
-    protected $serie;
-    
-      /**
      * @ORM\Column(name="data_inicio_efetivo", type="datetime")
      */
     protected $dataInicioEfetivo; //data_inicio_efetivo
@@ -251,10 +246,6 @@ class Vinculo extends AbstractEntity {
         return $this->previsaoConclusao;
     }
 
-    public function getSerie() {
-        return $this->serie;
-    }
-
     public function getDataInicioEfetivo() {
         return $this->dataInicioEfetivo;
     }
@@ -373,10 +364,6 @@ class Vinculo extends AbstractEntity {
 
     public function setPrevisaoConclusao($previsaoConclusao) {
         $this->previsaoConclusao = $previsaoConclusao;
-    }
-
-    public function setSerie($serie) {
-        $this->serie = $serie;
     }
 
     public function setDataInicioEfetivo($dataInicioEfetivo) {

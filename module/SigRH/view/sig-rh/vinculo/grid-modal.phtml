@@ -20,11 +20,19 @@
     <tbody>
         <?php foreach ($this->vinculos as $vinculo): ?>
             <tr>
-                <td><?php echo $this->escapeHtml();?></td>
+                <td><?php echo $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao());?></td>
+                <td><?php echo (null != $vinculo->getDataInicio())  ? $this->escapeHtml($vinculo->getDataInicio()->format("d/m/Y")) : "";?></td>
+                <td><?php echo (null != $vinculo->getDataTermino()) ? $this->escapeHtml($vinculo->getDataTermino()->format("d/m/Y")) : "";?></td>
+                <td><?php echo (null != $vinculo->getDataInicioEfetivo()) ? $this->escapeHtml($vinculo->getDataInicioEfetivo()->format("d/m/Y")) : "";?></td>
+                <td><?php echo $this->escapeHtml($vinculo->getOrientador()->getNome());?></td>
+                <td><?php echo (null != $vinculo->getInstituicaoEnsino()) ? $this->escapeHtml($vinculo->getInstituicaoEnsino()->getDesRazaoSocial()) : "";?></td>
+                <td><?php echo $this->escapeHtml($vinculo->getCurso()->getDescricao());?></td>
+                <td><?php echo $this->escapeHtml($vinculo->getNivel()->getDescricao());?></td>
+                <td><?php echo $vinculo->getObrigatorio() ? "Sim" : "Não";?></td>
 
-                <td><a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/vinculo', ['action' => 'save', 'id' => $vinculo->getId()]) ?>"
-                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                            onclick="editarVinculo('<?php echo $vinculo->getId();?>')"
+                       href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
                     <a class="btn btn-primary btn-sm pull-center"
                        href="<?php echo $this->url('sig-rh/vinculo', ['action' => 'delete', 'id' => $vinculo->getId()]) ?>"
                        title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>

@@ -31,7 +31,7 @@ class VinculoController extends AbstractActionController
 	
         public function gridModalAction()
 	{
-                $repo = $this->entityManager->getRepository(Estagio::class);
+                $repo = $this->entityManager->getRepository(Vinculo::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $matricula = $this->params()->fromQuery('matricula',0);
                 $search = $this->params()->fromPost();
