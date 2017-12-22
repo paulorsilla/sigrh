@@ -1,0 +1,36 @@
+<?php 
+    $obrigatorio = [0 => "Não", 1 => "Sim"];
+?>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Tipo de vínculo</th>
+            <th>Início da vigência</th>
+            <th>Término da vigência</th>
+            <th>Início efetivo</th>
+            <th>Orientador</th>
+            <th>Instituição de ensino</th>
+            <th>Curso</th>
+            <th>Nível</th>
+            <th>Obrigatório</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->vinculos as $vinculo): ?>
+            <tr>
+                <td><?php echo $this->escapeHtml();?></td>
+
+                <td><a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/vinculo', ['action' => 'save', 'id' => $vinculo->getId()]) ?>"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-primary btn-sm pull-center"
+                       href="<?php echo $this->url('sig-rh/vinculo', ['action' => 'delete', 'id' => $vinculo->getId()]) ?>"
+                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </tbody>
+</table>

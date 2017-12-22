@@ -276,6 +276,12 @@ class Colaborador extends AbstractRepository {
         }
         unset($dados['linhaOnibus']);
         
+        if (!empty($dados['cpf'])) {
+            $cpf = str_replace(['.','-'], '', $dados['cpf']);
+            $row->setCpf($cpf);
+        }
+        unset($dados['cpf']);
+        
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($endereco);
         $this->getEntityManager()->persist($row); // persiste o model  ( preparar o insert / update)

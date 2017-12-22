@@ -95,6 +95,23 @@ class Estagio extends AbstractEntity {
      */
     protected $termos;
     
+    /**
+     * @ORM\Column(name="obrigatorio", type="boolean")
+     */
+    protected $obrigatorio;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
+     * @ORM\JoinColumn(name="lotacao_id", referencedColumnName="cod_instituicao")
+     **/        
+    protected $lotacao;
+    
+     /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Localizacao")
+     * @ORM\JoinColumn(name="localizacao_id", referencedColumnName="id")
+     **/        
+    protected $localizacao; 
+    
     public function __construct() {
         $this->termos = new ArrayCollection();
     }
@@ -160,7 +177,19 @@ class Estagio extends AbstractEntity {
     public function getTermos() {
         return $this->termos;
     }
-        
+    
+    public function getObrigatorio() {
+        return $this->obrigatorio;
+    }
+    
+    public function getLotacao() {
+        return $this->lotacao;
+    }
+
+    public function getLocalizacao() {
+        return $this->localizacao;
+    }
+
     /**
      * Sets user ID.
      * 
@@ -233,4 +262,17 @@ class Estagio extends AbstractEntity {
     public function setTermos($termos) {
         $this->termos = $termos;
     }
+    
+    public function setObrigatorio($obrigatorio) {
+        $this->obrigatorio = $obrigatorio;
+    }
+    
+    public function setLotacao($lotacao) {
+        $this->lotacao = $lotacao;
+    }
+
+    public function setLocalizacao($localizacao) {
+        $this->localizacao = $localizacao;
+    }
+
 }
