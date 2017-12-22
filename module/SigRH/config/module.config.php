@@ -218,6 +218,21 @@ return [
                         ]
                     ],
                     
+                    'vinculo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/vinculo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\VinculoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'fonte-seguro' => [
                         'type' => Segment::class,
                         'options' => [
@@ -458,6 +473,7 @@ return [
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\VinculoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
     'doctrine' => [

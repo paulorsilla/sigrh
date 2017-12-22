@@ -58,6 +58,7 @@
                     <li><a data-toggle="tab" href="#dadosInstitucionais">Dados institucionais</a></li>
                     <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
                     <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
+                    <li><a data-toggle="tab" href="#vinculo">Vínculo</a></li>
                     
                     <?php if( ((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() != 1)) || (null != $this->colaborador) ):?>
                         <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
@@ -237,6 +238,40 @@
                         }?>
                         
                     </div>
+                    
+                    
+                    <div id="vinculo" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-12" id="gridVinculo">
+                               
+                            </div>
+                            
+                        </div>
+                        
+                        <?php if ( !empty($this->colaborador) ) { 
+                            $matricula = $this->colaborador->getMatricula();
+                            if ( !empty($matricula) ) { ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridVinculo('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span>Atualizar
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoVinculo('<?php echo $matricula;?>')">
+                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    refreshGridVinculo('<?php echo $matricula;?>');
+                                });
+                            </script>
+                        <?php }
+                        }?>
+                    </div>
+                    
                     <div id="escalaHorarios" class="tab-pane fade">
                         <div class="row">
                             <div class="col-md-12" id="gridHorarios">
@@ -340,6 +375,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary" onclick="fncSalvarEstagio(this)">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade " id="VinculoModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Cadastro de vínculos</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="fncSalvarVinculo(this)">Salvar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

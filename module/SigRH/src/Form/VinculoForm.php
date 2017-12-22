@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilter;
 /**
  * Formulário utilizado para o cadastro de estagios
  */
-class EstagioForm extends Form {
+class VinculoForm extends Form {
 
     protected $objectManager;
     /**
@@ -48,6 +48,24 @@ class EstagioForm extends Form {
             ],
         ]);
 
+        //Adiciona o campo "tipoVinculo"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'tipoVinculo',
+            'attributes' => [
+                'id' => 'tipoVinculo',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Tipo de vínculo',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\TipoVinculo::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+        
         $this->add([
             'type' => 'text',
             'name' => 'previsaoConclusao',
@@ -99,16 +117,42 @@ class EstagioForm extends Form {
             ]
         ]);
         
-        //Adiciona o campo "instituicao"
+        //Adiciona o campo "instituicaoEnsino"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'instituicao',
+            'name' => 'instituicaoEnsino',
             'attributes' => [
-                'id' => 'instituicao',
+                'id' => 'instituicaoEnsino',
                 'class' => 'form-control',
             ],
             'options' => [
                 'label' => 'Instituição de ensino',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Instituicao::class,
+                'property' => 'desRazaoSocial',
+                
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
+            ]
+        ]);
+        
+        //Adiciona o campo "instituicaoFomento"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'instituicaoFomento',
+            'attributes' => [
+                'id' => 'instituicaoFomento',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Instituição de fomento',
                 'empty_option' => 'Selecione',
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Instituicao::class,
@@ -149,20 +193,6 @@ class EstagioForm extends Form {
                     ]
                 ],
             ]
-        ]);
-        
-        //Adiciona o campo "serie"
-        $this->add([
-            'type' => 'text',
-            'name' => 'serie',
-            'attributes' => [
-                'id' => 'serie',
-                'class' => 'form-control',
-                'placeholder' => 'Digite a série aqui'
-            ],
-            'options' => [
-                'label' => 'Série'
-            ],
         ]);
        
         //Adiciona o campo "dataInicioEfetivo"
@@ -225,20 +255,20 @@ class EstagioForm extends Form {
             ],
         ]);
         
-        //Adiciona o campo "preContrato"
+        //Adiciona o campo "tipoContrato"
         $this->add([
             'type' => 'select',
-            'name' => 'preContrato',
+            'name' => 'tipoContrato',
             'attributes' => [
                 'id' => 'preContrato',
                 'class' => 'form-control'
             ],
             'options' => [
-                'label' => 'Pré-contrato',
+                'label' => 'Tipo de contrato',
                 'value_options' => [
                     "" => "Selecione",
-                    "0" => "Não",
-                    "1" => "Sim"
+                    "0" => "Determinado",
+                    "1" => "Pré-determinado"
                 ]
             ],
         ]);
@@ -252,39 +282,13 @@ class EstagioForm extends Form {
                 'class' => 'form-control'
             ],
             'options' => [
-                'label' => 'Obrigatório',
+                'label' => 'Obrigatório (estágio)',
                 'value_options' => [
                     "" => "Selecione",
                     "0" => "Não",
                     "1" => "Sim"
                 ]
             ],
-        ]);
-        
-        //Adiciona o campo "lotacao"
-        $this->add([
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'lotacao',
-            'attributes' => [
-                'id' => 'lotacao',
-                'class' => 'form-control',
-            ],
-            'options' => [
-                'label' => 'Lotação',
-                'empty_option' => 'Selecione',
-                'object_manager' => $this->getObjectManager(),
-                'target_class' => \SigRH\Entity\Instituicao::class,
-                'property' => 'desRazaoSocial',
-                
-                'find_method' => [
-                    'name' => 'getQuery',
-                    'params' => [
-                        'search' => [
-                            'combo' => 1
-                        ]
-                    ]
-                ],
-            ]
         ]);
         
         //Adiciona o campo "localizacao"
@@ -311,6 +315,206 @@ class EstagioForm extends Form {
                     ]
 
                 ],
+            ]
+        ]);
+        
+        //Adiciona o campo "aditivo"
+        $this->add([
+            'type' => 'text',
+            'name' => 'aditivo',
+            'attributes' => [
+                'id' => 'aditivo',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o número do aditivo aqui'
+            ],
+            'options' => [
+                'label' => 'Número do aditivo'
+            ],
+        ]);
+
+         //Adiciona o campo "tipoAditivo"
+        $this->add([
+            'type' => 'select',
+            'name' => 'tipoAditivo',
+            'attributes' => [
+                'id' => 'tipoAditivo',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Tipo do aditivo',
+                'value_options' => [
+                    "" => "Selecione",
+                    "1" => "Remunerado",
+                    "2" => "Prorrogação",
+                    "3" => "Orientador",
+                    "9" => "Outro",
+                ]
+            ],
+        ]);
+        
+        //Adiciona o campo "dataInicio"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataInicio',
+            'attributes' => [
+                'id' => 'dataInicio',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Início da vigência'
+            ],
+        ]);
+        
+        //Adiciona o campo "dataTermino"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataTermino',
+            'attributes' => [
+                'id' => 'dataTermino',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Término da vigência'
+            ],
+        ]);
+        
+        //Adiciona o campo "dataDesligamento"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataDesligamento',
+            'attributes' => [
+                'id' => 'dataDesligamento',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Desligamento'
+            ],
+        ]);
+        
+        //Adiciona o campo "horarioFlexivel"
+        $this->add([
+            'type' => 'select',
+            'name' => 'horarioFlexivel',
+            'attributes' => [
+                'id' => 'horarioFlexivel',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Horário flexível',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+        
+        //Adiciona o campo "Atividade"
+        $this->add([
+            'type' => 'select',
+            'name' => 'atividade',
+            'attributes' => [
+                'id' => 'atividade',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Atividade',
+            ],
+        ]);
+        
+        //Adiciona o campo "chSemanal"
+        $this->add([
+            'type' => 'text',
+            'name' => 'chSemanal',
+            'attributes' => [
+                'id' => 'chSemanal',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a carga horária aqui'
+            ],
+            'options' => [
+                'label' => 'C.H Semanal'
+            ],
+        ]);
+        
+        //Adiciona o campo "planoAcao"
+        $this->add([
+            'type' => 'text',
+            'name' => 'planoAcao',
+            'attributes' => [
+                'id' => 'planoAcao',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o plano de ação aqui'
+            ],
+            'options' => [
+                'label' => 'Plano de ação'
+            ],
+        ]);
+        
+        
+        $this->add([
+            'type' => 'text',
+            'name' => 'processo',
+            'attributes' => [
+                'id' => 'processo',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o processo aqui'
+            ],
+            'options' => [
+                'label' => 'Processo'
+            ],
+        ]);
+        
+        $this->add([
+            'type' => 'text',
+            'name' => 'valorBolsa',
+            'attributes' => [
+                'id' => 'valorBolsa',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o valor da bolsa'
+            ],
+            'options' => [
+                'label' => 'Valor da bolsa'
+            ],
+        ]);
+        
+
+        //Adiciona o campo "modalidadeBolsa"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'modalidadeBolsa',
+            'attributes' => [
+                'id' => 'modalidadeBolsa',
+                'class' => 'form-control',
+                'placeholder' => 'Digite a modalidade aqui'
+            ],
+            'options' => [
+                'label' => 'Modalidade bolsa',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\ModalidadeBolsa::class,
+                'property' => 'descricao',
+                'display_empty_item' => true,
+            ]
+        ]);
+
+        //Adiciona o campo "orientador"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'orientador',
+            'attributes' => [
+                'id' => 'orientador',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o orientador aqui'
+            ],
+            'options' => [
+                'label' => 'Orientador',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Colaborador::class,
+                'property' => 'nome',
+                'display_empty_item' => true,
             ]
         ]);
         
@@ -347,7 +551,6 @@ class EstagioForm extends Form {
             ],
         ]);
         
-        
          $inputFilter->add([
             'name' => 'previsaoConclusao',
             'required' => true,
@@ -378,28 +581,13 @@ class EstagioForm extends Form {
         ]);
          
          $inputFilter->add([
-            'name' => 'instituicao',
+            'name' => 'instituicaoEnsino',
             'required' => false,
         ]);
-         
-         
+
          $inputFilter->add([
-            'name' => 'serie',
+            'name' => 'instituicaoFomento',
             'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
         ]);
          
          $inputFilter->add([
@@ -465,7 +653,7 @@ class EstagioForm extends Form {
         ]);
          
         $inputFilter->add([
-            'name' => 'preContrato',
+            'name' => 'tipoContrato',
             'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
@@ -486,11 +674,6 @@ class EstagioForm extends Form {
         $inputFilter->add([
             'name' => 'obrigatorio',
             'required' => true,
-        ]);
-        
-        $inputFilter->add([
-            'name' => 'lotacao',
-            'required' => false,
         ]);
         
         $inputFilter->add([

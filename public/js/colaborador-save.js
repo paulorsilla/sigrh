@@ -95,10 +95,50 @@
         $('#TermoModal .modal-body').load(url);
         $('#TermoModal').modal('show');
     }
+    function novoVinculo(matricula){
+        url = "/sig-rh/vinculo/save-modal?matricula="+matricula;
+        $('#VinculoModal .modal-body').html('carregando...');
+        $('#VinculoModal .modal-body').attr('url',url);
+        $('#VinculoModal .modal-body').load(url);
+        $('#VinculoModal').modal('show');
+    }
+    function editarVinculo(id){
+        url = "/sig-rh/vinculo/save-modal/"+id;
+        $('#VinculoModal .modal-body').html('carregando...');
+        $('#VinculoModal .modal-body').attr('url',url);
+        $('#VinculoModal .modal-body').load(url);
+        $('#VinculoModal').modal('show');
+    }
+    
     function refreshGridEstagio(matricula){
         url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
         $('#gridEstagio').html('carregando...');
         $('#gridEstagio').load(url);
+    }
+
+    function fncSalvarVinculo(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                
+                $("#VinculoModal").modal('hide');
+                refreshGridVinculo($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    } 
+    
+    function refreshGridVinculo(matricula){
+        url = "/sig-rh/vinculo/grid-modal?matricula="+matricula;
+        $('#gridVinculo').html('carregando...');
+        $('#gridVinculo').load(url);
     }
 
     function fncSalvarEstagio(obj){
@@ -121,6 +161,7 @@
             $(this).html("Salvar").removeAttr("disabled");
         });
     } 
+    
     function fncSalvarHorario(obj){
         $(this).html("aguarde ...").attr("disabled",true);
         form =  $("form",$(obj).closest(".modal-content"));
@@ -171,6 +212,14 @@
         $('#EstagioModal').modal('show');
     }
     
+    function excluirVinculo(id){
+        url = "/sig-rh/vinculo/delete/"+id;
+        $('#VinculoModal .modal-body').html('carregando...');
+        $('#VinculoModal .modal-body').attr('url',url);
+        $('#VinculoModal .modal-body').load(url);
+        $('#VinculoModal').modal('show');
+    }
+    
     function novoDependente(matricula){
         url = "/sig-rh/dependente/save-modal?matricula="+matricula;
         $('#DependenteModal .modal-body').html('carregando...');
@@ -212,7 +261,6 @@
         $('#gridCracha').html('carregando...');
         $('#gridCracha').load(url);
     }
-
     
     function editarHorario(matricula){
         url = "/sig-rh/horario/save-modal?matricula="+matricula;
@@ -239,7 +287,6 @@ $(document).ready(function () {
 //        
 //    ];
     var vCidades = [];
-
 
     function carregaComboCidades(uf, opcao) {
         //opcao = 1 => combo cidade (endereco)
