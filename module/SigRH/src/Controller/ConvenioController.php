@@ -32,14 +32,17 @@ class ConvenioController extends AbstractActionController
                         'lista_tipo' => $lista_tipo,
                         'search' => $this->params()->fromQuery("search"), //get no form eu uso -> fromQuery; post no form eu uso -> fromPost; 
                         'tipo' => $this->params()->fromQuery("tipo"), //get no form eu uso -> fromQuery; post no form eu uso -> fromPost; 
-			'convenios' => $repo->getPaginator(
+			'convenios' => $repo->getPaginator( //logica somente para paginator-- mostrar na grid...
                                 $this->params()->fromQuery("page"),
                                 array("search"=>$this->params()->fromQuery("search"),
                                       "tipo"=>$this->params()->fromQuery("tipo"),
                                       "data_ini"=>$this->params()->fromQuery("data_ini"),
                                       "data_fim"=>$this->params()->fromQuery("data_fim"),
                                     )
-                                )
+                                ),
+                        //pra mostrar os dados na view...                  
+                        "data_ini"=>$this->params()->fromQuery("data_ini"),
+                        "data_fim"=>$this->params()->fromQuery("data_fim"),
 		));
 
                 

@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-sm-12">
+        <br><button class="btn btn-default" onclick="print()" type="submit"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>  Imprimir</button>
+        <table class="table table-striped table-condensed ">
+        <thead>
+            <tr>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($colaboradores as $colaborador): 
+?>            
+                <tr>
+                    
+                    <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->lote_id->lote); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->material); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->cruzamento_id->genealogia); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->tipo); ?></td>
+                    <td><?php //echo (\Admin\Model\Util::converteData($movimentacao->datamovto)); ?></td>
+                    <td align="center"><?php //echo $movimentacao->material_id->fase_id == null?"Nulo":$this->escapeHtml($movimentacao->material_id->fase_id->descricao); //geracao?></td> 
+                    <td><?php //echo $this->escapeHtml($movimentacao->quantidade); //como vem de outra tabela como objeto faz-se assim?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->fase_id->unidade=="S"?"Sementes":"Gramas"); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->procedencia); //como vem de outra tabela como objeto faz-se assim?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->responsavel); ?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->destino); //como vem de outra tabela como objeto faz-se assim?></td>
+                    <td><?php //echo $this->escapeHtml($movimentacao->responsavel_destino); ?></td>
+
+                </tr>
+            <?php endforeach; ?>
+    </table>
+        
+        
+    </div>
+</div>
+
+
+       
+</div>
