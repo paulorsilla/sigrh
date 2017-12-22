@@ -1,0 +1,84 @@
+<form action="/sig-rh/rel-colaborador/gerar-html" method="get">
+    <br>    
+<div class="row">
+     
+    
+       <div class="col-sm-4 form-group" >
+                                        <label>Nome:</label>                
+                                        <input type="text" name="nome" class="form-control" size="12"  maxlength="40" value="<?php echo $search["nome"];?>" placeholder="Nome"/>
+                                                            
+        </div>
+    
+    <div class="col-sm-3 form-group" >
+                                        <label>Matrícula:</label>                
+                                        <input type="text" name="matricula" class="form-control" size="12"  maxlength="40" value="<?php echo $search["matricula"];?>" placeholder="Matrícula"/>
+                                                            
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+                 <label>Sexo: </label>
+                                <select name="sexo" class="form-control">
+                                 <option value="">Selecione aqui...</option>
+                                 <option value="F" <?php if ( "F" == $search["sexo"]){ echo "selected";}?>>Feminino</option>
+                                 <option value="M" <?php if ( "M" == $search["sexo"]){ echo "selected";}?>>Masculino</option>
+                               </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+                 <label>Estado civil: </label>
+                                <select name="combo_estadoCivil" class="form-control">
+                                 <option value="">Selecione aqui...</option>
+                                  <?php foreach($this->array_estadoCivil as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( $row["id"] == $search["combo_estadoCivil"]){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                               </select>                      
+        </div>
+    
+    
+        <div class="col-sm-2 form-group" >
+                     <label>Grupo sanguíneo: </label>
+                                    <select name="combo_grupoSanguineo" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_grupoSanguineo as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( $row["id"] == $search["combo_grupoSanguineo"]){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+                     <label>Grau de instrução: </label>
+                                    <select name="combo_grauInstrucao" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_grauInstrucao as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( $row["id"] == $search["combo_grauInstrucao"]){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+                 <label>Necessidades especiais: </label>
+                                <select name="necessidadeEspecial" class="form-control">
+                                 <option value="">Selecione aqui...</option>
+                                 <option value="0" <?php if ( "0" == $search["necessidadeEspecial"]){ echo "selected";}?>>Não</option>
+                                 <option value="1" <?php if ( "1" == $search["necessidadeEspecial"]){ echo "selected";}?>>Sim</option>
+                               </select>                      
+        </div>
+
+
+       <div class="col-sm-3 form-group" style="padding-top: 25px;">                           
+                    
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Relatório</button>
+                    
+        </div>
+    </div>
+</form>
+<div class="row titulo" >
+</div>
+
+

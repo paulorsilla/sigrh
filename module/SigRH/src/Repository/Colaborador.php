@@ -16,6 +16,7 @@ class Colaborador extends AbstractRepository {
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
+//                ->where('1=1');
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
@@ -27,11 +28,21 @@ class Colaborador extends AbstractRepository {
             $qb->orWhere('c.tipoColaborador = 6');
             $qb->orWhere('c.tipoColaborador = 8');
         }
-        if( isset($search['nome'])) {
+        
+        if ( !empty($search['nome'])){
             $qb->andWhere('c.nome like :nome' );
              $qb->setParameter('nome', "%".$search['nome']."%");
         }
-//        unset($search['nome']);
+        
+        if ( !empty($search['matricula'])){
+            $qb->andWhere('c.matricula = :matricula' );
+             $qb->setParameter('matricula', $search['matricula']);
+        }
+        
+        if ( !empty($search["sexo"]) ){
+             $qb->andWhere('c.sexo in ( :sexo )');
+             $qb->setParameter("sexo",$search["sexo"]);
+        }
         
         if (isset($search['ativo'])) {
             switch($search['ativo']) {
@@ -39,6 +50,30 @@ class Colaborador extends AbstractRepository {
                 case 'N': $qb->andWhere('c.dataDesligamento is NOT NULL');
             }
         }
+        
+        if ( !empty($search["combo_grupoSanguineo"]) ){
+             $qb->andWhere('c.grupoSanguineo in ( :combo_grupoSanguineo )');
+            $qb->setParameter("combo_grupoSanguineo",$search["combo_grupoSanguineo"]);
+        }
+        
+        if ( !empty($search["combo_estadoCivil"]) ){
+             $qb->andWhere('c.estadoCivil in ( :combo_estadoCivil )');
+            $qb->setParameter("combo_estadoCivil",$search["combo_estadoCivil"]);
+        }
+        
+        if ( !empty($search["grauInstrucao"]) ){
+             $qb->andWhere('c.grauInstrucao in ( :grauInstrucao )');
+            $qb->setParameter("grauInstrucao",$search["grauInstrucao"]);
+        }
+        
+        if ( !empty($search["necessidadeEspecial"]) ){
+             $qb->andWhere('c.necessidadeEspecial in ( :necessidadeEspecial )');
+             $qb->setParameter("necessidadeEspecial",$search["necessidadeEspecial"]);
+        }
+        
+        echo "SQL: ".$qb->getQuery()->getSQL();
+//        die();
+        
 
 //        
 //        foreach($search as $key => $value) {
@@ -127,6 +162,9 @@ class Colaborador extends AbstractRepository {
         
         $endereco->setEndereco($dados['endereco']);
         unset($dados['endereco']);
+        
+        $endereco->setComplemento($dados['complemento']);
+        unset($dados['complemento']);
         
         $endereco->setNumero($dados['numero']);
         unset($dados['numero']);

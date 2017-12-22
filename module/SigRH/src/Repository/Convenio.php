@@ -24,15 +24,21 @@ class Convenio extends AbstractRepository {
         }
         
         if ( !empty($search["data_ini"]) ){
-             $data_ini = \Datetime::createFromFormat("Y-m-d", $search["data_ini"]); 
-             $qb->andWhere('c.convenioInicio >= :data_ini');
-            $qb->setParameter(":data_ini",$data_ini);
+             $data_ini = \Datetime::createFromFormat("d/m/Y", $search["data_ini"]); 
+             if ( $data_ini != null ){
+                $data_ini_str = $data_ini->format('Y-m-d');
+                $qb->andWhere('c.convenioTermino >= :data_ini');
+                $qb->setParameter(":data_ini",$data_ini_str);
+             }
         }
         
         if ( !empty($search["data_fim"]) ){
-            $data_fim = \Datetime::createFromFormat("Y-m-d", $search["data_fim"]);
-            $qb->andwhere('c.convenioTermino <= :data_fim');
-            $qb->setParameter(":data_fim", $data_fim); 
+            $data_fim = \Datetime::createFromFormat("d/m/Y", $search["data_fim"]);
+            if ( $data_fim != null ){
+                $data_fim_str = $data_fim->format('Y-m-d');
+                $qb->andwhere('c.convenioInicio <= :data_fim');
+                $qb->setParameter(":data_fim", $data_fim_str); 
+            }
             
         }
         
@@ -41,6 +47,7 @@ class Convenio extends AbstractRepository {
 //        echo "DQL: ".$qb->getDQL();
 //        echo "<hr>";
 //        echo "SQL: ".$qb->getQuery()->getSQL();
+//        print_r(array("data_ini"=>$data_ini_str,"data_fim"=>$data_fim_str));
 //        die();
         
        return $qb;

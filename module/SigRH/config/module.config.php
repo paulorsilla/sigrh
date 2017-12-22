@@ -367,6 +367,22 @@ return [
                         ]
                     ],                    
                     
+                    'rel-colaborador' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/rel-colaborador[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RelColaboradorController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],                    
+                    
+                    
                     'sublotacao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -441,6 +457,7 @@ return [
             Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
