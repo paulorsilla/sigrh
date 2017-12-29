@@ -569,6 +569,25 @@ class VinculoForm extends Form {
                 ],
             ],
         ]);
+         
+         $inputFilter->add([
+            'name' => 'dataDesligamento',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
 
          $inputFilter->add([
             'name' => 'nivel',
@@ -680,5 +699,11 @@ class VinculoForm extends Form {
             'name' => 'localizacao',
             'required' => false,
         ]);
+        
+         $inputFilter->add([
+            'name' => 'atividade',
+            'required' => false,
+        ]);
+        
     }
 }

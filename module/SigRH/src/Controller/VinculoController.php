@@ -50,11 +50,31 @@ class VinculoController extends AbstractActionController
 	public function saveModalAction()
 	{
                 $id = $this->params()->fromRoute('id', null);
+                
+                $serviceEmbraorc = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Embraorc::class);
+                $serviceAtividades = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\Atividades::class);
+                
 		//Cria o formulário
-		$form = new VinculoForm($this->objectManager);
+		$form = new VinculoForm($this->objectManager,$serviceEmbraorc);
+		$listIdsAtivs = null;
 		
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
+                        $dataInicio = $this->params()->fromPost('dataInicio');
+                        if ( !empty($dataInicio) ){
+                            $dataInicioObj = \DateTime::createFromFormat('Y-m-d',$dataInicio);
+                            if ( !empty($dataInicioObj )){
+                                $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo($dataInicioObj->format('Y'));
+                            }
+                        }
+                            
+                        if ( empty($listIdsAtivs) )    
+                            $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                        
+                        $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                        $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                    
+                    
 			
 			//Recebe os dados via POST
 			$data = $this->params()->fromPost();
@@ -74,8 +94,22 @@ class VinculoController extends AbstractActionController
                     if ( !empty($id)){
                         $repo = $this->entityManager->getRepository(Vinculo::class);
                         $row = $repo->find($id);
+                        
+                        
                         if ( !empty($row)){
+                            
+                            $dataInicioObj = $row->getDataInicio();
+                            if ( !empty($dataInicioObj )){
+                                $listIdsAtivs=  $serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo($dataInicioObj->format('Y'));
+                            }
+                            
+                            if ( empty($listIdsAtivs) )    
+                                $listIdsAtivs=$serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                            $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                            $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                            
                             $form->setData($row->toArray());
+                            
                             $form->get("obrigatorio")->setValue($row->obrigatorio);
                             $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("curso")->setValue($row->curso->id);
@@ -85,8 +119,18 @@ class VinculoController extends AbstractActionController
                             $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
                             $form->get("instituicaoFomento")->setValue($row->instituicaoFomento->codInstituicao);
                             $form->get("orientador")->setValue($row->orientador->matricula);
+                            $form->get("tipoVinculo")->setValue($row->tipoVinculo->id);
+                            
+                            
                         }
+                        
+                    }else {
+                        $listIdsAtivs = $serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
+                        $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
+                        $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
+                        //var_dump($listAtiv); die();
                     }
+                        
                 }
                 $view = new ViewModel([
 				'form' => $form

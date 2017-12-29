@@ -20,6 +20,19 @@ class Instituicao extends AbstractRepository {
             return $qb->getQuery();
         }
     }
+    
+    public function getListParaCombo(){
+        
+        $array = array();
+        $list = $this->findAll();
+        foreach($list  as $row){
+            $array[] = array("id"=>$row->id,"nome"=>$row->desRazaoSocial);
+        }
+        return $array;
+    }
+    
+    
+    
      
 }
 

@@ -72,7 +72,9 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("necessidadeEspecial",$search["necessidadeEspecial"]);
         }
         
+        //busca da tabela vinculo...
         $joinVinculo = false;
+        
         if ( !empty($search["inicioVigencia"]) ) {
             $joinVinculo = true;
             $dataInicio = \DateTime::createFromFormat("Y-m-d", $search["inicioVigencia"]);
@@ -80,6 +82,7 @@ class Colaborador extends AbstractRepository {
                 ->andWhere("v.dataInicio >= :dataInicio")
                 ->setParameter("dataInicio", $dataInicio->format("Ymd"));
         }
+        
         if ( !empty($search["terminoVigencia"]) ) {
             $dataTermino = \DateTime::createFromFormat("Y-m-d", $search["terminoVigencia"]);
             if (!$joinVinculo) {
@@ -89,8 +92,55 @@ class Colaborador extends AbstractRepository {
             $qb->andWhere("v.dataTermino >= :dataTermino")
                 ->setParameter("dataTermino", $dataTermino->format("Ymd"));
         }
+
+        if ( !empty($search["obrigatorio"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+                
+            }
+            
+            if ($search['obrigatorio'] == '9') {
+                $search['obrigatorio'] = 0;
+            }
+             $qb->andWhere('v.obrigatorio = :obrigatorio');
+             $qb->setParameter("obrigatorio",$search["obrigatorio"]);
+        }
         
-//        echo "SQL: ".$qb->getQuery()->getSQL();
+        if ( !empty($search["nivel"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+                
+            }
+             $qb->andWhere('v.nivel = :nivel');
+             $qb->setParameter("nivel",$search["nivel"]);
+        }
+        
+        if ( !empty($search["modalidadeBolsa"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+                
+            }
+             $qb->andWhere('v.modalidadeBolsa = :modalidadeBolsa');
+             $qb->setParameter("modalidadeBolsa",$search["modalidadeBolsa"]);
+        }
+        
+        
+        if ( !empty($search["instituicaoFomento"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $qb->join('v.instituicaoFomento', 'i');
+                $joinVinculo = true;
+                
+            }
+             $qb->andWhere('v.instituicaoFomento = :instituicaoFomento');
+             $qb->setParameter("instituicaoFomento",$search["instituicaoFomento"]);
+        }
+        
+  //      echo "SQL: ".$qb->getQuery()->getSQL();
+        
 //        die();
           
 //        foreach($search as $key => $value) {

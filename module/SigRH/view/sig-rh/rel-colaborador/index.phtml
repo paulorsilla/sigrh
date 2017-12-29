@@ -65,6 +65,7 @@
                                  <option value="1" <?php if ( "1" == $search["necessidadeEspecial"]){ echo "selected";}?>>Sim</option>
                                </select>                      
         </div>
+        
 
         <div class="col-sm-2 form-group">
             <label for="inicioVigencia">Inicio vigência:</label>
@@ -72,9 +73,57 @@
         </div>
         
         <div class="col-sm-2 form-group">
-            <label for="inicioVigencia">Término vigência:</label>
+            <label for="terminoVigencia">Término vigência:</label>
             <input class="form-control" type="date" value="" name="terminoVigencia" id="terminoVigencia"> 
         </div>
+        
+        <div class="col-sm-2 form-group" >
+                 <label>Obrigatório: </label>
+                         <select name="obrigatorio" class="form-control">
+                                 <option value="">Selecione aqui...</option>
+                                 <option value="9" <?php if ( "0" == $search["obrigatorio"]){ echo "selected";}?>>Não</option>
+                                 <option value="1" <?php if ( "1" == $search["obrigatorio"]){ echo "selected";}?>>Sim</option>
+                         </select>                      
+        </div>
+        
+        <div class="col-sm-2 form-group" >
+                     <label>Nível de escolaridade: </label>
+                                    <select name="nivel" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_nivelEscolaridade as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( $row["id"] == $search["nivel"]){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+        
+        <div class="col-sm-2 form-group" >
+                     <label>Instituicao de fomento: </label>
+                                    <select name="instituicaoFomento" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php //foreach($this->array_fomento as $row) { ?>
+                                        <option value="<?php //echo $row["id"]; ?>"  
+                                                 <?php //if ( $row["id"] == $search["instituicaoFomento"]){ echo "selected";}?>
+                                                ><?php //echo $row["nome"]; ?></option>
+                                     <?php //} ?>
+                                   </select>                      
+        </div>
+        
+        <div class="col-sm-2 form-group" >
+                     <label>Modalidade Bolsa: </label>
+                                    <select name="modalidadeBolsa" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_bolsa as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( $row["id"] == $search["modalidadeBolsa"]){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+        
+        
+        
 
        <div class="col-sm-3 form-group" style="padding-top: 25px;">                           
                     

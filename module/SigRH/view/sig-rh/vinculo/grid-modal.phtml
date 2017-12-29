@@ -20,7 +20,7 @@
     <tbody>
         <?php foreach ($this->vinculos as $vinculo): ?>
             <tr>
-                <td><?php echo $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao());?></td>
+                <td><?php echo $vinculo->getTipoVinculo()?$this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()):""; ?></td>
                 <td><?php echo (null != $vinculo->getDataInicio())  ? $this->escapeHtml($vinculo->getDataInicio()->format("d/m/Y")) : "";?></td>
                 <td><?php echo (null != $vinculo->getDataTermino()) ? $this->escapeHtml($vinculo->getDataTermino()->format("d/m/Y")) : "";?></td>
                 <td><?php echo (null != $vinculo->getDataInicioEfetivo()) ? $this->escapeHtml($vinculo->getDataInicioEfetivo()->format("d/m/Y")) : "";?></td>
