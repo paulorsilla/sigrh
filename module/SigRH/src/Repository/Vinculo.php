@@ -33,6 +33,7 @@ class Vinculo extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
+        
     public function incluir_ou_editar($dados,$id = null,$matricula=null){
         
         $row = null;
@@ -176,29 +177,33 @@ class Vinculo extends AbstractRepository {
         }
         unset($dados['dataDesligamento']);
         
-        //atividade...
-        if ( isset($dados['atividade']) ) {
-            if ( empty($dados['atividade'] )) {
-                $row->setAtividade(null);
-            }
-        }    
-        unset($dados['atividade']);
+//        //atividade...
+//        if ( isset($dados['atividade']) ) {
+//            if ( empty($dados['atividade'] )) {
+//                $row->setAtividade(null);
+//            }
+//        }    
+//        unset($dados['atividade']);
         
-        //valor bolsa...
-        if ( isset($dados['valorBolsa']) ) {
-            if ( empty($dados['valorBolsa'] )) {
-                $row->setValorBolsa(null);
-            }
-        }    
-        unset($dados['valorBolsa']);
+//        //valor bolsa...
+//        if ( isset($dados['valorBolsa']) ) {
+//            if ( empty($dados['valorBolsa'] )) {
+//                $row->setValorBolsa(null);
+//            }
+//        }    
+//        unset($dados['valorBolsa']);
         
-        //tipoAditivo...
-        if ( isset($dados['tipoAditivo']) ) {
-            if ( empty($dados['tipoAditivo'] )) {
-                $row->setTipoAditivo(null);
+        
+        //tipoVinculo...
+        if ( isset($dados['tipoVinculo']) ) {
+            if ( !empty($dados['tipoVinculo'] )) {
+                $tipoVinculo = $this->getEntityManager()->find('SigRH\Entity\TipoVinculo', $dados['tipoVinculo']); //busca as informações
+                $row->settipoVinculo($tipoVinculo);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->settipoVinculo(null);
             }
         }    
-        unset($dados['tipoAditivo']);
+        unset($dados['tipoVinculo']);
 
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         // \Doctrine\Common\Util\Debug::dump($row); nunca usar print_r para elemento doctrine

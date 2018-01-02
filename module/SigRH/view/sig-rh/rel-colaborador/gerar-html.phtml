@@ -5,6 +5,12 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Grau de instrução</th>
+                <th>Obrigatório</th>
+                <th>Data início </th>
+                <th>Data fim</th>
+                <th>Modalidade bolsa</th>
             </tr>
         </thead>
         <tbody>
@@ -13,18 +19,12 @@
                 <tr>
                     
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->lote_id->lote); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->material); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->cruzamento_id->genealogia); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->tipo); ?></td>
-                    <td><?php //echo (\Admin\Model\Util::converteData($movimentacao->datamovto)); ?></td>
-                    <td align="center"><?php //echo $movimentacao->material_id->fase_id == null?"Nulo":$this->escapeHtml($movimentacao->material_id->fase_id->descricao); //geracao?></td> 
-                    <td><?php //echo $this->escapeHtml($movimentacao->quantidade); //como vem de outra tabela como objeto faz-se assim?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->material_id->fase_id->unidade=="S"?"Sementes":"Gramas"); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->procedencia); //como vem de outra tabela como objeto faz-se assim?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->responsavel); ?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->destino); //como vem de outra tabela como objeto faz-se assim?></td>
-                    <td><?php //echo $this->escapeHtml($movimentacao->responsavel_destino); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->matricula); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->grauInstrucao->descricao); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->obrigatorio); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->dataInicio); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->dataTermino); ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->modalidadeBolsa->descricao); ?></td>
 
                 </tr>
             <?php endforeach; ?>
