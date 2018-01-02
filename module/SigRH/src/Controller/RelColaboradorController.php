@@ -178,7 +178,7 @@ class RelColaboradorController extends AbstractActionController
         
             $this->layout()
                     ->setTemplate("layout/impressao")
-                    ->setVariable("titulo_impressao", "Extrato da movimentação");
+                    ->setVariable("titulo_impressao", "Colaboradores");
             $view = new \Zend\View\Model\ViewModel();
             $view->setVariables(["colaboradores" => $colaboradores]);
             return $view;
