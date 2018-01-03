@@ -42,4 +42,14 @@ class TipoVinculo extends AbstractRepository {
         
         return $row;
     }
+    
+    public function getListaParaCombo()
+    {
+        $array = array();
+        $list = $this->findAll();
+        foreach($list  as $row){
+            $array[] = array("id"=>$row->id,"descricao"=>$row->descricao);
+        }
+        return $array;
+    }
 }

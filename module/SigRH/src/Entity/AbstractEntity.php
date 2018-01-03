@@ -5,12 +5,12 @@
  * @author     Elton Minetto<eminetto@coderockr.com>
  */
 namespace SigRH\Entity;
-
-use Zend\InputFilter\Factory as InputFactory;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\Exception\InvalidArgumentException;
+//
+//use Zend\InputFilter\Factory as InputFactory;
+//use Zend\InputFilter\InputFilter;
+//use Zend\InputFilter\InputFilterAwareInterface;
+//use Zend\InputFilter\InputFilterInterface;
+//use Zend\InputFilter\Exception\InvalidArgumentException;
 
 abstract class AbstractEntity 
 {

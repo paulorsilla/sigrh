@@ -3,11 +3,14 @@
 namespace SigRH\Repository;
 
 use SigRH\Entity\Colaborador as ColaboradorEntity;
-use SigRH\Entity\Vinculo as VinculoEntity;
+//use SigRH\Entity\Vinculo as VinculoEntity;
 
 class Colaborador extends AbstractRepository {
 
     public function getQuery($search = []) {
+        $emConfig = $this->getEntityManager()->getConfiguration();
+        $emConfig->addCustomDatetimeFunction("MONTH", \DoctrineExtensions\Query\Mysql\Month::class);
+        $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
         $combo = false;
         if ( (isset($search['combo'])) && ($search['combo'] == 1)) {
             $combo = true;
@@ -17,7 +20,6 @@ class Colaborador extends AbstractRepository {
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
-//                ->where('1=1');
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
@@ -28,6 +30,11 @@ class Colaborador extends AbstractRepository {
             $qb->orWhere('c.tipoColaborador = 5');
             $qb->orWhere('c.tipoColaborador = 6');
             $qb->orWhere('c.tipoColaborador = 8');
+        }
+        if ( (isset($search["aniversariantesMes"])) && (!empty($search["aniversariantesMes"]))) {
+                $qb->andWhere("MONTH(c.dataNascimento) = :mes")
+                    ->orderby('DAY(c.dataNascimento)','ASC')
+                    ->setParameter('mes', $search["aniversariantesMes"]);
         }
         
         if ( !empty($search['nome'])){
@@ -42,7 +49,7 @@ class Colaborador extends AbstractRepository {
         
         if ( !empty($search["sexo"]) ){
              $qb->andWhere('c.sexo in ( :sexo )');
-             $qb->setParameter("sexo",$search["sexo"]);
+             $qb->setParameter("sexo", $search["sexo"]);
         }
         
         if (isset($search['ativo'])) {
@@ -62,9 +69,9 @@ class Colaborador extends AbstractRepository {
             $qb->setParameter("combo_estadoCivil",$search["combo_estadoCivil"]);
         }
         
-        if ( !empty($search["grauInstrucao"]) ){
+        if ( !empty($search["combo_grauInstrucao"]) ){
              $qb->andWhere('c.grauInstrucao in ( :grauInstrucao )');
-            $qb->setParameter("grauInstrucao", $search["grauInstrucao"]);
+            $qb->setParameter("grauInstrucao", $search["combo_grauInstrucao"]);
         }
         
         if ( !empty($search["necessidadeEspecial"]) ){
@@ -97,7 +104,6 @@ class Colaborador extends AbstractRepository {
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');
                 $joinVinculo = true;
-                
             }
             
             if ($search['obrigatorio'] == '9') {
@@ -105,6 +111,15 @@ class Colaborador extends AbstractRepository {
             }
              $qb->andWhere('v.obrigatorio = :obrigatorio');
              $qb->setParameter("obrigatorio",$search["obrigatorio"]);
+        }
+
+        if ( !empty($search["tipoVinculo"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+             $qb->andWhere('v.tipoVinculo = :tipoVinculo');
+             $qb->setParameter("tipoVinculo",$search["tipoVinculo"]);
         }
         
         if ( !empty($search["nivel"]) ){
@@ -121,25 +136,23 @@ class Colaborador extends AbstractRepository {
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');
                 $joinVinculo = true;
-                
             }
              $qb->andWhere('v.modalidadeBolsa = :modalidadeBolsa');
              $qb->setParameter("modalidadeBolsa",$search["modalidadeBolsa"]);
         }
         
-        
         if ( !empty($search["instituicaoFomento"]) ){
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');
-                $qb->join('v.instituicaoFomento', 'i');
+//                $qb->join('v.instituicaoFomento', 'i');
                 $joinVinculo = true;
                 
             }
              $qb->andWhere('v.instituicaoFomento = :instituicaoFomento');
-             $qb->setParameter("instituicaoFomento",$search["instituicaoFomento"]);
+             $qb->setParameter("instituicaoFomento", $search["instituicaoFomento"]);
         }
         
-  //      echo "SQL: ".$qb->getQuery()->getSQL();
+//        echo "SQL: ".$qb->getQuery()->getSQL();
         
 //        die();
           

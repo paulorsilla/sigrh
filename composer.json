@@ -23,6 +23,7 @@
 		"zendframework/zend-paginator" : "^2.7",
 		"zendframework/zend-authentication" : "^2.5",
 		"zendframework/zend-mvc-plugins": "^1.0",
+		"beberlei/DoctrineExtensions": "^1.0",
 		"symfony/yaml": "^3.3"
 	},
 	"autoload" : {

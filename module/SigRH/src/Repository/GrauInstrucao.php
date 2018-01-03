@@ -19,12 +19,12 @@ class GrauInstrucao extends AbstractRepository {
        return $qb;
     }
     
-    public function getListParaCombo(){
-        
+    public function getListParaCombo()
+    {
         $array = array();
         $list = $this->findAll();
         foreach($list  as $row){
-            $array[] = array("id"=>$row->id,"nome"=>$row->descricao);
+            $array[] = array("id" => $row->id, "nome" => $row->descricao);
         }
         return $array;
     }

@@ -15,25 +15,27 @@ class Instituicao extends AbstractRepository {
                 ->setParameter('tipo', "Pessoa Jurídica")
                 ->setParameter('empty', " ");
         if (null != $search['combo'] && $search['combo'] == 1) {
-            return $qb->getQuery()->getResult();
+            $array = [];
+            $list =  $qb->getQuery()->getResult();
+            foreach($list  as $row){
+                $array[] = ["id" => $row->codInstituicao, "desRazaoSocial" => $row->desRazaoSocial];
+            }
+            return $array;
+//            return $qb->getQuery()->getResult();
         } else {
             return $qb->getQuery();
         }
     }
     
-    public function getListParaCombo(){
-        
+    public function getListParaCombo()
+    {
         $array = array();
         $list = $this->findAll();
         foreach($list  as $row){
-            $array[] = array("id"=>$row->id,"nome"=>$row->desRazaoSocial);
+            $array[] = array("id" => $row->id, "nome" => $row->desRazaoSocial);
         }
         return $array;
     }
-    
-    
-    
-     
 }
 
 
