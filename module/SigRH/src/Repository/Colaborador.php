@@ -11,11 +11,11 @@ class Colaborador extends AbstractRepository {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction("MONTH", \DoctrineExtensions\Query\Mysql\Month::class);
         $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
-        $combo = false;
-        if ( (isset($search['combo'])) && ($search['combo'] == 1)) {
-            $combo = true;
-            unset($search['combo']);
-        }
+//        $combo = false;
+//        if ( (isset($search['combo'])) && ($search['combo'] == 1)) {
+//            $combo = true;
+//            unset($search['combo']);
+//        }
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
@@ -152,6 +152,15 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("instituicaoFomento", $search["instituicaoFomento"]);
         }
         
+        if ( !empty($search['orientador'])) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere('v.orientador = :orientador');
+            $qb->setParameter("orientador", $search["orientador"]);
+        }
+        
 //        echo "SQL: ".$qb->getQuery()->getSQL();
         
 //        die();
@@ -161,17 +170,33 @@ class Colaborador extends AbstractRepository {
 //            $qb->setParameter($key, $value);
 //        }
         
-        if ($combo) {
-            return $qb->getQuery()->getResult();
-        } else {
-            return $qb->getQuery();
-        }
+//        if ($combo) {
+//            return $qb->getQuery()->getResult();
+//        } else {
+//            return $qb->getQuery();
+//        }
 //        if ( !empty($search)){
 //            $qb->where('c.tipoColaborador = :busca');
 //            $qb->setParameter("busca", $search['tipoColaborador']);
 //        }
 //       return $qb;
-    }
+        
+        if (!empty($search['combo'])) {
+            if ($search['combo'] == 1) {
+                $array = [];
+                $list =  $qb->getQuery()->getResult();
+                foreach($list  as $row){
+                    $array[] = ["matricula" => $row->matricula, "nome" => $row->nome];
+                }
+                return $array;
+            } else {
+                return $qb->getQuery()->getResult();
+            }
+        } else {
+            return $qb->getQuery();
+        }
+        
+        }
     
     public function getEstagiarios($graduacao = false)
     {

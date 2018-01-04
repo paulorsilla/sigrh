@@ -14,14 +14,17 @@ class Instituicao extends AbstractRepository {
                 ->andWhere('i.desRazaoSocial != :empty')
                 ->setParameter('tipo', "Pessoa Jurídica")
                 ->setParameter('empty', " ");
-        if (null != $search['combo'] && $search['combo'] == 1) {
-            $array = [];
-            $list =  $qb->getQuery()->getResult();
-            foreach($list  as $row){
-                $array[] = ["id" => $row->codInstituicao, "desRazaoSocial" => $row->desRazaoSocial];
+        if (!empty($search['combo'])) {
+            if ($search['combo'] == 1) {
+                $array = [];
+                $list =  $qb->getQuery()->getResult();
+                foreach($list  as $row){
+                    $array[] = ["id" => $row->codInstituicao, "desRazaoSocial" => $row->desRazaoSocial];
+                }
+                return $array;
+            } else {
+                return $qb->getQuery()->getResult();
             }
-            return $array;
-//            return $qb->getQuery()->getResult();
         } else {
             return $qb->getQuery();
         }

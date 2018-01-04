@@ -113,15 +113,20 @@ class VinculoController extends AbstractActionController
                             $form->get("obrigatorio")->setValue($row->obrigatorio);
                             $form->get("nivel")->setValue($row->nivel->id);
                             $form->get("curso")->setValue($row->curso->id);
-                            $form->get("nivel")->setValue($row->nivel->id);
+                            
+//                            $form->get("nivel")->setValue($row->nivel->id);
+                            
                             $form->get("tipoContrato")->setValue("$row->tipoContrato"); // setar o valor como string pois senão o valor 0 não é reconhecido
                             $form->get("instituicaoEnsino")->setValue($row->instituicaoEnsino->codInstituicao);
-                            $form->get("modalidadeBolsa")->setValue($row->modalidadeBolsa->id);
-                            $form->get("instituicaoFomento")->setValue($row->instituicaoFomento->codInstituicao);
+                            
+                            if (null != $row->getModalidadeBolsa()) {
+                                $form->get("modalidadeBolsa")->setValue($row->getModalidadeBolsa()->getId());
+                            }
+                            if (null != $row->getInstituicaoFomento()) {
+                                $form->get("instituicaoFomento")->setValue($row->getInstituicaoFomento()->getCodInstituicao());
+                            }
                             $form->get("orientador")->setValue($row->orientador->matricula);
                             $form->get("tipoVinculo")->setValue($row->tipoVinculo->id);
-                            
-                            
                         }
                         
                     }else {

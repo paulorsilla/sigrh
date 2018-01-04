@@ -47,10 +47,14 @@ class RelColaboradorController extends AbstractActionController {
             "ativo" => $this->params()->fromQuery("ativo"),
             "aniversariantesMes" => $this->params()->fromQuery("aniversariantesMes"),
             "tipoVinculo" => $this->params()->fromQuery("tipoVinculo"),
+            "orientador" => $this->params()->fromQuery("orientador")
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
         /////montando as selectbox...  
+        
+        //orientador
+        $array_orientador = $repo->getQuery(['tipoVinculo' => '1', 'ativo' => 'S', 'combo' => '1']);
 
         //grupo sanguineo...
         $repo_grupoSanguineo = $this->entityManager->getRepository(\SigRH\Entity\GrupoSanguineo::class);
@@ -83,7 +87,7 @@ class RelColaboradorController extends AbstractActionController {
         //meses do ano
         $array_meses = ["01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho",
                         "07" => "Julho", "08" => "Agosto", "09" => "Setembro", "10" => "Outubro", "11" => "Novembro", "12" => "Dezembro"];
-
+        
         $view = new \Zend\View\Model\ViewModel();
         $view->setVariable("colaboradores", $repo->getPaginator());
         $view->setVariable("array_grupoSanguineo", $array_grupoSanguineo);
@@ -94,6 +98,7 @@ class RelColaboradorController extends AbstractActionController {
         $view->setVariable("array_bolsa", $array_bolsa);
         $view->setVariable("array_meses", $array_meses);
         $view->setVariable("array_tipo_vinculo", $array_tipo_vinculo);
+        $view->setVariable("array_orientador", $array_orientador);
 
         return $view;
     }
@@ -117,10 +122,33 @@ class RelColaboradorController extends AbstractActionController {
             "ativo" => $this->params()->fromQuery("ativo"),
             "aniversariantesMes" => $this->params()->fromQuery("aniversariantesMes"),
             "tipoVinculo" => $this->params()->fromQuery("tipoVinculo"),
+            "orientador" => $this->params()->fromQuery("orientador")
         ];
-
+        
+        //meses do ano
+        $array_meses = ["01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho",
+                        "07" => "Julho", "08" => "Agosto", "09" => "Setembro", "10" => "Outubro", "11" => "Novembro", "12" => "Dezembro"];
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
         $colaboradores = $repo->getQuery($search)->getResult();
+        
+        $orientador = NULL;
+        if (!empty($search['orientador'])) {
+            $orientador = $repo->findOneByMatricula($search['orientador']);
+        }
+        
+        $instituicaoFomento = NULL;
+        if (!empty($search['instituicaoFomento'])) {
+            $instituicaoFomento = $this->entityManager->find(\SigRH\Entity\Instituicao::class, $search['instituicaoFomento']);
+        }
+        $aniversariantesMes = NULL;
+        if (!empty($search['aniversariantesMes'])) {
+            $aniversariantesMes = $array_meses[$search['aniversariantesMes']];
+        }
+        
+        $tipoVinculo = NULL;
+        if (!empty($search['tipoVinculo'])) {
+            $tipoVinculo = $this->entityManager->find(\SigRH\Entity\TipoVinculo::class, $search['tipoVinculo']);
+        }
 
         /*
           // Selecionar os movimentos dessa data
@@ -142,7 +170,12 @@ class RelColaboradorController extends AbstractActionController {
                 ->setTemplate("layout/impressao")
                 ->setVariable("titulo_impressao", "Colaboradores");
         $view = new \Zend\View\Model\ViewModel();
-        $view->setVariables(["colaboradores" => $colaboradores]);
+        $view->setVariables(["colaboradores"        => $colaboradores,
+                             "instituicaoFomento"   => $instituicaoFomento,
+                             "aniversariantesMes"   => $aniversariantesMes,
+                             "tipoVinculo"          => $tipoVinculo,
+                             "orientador"           => $orientador
+                ]);
         return $view;
 //}
     }

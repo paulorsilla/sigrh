@@ -60,11 +60,6 @@
                     <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
                     <li><a data-toggle="tab" href="#vinculo">Vínculo</a></li>
                     
-                    <?php if( ((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() != 1)) || (null != $this->colaborador) ):?>
-                        <li><a data-toggle="tab" href="#estagio">Estágio</a></li>
-                    <?php endif;?>
-                        
-                    <!--<li><a data-toggle="tab" href="#avaliacoes">Avaliações</a></li>-->
                     <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() == 1)):?>
                         <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
                     <?php endif;?>
@@ -206,39 +201,6 @@
                         <?php }
                         }?>
                     </div>
-                    <div id="estagio" class="tab-pane fade">
-                        <div class="row">
-                            <div class="col-md-12" id="gridEstagio">
-                               
-                            </div>
-                            
-                        </div>
-                        
-                        <?php if ( !empty($this->colaborador) ) { 
-                            $matricula = $this->colaborador->getMatricula();
-                            if ( !empty($matricula) ) { ?>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridEstagio('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Atualizar
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoEstagio('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                $(document).ready(function () {
-                                    refreshGridEstagio('<?php echo $matricula;?>');
-                                });
-                            </script>
-                        <?php }
-                        }?>
-                        
-                    </div>
-                    
                     
                     <div id="vinculo" class="tab-pane fade">
                         <div class="row">

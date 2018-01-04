@@ -59,12 +59,12 @@
         </div>
     
         <div class="col-sm-3 form-group" >
-                 <label>Necessidades especiais: </label>
-                                <select name="necessidadeEspecial" class="form-control">
-                                 <option value="">Selecione aqui...</option>
-                                 <option value="0" <?php if ( (!empty($search["necessidadeEspecial"])) && ("0" == $search["necessidadeEspecial"])) { echo "selected";}?>>Não</option>
-                                 <option value="1" <?php if ( (!empty($search["necessidadeEspecial"])) && ("1" == $search["necessidadeEspecial"])) { echo "selected";}?>>Sim</option>
-                               </select>                      
+        <label>Necessidades especiais: </label>
+            <select name="necessidadeEspecial" class="form-control">
+                <option value="">Selecione aqui...</option>
+                <option value="0" <?php if ( (!empty($search["necessidadeEspecial"])) && ("0" == $search["necessidadeEspecial"])) { echo "selected";}?>>Não</option>
+                <option value="1" <?php if ( (!empty($search["necessidadeEspecial"])) && ("1" == $search["necessidadeEspecial"])) { echo "selected";}?>>Sim</option>
+            </select>                      
         </div>
 
         <div class="col-sm-2 form-group">
@@ -134,8 +134,19 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-4 form-group" >
+             <label for="orientador">Supervisor/Orientador: </label>
+                    <select name="orientador" id="orientador" class="form-control">
+                     <option value="">Selecione aqui...</option>
+                     <?php foreach($this->array_orientador as $row) { ?>
+                        <option value="<?php echo $row["matricula"]; ?>"  
+                                 <?php if ( (!empty($search["orientador"]))  && ( $row["matricula"] == $search["orientador"])){ echo "selected";}?>
+                                ><?php echo $row["nome"]; ?></option>
+                     <?php } ?>
+                   </select>                      
+        </div>
         
-        <div class="col-sm-4 form-group">
+        <div class="col-sm-3 form-group">
             <label for="tipoVinculo">Tipo de vínculo: </label>
             <select name="tipoVinculo" id="tipoVinculo" class="form-control">
                 <option value="">Selecione aqui...</option>
@@ -147,7 +158,7 @@
             </select>                      
         </div>
     
-        <div class="col-sm-3 form-group">
+        <div class="col-sm-4 form-group">
             <label for="aniversariantesMes">Aniversariantes do mês:</label>
                 <select name="aniversariantesMes" id="aniversariantesMes" class="form-control">
                     <option value="">Selecione aqui...</option>

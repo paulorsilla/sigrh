@@ -56,7 +56,6 @@ class Instituicao extends AbstractEntity {
     public function getDesPfPj() {
         return $this->desPfPj;
     }
-        
     
     /**
      * Sets user ID.

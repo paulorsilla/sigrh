@@ -136,7 +136,7 @@ class VinculoForm extends Form {
                     'name' => 'getQuery',
                     'params' => [
                         'search' => [
-                            'combo' => 1
+                            'combo' => 2
                         ]
                     ]
                 ],
@@ -162,7 +162,7 @@ class VinculoForm extends Form {
                     'name' => 'getQuery',
                     'params' => [
                         'search' => [
-                            'combo' => 1
+                            'combo' => 2
                         ]
                     ]
                 ],
