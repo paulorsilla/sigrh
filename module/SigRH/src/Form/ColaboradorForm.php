@@ -773,7 +773,7 @@ class ColaboradorForm extends Form {
                     'name' => 'getQuery',
                     'params' => [
                         'search' => [
-                            'combo' => 1,
+                            'combo' => 2,
                             'tipoColaborador' => 1, //empregado
                             'ativo' => 'S'
                          ]

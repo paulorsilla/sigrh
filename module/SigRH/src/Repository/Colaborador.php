@@ -89,15 +89,47 @@ class Colaborador extends AbstractRepository {
                 ->andWhere("v.dataInicio >= :dataInicio")
                 ->setParameter("dataInicio", $dataInicio->format("Ymd"));
         }
-        
-        if ( !empty($search["terminoVigencia"]) ) {
-            $dataTermino = \DateTime::createFromFormat("Y-m-d", $search["terminoVigencia"]);
+
+        if ( !empty($search["inicioVigenciaIni"]) ) {
+            $dataInicioIni = \DateTime::createFromFormat("Y-m-d", $search["inicioVigenciaIni"]);
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');
                 $joinVinculo = true;
             }
-            $qb->andWhere("v.dataTermino >= :dataTermino")
-                ->setParameter("dataTermino", $dataTermino->format("Ymd"));
+            $qb->andWhere("v.dataInicio >= :dataInicioIni")
+                ->orderBy("v.dataInicio")
+                ->setParameter("dataInicioIni", $dataInicioIni->format("Ymd"));
+        }
+                
+        if ( !empty($search["inicioVigenciaFim"]) ) {
+            $dataInicioFim = \DateTime::createFromFormat("Y-m-d", $search["inicioVigenciaFim"]);
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere("v.dataInicio <= :dataInicioFim")
+                ->setParameter("dataInicioFim", $dataInicioFim->format("Ymd"));
+        }        
+        
+        if ( !empty($search["terminoVigenciaIni"]) ) {
+            $dataTerminoIni = \DateTime::createFromFormat("Y-m-d", $search["terminoVigenciaIni"]);
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere("v.dataTermino >= :dataTerminoIni")
+                ->orderBy("v.dataTermino")
+                ->setParameter("dataTerminoIni", $dataTerminoIni->format("Ymd"));
+        }
+                
+        if ( !empty($search["terminoVigenciaFim"]) ) {
+            $dataTerminoFim = \DateTime::createFromFormat("Y-m-d", $search["terminoVigenciaFim"]);
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere("v.dataTermino <= :dataTerminoFim")
+                ->setParameter("dataTerminoFim", $dataTerminoFim->format("Ymd"));
         }
 
         if ( !empty($search["obrigatorio"]) ){

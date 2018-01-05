@@ -1,7 +1,7 @@
 <form action="/sig-rh/rel-colaborador/gerar-html" method="get">
     <br>    
 <div class="row">
-    <div class="col-sm-4 form-group" >
+    <div class="col-sm-5 form-group" >
         <label for="nome">Nome:</label>                
         <input type="text" name="nome" id="nome" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["nome"])) ? $search["nome"] : "";?>" placeholder="Nome"/>
     </div>
@@ -11,30 +11,29 @@
         <input type="text" name="matricula" id="matricula" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["matricula"])) ? $search["matricula"] : "";?>" placeholder="Matrícula"/>
     </div>
     
-    <div class="col-sm-2 form-group" >
-        <label for="sexo">Sexo: </label>
-        <select name="sexo" id="sexo" class="form-control">
+    <div class="col-sm-2 form-group">
+        <label for="tipoVinculo">Tipo de vínculo: </label>
+        <select name="tipoVinculo" id="tipoVinculo" class="form-control">
             <option value="">Selecione aqui...</option>
-            <option value="F" <?php if ( (!empty($search["sexo"])) && ("F" == $search["sexo"])) { echo "selected";}?>>Feminino</option>
-            <option value="M" <?php if ( (!empty($search["sexo"])) && ("M" == $search["sexo"])){ echo "selected";}?>>Masculino</option>
+               <?php foreach($this->array_tipo_vinculo as $row) { ?>
+            <option value="<?php echo $row["id"]; ?>"  
+                       <?php if ( (!empty($search["tipoVinculo"])) && ($row["id"] == $search["tipoVinculo"]) ){ echo "selected";}?>
+            ><?php echo $row["descricao"]; ?></option>
+             <?php } ?>
         </select>                      
     </div>
     
-    <div class="col-sm-2 form-group" >
-        <label for="combo_estadoCivil">Estado civil: </label>
-            <select name="combo_estadoCivil" id="combo_estadoCivil" class="form-control">
-                <option value="">Selecione aqui...</option>
-                 <?php foreach($this->array_estadoCivil as $row) { ?>
-                       <option value="<?php echo $row["id"]; ?>"  
-                                <?php if ( (!empty($search["combo_estadoCivil"])) && ($row["id"] == $search["combo_estadoCivil"])){ echo "selected";}?>
-                               ><?php echo $row["nome"]; ?></option>
-                    <?php } ?>
-            </select>                      
+    <div class="col-sm-2 form-group">
+        <label for="ativo">Ativo: </label>
+            <select name="ativo" id="ativo" class="form-control">
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+                <option value="">Todos</option>
+           </select>                      
     </div>
 </div>
-    
     <div class="row">
-        <div class="col-sm-2 form-group" >
+        <div class="col-sm-3 form-group" >
                      <label>Grupo sanguíneo: </label>
                                     <select name="combo_grupoSanguineo" class="form-control">
                                      <option value="">Selecione aqui...</option>
@@ -46,7 +45,7 @@
                                    </select>                      
         </div>
     
-        <div class="col-sm-2 form-group" >
+        <div class="col-sm-3 form-group" >
                      <label>Grau de instrução: </label>
                                     <select name="combo_grauInstrucao" class="form-control">
                                      <option value="">Selecione aqui...</option>
@@ -58,7 +57,7 @@
                                    </select>                      
         </div>
     
-        <div class="col-sm-3 form-group" >
+        <div class="col-sm-2 form-group" >
         <label>Necessidades especiais: </label>
             <select name="necessidadeEspecial" class="form-control">
                 <option value="">Selecione aqui...</option>
@@ -66,16 +65,50 @@
                 <option value="1" <?php if ( (!empty($search["necessidadeEspecial"])) && ("1" == $search["necessidadeEspecial"])) { echo "selected";}?>>Sim</option>
             </select>                      
         </div>
-
-        <div class="col-sm-2 form-group">
-            <label for="inicioVigencia">Inicio vigência:</label>
-            <input class="form-control" type="date" value="" name="inicioVigencia" id="inicioVigencia"> 
+        
+        <div class="col-sm-2 form-group" >
+            <label for="sexo">Sexo: </label>
+            <select name="sexo" id="sexo" class="form-control">
+                <option value="">Selecione aqui...</option>
+                <option value="F" <?php if ( (!empty($search["sexo"])) && ("F" == $search["sexo"])) { echo "selected";}?>>Feminino</option>
+                <option value="M" <?php if ( (!empty($search["sexo"])) && ("M" == $search["sexo"])){ echo "selected";}?>>Masculino</option>
+            </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+            <label for="combo_estadoCivil">Estado civil: </label>
+                <select name="combo_estadoCivil" id="combo_estadoCivil" class="form-control">
+                    <option value="">Selecione aqui...</option>
+                     <?php foreach($this->array_estadoCivil as $row) { ?>
+                           <option value="<?php echo $row["id"]; ?>"  
+                                    <?php if ( (!empty($search["combo_estadoCivil"])) && ($row["id"] == $search["combo_estadoCivil"])){ echo "selected";}?>
+                                   ><?php echo $row["nome"]; ?></option>
+                        <?php } ?>
+                </select>                      
         </div>
         
-        <div class="col-sm-2 form-group">
-            <label for="terminoVigencia">Término vigência:</label>
-            <input class="form-control" type="date" value="" name="terminoVigencia" id="terminoVigencia"> 
-        </div>
+    </div>
+    
+    <div class="row">
+            <div class="col-sm-3 form-group">
+                <label for="inicioVigenciaIni">Início vigência (início do período):</label>
+                <input class="form-control" type="date" value="" name="inicioVigenciaIni" id="inicioVigenciaIni"> 
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label for="inicioVigenciaFim">Início vigência (final do período):</label>
+                <input class="form-control" type="date" value="" name="inicioVigenciaFim" id="inicioVigenciaFim"> 
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label for="terminoVigenciaIni">Término vigência (início do período):</label>
+                <input class="form-control" type="date" value="" name="terminoVigenciaIni" id="terminoVigenciaIni"> 
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label for="terminoVigenciaFim">Término vigência (final do período):</label>
+                <input class="form-control" type="date" value="" name="terminoVigenciaFim" id="terminoVigenciaFim"> 
+            </div>
     </div>
 
     <div class="row">
@@ -123,15 +156,18 @@
                         <?php } ?>
                    </select>                      
         </div>
-        
-        <div class="col-sm-2 form-group">
-            <label for="ativo">Ativo: </label>
-                <select name="ativo" id="ativo" class="form-control">
-                    <option value="S">Sim</option>
-                    <option value="N">Não</option>
-                    <option value="">Todos</option>
-               </select>                      
+        <div class="col-sm-3 form-group">
+            <label for="aniversariantesMes">Aniversariantes do mês:</label>
+                <select name="aniversariantesMes" id="aniversariantesMes" class="form-control">
+                    <option value="">Selecione aqui...</option>
+                        <?php foreach($this->array_meses as $k => $value) { ?>
+                           <option value="<?php echo $k; ?>"  
+                                    <?php if ( (!empty($search["aniversariantesMes"])) && ($k == $search["aniversariantesMes"]) ){ echo "selected";}?>
+                                   ><?php echo $value; ?></option>
+                        <?php } ?>
+                </select>
         </div>
+
     </div>
     <div class="row">
         <div class="col-sm-4 form-group" >
@@ -144,30 +180,6 @@
                                 ><?php echo $row["nome"]; ?></option>
                      <?php } ?>
                    </select>                      
-        </div>
-        
-        <div class="col-sm-3 form-group">
-            <label for="tipoVinculo">Tipo de vínculo: </label>
-            <select name="tipoVinculo" id="tipoVinculo" class="form-control">
-                <option value="">Selecione aqui...</option>
-                   <?php foreach($this->array_tipo_vinculo as $row) { ?>
-                <option value="<?php echo $row["id"]; ?>"  
-                           <?php if ( (!empty($search["tipoVinculo"])) && ($row["id"] == $search["tipoVinculo"]) ){ echo "selected";}?>
-                ><?php echo $row["descricao"]; ?></option>
-                 <?php } ?>
-            </select>                      
-        </div>
-    
-        <div class="col-sm-4 form-group">
-            <label for="aniversariantesMes">Aniversariantes do mês:</label>
-                <select name="aniversariantesMes" id="aniversariantesMes" class="form-control">
-                    <option value="">Selecione aqui...</option>
-                        <?php foreach($this->array_meses as $k => $value) { ?>
-                           <option value="<?php echo $k; ?>"  
-                                    <?php if ( (!empty($search["aniversariantesMes"])) && ($k == $search["aniversariantesMes"]) ){ echo "selected";}?>
-                                   ><?php echo $value; ?></option>
-                        <?php } ?>
-                </select>
         </div>
     </div>
 

@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-sm-12">
-        <br><button class="btn btn-default" onclick="print()" type="submit"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>Imprimir</button>
+        <br>
+        <button class="btn btn-secondary" onclick="print()" type="submit"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
         <?php 
         $aniversariantes = False;
+        $vigencia = False;
         if (!empty($this->tipoVinculo)):?>
             <h4>Tipo de vínculo: <?php echo $this->escapeHtml($this->tipoVinculo->getDescricao());?></h4>
         <?php endif;
@@ -13,9 +15,32 @@
             $aniversariantes = True;?>
             <h4>Aniversariantes do mês de <?php echo $this->aniversariantesMes;?></h4>
         <?php endif;
-        if (!empty($this->orientador)):?>
+        if (!empty($this->orientador)):
+            $vigencia = True; ?>
             <h4>Orientador: <?php echo $this->escapeHtml($this->orientador->getNome());?></h4>
-        <?php endif;?>
+        <?php endif;
+        
+        if(!empty($this->inicioVigenciaIni) || !empty($this->inicioVigenciaFim)):
+            $vigencia = True;?>
+            <h4>Início da vigência: 
+            <?php
+                echo (null != $this->terminoVigenciaIni) ? " (início do período: ".$this->terminoVigenciaIni->format("d/m/Y").")" : "";
+                echo (null != $this->terminoVigenciaFim) ? " (término do período: ".$this->terminoVigenciaFim->Format("d/m/Y").")" : "";
+            ?>         
+            </h4>
+        <?php endif;
+
+        if(!empty($this->terminoVigenciaIni) || !empty($this->terminoVigenciaFim)):
+            $vigencia = True;?>
+            <h4>Término da vigência: 
+            <?php
+                echo (null != $this->terminoVigenciaIni) ? " (início do período: ".$this->terminoVigenciaIni->format("d/m/Y").")" : "";
+                echo (null != $this->terminoVigenciaFim) ? " (término do período: ".$this->terminoVigenciaFim->Format("d/m/Y").")" : "";
+            ?>         
+            </h4>
+        <?php endif;
+        
+        ?>
             
         <hr>
         <table class="table table-striped table-condensed ">
@@ -28,23 +53,39 @@
 <!--                <th>Data início </th>
                 <th>Data fim</th>-->
                 <?php if ($aniversariantes):?>
-                <th>Data de nascimento</th>
+                    <th>Data de nascimento</th>
                 <?php endif;?>
+                <?php if ($vigencia):?>
+                    <th>Início vigência</th>
+                    <th>Término vigência</th>
+                <?php endif;?>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($colaboradores as $colaborador): 
-?>            
+            <?php foreach ($colaboradores as $colaborador):
+                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last() : NULL;
+            ?>            
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->matricula); ?></td>
                     <td><?php echo (null != $colaborador->getGrauInstrucao())? $this->escapeHtml($colaborador->getGrauInstrucao()->getDescricao()) : "";?></td>
-                    <td><?php echo ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last()->getObrigatorio() ? "Sim" : "Não" : "-"; ?></td>
+                    <td><?php echo ($vinculo != NULL) ? $vinculo->getObrigatorio() ? "Sim" : "Não" : "-"; ?></td>
 <!--                    <td><?php //echo $this->escapeHtml(dataInicio); ?></td>
                     <td><?php //echo $this->escapeHtml(dataTermino); ?></td>-->
                     <?php if ($aniversariantes):?>
-                    <td><?php echo (null != $colaborador->getDataNascimento()) ? $this->escapeHtml($colaborador->getDataNascimento()->format("d/m/Y")) : "";?></td>
+                        <td><?php echo (null != $colaborador->getDataNascimento()) ? $this->escapeHtml($colaborador->getDataNascimento()->format("d/m/Y")) : "";?></td>
+                    <?php endif;
+                    if ($vigencia):?>
+                        <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataInicio()) ? $vinculo->getDataInicio()->format("d/m/Y") : "-";?></td>
+                        <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataTermino()) ? $vinculo->getDataTermino()->format("d/m/Y") : "-";?></td>
                     <?php endif;?>
+                        
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                        
                 </tr>
             <?php endforeach; ?>
     </table>

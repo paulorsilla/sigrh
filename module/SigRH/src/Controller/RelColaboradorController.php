@@ -38,8 +38,6 @@ class RelColaboradorController extends AbstractActionController {
             "combo_estadoCivil" => $this->params()->fromQuery("combo_estadoCivil"),
             "combo_grauInstrucao" => $this->params()->fromQuery("combo_grauInstrucao"),
             "necessidadeEspecial" => $this->params()->fromQuery("necessidadeEspecial"),
-            "inicioVigencia" => $this->params()->fromQuery("inicioVigencia"),
-            "terminoVigencia" => $this->params()->fromQuery("terminoVigencia"),
             "obrigatorio" => $this->params()->fromQuery("obrigatorio"),
             "nivel" => $this->params()->fromQuery("nivel"),
             "instituicaoFomento" => $this->params()->fromQuery("instituicaoFomento"),
@@ -47,7 +45,11 @@ class RelColaboradorController extends AbstractActionController {
             "ativo" => $this->params()->fromQuery("ativo"),
             "aniversariantesMes" => $this->params()->fromQuery("aniversariantesMes"),
             "tipoVinculo" => $this->params()->fromQuery("tipoVinculo"),
-            "orientador" => $this->params()->fromQuery("orientador")
+            "orientador" => $this->params()->fromQuery("orientador"),
+            "inicioVigenciaIni" => $this->params()->fromQuery("inicioVigenciaIni"),
+            "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
+            "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
+            "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -113,8 +115,6 @@ class RelColaboradorController extends AbstractActionController {
             "combo_estadoCivil" => $this->params()->fromQuery("combo_estadoCivil"),
             "combo_grauInstrucao" => $this->params()->fromQuery("combo_grauInstrucao"),
             "necessidadeEspecial" => $this->params()->fromQuery("necessidadeEspecial"),
-            "inicioVigencia" => $this->params()->fromQuery("inicioVigencia"),
-            "terminoVigencia" => $this->params()->fromQuery("terminoVigencia"),
             "obrigatorio" => $this->params()->fromQuery("obrigatorio"),
             "nivel" => $this->params()->fromQuery("nivel"),
             "instituicaoFomento" => $this->params()->fromQuery("instituicaoFomento"),
@@ -122,7 +122,12 @@ class RelColaboradorController extends AbstractActionController {
             "ativo" => $this->params()->fromQuery("ativo"),
             "aniversariantesMes" => $this->params()->fromQuery("aniversariantesMes"),
             "tipoVinculo" => $this->params()->fromQuery("tipoVinculo"),
-            "orientador" => $this->params()->fromQuery("orientador")
+            "orientador" => $this->params()->fromQuery("orientador"),
+            "inicioVigenciaIni" => $this->params()->fromQuery("inicioVigenciaIni"),
+            "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
+            "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
+            "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
+
         ];
         
         //meses do ano
@@ -149,6 +154,26 @@ class RelColaboradorController extends AbstractActionController {
         if (!empty($search['tipoVinculo'])) {
             $tipoVinculo = $this->entityManager->find(\SigRH\Entity\TipoVinculo::class, $search['tipoVinculo']);
         }
+        
+        $inicioVigenciaIni = NULL;
+        if (!empty($search['inicioVigenciaIni'])) {
+            $inicioVigenciaIni = \DateTime::createFromFormat("Y-m-d", $search['inicioVigenciaIni']);
+        }
+        
+        $inicioVigenciaFim = NULL;
+        if (!empty($search['inicioVigenciaFim'])) {
+            $inicioVigenciaFim = \DateTime::createFromFormat("Y-m-d", $search['inicioVigenciaFim']);
+        }        
+        
+        $terminoVigenciaIni = NULL;
+        if (!empty($search['terminoVigenciaIni'])) {
+            $terminoVigenciaIni = \DateTime::createFromFormat("Y-m-d", $search['terminoVigenciaIni']);
+        }
+        
+        $terminoVigenciaFim = NULL;
+        if (!empty($search['terminoVigenciaFim'])) {
+            $terminoVigenciaFim = \DateTime::createFromFormat("Y-m-d", $search['terminoVigenciaFim']);
+        }
 
         /*
           // Selecionar os movimentos dessa data
@@ -174,7 +199,11 @@ class RelColaboradorController extends AbstractActionController {
                              "instituicaoFomento"   => $instituicaoFomento,
                              "aniversariantesMes"   => $aniversariantesMes,
                              "tipoVinculo"          => $tipoVinculo,
-                             "orientador"           => $orientador
+                             "orientador"           => $orientador,
+                             "inicioVigenciaIni"    => $inicioVigenciaIni,
+                             "inicioVigenciaFim"    => $inicioVigenciaFim,
+                             "terminoVigenciaIni"   => $terminoVigenciaIni,
+                             "terminoVigenciaFim"   => $terminoVigenciaFim,
                 ]);
         return $view;
 //}
