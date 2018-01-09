@@ -4,7 +4,7 @@
         <button class="btn btn-secondary" onclick="print()" type="submit"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
         <?php 
         $aniversariantes = False;
-        $vigencia = False;
+        $vigencia = True;
         if (!empty($this->tipoVinculo)):?>
             <h4>Tipo de vínculo: <?php echo $this->escapeHtml($this->tipoVinculo->getDescricao());?></h4>
         <?php endif;
@@ -12,7 +12,8 @@
             <h4>Instituição de fomento: <?php echo $this->escapeHtml($this->instituicaoFomento->getDesRazaoSocial());?></h4>
         <?php endif;
         if (!empty($this->aniversariantesMes)):
-            $aniversariantes = True;?>
+            $aniversariantes = True;
+            $vigencia = False;?>
             <h4>Aniversariantes do mês de <?php echo $this->aniversariantesMes;?></h4>
         <?php endif;
         if (!empty($this->orientador)):
