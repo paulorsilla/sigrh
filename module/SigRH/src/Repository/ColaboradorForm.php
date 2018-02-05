@@ -815,7 +815,7 @@ class ColaboradorForm extends Form {
         ////////////////////////////pk//////////////////////////////////////////
         $inputFilter->add([
             'name' => 'matricula',
-            'required' => false,
+            'required' => true,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -960,18 +960,6 @@ class ColaboradorForm extends Form {
         //data_desligamento
         $inputFilter->add([
             'name' => 'dataDesligamento',
-            'required' => false,
-        ]);
-        
-        //data_admissao
-        $inputFilter->add([
-            'name' => 'dataAdmissao',
-            'required' => false,
-        ]);
-        
-        //supervisor
-        $inputFilter->add([
-            'name' => 'supervisor',
             'required' => false,
         ]);
         

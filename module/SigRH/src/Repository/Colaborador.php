@@ -26,6 +26,7 @@ class Colaborador extends AbstractRepository {
         if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
             unset($search['tipoColaborador']);
             $qb->andWhere('c.tipoColaborador = 2');
+            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen
             $qb->orWhere('c.tipoColaborador = 4');
             $qb->orWhere('c.tipoColaborador = 5');
             $qb->orWhere('c.tipoColaborador = 6');
@@ -81,6 +82,7 @@ class Colaborador extends AbstractRepository {
         
         //busca da tabela vinculo...
         $joinVinculo = false;
+        
         
         if ( !empty($search["inicioVigencia"]) ) {
             $joinVinculo = true;
@@ -144,6 +146,19 @@ class Colaborador extends AbstractRepository {
              $qb->andWhere('v.obrigatorio = :obrigatorio');
              $qb->setParameter("obrigatorio",$search["obrigatorio"]);
         }
+        
+        if (isset($search['ativo'])) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            
+            switch($search['ativo']) {
+                case 'S': $qb->andWhere('v.dataDesligamento is NULL'); break;
+                case 'N': $qb->andWhere('v.dataDesligamento is NOT NULL');
+            }
+        }
+        
 
         if ( !empty($search["tipoVinculo"]) ){
             if (!$joinVinculo) {
@@ -193,7 +208,17 @@ class Colaborador extends AbstractRepository {
             $qb->setParameter("orientador", $search["orientador"]);
         }
         
-//        echo "SQL: ".$qb->getQuery()->getSQL();
+        if ( !empty($search['subLotacao'])) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere('v.sublotacao = :sublotacao');
+            $qb->setParameter("sublotacao", $search["subLotacao"]);
+        }
+        
+        
+        //echo "SQL: ".$qb->getQuery()->getSQL();
         
 //        die();
           
@@ -270,6 +295,16 @@ class Colaborador extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
+    public function getLastMatriculaEstagio(){
+        $query = $this->createQueryBuilder('c');
+        $query->select('MAX(c.matricula) AS last_matricula');
+        $query->where("c.matricula like '5_____' ");
+        $row = $query->getQuery()->getOneOrNullResult();
+        if ( empty($row) || $row['last_matricula'] < 500000)
+            return 500000;
+        else
+            return $row['last_matricula'];        
+    }
     public function incluir_ou_editar($dados,$id = null){
         
         $row = null;
@@ -278,6 +313,9 @@ class Colaborador extends AbstractRepository {
         }    
         if ( empty($row)) {
             $row = new ColaboradorEntity();
+            if ( $dados['tipoColaborador'] != 1 ){
+                $dados['matricula'] = $this->getLastMatriculaEstagio()+1;
+            }
         }
         
         //tipoColaborador...
@@ -303,7 +341,9 @@ class Colaborador extends AbstractRepository {
         $endereco->setComplemento($dados['complemento']);
         unset($dados['complemento']);
         
-        $endereco->setNumero($dados['numero']);
+        if ( !empty($dados['numero']))
+            $endereco->setNumero($dados['numero']);
+        
         unset($dados['numero']);
         
         $endereco->setBairro($dados['bairro']);

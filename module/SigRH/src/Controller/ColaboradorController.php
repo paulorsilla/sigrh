@@ -45,12 +45,7 @@ class ColaboradorController extends AbstractActionController
                 $search = $this->params()->fromQuery();
 
                 $search['tipoColaborador'] = 2;
-//                $search['ativo'] = 'S';
                 
-//                $query = $this->params()->fromQuery("nome");
-//                if ($query != "") {
-//                    $search['query'] = $query;
-//                }
                 $paginator = $repo->getPaginator($page, $search);
 		return new ViewModel([
 				'colaboradores' => $paginator,
@@ -68,9 +63,13 @@ class ColaboradorController extends AbstractActionController
                 $id = $this->params()->fromRoute('id', null);
                 $page = $this->params()->fromRoute('page', null);
                 $ativo = $this->params()->fromRoute('ativo');
-		
+		$mensagens = array();
+                
                 //Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
+                if ( !empty($id) || $this->params()->fromPost('tipoColaborador') == 1 ){
+                    $form->getInputFilter()->get("matricula")->setRequired(true);
+                }
                 $colaborador = new Colaborador();
                 if ( !empty($id)){
                     $repo = $this->entityManager->getRepository(Colaborador::class);
@@ -89,7 +88,9 @@ class ColaboradorController extends AbstractActionController
                                 $repo = $this->entityManager->getRepository(Colaborador::class);
                                 $repo->incluir_ou_editar($data, $id);
 				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'index']);
-			}
+			} else {
+                            $mensagens = $form->getMessages();
+                        }
 		} else {
                     if ( !empty($id)){
                         
@@ -129,6 +130,7 @@ class ColaboradorController extends AbstractActionController
 				'form' => $form,
                                 'page' => $page,
                                 'ativo' => $ativo,
+                                'mensagens' => $mensagens,
                                 'colaborador' => $colaborador
 		]);
 	}

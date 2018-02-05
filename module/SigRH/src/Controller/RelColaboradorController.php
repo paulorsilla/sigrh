@@ -50,6 +50,7 @@ class RelColaboradorController extends AbstractActionController {
             "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
             "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
             "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
+            "subLotacao" => $this->params()->fromQuery("subLotacao"),
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -90,6 +91,10 @@ class RelColaboradorController extends AbstractActionController {
         $array_meses = ["01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho",
                         "07" => "Julho", "08" => "Agosto", "09" => "Setembro", "10" => "Outubro", "11" => "Novembro", "12" => "Dezembro"];
         
+        //sublotacao...
+        $repo_subLotacao = $this->entityManager->getRepository(\SigRH\Entity\Sublotacao::class);
+        $array_subLotacao = $repo_subLotacao->getListParaCombo();
+        
         $view = new \Zend\View\Model\ViewModel();
         $view->setVariable("colaboradores", $repo->getPaginator());
         $view->setVariable("array_grupoSanguineo", $array_grupoSanguineo);
@@ -101,6 +106,7 @@ class RelColaboradorController extends AbstractActionController {
         $view->setVariable("array_meses", $array_meses);
         $view->setVariable("array_tipo_vinculo", $array_tipo_vinculo);
         $view->setVariable("array_orientador", $array_orientador);
+        $view->setVariable("array_subLotacao", $array_subLotacao);
 
         return $view;
     }
@@ -127,15 +133,16 @@ class RelColaboradorController extends AbstractActionController {
             "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
             "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
             "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
+            "subLotacao" => $this->params()->fromQuery("subLotacao"),
 
         ];
-        
+        //\Zend\Debug\Debug::dump($search );
         //meses do ano
         $array_meses = ["01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho",
                         "07" => "Julho", "08" => "Agosto", "09" => "Setembro", "10" => "Outubro", "11" => "Novembro", "12" => "Dezembro"];
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
         $colaboradores = $repo->getQuery($search)->getResult();
-        
+        //\Doctrine\Common\Util\Debug::dump($colaboradores);
         $orientador = NULL;
         if (!empty($search['orientador'])) {
             $orientador = $repo->findOneByMatricula($search['orientador']);
@@ -175,21 +182,10 @@ class RelColaboradorController extends AbstractActionController {
             $terminoVigenciaFim = \DateTime::createFromFormat("Y-m-d", $search['terminoVigenciaFim']);
         }
 
-        /*
-          // Selecionar os movimentos dessa data
-          $repo = $this->getEntityManager()->getRepository('Rastrea\Model\Movimentacao');
-
-          //                $array_restringe = null;
-
-          //                $cli = $this->params()->fromPost("combo_clientes");
-          //                $func = $this->params()->fromPost("combo_func");
-
-          //               $movimentos = $repo->getMovimentosPorData($data_ini,$data_fim, $ativ,$array_restringe,$cli,$func,$outros,$historico);
-          //                $movimentos = $repo->getMovimentosPorData($data_ini,$data_fim); //incluir no repositorio se busca por atividade inclui ak a var
-
-          $movimentos = $repo->getQuery($search)->getQuery()->getResult();
-          //\Doctrine\Common\Util\Debug::dump($movimentos);
-         */
+        $subLotacao = NULL;
+        if (!empty($search['subLotacao'])) {
+            $subLotacao = $this->entityManager->find(\SigRH\Entity\SubLotacao::class, $search['subLotacao']);
+        }
 
         $this->layout()
                 ->setTemplate("layout/impressao")
@@ -204,6 +200,7 @@ class RelColaboradorController extends AbstractActionController {
                              "inicioVigenciaFim"    => $inicioVigenciaFim,
                              "terminoVigenciaIni"   => $terminoVigenciaIni,
                              "terminoVigenciaFim"   => $terminoVigenciaFim,
+                             "subLotacao"   => $subLotacao,
                 ]);
         return $view;
 //}

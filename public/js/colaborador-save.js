@@ -110,6 +110,14 @@
         $('#VinculoModal').modal('show');
     }
     
+    function clonarVinculo(id,matricula){
+        url = "/sig-rh/vinculo/save-modal?clonar="+id+"&matricula="+matricula;
+        $('#VinculoModal .modal-body').html('carregando...');
+        $('#VinculoModal .modal-body').attr('url',url);
+        $('#VinculoModal .modal-body').load(url);
+        $('#VinculoModal').modal('show');
+    }
+    
     function refreshGridEstagio(matricula){
         url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
         $('#gridEstagio').html('carregando...');

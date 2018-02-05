@@ -65,6 +65,7 @@
         </thead>
         <tbody>
             <?php foreach ($colaboradores as $colaborador):
+                
                 $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last() : NULL;
             ?>            
                 <tr>

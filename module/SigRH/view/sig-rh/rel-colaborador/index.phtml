@@ -181,6 +181,19 @@
                      <?php } ?>
                    </select>                      
         </div>
+    
+        <div class="col-sm-3 form-group" >
+                     <label for="subLotacao">Sub lotação: </label>
+                                    <select name="subLotacao" id="subLotacao" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_subLotacao as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( (!empty($search["subLotacao"]))  && ( $row["id"] == $search["subLotacao"])){ echo "selected";}?>
+                                                ><?php echo $row["descricao"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+
     </div>
 
     <div class="row">

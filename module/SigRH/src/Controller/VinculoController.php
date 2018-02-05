@@ -91,7 +91,12 @@ class VinculoController extends AbstractActionController
 				return $modelJson->setVariable('success',1);
 			}
 		} else {
-                    if ( !empty($id)){
+                    $clonar = false;
+                    if ( empty($id) ){
+                        $id = $this->params()->fromQuery("clonar"); // carregar o formulario com o id passado no clonar
+                        $clonar = true;
+                    }
+                    if ( !empty($id) ){
                         $repo = $this->entityManager->getRepository(Vinculo::class);
                         $row = $repo->find($id);
                         
@@ -127,6 +132,10 @@ class VinculoController extends AbstractActionController
                             }
                             $form->get("orientador")->setValue($row->orientador->matricula);
                             $form->get("tipoVinculo")->setValue($row->tipoVinculo->id);
+                            
+                            if ( $clonar ){ // limpar alguns campos apos a clonagem
+                                $form->get("dataInicio")->setValue("");
+                            }
                         }
                         
                     }else {
