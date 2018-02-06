@@ -32,11 +32,15 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->colaboradores as $colaborador): ?>
+            <?php foreach ($this->colaboradores as $colaborador): 
+                
+                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last() : NULL;
+            
+                ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->getMatricula()); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->getNome()); ?></td>
-                    <td><?php echo $this->escapeHtml($colaborador->getTipoColaborador()->getDescricao()); ?>
+                    <td><?php echo $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()); ?>
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => $this->ativo, 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
