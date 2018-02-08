@@ -103,6 +103,7 @@ class Auth extends Service
 	*/
 	public function authorize($moduleName, $controllerName, $actionName)
 	{
+            die('TEST');
 		$auth = new AuthenticationService();
 		$role = 'convidado';
 		if ($auth->hasIdentity()) {

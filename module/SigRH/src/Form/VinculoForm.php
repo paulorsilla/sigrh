@@ -531,146 +531,12 @@ class VinculoForm extends Form {
     private function addInputFilter() {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
-
-        $inputFilter->add([
-            'name' => 'inicio',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 100
-                    ],
-                ],
-            ],
-        ]);
         
          $inputFilter->add([
-            'name' => 'previsaoConclusao',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-         
-         $inputFilter->add([
-            'name' => 'dataDesligamento',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-
-         $inputFilter->add([
-            'name' => 'nivel',
+            'name' => 'tipoVinculo',
             'required' => true,
         ]);
-       
-         $inputFilter->add([
-            'name' => 'curso',
-            'required' => false,
-        ]);
-         
-         $inputFilter->add([
-            'name' => 'instituicaoEnsino',
-            'required' => false,
-        ]);
-
-         $inputFilter->add([
-            'name' => 'instituicaoFomento',
-            'required' => false,
-        ]);
-         
-         $inputFilter->add([
-            'name' => 'dataInicioEfetivo',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-   
-         $inputFilter->add([
-            'name' => 'fonteSeguro',
-            'required' => false,
-        ]);
-         
-         $inputFilter->add([
-            'name' => 'seguroApolice',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-
-         $inputFilter->add([
-            'name' => 'seguroSeguradora',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 200
-                    ],
-                ],
-            ],
-        ]);
-         
+        
         $inputFilter->add([
             'name' => 'tipoContrato',
             'required' => false,
@@ -691,8 +557,111 @@ class VinculoForm extends Form {
         ]);
         
         $inputFilter->add([
+            'name' => 'tipoAditivo',
+            'required' => false,
+        ]);
+        
+         $inputFilter->add([
+            'name' => 'dataInicioEfetivo',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+
+         $inputFilter->add([
+            'name' => 'dataDesligamento',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'nivel',
+            'required' => false,
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'curso',
+            'required' => false,
+        ]);
+         
+         
+         $inputFilter->add([
+            'name' => 'fonteSeguro',
+            'required' => false,
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'planoAcao',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
             'name' => 'obrigatorio',
-            'required' => true,
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         
+         $inputFilter->add([
+            'name' => 'instituicaoFomento',
+            'required' => false,
+        ]);
+
+         $inputFilter->add([
+            'name' => 'sublotacao',
+            'required' => false,
         ]);
         
         $inputFilter->add([
@@ -704,6 +673,214 @@ class VinculoForm extends Form {
             'name' => 'atividade',
             'required' => false,
         ]);
+
+         $inputFilter->add([
+            'name' => 'instituicaoEnsino',
+            'required' => false,
+        ]);
+         
+         
+         $inputFilter->add([
+            'name' => 'modalidadeBolsa',
+            'required' => false,
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'orientador',
+            'required' => false,
+        ]);
+        
+         
+        
+        $inputFilter->add([
+            'name' => 'inicio',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 100
+                    ],
+                ],
+            ],
+        ]);
+
+         
+         $inputFilter->add([
+            'name' => 'seguroApolice',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'seguroSeguradora',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+        
+         $inputFilter->add([
+            'name' => 'previsaoConclusao',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         
+         
+         $inputFilter->add([
+            'name' => 'dataInicio',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'dataTermino',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'chSemanal',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'horarioFlexivel',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         
+         $inputFilter->add([
+            'name' => 'processo',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 200
+                    ],
+                ],
+            ],
+        ]);
+         
+         $inputFilter->add([
+            'name' => 'valorBolsa',
+            'required' => false,
+        ]);
+         
+
+        
+        $inputFilter->add([
+            'name' => 'aditivo',
+            'required' => false,
+        ]);
+        
+        
+        
         
     }
 }

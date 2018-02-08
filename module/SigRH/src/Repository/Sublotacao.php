@@ -32,7 +32,14 @@ class Sublotacao extends AbstractRepository {
     public function getListParaCombo() {
         
         $array = array();
-        $list = $this->findAll();
+        //$list = $this->findAll();
+        // Trocamos o findall por findby para passar o segundo parametro referente a ordenação
+        //$list = $this->findBy(array(),array('descricao'=>'ASC'));
+        
+        // Usando a Query
+        $list = $this->getQuery()->getResult();
+        
+        
         foreach($list  as $row){
             $array[] = array("id"=>$row->id,"descricao"=>$row->descricao);
         }
