@@ -95,7 +95,7 @@ class Vinculo extends AbstractEntity {
     protected $planoAcao; 
     
      /**
-     * @ORM\Column(name="aditivo", type="string")
+     * @ORM\Column(name="aditivo", type="integer")
      */
     protected $aditivo; 
     
@@ -135,7 +135,7 @@ class Vinculo extends AbstractEntity {
     protected $dataDesligamento; 
     
      /**
-     * @ORM\Column(name="ch_semanal", type="string")
+     * @ORM\Column(name="ch_semanal", type="integer")
      */
     protected $chSemanal; 
     
@@ -225,7 +225,7 @@ class Vinculo extends AbstractEntity {
     public function getAtividade() {
         return $this->atividade;
     }
-
+    
     public function getPlanoAcao() {
         return $this->planoAcao;
     }
@@ -343,20 +343,31 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setAtividade($atividade) {
+    if ( empty($atividade) )
+        $this->atividade = null;
+    else
         $this->atividade = $atividade;
     }
+    
 
     public function setPlanoAcao($planoAcao) {
         $this->planoAcao = $planoAcao;
     }
 
     public function setAditivo($aditivo) {
-        $this->aditivo = $aditivo;
+        if ( empty($aditivo) )
+            $this->aditivo = null;
+        else
+            $this->aditivo = $aditivo;
     }
 
     public function setTipoAditivo($tipoAditivo) {
+    if ( empty($tipoAditivo) )
+        $this->tipoAditivo = null;
+    else
         $this->tipoAditivo = $tipoAditivo;
     }
+    
 
     public function setInicio($inicio) {
         $this->inicio = $inicio;
@@ -382,8 +393,11 @@ class Vinculo extends AbstractEntity {
         $this->dataDesligamento = $dataDesligamento;
     }
 
-    public function setChSemanal($chSemanal) {
-        $this->chSemanal = $chSemanal;
+    public function setChSemanal($chSemanal) { // TODA VEZ QUE O CAMPO FOR INTEGER, VALIDAR SE O CONTEUDO FOR '' E CONVERTE-LO PARA NULL
+        if ( empty($chSemanal) ) 
+            $this->chSemanal = null;
+        else
+            $this->chSemanal = $chSemanal;
     }
 
     public function setHorarioFlexivel($horarioFlexivel) {
@@ -395,8 +409,12 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setValorBolsa($valorBolsa) {
+    if ( empty($valorBolsa) )
+        $this->valorBolsa = null;
+    else
         $this->valorBolsa = $valorBolsa;
     }
+    
 
     public function setSeguroApolice($seguroApolice) {
         $this->seguroApolice = $seguroApolice;
@@ -411,7 +429,11 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setObrigatorio($obrigatorio) {
-        $this->obrigatorio = $obrigatorio;
+    if ( empty($obrigatorio) )
+        $this->obrigatorio = null;
+    else
+        $this->obrigatorio = obrigatorio;
     }
+    
 
 }

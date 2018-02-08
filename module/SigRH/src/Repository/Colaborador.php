@@ -26,7 +26,7 @@ class Colaborador extends AbstractRepository {
         if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
             unset($search['tipoColaborador']);
             $qb->andWhere('c.tipoColaborador = 2');
-            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen
+            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen em 02/02/2018...
             $qb->orWhere('c.tipoColaborador = 4');
             $qb->orWhere('c.tipoColaborador = 5');
             $qb->orWhere('c.tipoColaborador = 6');
@@ -51,13 +51,6 @@ class Colaborador extends AbstractRepository {
         if ( !empty($search["sexo"]) ){
              $qb->andWhere('c.sexo in ( :sexo )');
              $qb->setParameter("sexo", $search["sexo"]);
-        }
-        
-        if (isset($search['ativo'])) {
-            switch($search['ativo']) {
-                case 'S': $qb->andWhere('c.dataDesligamento is NULL'); break;
-                case 'N': $qb->andWhere('c.dataDesligamento is NOT NULL');
-            }
         }
         
         if ( !empty($search["combo_grupoSanguineo"]) ){
@@ -99,7 +92,7 @@ class Colaborador extends AbstractRepository {
                 $joinVinculo = true;
             }
             $qb->andWhere("v.dataInicio >= :dataInicioIni")
-                ->orderBy("v.dataInicio")
+//                ->orderBy("v.dataInicio")
                 ->setParameter("dataInicioIni", $dataInicioIni->format("Ymd"));
         }
                 
@@ -120,7 +113,7 @@ class Colaborador extends AbstractRepository {
                 $joinVinculo = true;
             }
             $qb->andWhere("v.dataTermino >= :dataTerminoIni")
-                ->orderBy("v.dataTermino")
+//                ->orderBy("v.dataTermino")
                 ->setParameter("dataTerminoIni", $dataTerminoIni->format("Ymd"));
         }
                 
@@ -222,22 +215,6 @@ class Colaborador extends AbstractRepository {
         
 //        die();
           
-//        foreach($search as $key => $value) {
-//            $qb->andWhere('c.'.$key.' = :'.$key);
-//            $qb->setParameter($key, $value);
-//        }
-        
-//        if ($combo) {
-//            return $qb->getQuery()->getResult();
-//        } else {
-//            return $qb->getQuery();
-//        }
-//        if ( !empty($search)){
-//            $qb->where('c.tipoColaborador = :busca');
-//            $qb->setParameter("busca", $search['tipoColaborador']);
-//        }
-//       return $qb;
-        
         if (!empty($search['combo'])) {
             if ($search['combo'] == 1) {
                 $array = [];

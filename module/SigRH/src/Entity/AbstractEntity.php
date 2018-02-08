@@ -24,8 +24,11 @@ abstract class AbstractEntity
      */
     public function __set($key, $value) 
     {
-               
-        $this->$key = $value;
+        $setter = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+        if (method_exists($this, $setter ))
+            $this->$setter($value);	   
+        else		   
+            $this->$key = $value;
     }
 
     /**

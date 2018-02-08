@@ -73,6 +73,7 @@ class Module
 	*/
 	public function mvcPreDispatch($event)
 	{
+            die('TEST2');
 		$di = $event->getTarget()->getServiceLocator();
 		$routeMatch = $event->getRouteMatch();
 		$moduleName = $routeMatch->getParam('module');

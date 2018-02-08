@@ -49,17 +49,19 @@
             <tr>
                 <th>Nome</th>
                 <th>Matrícula</th>
+                <th>Sub lotação</th>
                 <th>Grau de instrução</th>
                 <th>Obrigatório</th>
-<!--                <th>Data início </th>
-                <th>Data fim</th>-->
                 <?php if ($aniversariantes):?>
                     <th>Data de nascimento</th>
+                    
                 <?php endif;?>
                 <?php if ($vigencia):?>
                     <th>Início vigência</th>
                     <th>Término vigência</th>
                 <?php endif;?>
+                    
+                    
                 <th>Editar</th>
             </tr>
         </thead>
@@ -71,10 +73,9 @@
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->matricula); ?></td>
+                    <td><?php echo $this->escapeHtml($vinculo->getSublotacao()->descricao); ?></td>
                     <td><?php echo (null != $colaborador->getGrauInstrucao())? $this->escapeHtml($colaborador->getGrauInstrucao()->getDescricao()) : "";?></td>
                     <td><?php echo ($vinculo != NULL) ? $vinculo->getObrigatorio() ? "Sim" : "Não" : "-"; ?></td>
-<!--                    <td><?php //echo $this->escapeHtml(dataInicio); ?></td>
-                    <td><?php //echo $this->escapeHtml(dataTermino); ?></td>-->
                     <?php if ($aniversariantes):?>
                         <td><?php echo (null != $colaborador->getDataNascimento()) ? $this->escapeHtml($colaborador->getDataNascimento()->format("d/m/Y")) : "";?></td>
                     <?php endif;
