@@ -53,6 +53,13 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("sexo", $search["sexo"]);
         }
         
+//        if (isset($search['ativo'])) {
+//            switch($search['ativo']) {
+//                case 'S': $qb->andWhere('c.dataDesligamento is NULL'); break;
+//                case 'N': $qb->andWhere('c.dataDesligamento is NOT NULL');
+//            }
+//        }
+        
         if ( !empty($search["combo_grupoSanguineo"]) ){
              $qb->andWhere('c.grupoSanguineo in ( :combo_grupoSanguineo )');
             $qb->setParameter("combo_grupoSanguineo",$search["combo_grupoSanguineo"]);
@@ -232,24 +239,23 @@ class Colaborador extends AbstractRepository {
         
         }
     
-    public function getEstagiarios($graduacao = false)
+    public function getEstagiarios($graduacao = false, $foraEmbrapaSoja = false)
     {
-//        $dataAtual = Date("Y-m-d");
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
-                ->join('c.estagios', 'e')
-                ->join('e.termos', 't')
+                ->join('c.vinculos', 'v')
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->andWhere('c.tipoColaborador = 2')
-                ->andWhere('c.dataDesligamento is NULL')
-//                ->andWhere('t.dataTermino < :dataAtual')
+                ->andWhere('v.dataDesligamento is NULL')
                 ->setParameter('empty', ' ');
-//                ->setParameter('dataAtual', $dataAtual);
         if($graduacao) {
-            $qb->andWhere('e.nivel = 3'); //graduacao
+            $qb->andWhere('v.nivel = 3'); //graduacao
+        }
+        if(!$foraEmbrapaSoja) {
+            $qb->andWhere('v.localizacao != 122');
         }
        return $qb->getQuery()->getResult();
     }

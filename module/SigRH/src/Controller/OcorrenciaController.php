@@ -71,14 +71,34 @@ class OcorrenciaController extends AbstractActionController {
                     $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
                     if ($batidaPonto && $escala) {
                         foreach ($batidaPonto->getHorarios() as $k => $horario) {
-
+                            
                             $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
                             $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
 
-                            if ( (int) $intervaloE1->format("%R%H%I") < (int) $intervaloS1->format("%R%H%I")) {
-                                error_log("Entrada 1");
+                            $intervaloMinutosE1 = $intervaloE1->days * 24 * 60;
+                            $intervaloMinutosE1 += $intervaloE1->h * 60;
+                            $intervaloMinutosE1 += $intervaloE1->i;
+
+
+                            $intervaloMinutosS1 = $intervaloS1->days * 24 * 60;
+                            $intervaloMinutosS1 += $intervaloS1->h * 60;
+                            $intervaloMinutosS1 += $intervaloS1->i;
+                            
+                            
+//                            error_log("E1 --> ".$intervaloE1->format("%R%H%I"));
+//                            error_log("S1 --> ".$intervaloS1->format("%R%H%I"));
+
+                            if ( $intervaloMinutosE1 < $intervaloMinutosS1) {
+                                error_log("Entrada 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getEntrada1()->format("H:i"). " Diferenca: ".$intervaloMinutosE1);
+//                                if ((int) $intervaloE1->format("%R%H%I") < -5 ) {
+//                                    error_log("Adiantamento fora da tolerancia");
+//                                }
+//                                else if ((int) $intervaloE1->format("%R%H%I") > 5 ) {
+//                                    error_log("Atraso fora da tolerancia");
+//                                }
+                                
                             } else {
-                                error_log("Saida 1");
+                                error_log("Saida 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getSaida1()->format("H:i"). "Diferenca: ".$intervaloMinutosS1);
                             }
                         }
                     } else if ($escala != null && $batidaPonto == null) {
