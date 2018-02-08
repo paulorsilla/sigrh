@@ -71,25 +71,35 @@ class OcorrenciaController extends AbstractActionController {
                     $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
                     if ($batidaPonto && $escala) {
                         foreach ($batidaPonto->getHorarios() as $k => $horario) {
-                            
                             $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
                             $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
-
-                            $intervaloMinutosE1 = $intervaloE1->days * 24 * 60;
-                            $intervaloMinutosE1 += $intervaloE1->h * 60;
-                            $intervaloMinutosE1 += $intervaloE1->i;
-
-
-                            $intervaloMinutosS1 = $intervaloS1->days * 24 * 60;
-                            $intervaloMinutosS1 += $intervaloS1->h * 60;
-                            $intervaloMinutosS1 += $intervaloS1->i;
                             
+                            $intervaloMinutosE1 = ($intervaloE1->h * 60) + $intervaloE1->i;
+                            $intervaloMinutosS1 = ($intervaloS1->h * 60) + $intervaloS1->i;
                             
-//                            error_log("E1 --> ".$intervaloE1->format("%R%H%I"));
-//                            error_log("S1 --> ".$intervaloS1->format("%R%H%I"));
+                            $intervaloE2 = null;
+                            $intervaloS2 = null;
 
+                            
+                            if(null != $escala->getEntrada2()) {
+                                $intervaloE2 = $escala->getEntrada2()->diff($horario->getHoraBatida());
+                                $intervaloS2 = $escala->getSaida2()->diff($horario->getHoraBatida());
+                                $intervaloMinutosE2 = ($intervaloE2->h * 60) + $intervaloE2->i;
+                                $intervaloMinutosS2 = ($intervaloS2->h * 60) + $intervaloS2->i;
+
+                            }
+                            
                             if ( $intervaloMinutosE1 < $intervaloMinutosS1) {
-                                error_log("Entrada 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getEntrada1()->format("H:i"). " Diferenca: ".$intervaloMinutosE1);
+                                error_log("Entrada 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getEntrada1()->format("H:i"));
+                                
+                                if ($intervaloMinutosE1 > 5) {
+                                    if ($intervaloE1->format("%R") == "-") {
+                                        error_log("Entrada antecipada fora da tolerancia");
+                                    } else {
+                                        error_log("Entrada com atraso fora da tolerancia");
+                                    }
+                                }
+
 //                                if ((int) $intervaloE1->format("%R%H%I") < -5 ) {
 //                                    error_log("Adiantamento fora da tolerancia");
 //                                }
@@ -98,7 +108,15 @@ class OcorrenciaController extends AbstractActionController {
 //                                }
                                 
                             } else {
-                                error_log("Saida 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getSaida1()->format("H:i"). "Diferenca: ".$intervaloMinutosS1);
+                                error_log("Saida 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getSaida1()->format("H:i"));
+                                
+                                if ($intervaloMinutosS1 > 5) {
+                                    if ($intervaloS1->format("%R") == "-") {
+                                        error_log("Saida antecipada fora da tolerancia");
+                                    } else {
+                                        error_log("Saida atrasada fora da tolerancia");
+                                    }
+                                }
                             }
                         }
                     } else if ($escala != null && $batidaPonto == null) {

@@ -11,11 +11,7 @@ class Colaborador extends AbstractRepository {
         $emConfig = $this->getEntityManager()->getConfiguration();
         $emConfig->addCustomDatetimeFunction("MONTH", \DoctrineExtensions\Query\Mysql\Month::class);
         $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
-//        $combo = false;
-//        if ( (isset($search['combo'])) && ($search['combo'] == 1)) {
-//            $combo = true;
-//            unset($search['combo']);
-//        }
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
@@ -83,7 +79,6 @@ class Colaborador extends AbstractRepository {
         //busca da tabela vinculo...
         $joinVinculo = false;
         
-        
         if ( !empty($search["inicioVigencia"]) ) {
             $joinVinculo = true;
             $dataInicio = \DateTime::createFromFormat("Y-m-d", $search["inicioVigencia"]);
@@ -91,7 +86,7 @@ class Colaborador extends AbstractRepository {
                 ->andWhere("v.dataInicio >= :dataInicio")
                 ->setParameter("dataInicio", $dataInicio->format("Ymd"));
         }
-
+        
         if ( !empty($search["inicioVigenciaIni"]) ) {
             $dataInicioIni = \DateTime::createFromFormat("Y-m-d", $search["inicioVigenciaIni"]);
             if (!$joinVinculo) {
@@ -147,18 +142,16 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("obrigatorio",$search["obrigatorio"]);
         }
         
-        if (isset($search['ativo'])) {
+        if ( (isset($search['ativo'])) && ($search['ativo'] != "T")) {
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');
                 $joinVinculo = true;
             }
-            
             switch($search['ativo']) {
                 case 'S': $qb->andWhere('v.dataDesligamento is NULL'); break;
                 case 'N': $qb->andWhere('v.dataDesligamento is NOT NULL');
             }
         }
-        
 
         if ( !empty($search["tipoVinculo"]) ){
             if (!$joinVinculo) {
@@ -193,7 +186,6 @@ class Colaborador extends AbstractRepository {
                 $qb->join('c.vinculos', 'v');
 //                $qb->join('v.instituicaoFomento', 'i');
                 $joinVinculo = true;
-                
             }
              $qb->andWhere('v.instituicaoFomento = :instituicaoFomento');
              $qb->setParameter("instituicaoFomento", $search["instituicaoFomento"]);
@@ -218,9 +210,9 @@ class Colaborador extends AbstractRepository {
         }
         
         
-        //echo "SQL: ".$qb->getQuery()->getSQL();
+//        echo "SQL: ".$qb->getQuery()->getSQL();
         
-//        die();
+       // die();
           
 //        foreach($search as $key => $value) {
 //            $qb->andWhere('c.'.$key.' = :'.$key);
