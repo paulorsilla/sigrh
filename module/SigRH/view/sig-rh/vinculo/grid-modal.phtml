@@ -24,7 +24,7 @@
                 <td><?php echo (null != $vinculo->getDataInicio())  ? $this->escapeHtml($vinculo->getDataInicio()->format("d/m/Y")) : "";?></td>
                 <td><?php echo (null != $vinculo->getDataTermino()) ? $this->escapeHtml($vinculo->getDataTermino()->format("d/m/Y")) : "";?></td>
                 <td><?php echo (null != $vinculo->getDataInicioEfetivo()) ? $this->escapeHtml($vinculo->getDataInicioEfetivo()->format("d/m/Y")) : "";?></td>
-                <td><?php //echo (null != $vinculo->getOrientador()->getNome())? $this->escapeHtml($vinculo->getOrientador()->getNome()) : "";?></td>
+                <td><?php echo (null != $vinculo->getOrientador())? $this->escapeHtml($vinculo->getOrientador()->getNome()) : "";?></td>
                 <td><?php echo (null != $vinculo->getInstituicaoEnsino()) ? $this->escapeHtml($vinculo->getInstituicaoEnsino()->getDesRazaoSocial()) : "";?></td>
                 <td><?php echo (null != $vinculo->getCurso()) ? $this->escapeHtml($vinculo->getCurso()->getDescricao()) : "";?></td>
                 <td><?php echo (null != $vinculo->getNivel()) ? $this->escapeHtml($vinculo->getNivel()->getDescricao()) : "";?></td>
@@ -33,12 +33,13 @@
                 <td><button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="editarVinculo('<?php echo $vinculo->getId();?>')"
                        href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                    <a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/vinculo', ['action' => 'delete', 'id' => $vinculo->getId()]) ?>"
-                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    <button type="button" class="btn btn-primary btn-sm pull-center" 
+                               onclick="excluirVinculo('<?php echo $vinculo->getId();?>')"
+                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
+                       
                     <button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="clonarVinculo('<?php echo $vinculo->getId();?>','<?php echo $vinculo->colaboradorMatricula->getMatricula();?>')"
-                       href="#" title="Clonar registro."><span class="glyphicon glyphicon-refresh"></span></button>
+                       title="Clonar registro."><span class="glyphicon glyphicon-refresh"></span></button>
                 </td>
             </tr>
         <?php endforeach; ?>

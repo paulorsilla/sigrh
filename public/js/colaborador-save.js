@@ -148,6 +148,33 @@
         $('#gridVinculo').html('carregando...');
         $('#gridVinculo').load(url);
     }
+    
+    function excluirVinculo(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/vinculo/delete-modal/"+id+"?matricula="+matricula;;
+        $('#ExclusaoVinculoModal .modal-body').html('carregando...');
+        $('#ExclusaoVinculoModal .modal-body').attr('url',url);
+        $('#ExclusaoVinculoModal .modal-body').load(url);
+        $('#ExclusaoVinculoModal').modal('show');
+
+    }
+    
+    function fncExcluirVinculo(obj) {
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#ExclusaoVinculoModal").modal('hide');
+                refreshGridVinculo($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+        });
+    }
+    
+    
 
     function fncSalvarEstagio(obj){
         $(this).html("aguarde ...").attr("disabled",true);
@@ -220,13 +247,6 @@
         $('#EstagioModal').modal('show');
     }
     
-    function excluirVinculo(id){
-        url = "/sig-rh/vinculo/delete/"+id;
-        $('#VinculoModal .modal-body').html('carregando...');
-        $('#VinculoModal .modal-body').attr('url',url);
-        $('#VinculoModal .modal-body').load(url);
-        $('#VinculoModal').modal('show');
-    }
     
     function novoDependente(matricula){
         url = "/sig-rh/dependente/save-modal?matricula="+matricula;

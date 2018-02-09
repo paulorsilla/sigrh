@@ -42,6 +42,7 @@ class ContaCorrente extends AbstractRepository {
             $this->getEntityManager()->flush();
         }
     }
+    
     public function incluir_ou_editar($dados, $id = null, $matricula=null) {
 
         if ( empty($matricula))

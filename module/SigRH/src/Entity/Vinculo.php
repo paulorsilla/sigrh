@@ -331,8 +331,12 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setOrientador($orientador) {
+    if ( empty($orientador) )
+        $this->orientador = null;
+    else
         $this->orientador = $orientador;
     }
+    
 
     public function setLocalizacao($localizacao) {
         $this->localizacao = $localizacao;

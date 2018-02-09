@@ -152,7 +152,7 @@ class VinculoController extends AbstractActionController
 		return $view->setTerminal(true);
 	}
 	
-	public function deleteAction()
+	public function deleteModalAction()
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -161,21 +161,22 @@ class VinculoController extends AbstractActionController
 		$request = $this->getRequest();
 			
 		if ($request->isPost()) {
-			$del = $request->getPost('del', 'Não');
-			if ($del == 'Sim') {
-				$id = (int) $request->getPost('id');
-				$repo = $this->entityManager->getRepository(Vinculo::class);
-				$repo->delete($id);
-			}
+                        $id = (int) $request->getPost('id');
+                        $matricula = $this->params()->fromQuery('matricula');
+                        $repo = $this->entityManager->getRepository(Vinculo::class);
+                        $repo->delete($id,$matricula);
 			// Redireciona para a lista de registros cadastrados
-			return $this->redirect()->toRoute('sig-rh/vinculo');
-		}
+                        $modelJson = new \Zend\View\Model\JsonModel();
+                        return $modelJson->setVariable('success', 1);		}
                 
                 $repo = $this->entityManager->getRepository(Vinculo::class);
                 $vinculo = $repo->find($id);
 
-                return new ViewModel([
+                
+                $view = new ViewModel([
 				'vinculo' => $vinculo,
 		]);
+		return 	$view->setTerminal(true);
+                
 	}
 }
