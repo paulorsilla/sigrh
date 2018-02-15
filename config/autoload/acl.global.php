@@ -4,65 +4,123 @@ return [
     'acl' => array(
 		'roles' => array(
                         'convidado' => null,
-                        'secretaria' => 'convidado',
-			'comum' => 'secretaria',
-			'admin' => 'comum',
+                        'comum' => 'convidado',
+                        'usuario' => 'comum',
+			'admin' => 'usuario',
 		),
 		'resources' => array(
                         'Application\Controller\Index.index',
-                        'Rastrea\Controller\Fase.index',
-                        'Rastrea\Controller\Fase.save',
-                        'Rastrea\Controller\Fase.delete',
-                        'Rastrea\Controller\Fase.busca',
-                        'Rastrea\Controller\Material.index',
-                        'Rastrea\Controller\Material.save',
-                        'Rastrea\Controller\Material.delete',
-                        'Rastrea\Controller\Material.busca',
-                        'Rastrea\Controller\Material.importar',
-                        'Rastrea\Controller\Material.ajax-list',
-                        'Rastrea\Controller\Material.ajax-list2',
-
-                        'Rastrea\Controller\Movto.index',
-                        'Rastrea\Controller\Movto.save',
-                        'Rastrea\Controller\Movto.delete',
-                        'Rastrea\Controller\Movto.busca',
                     
-                        'Rastrea\Controller\Lote.index',
-                        'Rastrea\Controller\Lote.save',
-                        'Rastrea\Controller\Lote.delete',
-                        'Rastrea\Controller\Lote.busca',
-                        'Embraorc\Controller\Recurso.index',
-                        'Embraorc\Controller\Recurso.save',
-                        'Embraorc\Controller\Recurso.delete',
-                        'Embraorc\Controller\Recurso.busca',
-                        'Rastrea\Controller\Movimentacao.index',
-                        'Rastrea\Controller\Movimentacao.extrato',
-                        'Rastrea\Controller\Movimentacao.save',
-                        'Rastrea\Controller\Movimentacao.delete',
-                        'Rastrea\Controller\Movimentacao.busca',
-                        'Rastrea\Controller\Movimentacao.apaga-mov',
-                        'Rastrea\Controller\Movimentacao.seleciona-atividade',
-                        'Rastrea\Controller\Movimentacao.sucesso',
-                        'Rastrea\Controller\Movimentacao.importar',
-                        'Embraorc\Controller\Relmovimentacao.index',
-                        'Embraorc\Controller\Relmovimentacao.gerar-html',
-                        'Embraorc\Controller\Relacumulado.index',
-                        'Embraorc\Controller\Relacumulado.gerar-html',
-                        'Embraorc\Controller\Relatividadevigente.index',
-                        'Embraorc\Controller\Relatividadevigente.gerar-html',
-                        'Rastrea\Controller\Relextrato.index',
-                        'Rastrea\Controller\Relextrato.gerar-html',
-                        'Rastrea\Controller\Relestoque.index',
-                        'Rastrea\Controller\Relestoque.gerar-html',
-                        'Rastrea\Controller\Sobre.index',
-                        'Fontes\Controller\Parceiro.index',
-                        'Fontes\Controller\Parceiro.save',
-                        'Fontes\Controller\Parceiro.delete',
-                        'Fontes\Controller\Parceiro.busca',
-                        'Fontes\Controller\Fontes.save-equipe',
-                        'Fontes\Controller\Fontes.delete-equipe',
-                        'Fontes\Controller\Relfontes.index',
-                        'Fontes\Controller\Relfontes.gerar-html',
+                        'SigRH\Controller\Banco.index',
+                        'SigRH\Controller\Banco.save',
+                        'SigRH\Controller\Banco.delete',
+                    
+                        'SigRH\Controller\BatidaPonto.index',
+                        'SigRH\Controller\BatidaPonto.folhaPonto',
+                    
+                        'SigRH\Controller\Cidade.index',
+                        'SigRH\Controller\Cidade.save',
+                        'SigRH\Controller\Cidade.buscaCidades',
+                    
+                        'SigRH\Controller\Colaborador.index',
+                        'SigRH\Controller\Colaborador.save',
+                        'SigRH\Controller\Colaborador.delete',
+                    
+                        'SigRH\Controller\ContaCorrente.index',
+                        'SigRH\Controller\ContaCorrente.gridModal',
+                        'SigRH\Controller\ContaCorrente.saveModal',
+                        'SigRH\Controller\ContaCorrente.deleteModal',
+                    
+                        'SigRH\Controller\Convenio.index',
+                        'SigRH\Controller\Convenio.save',
+                        'SigRH\Controller\Convenio.delete',
+                    
+                        'SigRH\Controller\CorPele.index',
+                        'SigRH\Controller\CorPele.save',
+                        'SigRH\Controller\CorPele.delete',
+                    
+                        'SigRH\Controller\Cracha.index',
+                        'SigRH\Controller\Cracha.gridModal',
+                        'SigRH\Controller\Cracha.saveModal',
+//                        'SigRH\Controller\Cracha.deleteModal',
+                    
+                        'SigRH\Controller\Curso.index',
+                        'SigRH\Controller\Curso.save',
+                        'SigRH\Controller\Curso.delete',
+                    
+                        'SigRH\Controller\Dependente.gridModal',
+                        'SigRH\Controller\Dependente.saveModal',
+//                        'SigRH\Controller\Dependente.deleteModal',
+                    
+                        'SigRH\Controller\Escala.index',
+                        'SigRH\Controller\Escala.save',
+                        'SigRH\Controller\Escala.delete',
+                    
+                        'SigRH\Controller\EstadoCivil.index',
+                        'SigRH\Controller\EstadoCivil.save',
+                        'SigRH\Controller\EstadoCivil.delete', 
+                    
+                        'SigRH\Controller\FonteSeguro.index',
+                        'SigRH\Controller\FonteSeguro.save',
+                        'SigRH\Controller\FonteSeguro.delete', 
+                    
+                        'SigRH\Controller\GrauInstrucao.index',
+                        'SigRH\Controller\GrauInstrucao.save',
+                        'SigRH\Controller\GrauInstrucao.delete', 
+                    
+                        'SigRH\Controller\GrupoSanguineo.index',
+                        'SigRH\Controller\GrupoSanguineo.save',
+                        'SigRH\Controller\GrupoSanguineo.delete', 
+
+                        'SigRH\Controller\Horario.gridModal',
+                        'SigRH\Controller\Horario.saveModal',
+                        'SigRH\Controller\Horario.deleteModal',
+
+                        'SigRH\Controller\ImportacaoPonto.index',
+                        'SigRH\Controller\ImportacaoPonto.save',
+                        'SigRH\Controller\ImportacaoPonto.delete', 
+                    
+                        'SigRH\Controller\Instituicao.index',
+                    
+                        'SigRH\Controller\LinhaOnibus.index',
+                        'SigRH\Controller\LinhaOnibus.save',
+                        'SigRH\Controller\LinhaOnibus.delete', 
+                    
+                        'SigRH\Controller\Localizacao.index',
+                        'SigRH\Controller\Localizacao.save',
+                        'SigRH\Controller\Localizacao.delete', 
+                    
+                        'SigRH\Controller\ModalidadeBolsa.index',
+                        'SigRH\Controller\ModalidadeBolsa.save',
+                        'SigRH\Controller\ModalidadeBolsa.delete', 
+                    
+                        'SigRH\Controller\Nivel.index',
+                        'SigRH\Controller\Nivel.save',
+                        'SigRH\Controller\Nivel.delete', 
+                    
+                        'SigRH\Controller\Ocorrencia.index',
+                        'SigRH\Controller\Ocorrencia.gerar',
+                    
+                        'SigRH\Controller\RelColaborador.index',
+                        'SigRH\Controller\RelColaborador.gerarHtml',
+                    
+                        'SigRH\Controller\Sublotacao.index',
+                        'SigRH\Controller\Sublotacao.save',
+                        'SigRH\Controller\Sublotacao.delete', 
+                     
+                         
+                        'SigRH\Controller\TipoColaborador.index',
+                        'SigRH\Controller\TipoColaborador.save',
+                        'SigRH\Controller\TipoColaborador.delete', 
+                    
+                        'SigRH\Controller\TipoVinculo.index',
+                        'SigRH\Controller\TipoVinculo.save',
+                    
+                        'SigRH\Controller\Vinculo.index',
+                        'SigRH\Controller\Vinculo.save',
+                        'SigRH\Controller\Vinculo.delete', 
+                    
+                    
 			'Admin\Controller\Index.save',
 			'Admin\Controller\Index.delete',
 			'Admin\Controller\Auth.index',
@@ -82,74 +140,133 @@ return [
                                     'Admin\Controller\Auth.logout',
                                     )
                             ),
-			'comum' => array(
+			'usuario' => array(
 				'allow' => array(
+                                        'SigRH\Controller\Banco.index',
+                                        'SigRH\Controller\Banco.save',
+
+                                        'SigRH\Controller\Cidade.index',
+                                        'SigRH\Controller\Cidade.save',
+                                        'SigRH\Controller\Cidade.buscaCidades',
+
+                                        'SigRH\Controller\Colaborador.index',
+                                        'SigRH\Controller\Colaborador.save',
+
+                                        'SigRH\Controller\ContaCorrente.index',
+                                        'SigRH\Controller\ContaCorrente.gridModal',
+                                        'SigRH\Controller\ContaCorrente.saveModal',
+
+                                        'SigRH\Controller\Convenio.index',
+                                        'SigRH\Controller\Convenio.save',
+
+                                        'SigRH\Controller\CorPele.index',
+                                        'SigRH\Controller\CorPele.save',
+
+                                        'SigRH\Controller\Cracha.index',
+                                        'SigRH\Controller\Cracha.gridModal',
+                                        'SigRH\Controller\Cracha.saveModal',
+
+                                        'SigRH\Controller\Curso.index',
+                                        'SigRH\Controller\Curso.save',
+
+                                        'SigRH\Controller\Dependente.gridModal',
+                                        'SigRH\Controller\Dependente.saveModal',
+
+                                        'SigRH\Controller\Escala.index',
+                                        'SigRH\Controller\Escala.save',
+
+                                        'SigRH\Controller\EstadoCivil.index',
+                                        'SigRH\Controller\EstadoCivil.save',
+
+                                        'SigRH\Controller\FonteSeguro.index',
+                                        'SigRH\Controller\FonteSeguro.save',
+
+                                        'SigRH\Controller\GrauInstrucao.index',
+                                        'SigRH\Controller\GrauInstrucao.save',
+
+                                        'SigRH\Controller\GrupoSanguineo.index',
+                                        'SigRH\Controller\GrupoSanguineo.save',
+
+                                        'SigRH\Controller\Horario.gridModal',
+                                        'SigRH\Controller\Horario.saveModal',
+
+                                        'SigRH\Controller\Instituicao.index',
+
+                                        'SigRH\Controller\LinhaOnibus.index',
+                                        'SigRH\Controller\LinhaOnibus.save',
+
+                                        'SigRH\Controller\Localizacao.index',
+                                        'SigRH\Controller\Localizacao.save',
+
+                                        'SigRH\Controller\ModalidadeBolsa.index',
+                                        'SigRH\Controller\ModalidadeBolsa.save',
+
+                                        'SigRH\Controller\Nivel.index',
+                                        'SigRH\Controller\Nivel.save',
+
+                                        'SigRH\Controller\RelColaborador.index',
+                                        'SigRH\Controller\RelColaborador.gerarHtml',
+
+                                        'SigRH\Controller\Sublotacao.index',
+                                        'SigRH\Controller\Sublotacao.save',
+
+
+                                        'SigRH\Controller\TipoColaborador.index',
+                                        'SigRH\Controller\TipoColaborador.save',
+
+                                        'SigRH\Controller\TipoVinculo.index',
+                                        'SigRH\Controller\TipoVinculo.save',
+
+                                        'SigRH\Controller\Vinculo.index',
+                                        'SigRH\Controller\Vinculo.save',
                                         
-                                        'Rastrea\Controller\Fase.index',
-                                        'Rastrea\Controller\Fase.save',
-                                        'Rastrea\Controller\Fase.delete',
-                                        'Rastrea\Controller\Fase.busca',
-                                        'Rastrea\Controller\Material.index',
-                                        'Rastrea\Controller\Material.save',
-                                        'Rastrea\Controller\Material.delete',
-                                        'Rastrea\Controller\Material.busca',
-                                        'Rastrea\Controller\Material.importar',
-                                        'Rastrea\Controller\Material.ajax-list',
-                                        'Rastrea\Controller\Material.ajax-list2',
-                                        'Rastrea\Controller\Movto.index',
-                                        'Rastrea\Controller\Movto.save',
-                                        'Rastrea\Controller\Movto.delete',
-                                        'Rastrea\Controller\Movto.busca',
-                                        'Rastrea\Controller\Lote.index',
-                                        'Rastrea\Controller\Lote.save',
-                                        'Rastrea\Controller\Lote.delete',
-                                        'Rastrea\Controller\Lote.busca',
-                                        'Embraorc\Controller\Recurso.index',
-                                        'Embraorc\Controller\Recurso.save',
-                                        'Embraorc\Controller\Recurso.delete',
-                                        'Embraorc\Controller\Recurso.busca',
-                                        'Rastrea\Controller\Movimentacao.index',
-                                        'Rastrea\Controller\Movimentacao.extrato',
-                                        'Rastrea\Controller\Movimentacao.save',
-                                        'Rastrea\Controller\Movimentacao.delete',
-                                        'Rastrea\Controller\Movimentacao.apaga-mov',
-                                        'Rastrea\Controller\Movimentacao.busca',
-                                        'Rastrea\Controller\Movimentacao.seleciona-atividade',
-                                        'Rastrea\Controller\Movimentacao.sucesso',
-                                        'Rastrea\Controller\Movimentacao.importar',
-                                        'Embraorc\Controller\Relacumulado.index',
-                                        'Embraorc\Controller\Relacumulado.gerar-html',
-                                        'Embraorc\Controller\Relatividadevigente.index',
-                                        'Embraorc\Controller\Relatividadevigente.gerar-html',
-                                        'Rastrea\Controller\Relextrato.index',
-                                        'Rastrea\Controller\Relextrato.gerar-html',
-                                        'Rastrea\Controller\Relestoque.index',
-                                        'Rastrea\Controller\Relestoque.gerar-html',
-                                        'Rastrea\Controller\Sobre.index',
-                                        'Fontes\Controller\Relfontes.index',
-                                        'Fontes\Controller\Relfontes.gerar-html',
-                                        'Fontes\Controller\Parceiro.index',
-                                        'Fontes\Controller\Parceiro.save',
-                                        'Fontes\Controller\Parceiro.delete',
-                                        'Fontes\Controller\Parceiro.busca',
                                         
 				)
 			),
 			'admin' => array(
 				'allow' => array(
+                                         //cadastro usuario...
                                         'Admin\Controller\Index.delete',
 					'Admin\Controller\Usuario.index',
                  			'Admin\Controller\Usuario.busca',
 					'Admin\Controller\Usuario.save',
 					'Admin\Controller\Usuario.delete',
-                                        'Embraorc\Controller\Relmovimentacao.index',
-                                        'Embraorc\Controller\Relmovimentacao.gerar-html',
+                                        //ponto ...
+                                        'SigRH\Controller\BatidaPonto.index',
+                                        'SigRH\Controller\BatidaPonto.folhaPonto',
+                                        'SigRH\Controller\ImportacaoPonto.index',
+                                        'SigRH\Controller\ImportacaoPonto.save',
+                                        'SigRH\Controller\ImportacaoPonto.delete', 
+                                        'SigRH\Controller\Ocorrencia.index',
+                                        'SigRH\Controller\Ocorrencia.gerar',
+                                         //excluir nos cadastros...
+                                        'SigRH\Controller\Banco.delete',
+                                        'SigRH\Controller\Colaborador.delete',
+                                        'SigRH\Controller\ContaCorrente.deleteModal',
+                                        'SigRH\Controller\Convenio.delete',
+                                        'SigRH\Controller\CorPele.delete',
+                                        'SigRH\Controller\Curso.delete',
+                                        'SigRH\Controller\Escala.delete',
+                                        'SigRH\Controller\EstadoCivil.delete', 
+                                        'SigRH\Controller\FonteSeguro.delete', 
+                                        'SigRH\Controller\GrauInstrucao.delete', 
+                                        'SigRH\Controller\GrupoSanguineo.delete', 
+                                        'SigRH\Controller\Horario.deleteModal',
+                                        'SigRH\Controller\LinhaOnibus.delete', 
+                                        'SigRH\Controller\Localizacao.delete', 
+                                        'SigRH\Controller\ModalidadeBolsa.delete', 
+                                        'SigRH\Controller\Nivel.delete', 
+                                        'SigRH\Controller\Sublotacao.delete', 
+                                        'SigRH\Controller\TipoColaborador.delete', 
+                                        'SigRH\Controller\Vinculo.delete', 
+                                    
+                                    
 				)
 			),
-			'secretaria' => array(
+			'comum' => array(
 				'allow' => array(
-                                        'Embraorc\Controller\Relatividadevigente.index',
-                                        'Embraorc\Controller\Relatividadevigente.gerar-html',
+                                        'SigRH\Controller\RelColaborador.index',
+                                        'SigRH\Controller\RelColaborador.gerarHtml',
 				)
 			),
                     

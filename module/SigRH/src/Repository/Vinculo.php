@@ -26,13 +26,29 @@ class Vinculo extends AbstractRepository {
        return $qb;
     }
     
-    public function delete($id){
+//    public function delete($id){
+//        $row = $this->find($id);
+//        if ($row) {
+//                $this->getEntityManager()->remove($row);
+//                $this->getEntityManager()->flush();
+//        }
+//    }
+    
+    public function delete($id, $matricula){
         $row = $this->find($id);
+        error_log("excluindo id = ".$id);
         if ($row) {
-                $this->getEntityManager()->remove($row);
-                $this->getEntityManager()->flush();
+            $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
+            if ( empty($colaborador) )
+                throw new Exception('Colaborador nao encontrado');
+            $colaborador->getVinculos()->removeElement($row);
+            $this->getEntityManager()->flush();
+//            $this->getEntityManager()->persist($colaborador);
+            $this->getEntityManager()->remove($row);
+            $this->getEntityManager()->flush();
         }
     }
+    
         
     public function incluir_ou_editar($dados,$id = null,$matricula=null){
         
@@ -144,11 +160,17 @@ class Vinculo extends AbstractRepository {
         unset($dados['modalidadeBolsa']);
         
         //orientador...
-        if ( !empty($dados['orientador'] )) {
-            $orientador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $dados['orientador']); //busca as informações
-            $row->setOrientador($orientador);
-        }
+        if ( isset($dados['orientador']) ) {
+            if ( !empty($dados['orientador'] )) {
+                $orientador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $dados['orientador']); //busca as informações
+                $row->setOrientador($orientador);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setOrientador(null);
+            }
+        }    
         unset($dados['orientador']);
+        
+        
         
         $row->setdataInicio(null);
         if ($dados ['dataInicio'] != "") {					

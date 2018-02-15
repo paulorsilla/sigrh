@@ -205,5 +205,98 @@ class RelColaboradorController extends AbstractActionController {
         return $view;
 //}
     }
+    
+        public function csvAction()
+        {
+                $em = $this->getEntityManager();
+                $titulo = "Relatório de eventos do NCO";
+
+                //altera o formato da data de DD/MM/AAAA para AAAA/MM/DD
+                $data_ini = \Admin\Model\Util::converteData($_GET['data_ini']);
+                $data_fim = \Admin\Model\Util::converteData($_GET['data_fim']);
+                
+                if (!isset($data_ini)) {
+                    $data_ini = "0000-00-00";
+                }
+                
+                if (!isset($data_fim)) {
+                    $data_fim = "9999-99-99";
+                }
+//                error_log($data_ini);
+//                error_log($data_fim);
+
+                $qb =  $em->createQueryBuilder();
+                $qb->select('e')
+                    ->from('Eventos\Model\Eventosnco', 'e')
+                    ->where('e.dat_ini_vig >= :data_ini')
+                    ->andWhere('e.dat_fim_vig <= :data_fim')
+                    ->setParameter("data_ini", $data_ini)
+                    ->setParameter("data_fim", $data_fim);
+                
+                $query = $qb->getQuery();
+                $eventosint = $query->getResult();
+
+                //cabecalho
+                $csvData = $titulo."\n";
+                $csvData .= "ideventosint;sigif_tipocomprov_idsigif_tipocomprov;pal_tb_tip_partic_cod_tip_partic;eventointerno;des_objetivo_evento;des_obs;dat_ini_vig;dat_fim_vig;des_local;";
+                $csvData .= "des_cidade;num_qtd_partic;hor_ini;hor_fim;sieve;ideventoprincipal;sigif_abrangencia_idabrangencia;tip_evento_cod_tip_evento;funcionario;estado;cargahoraria;mes;\n";
+
+                foreach ($eventosint as $evento) {
+                    ///comprovantes ...
+                    $comprovantes = '';
+                    foreach ($evento->getComprovante() as $comprov) {
+                      $comprovantes .= $comprov->gettipocomprovante()." ";  
+                    }
+
+                    ///publico alvo ...
+                    $participantes = '';
+                    foreach ($evento->getPublicoalvo() as $partic) {
+                      $participantes .= $partic->getDes_tip_partic()." ";  
+                    }
+
+                    ///funcionarios ...
+                    $funcionarios = '';
+                    foreach ($evento->getFuncparticipantes() as $funcPartic) {
+                        $objFunc = $funcPartic->getRh_tb_funcionario_cod_func();
+                        if ( !empty($objFunc))
+                            $funcionarios .= $objFunc->getnome_func()." ";  
+                    }
+                    
+                    $csvData .= $evento->ideventosint.";".$comprovantes.";".
+                            $participantes.";".$evento->eventointerno.
+                            ";".$evento->des_objetivo_evento.";".$evento->des_obs.
+                            ";".$evento->dat_ini_vig.";".$evento->dat_fim_vig.
+                            ";".$evento->des_local.";".$evento->des_cidade.
+                            ";".$evento->num_qtd_partic.";".$evento->hor_ini.
+                            ";".$evento->hor_fim.";".$evento->sieve.
+                            ";".$evento->getEventoPrincipal()->eventointerno.
+                            ";".$evento->getAbrangencia()->getDescricao().
+                            ";".$evento->getCodTipoEvento()->getDes_tip_evento().
+                            ";".$funcionarios.
+                            ";".$evento->estado.";".$evento->cargahoraria.";".
+                            $evento->mes."\n";
+
+ 
+                }
+
+                header("Content-Encoding: UTF-8");
+//                header("Content-type: plain/text"); 
+                header("Content-type: application/vnd.ms-excel; charset=UTF-8"); 
+                header("Content-Disposition: attachment; filename='eventosnco.csv'"); 
+                header("Pragma: no-cache");
+                header("Expires: 0");
+                header("Content-length: ".strlen($csvData)."\r\n");
+                echo "\xEF\xBB\xBF";
+
+
+                
+              ///logica pra tirar o codigo html na hora q exporta...
+                $ViewModel = new ViewModel(array(
+			'csvData' => $csvData
+		));
+                $ViewModel->setTerminal(true);
+                return $ViewModel;
+        }
+    
 
 }
