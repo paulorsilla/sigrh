@@ -37,6 +37,11 @@ class BatidaPonto extends AbstractEntity {
     protected $importacaoPonto;
     
     /**
+     * @ORM\Column(name="saldo_minutos", type="integer")
+     **/
+    protected $saldoMinutos;
+    
+    /**
      * @ORM\OneToMany(targetEntity="HoraBatidaPonto", mappedBy="batidaPonto")
      * @ORM\OrderBy({"horaBatida" = "ASC"})
      * 
@@ -66,7 +71,11 @@ class BatidaPonto extends AbstractEntity {
     public function getImportacaoPonto() {
         return $this->importacaoPonto;
     }
-
+    
+    public function getSaldoMinutos() {
+        return $this->saldoMinutos;
+    }
+    
     public function setId($id) {
         $this->id = $id;
     }
@@ -90,4 +99,10 @@ class BatidaPonto extends AbstractEntity {
     public function setImportacaoPonto($importacaoPonto) {
         $this->importacaoPonto = $importacaoPonto;
     }
+    
+    public function setSaldoMinutos($saldoMinutos) {
+        $this->saldoMinutos = $saldoMinutos;
+    }
+
+
 }

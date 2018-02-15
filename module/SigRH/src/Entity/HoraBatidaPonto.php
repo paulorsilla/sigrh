@@ -24,6 +24,12 @@ class HoraBatidaPonto extends AbstractEntity {
     protected $horaBatida;
     
     /**
+     *
+     * @ORM\Column(name="tipo", type="string")
+     **/
+    protected $tipo;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="BatidaPonto", inversedBy="horarios")
      * @ORM\JoinColumn(name="batida_ponto_id", referencedColumnName="id")
      * */    
@@ -41,10 +47,14 @@ class HoraBatidaPonto extends AbstractEntity {
         return $this->batidaPonto;
     }
 
+    public function getTipo() {
+        return $this->tipo;
+    }
+
     public function setId($id) {
         $this->id = $id;
     }
-
+    
     public function setHoraBatida($horaBatida) {
         $this->horaBatida = $horaBatida;
     }
@@ -52,4 +62,9 @@ class HoraBatidaPonto extends AbstractEntity {
     public function setBatidaPonto($batidaPonto) {
         $this->batidaPonto = $batidaPonto;
     }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
 }

@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
 use SigRH\Entity\Ocorrencia;
+use SigRH\Entity\BatidaPonto;
 
 class OcorrenciaController extends AbstractActionController {
 
@@ -44,14 +45,17 @@ class OcorrenciaController extends AbstractActionController {
                 //busca estagiarios de graduacao
                 $colaboradores = $repoColaborador->getEstagiarios(true);
 
-                $colaborador = $this->entityManager->find(\SigRH\Entity\Colaborador::class, '503361');
+//                $colaborador = $this->entityManager->find(\SigRH\Entity\Colaborador::class, '503361');
+                $colaborador = $this->entityManager->find(\SigRH\Entity\Colaborador::class, '503337');
 
 //                    foreach($colaboradores as $colaborador) {
                 $dataPesquisa = $dataPesquisaInicial;
+                $tolerancia = 10; //tempo de tolerancia em minutos 
 
                 error_log("COLABORADOR: " . $colaborador->getMatricula() . " - " . $colaborador->getNome());
 
                 $repo = $this->entityManager->getRepository(Ocorrencia::class);
+                $repoBatidaPonto = $this->entityManager->getRepository(BatidaPonto::class);
 
                 while ((int) $dataPesquisa->format('Ymd') <= (int) $dataPesquisaFinal->format('Ymd')) {
                     $diaSemana = $dataPesquisa->format("w");
@@ -66,55 +70,84 @@ class OcorrenciaController extends AbstractActionController {
                             break;
                         }
                     }
+                    
+                    $cargaHorariaP1 = ((null != $escala) && (null != $escala->getSaida1()) && (null != $escala->getEntrada1())) ? $escala->getEntrada1()->diff($escala->getSaida1()) : \DateInterval::createFromDateString("0:0");
+                    $cargaHorariaP2 = ((null != $escala) && (null != $escala->getSaida2()) && (null != $escala->getEntrada2())) ? $escala->getEntrada1()->diff($escala->getSaida2()) : \DateInterval::createFromDateString("0:0");
+                    $cargaHorariaMinutos = ($cargaHorariaP1->h * 60) + $cargaHorariaP1->i + ($cargaHorariaP2->h * 60) + $cargaHorariaP2->i;
 
                     //busca os registros na catraca para o dia em questão
-                    $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
+//                    $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
+                    $batidaPonto = $repoBatidaPonto->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
+                    
                     if ($batidaPonto && $escala) {
-                        foreach ($batidaPonto->getHorarios() as $k => $horario) {
+                        if ( (count($batidaPonto->getHorarios()) == 2) && (null != $escala->getEntrada2())) {
+                            $repoBatidaPonto->marcacao_intervalo($batidaPonto, $escala);
+                        }
+                        
+                        $registrosEsperados = ["E1" => null, "S1" => null];
+                        $intervaloMinutos = ["E1" => null, "S1" => null];
+                        
+                        if (null != $escala->getEntrada2()) {
+                            $registrosEsperados = ["E2" => null, "S2" => null];
+                            $intervaloMinutos = ["E2" => null, "S2" => null];
+                        }
+                        
+                        foreach ($batidaPonto->getHorarios() as  $horario) {
                             $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
                             $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
-                            
-                            $intervaloMinutosE1 = ($intervaloE1->h * 60) + $intervaloE1->i;
-                            $intervaloMinutosS1 = ($intervaloS1->h * 60) + $intervaloS1->i;
-                            
-                            $intervaloE2 = null;
-                            $intervaloS2 = null;
 
-                            
+                            $intervaloMinutos["E1"] = ($intervaloE1->h * 60) + $intervaloE1->i;
+                            $intervaloMinutos["S1"] = ($intervaloS1->h * 60) + $intervaloS1->i;
+
                             if(null != $escala->getEntrada2()) {
+                                
                                 $intervaloE2 = $escala->getEntrada2()->diff($horario->getHoraBatida());
                                 $intervaloS2 = $escala->getSaida2()->diff($horario->getHoraBatida());
-                                $intervaloMinutosE2 = ($intervaloE2->h * 60) + $intervaloE2->i;
-                                $intervaloMinutosS2 = ($intervaloS2->h * 60) + $intervaloS2->i;
+                            
+                                $intervaloMinutos["E2"] = $intervaloE2->h * 60 + $intervaloE2->i;
+                                $intervaloMinutos["S2"] = $intervaloS2->h * 60 + $intervaloS2->i;
 
                             }
                             
-                            if ( $intervaloMinutosE1 < $intervaloMinutosS1) {
-                                error_log("Entrada 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getEntrada1()->format("H:i"));
-                                
-                                if ($intervaloMinutosE1 > 5) {
+                            asort($intervaloMinutos);
+                            $registro = key($intervaloMinutos);
+                            if ( ($registro != "E1") && ($registrosEsperados["E1"] == null) ) {
+                                $registro = "E1";
+                            }
+                            
+                            $registrosEsperados[$registro] = $horario;
+                            error_log($registro." => ".$registrosEsperados[$registro]->getHoraBatida()->format("H:i"));
+                            
+                            if($registro == "E1") {
+                                if ($intervaloMinutos["E1"] > $tolerancia) {
                                     if ($intervaloE1->format("%R") == "-") {
                                         error_log("Entrada antecipada fora da tolerancia");
                                     } else {
                                         error_log("Entrada com atraso fora da tolerancia");
                                     }
                                 }
-
-//                                if ((int) $intervaloE1->format("%R%H%I") < -5 ) {
-//                                    error_log("Adiantamento fora da tolerancia");
-//                                }
-//                                else if ((int) $intervaloE1->format("%R%H%I") > 5 ) {
-//                                    error_log("Atraso fora da tolerancia");
-//                                }
-                                
-                            } else {
-                                error_log("Saida 1 - Registrou: ".$horario->getHoraBatida()->format("H:i"). " Escala: ".$escala->getSaida1()->format("H:i"));
-                                
-                                if ($intervaloMinutosS1 > 5) {
+                            } else if ($registro == "S1") {
+                                if ($intervaloMinutos["S1"] > $tolerancia) {
                                     if ($intervaloS1->format("%R") == "-") {
                                         error_log("Saida antecipada fora da tolerancia");
                                     } else {
-                                        error_log("Saida atrasada fora da tolerancia");
+                                        error_log("Saida com atraso fora da tolerancia");
+                                    }
+                                }
+                            } else if ($registro == "E2") {
+                                if ($intervaloMinutos["E2"] > $tolerancia) {
+                                    if ($intervaloE2->format("%R") == "-") {
+                                        error_log("Entrada antecipada fora da tolerancia");
+                                    } else {
+                                        error_log("Entrada com atraso fora da tolerancia");
+                                    }
+                                }
+                            } else if ($registro == "S2") {
+                                if ($intervaloMinutos["S2"] > $tolerancia) {
+                                    if ($intervaloS2->format("%R") == "-") {
+                                        error_log("Saida antecipada fora da tolerancia");
+                                    } else {
+                                        error_log("Saida com atraso fora da tolerancia");
                                     }
                                 }
                             }

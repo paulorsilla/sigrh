@@ -209,10 +209,8 @@ class Colaborador extends AbstractRepository {
             $qb->setParameter("sublotacao", $search["subLotacao"]);
         }
         
-        
-//        echo "SQL: ".$qb->getQuery()->getSQL();
-        
-       // die();
+//        echo "SQL: ".$qb->getQuery()->getSQL();        
+//        die();
           
         if (!empty($search['combo'])) {
             if ($search['combo'] == 1) {
@@ -251,7 +249,6 @@ class Colaborador extends AbstractRepository {
         }
        return $qb->getQuery()->getResult();
     }
-    
     
     public function getListParaCombo(){
         

@@ -153,6 +153,5 @@ class ColaboradorController extends AbstractActionController
                 return new ViewModel([
 				'colaborador' => $colaborador,
 		]);
-		
 	}
 }

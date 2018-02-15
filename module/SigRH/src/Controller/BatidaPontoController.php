@@ -102,9 +102,6 @@ class BatidaPontoController extends AbstractActionController {
                 'dataPesquisaInicial' => $dataInicio
             ]);
             
-            
-            
-            
 		
 //		$this->layout ()->setTemplate ( "layout/layout-relatorio" )->setVariable ( "titulo_impressao", "Folha ponto" );
 		

@@ -120,4 +120,21 @@ class BatidaPonto extends AbstractRepository {
             }
         }
     }
+    
+    public function marcacao_intervalo($batidaPonto, $escala) {
+        $horaBatidaPontoS1 = new HoraBatidaPontoEntity();
+        $horaBatidaPontoS1->setBatidaPonto($batidaPonto);
+        $horaBatidaPontoS1->setHoraBatida($escala->getSaida1());
+        $horaBatidaPontoS1->setTipo("A");
+        $this->getEntityManager()->persist($horaBatidaPontoS1);
+
+        $horaBatidaPontoE2 = new HoraBatidaPontoEntity();
+        $horaBatidaPontoE2->setBatidaPonto($batidaPonto);
+        $horaBatidaPontoE2->setHoraBatida($escala->getEntrada2());
+        $horaBatidaPontoE2->setTipo("A");
+        $this->getEntityManager()->persist($horaBatidaPontoE2);
+        $this->getEntityManager()->flush();
+
+    }
+
 }
