@@ -82,9 +82,15 @@ class Module
                 ->setUserInfo(null);
             $redirectUrl = $uri->toString();
             
-            // Redirect the user to the "Login" page.
-            return $controller->redirect()->toRoute('login', [], 
-                    ['query'=>['redirectUrl'=>$redirectUrl]]);
+            $authService = $event->getApplication()->getServiceManager()->get(\Zend\Authentication\AuthenticationService::class);
+            if ( $authService->hasIdentity () ) {
+                return $controller->redirect()->toRoute('deny', [], 
+                        ['query'=>['redirectUrl'=>$redirectUrl]]);
+            } else {
+                // Redirect the user to the "Login" page.
+                return $controller->redirect()->toRoute('login', [], 
+                        ['query'=>['redirectUrl'=>$redirectUrl]]);
+            }
         }
     }
     

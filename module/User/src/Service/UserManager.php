@@ -39,6 +39,7 @@ class UserManager
         $user->setEmail($data['email']);
         $user->setNome($data['nome']);
         $user->setRamal($data['ramal']);
+        $user->setPapel($data['papel']);
         
         // Add the entity to the entity manager.
         $this->entityManager->persist($user);
@@ -63,6 +64,7 @@ class UserManager
         $user->setLogin($data['login']);
         $user->setNome($data['nome']);        
         $user->setRamal($data['ramal']);        
+        $user->setPapel($data['papel']);
         
         // Apply changes to database.
         $this->entityManager->flush();

@@ -134,4 +134,9 @@ class AuthController extends AbstractActionController
         
         return $this->redirect()->toRoute('login');
     }
+    
+    public function denyAction() 
+    { 
+        
+    }
 }

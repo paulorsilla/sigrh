@@ -5,6 +5,7 @@ return [
 		'roles' => array(
                         'convidado' => null,
                         'comum' => 'convidado',
+                        'estudante' => 'convidado',
                         'usuario' => 'comum',
 			'admin' => 'usuario',
 		),

@@ -13,22 +13,9 @@ class Module
 {
     const VERSION = '3.0.2';
 
-    public function onBootstrap(MvcEvent $event){
-        $eventManager = $event->getApplication()->getEventManager();
-        $sharedEventManager = $eventManager->getSharedManager();
-        $sharedEventManager->attach( 'Zend\Mvc\Controller\ActionController', 'dispatch', array( $this, 'mvcPreDispatch' ), 100 );
-        $sharedEventManager->attach( 'Zend\Mvc\Controller\AbstractActionController', 'dispatch', array( $this, 'mvcPreDispatch' ), 100 );
-        
-        
-    }
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
-    public function mvcPreDispatch(MvcEvent $event){
-        //die('Passou no PreDispatch');
-        // validar se o acesso é permitido pela ACL configurada
-        
-    }
+
 }
