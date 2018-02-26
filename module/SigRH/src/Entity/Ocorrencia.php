@@ -18,7 +18,7 @@ class Ocorrencia extends AbstractEntity {
     protected $id;
     
     /**
-     * @ORM\Column(name="data", type="datetime")
+     * @ORM\Column(name="data", type="date")
      */
     protected $dataOcorrencia; 
     
@@ -38,6 +38,11 @@ class Ocorrencia extends AbstractEntity {
      * @ORM\Column(name="descricao", type="string")
      */
     protected $descricao;
+    
+    /**
+     * @ORM\Column(name="saldo_minutos", type="integer")
+     **/
+    protected $saldoMinutos;
     
     /**
      * Returns user ID.
@@ -61,6 +66,10 @@ class Ocorrencia extends AbstractEntity {
         return $this->descricao;
     }
             
+    public function getSaldoMinutos() {
+        return $this->saldoMinutos;
+    }
+    
     /**
      * Sets user ID.
      * 
@@ -81,4 +90,9 @@ class Ocorrencia extends AbstractEntity {
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
+    public function setSaldoMinutos($saldoMinutos) {
+        $this->saldoMinutos = $saldoMinutos;
+    }
+
+
 }

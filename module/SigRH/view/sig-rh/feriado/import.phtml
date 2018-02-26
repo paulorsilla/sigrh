@@ -1,0 +1,39 @@
+<h1>Importação de feriados </h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Importar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/feriado" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <form action="/sig-rh/feriado/import" method="post">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="ano">Ano</label>
+                            <input type="text" name="ano" id="ano" value="" placeholder="Digite o ano aqui" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cidade">Cidade/UF</label>
+                            <select name="cidade" id="cidade" class="form-control">
+                                    <option value = "1">LONDRINA/PR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button class="btn btn-secondary" type="submit"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

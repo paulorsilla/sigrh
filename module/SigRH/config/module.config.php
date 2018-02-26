@@ -203,16 +203,31 @@ return [
                         ]
                     ],
                     
-                    'estagio' => [
+//                    'estagio' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route' => '/estagio[/:action[/:id]]',
+//                            'constraints' => [
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id' => '[0-9]+'
+//                            ],
+//                            'defaults' => [
+//                                'controller' => Controller\EstagioController::class,
+//                                'action' => 'index'
+//                            ]
+//                        ]
+//                    ],
+
+                    'feriado' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/estagio[/:action[/:id]]',
+                            'route' => '/feriado[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\EstagioController::class,
+                                'controller' => Controller\FeriadoController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -474,7 +489,8 @@ return [
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
+//            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\FeriadoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
