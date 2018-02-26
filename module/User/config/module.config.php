@@ -28,6 +28,16 @@ return [
                     ],
                 ],
             ],
+            'deny' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/deny',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'deny',
+                    ],
+                ],
+            ],
             'users' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -59,7 +69,7 @@ return [
                 // to anyone.
 //                ['actions' => ['resetPassword', 'message', 'setPassword'], 'allow' => '*'],
                 // Give access to "index", "add", "edit", "view", "changePassword" actions to authorized users only.
-                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword'], 'allow' => '@']
+                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword'], 'allow' => '1']
             ],
         ]
     ],

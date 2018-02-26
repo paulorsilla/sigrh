@@ -41,57 +41,61 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?= $this->url('home') ?>">Início</a></li>
                         
-                        <?php if ($this->identity() != null):?>
+                        <?php if ($this->identity() != null): 
+                            $user = $this->identity(); // pegar o usuario logado da sessao e salvar em uma variavel para verificacoes de papel por exemplo?> 
                         
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Cadastros<span class="caret"></span></a>
-                        	<ul class="dropdown-menu">
-                                    <li><a href="/sig-rh/colaborador/index?nome=&ativo=S&tipoColaborador=2">Colaborador</a></li>
-                                    <li><a href="/sig-rh/convenio">Convênio</a></li>
-                        	</ul>
-                        </li>
-                        
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Relatórios<span class="caret"></span></a>
-                        	<ul class="dropdown-menu">
-                                    <li><a href="/sig-rh/rel-colaborador/index">Relatório Colaborador</a></li>
-                        	</ul>
-                        </li>
-                        
+                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Cadastros<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/sig-rh/colaborador/index?nome=&ativo=S&tipoColaborador=2">Colaborador</a></li>
+                                        <li><a href="/sig-rh/convenio">Convênio</a></li>
+                                    </ul>
+                            </li>
 
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Ponto<span class="caret"></span></a>
-                        	<ul class="dropdown-menu">
-                                    <li><a href="/sig-rh/importacao-ponto">Importar arquivo com movimentação das catracas</a></li>
-                                    <li><a href="/sig-rh/ocorrencia/gerar">Gerar ocorrências</a></li>
-                                    <li><a href="/sig-rh/batida-ponto/folha-ponto">Gerar folha ponto dos estagiários</a></li>
-                                    <li><a href="/sig-rh/batida-ponto">Visualizar o registro das catracas por colaborador e período </a></li>
-                        	</ul>
-                        </li>
-                        
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Cadastros periféricos<span class="caret"></span></a>
-                        	<ul class="dropdown-menu">
-                                    <li><a href="/sig-rh/banco">Banco</a></li>
-                                    <li><a href="/sig-rh/cidade">Cidade</a></li>
-                                    <li><a href="/sig-rh/cor-pele">Cor de pele</a></li>
-                                    <li><a href="/sig-rh/curso">Curso</a></li>
-                                    <li><a href="/sig-rh/estado-civil">Estado civil</a></li>
-                                    <li><a href="/sig-rh/feriado">Feriado</a></li>
-                                    <li><a href="/sig-rh/fonte-seguro">Fonte seguro</a></li>
-                                    <li><a href="/sig-rh/grupo-sanguineo">Grupo sanguíneo</a></li>
-                                    <li><a href="/sig-rh/instituicao">instituicao</a></li>
-                                    <li><a href="/sig-rh/linha-onibus">Linha de ônibus</a></li>
-                                    <li><a href="/sig-rh/modalidade-bolsa">Modalidade bolsa</a></li>
-                                    <li><a href="/sig-rh/nivel">Nível</a></li>
-                                    <!--<li><a href="/sig-rh/tipo-colaborador">Tipo de colaboradores</a></li>-->
-                        	</ul>
-                        </li>
-                        
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Opções<b class="caret"></b></a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li><a href="/users">Gerenciar usuários</a></li>
-                            <li><a href="/logout">Sair</a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Relatórios<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/sig-rh/rel-colaborador/index">Relatório Colaborador</a></li>
+                                    </ul>
+                            </li>
+
+
+                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Ponto<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/sig-rh/importacao-ponto">Importar arquivo com movimentação das catracas</a></li>
+                                        <li><a href="/sig-rh/ocorrencia/gerar">Gerar ocorrências</a></li>
+                                        <li><a href="/sig-rh/batida-ponto/folha-ponto">Gerar folha ponto dos estagiários</a></li>
+                                        <li><a href="/sig-rh/batida-ponto">Visualizar o registro das catracas por colaborador e período </a></li>
+                                    </ul>
+                            </li>
+
+                            <?php if ( in_array( $user['papel'], array('1','2','3')) ): ?>
+                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true">Cadastros periféricos<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/sig-rh/banco">Banco</a></li>
+                                        <li><a href="/sig-rh/cidade">Cidade</a></li>
+                                        <li><a href="/sig-rh/cor-pele">Cor de pele</a></li>
+                                        <li><a href="/sig-rh/curso">Curso</a></li>
+                                        <li><a href="/sig-rh/estado-civil">Estado civil</a></li>
+                                        <li><a href="/sig-rh/fonte-seguro">Fonte seguro</a></li>
+                                        <li><a href="/sig-rh/grupo-sanguineo">Grupo sanguíneo</a></li>
+                                        <li><a href="/sig-rh/instituicao">instituicao</a></li>
+                                        <li><a href="/sig-rh/linha-onibus">Linha de ônibus</a></li>
+                                        <li><a href="/sig-rh/modalidade-bolsa">Modalidade bolsa</a></li>
+                                        <li><a href="/sig-rh/nivel">Nível</a></li>
+                                        <li><a href="/sig-rh/tipo-colaborador">Tipo de colaboradores</a></li>
+                                    </ul>
+                            </li>
+                            <?php endif;?>
                             
-    	            	</ul>
-	                    <?php endif;?>
-                        
+                            <?php if ( in_array( $user['papel'], array('1')) ): ?>
+                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Administração<b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+                                        <li><a href="/users">Gerenciar usuários</a></li>
+                                </ul>
+                            </li>
+                            <?php endif;?>
+                            <li><a href="/logout">Sair</a></li>
+                        <?php endif;?>
                     </ul>
                     
                 </div>

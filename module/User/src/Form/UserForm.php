@@ -85,6 +85,35 @@ class UserForm extends Form {
 						'label' => 'Ramal'
 				]
 		] );
+                
+		// Add "ramal" field
+//		$this->add ( [
+//				'type' => 'text',
+//				'name' => 'papel',
+//				'options' => [
+//						'label' => 'Papel'
+//				]
+//		] );
+                
+                $this->add([
+                    'type' => 'select',
+                    'name' => 'papel',
+                    'attributes' => [
+                        'id' => 'papel',
+                        'class' => 'form-control'
+                    ],
+                    'options' => [
+                        'label' => 'papel',
+                        'value_options' => [
+                            "" => "Selecione",
+                            "1" => "Admin",
+                            "2" => "Usuario",
+                            "3" => "Comum",
+                            "4" => "Estudante"
+                        ]
+                    ],
+                ]);
+                
 		
 		// Add the Submit button
 		$this->add ( [ 

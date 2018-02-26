@@ -67,10 +67,18 @@ class AuthManager {
 		
 			// Authenticate with login/password.
 			$authAdapter = $this->authService->getAdapter ();
-			$authAdapter->setIdentity ( $login );
+			$authAdapter->setIdentity ( $login  );
+                        //array('login'=>$login,'papel'=>$user->getPapel(),'nome'=>$user->getNome()/*,'matricula'=>$user->getMatricula()*/)
 			$authAdapter->setCredential ( $password );
-			
 			$result = $this->authService->authenticate ();
+                        if (  $result  ){
+                            $this->authService->getStorage()->write(
+                                    array( 'login'=>$login,
+                                           'papel'=>$user->getPapel(),
+                                           'nome'=>$user->getNome()
+                                           /*,'matricula'=>$user->getMatricula()*/)
+                                    );
+                        }
 			
 		}
 		
@@ -101,6 +109,13 @@ class AuthManager {
 	 * or not. It returns true if allowed; otherwise false.
 	 */
 	public function filterAccess($controllerName, $actionName) {
+                $papel_usuario = "convidado";
+                if ( $this->authService->hasIdentity() ) {
+                    $user = $this->authService->getIdentity() ;
+                    $papel_usuario = $user['papel'];
+                    //papel
+                }
+            //echo("filterAccess : $controllerName, $actionName (modo: ".$this->config ['options'] ['mode'] .") ");
 		// Determine mode - 'restrictive' (default) or 'permissive'. In restrictive
 		// mode all controller actions must be explicitly listed under the 'access_filter'
 		// config key, and access is denied to any not listed action for unauthorized users.
@@ -110,16 +125,24 @@ class AuthManager {
 		$mode = isset ( $this->config ['options'] ['mode'] ) ? $this->config ['options'] ['mode'] : 'restrictive';
 		if ($mode != 'restrictive' && $mode != 'permissive')
 			throw new \Exception ( 'Invalid access filter mode (expected either restrictive or permissive mode' );
+
 		
 		if (isset ( $this->config ['controllers'] [$controllerName] )) {
+                        
 			$items = $this->config ['controllers'] [$controllerName];
 			foreach ( $items as $item ) {
 				$actionList = $item ['actions'];
 				$allow = $item ['allow'];
+
+                                
 				if (is_array ( $actionList ) && in_array ( $actionName, $actionList ) || $actionList == '*') {
-					if ($allow == '*')
+					if ($allow === '*'){
 						return true; // Anyone is allowed to see the page.
-					else if ($allow == '@' && $this->authService->hasIdentity ()) {
+                                        }else if ($allow === '@' && $this->authService->hasIdentity ()) {
+						return true; // Only authenticated user is allowed to see the page.
+					} else if ($allow == $papel_usuario ) {
+						return true; // Only authenticated user is allowed to see the page.
+					} else if ( is_array($allow) && in_array($papel_usuario,$allow) ) {
 						return true; // Only authenticated user is allowed to see the page.
 					} else {
 						return false; // Access denied.

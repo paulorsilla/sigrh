@@ -31,6 +31,12 @@ $this->pageBreadcrumbs()->setItems([
                 <th>Nome:</th>
                 <td><?= $this->escapeHtml($user->getNome()) ?></td>
             </tr>
+            
+            <tr>
+                <th>Papel:</th>
+                <td><?= $this->escapeHtml($user->getPapel()) ?></td>
+            </tr>
+            
             <tr>
                 <th>Date Created:</th>
                 <td><?= $this->escapeHtml($user->getDateCreated()) ?></td>

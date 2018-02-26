@@ -40,11 +40,15 @@ class UserController extends AbstractActionController
      */
     public function indexAction() 
     {
+        $lista_papel = [1 => "Admin", 2 => "Usuario", 3 => "Comum", 4 => "Estudante"/*, 4 =>"Convidado"*/];
+        
         $users = $this->entityManager->getRepository(User::class)
                 ->findBy([], ['id'=>'ASC']);
         
         return new ViewModel([
-            'users' => $users
+            'users' => $users,
+            'lista_papel' => $lista_papel,
+            
         ]);
     } 
     
@@ -158,6 +162,7 @@ class UserController extends AbstractActionController
                     'email'=>$user->getEmail(),
             		'ramal'=>$user->getRamal(),
             		'login'=>$user->getLogin(),
+            		'papel'=>$user->getPapel(),
             ));
         }
         

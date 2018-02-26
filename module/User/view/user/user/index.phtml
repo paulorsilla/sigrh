@@ -12,6 +12,7 @@ $this->headTitle ( 'Users' );
 			<th>Nome</th>
 			<th>Login</th>
 			<th>E-mail</th>
+			<th>Papel</th>
 			<th>Opções</th>
 		</tr>
 	</thead>
@@ -23,6 +24,7 @@ $this->headTitle ( 'Users' );
 		<td><?= $this->escapeHtml($user->getNome()); ?></td>
 		<td><?= $this->escapeHtml($user->getLogin()); ?></td>
 		<td><?= $this->escapeHtml($user->getEmail()); ?></td>
+                <td><?= $this->escapeHtml($this->lista_papel[$user->getPapel()]); ?></td>
 		<td><a class="btn btn-primary btn-sm pull-center"
 			href="<?=$this->url ( 'users', [ 'action' => 'edit','id' => $user->getId () ] );?>"> <span
 				class="glyphicon glyphicon-pencil"></span>

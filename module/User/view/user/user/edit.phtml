@@ -19,6 +19,12 @@ $form->get('ramal')->setAttributes([
 		'placeholder'=>'Digite o ramal aqui'
 ]);
 
+$form->get('papel')->setAttributes([
+		'class'=>'form-control',
+		'placeholder'=>'Digite o papel aqui'
+]);
+
+
 
 $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
 ?>
@@ -64,6 +70,13 @@ $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
             <?= $this->formElement($form->get('ramal')); ?>
             <?= $this->formElementErrors($form->get('ramal')); ?>                  
         </div>
+                            
+        <div class="form-group">
+            <?= $this->formLabel($form->get('papel')); ?>
+            <?= $this->formElement($form->get('papel')); ?>
+            <?= $this->formElementErrors($form->get('papel')); ?>                  
+        </div>
+                            
         
         <?= $this->formElement($form->get('submit')); ?>
         
