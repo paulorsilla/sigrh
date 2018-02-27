@@ -58,6 +58,8 @@ class OcorrenciaController extends AbstractActionController {
                 $repoBatidaPonto = $this->entityManager->getRepository(BatidaPonto::class);
 
                 while ((int) $dataPesquisa->format('Ymd') <= (int) $dataPesquisaFinal->format('Ymd')) {
+                    $lancarOcorrencia = false;
+                    $descricaoOcorrencia = "";
                     $diaSemana = $dataPesquisa->format("w");
 
                     error_log("Data: " . $dataPesquisa->format("d-m-Y"));
@@ -72,8 +74,9 @@ class OcorrenciaController extends AbstractActionController {
                     }
                     
                     $cargaHorariaP1 = ((null != $escala) && (null != $escala->getSaida1()) && (null != $escala->getEntrada1())) ? $escala->getEntrada1()->diff($escala->getSaida1()) : \DateInterval::createFromDateString("0:0");
-                    $cargaHorariaP2 = ((null != $escala) && (null != $escala->getSaida2()) && (null != $escala->getEntrada2())) ? $escala->getEntrada1()->diff($escala->getSaida2()) : \DateInterval::createFromDateString("0:0");
-                    $cargaHorariaMinutos = ($cargaHorariaP1->h * 60) + $cargaHorariaP1->i + ($cargaHorariaP2->h * 60) + $cargaHorariaP2->i;
+                    $cargaHorariaP2 = ((null != $escala) && (null != $escala->getSaida2()) && (null != $escala->getEntrada2())) ? $escala->getEntrada2()->diff($escala->getSaida2()) : \DateInterval::createFromDateString("0:0");
+                    $cargaHorariaMinutos = (($cargaHorariaP1->h * 60) + $cargaHorariaP1->i) + (($cargaHorariaP2->h * 60) + $cargaHorariaP2->i);
+                    $saldoMinutos = 0;
 
                     //busca os registros na catraca para o dia em questão
 //                    $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
@@ -84,35 +87,34 @@ class OcorrenciaController extends AbstractActionController {
                             $repoBatidaPonto->marcacao_intervalo($batidaPonto, $escala);
                         }
                         
-                        $registrosEsperados = ["E1" => null, "S1" => null];
+                        $registrosEsperados = ["E1" => "", "S1" => ""];
                         $intervaloMinutos = ["E1" => null, "S1" => null];
                         
                         if (null != $escala->getEntrada2()) {
-                            $registrosEsperados = ["E2" => null, "S2" => null];
+                            $registrosEsperados = ["E2" => "", "S2" => ""];
                             $intervaloMinutos = ["E2" => null, "S2" => null];
                         }
                         
-                        foreach ($batidaPonto->getHorarios() as  $horario) {
+                        foreach ($batidaPonto->getHorarios() as $k => $horario) {
                             $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
                             $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
-
                             $intervaloMinutos["E1"] = ($intervaloE1->h * 60) + $intervaloE1->i;
                             $intervaloMinutos["S1"] = ($intervaloS1->h * 60) + $intervaloS1->i;
 
                             if(null != $escala->getEntrada2()) {
-                                
                                 $intervaloE2 = $escala->getEntrada2()->diff($horario->getHoraBatida());
                                 $intervaloS2 = $escala->getSaida2()->diff($horario->getHoraBatida());
-                            
                                 $intervaloMinutos["E2"] = $intervaloE2->h * 60 + $intervaloE2->i;
                                 $intervaloMinutos["S2"] = $intervaloS2->h * 60 + $intervaloS2->i;
-
                             }
                             
                             asort($intervaloMinutos);
                             $registro = key($intervaloMinutos);
-                            if ( ($registro != "E1") && ($registrosEsperados["E1"] == null) ) {
+                            if ( ($registro != "E1") && ($registrosEsperados["E1"] == "") ) {
                                 $registro = "E1";
+                            }
+                            if ( ($k == 3) && ($registro != "S2")) {
+                                $registro = "S2";
                             }
                             
                             $registrosEsperados[$registro] = $horario;
@@ -120,40 +122,60 @@ class OcorrenciaController extends AbstractActionController {
                             
                             if($registro == "E1") {
                                 if ($intervaloMinutos["E1"] > $tolerancia) {
+                                    $lancarOcorrencia = true;
                                     if ($intervaloE1->format("%R") == "-") {
-                                        error_log("Entrada antecipada fora da tolerancia");
+                                        $descricaoOcorrencia = "Entrada (E1) antecipada fora da tolerância.";
+                                        $saldoMinutos += $intervaloMinutos["E1"];
                                     } else {
-                                        error_log("Entrada com atraso fora da tolerancia");
+                                        $descricaoOcorrencia = "Entrada (E1) com atraso fora da tolerância.";
+                                        $saldoMinutos -= $intervaloMinutos["E1"];
                                     }
                                 }
                             } else if ($registro == "S1") {
                                 if ($intervaloMinutos["S1"] > $tolerancia) {
+                                    $lancarOcorrencia = true;
                                     if ($intervaloS1->format("%R") == "-") {
-                                        error_log("Saida antecipada fora da tolerancia");
+                                        $descricaoOcorrencia = "Saída (S1) antecipada fora da tolerância.";
+                                        $saldoMinutos -= $intervaloMinutos["S1"];
                                     } else {
-                                        error_log("Saida com atraso fora da tolerancia");
+                                        $descricaoOcorrencia = "Saída (S1) com atraso fora tolerância.";
+                                        $saldoMinutos += $intervaloMinutos["S1"];
                                     }
                                 }
                             } else if ($registro == "E2") {
                                 if ($intervaloMinutos["E2"] > $tolerancia) {
+                                    $lancarOcorrencia = true;
                                     if ($intervaloE2->format("%R") == "-") {
-                                        error_log("Entrada antecipada fora da tolerancia");
+                                        $descricaoOcorrencia = "Entrada (E2) antecipada fora da tolerância";
+                                        $saldoMinutos += $intervaloMinutos["E2"];
                                     } else {
-                                        error_log("Entrada com atraso fora da tolerancia");
+                                        $descricaoOcorrencia = "Entrada (E2) com atraso fora da tolerância.";
+                                        $saldoMinutos -= $intervaloMinutos["E2"];
                                     }
                                 }
                             } else if ($registro == "S2") {
                                 if ($intervaloMinutos["S2"] > $tolerancia) {
+                                    $lancarOcorrencia = true;
                                     if ($intervaloS2->format("%R") == "-") {
-                                        error_log("Saida antecipada fora da tolerancia");
+                                        $descricaoOcorrencia = "Saída (S2) antecipada fora da tolerância.";
+                                        $saldoMinutos -= $intervaloMinutos["S2"];
                                     } else {
-                                        error_log("Saida com atraso fora da tolerancia");
+                                        $descricaoOcorrencia = "Saída (S2) com atraso fora da tolerância.";
+                                        $saldoMinutos += $intervaloMinutos["S2"];
                                     }
                                 }
                             }
                         }
                     } else if ($escala != null && $batidaPonto == null) {
-                       // $repo->incluir_ou_editar($colaborador, $dataPesquisa, null, 'Omissão de ponto - dia todo.', null);
+//                        error_log("Omissao de ponto - dia todo");
+                        $lancarOcorrencia = true;
+                        $descricaoOcorrencia = "Omissão de ponto (dia todo).";
+                        $saldoMinutos = $saldoMinutos - $cargaHorariaMinutos;
+                    }
+                    if ($lancarOcorrencia) {
+                        $ocorrencia = $repo->findOneBy(['colaboradorMatricula' => $colaborador, 'dataOcorrencia' => $dataPesquisa]);
+                        $repo->incluir_ou_editar($colaborador, $dataPesquisa, $batidaPonto, $descricaoOcorrencia, $ocorrencia, $saldoMinutos);
+                        error_log("Saldo em minutos " .$saldoMinutos);
                     }
                     $dataPesquisa->add(new \DateInterval('P1D'));
                 }

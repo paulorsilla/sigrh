@@ -76,7 +76,8 @@ if ($this->batidasPonto != null):
                             $horarios = $batida->getHorarios();
                             $minutosDia = 0;
                             foreach ($horarios as $k => $horario):
-                                echo $this->escapeHtml($horario->getHoraBatida()->format("H:i")) . " ";
+                                $legenda = $horario->getTipo() == "A" ? "*" : "";
+                                echo $this->escapeHtml($horario->getHoraBatida()->format("H:i")) . $legenda." ";
                                 if (!($k % 2) == 0) {
                                     $primeiroRegistro = $horarios[$k - 1]->getHoraBatida();
                                     $segundoRegistro = $horario->getHoraBatida();
@@ -89,7 +90,7 @@ if ($this->batidasPonto != null):
                                 echo date('H:i', mktime(0, $minutosDia));
                                 $minutosPeriodo += $minutosDia;
                             ?></td>
-                        <td></td>
+                            <td><?php echo (!empty($this->registroOcorrencias[$dataPesquisa->format("Ymd")])) ? $this->registroOcorrencias[$dataPesquisa->format("Ymd")] : "";?> </td>
                     </tr>
                     <?php 
                         $dataPesquisa->add(new \DateInterval('P1D'));
@@ -105,7 +106,7 @@ if ($this->batidasPonto != null):
                             <td><?php echo $this->escapeHtml($diasSemana[$dataPesquisa->format("w")]); ?></td>
                             <td>-</td>
                             <td>-</td>
-                            <td></td>
+                            <td><?php echo (!empty($this->registroOcorrencias[$dataPesquisa->format("Ymd")])) ? $this->registroOcorrencias[$dataPesquisa->format("Ymd")] : "";?> </td>
                         </tr>
                     <?php $dataPesquisa->add(new \DateInterval('P1D'));
                 endwhile;?>

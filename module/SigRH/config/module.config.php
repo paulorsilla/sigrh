@@ -204,16 +204,46 @@ return [
                         ]
                     ],
                     
-                    'estagio' => [
+//                    'estagio' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route' => '/estagio[/:action[/:id]]',
+//                            'constraints' => [
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id' => '[0-9]+'
+//                            ],
+//                            'defaults' => [
+//                                'controller' => Controller\EstagioController::class,
+//                                'action' => 'index'
+//                            ]
+//                        ]
+//                    ],
+
+                    'feriado' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/estagio[/:action[/:id]]',
+                            'route' => '/feriado[/:action[/:id]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+'
                             ],
                             'defaults' => [
-                                'controller' => Controller\EstagioController::class,
+                                'controller' => Controller\FeriadoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
+                    'vinculo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/vinculo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\VinculoController::class,
                                 'action' => 'index'
                             ]
                         ]
@@ -414,20 +444,20 @@ return [
                         ]
                     ],
                     
-                    'termo' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/termo[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\TermoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
+//                    'termo' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route' => '/termo[/:action[/:id]]',
+//                            'constraints' => [
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id' => '[0-9]+'
+//                            ],
+//                            'defaults' => [
+//                                'controller' => Controller\TermoController::class,
+//                                'action' => 'index'
+//                            ]
+//                        ]
+//                    ],
                     
                     'tipo-colaborador' => [
                         'type' => Segment::class,
@@ -479,7 +509,8 @@ return [
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
+//            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\FeriadoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
@@ -493,7 +524,7 @@ return [
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
+//            Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\VinculoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
@@ -565,11 +596,16 @@ return [
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
             
-            Controller\EstagioController::class => [
+//            Controller\EstagioController::class => [
+//                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+//                ['actions' => ['delete'], 'allow' => 1] // admin
+//            ],
+                    
+            Controller\FeriadoController::class => [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
+        
             Controller\FonteSeguroController::class => [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
@@ -625,10 +661,10 @@ return [
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
             
-            Controller\TermoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
-                ['actions' => ['delete'], 'allow' => 1] // admin
-            ],
+//            Controller\TermoController::class => [
+//                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+//                ['actions' => ['delete'], 'allow' => 1] // admin
+//            ],
             
             Controller\TipoColaboradorController::class => [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
@@ -639,9 +675,7 @@ return [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
 
-            
             /* Relatorios */
             Controller\RelColaboradorController::class => [
                 ['actions' => ['index','gerar-html','csv'], 'allow' => array(1,2,3)]
@@ -659,7 +693,6 @@ return [
             Controller\OcorrenciaController::class => [
                 ['actions' => ['gerar'], 'allow' => 1]
             ]
-        
         ]
         
     ],

@@ -1,0 +1,65 @@
+<?php
+    $expediente = [0 => "Não", 1 => "Sim", 2 => "Apenas manhã", 3 => "Apenas tarde" ];
+?>
+
+<form method="get" action="/sig-rh/feriado/index">
+    <div class="row" style="padding-top: 10px;">
+        <div class="col-md-6"></div>
+        <div class="col-md-5">
+            <input class="form-control" type="text" name="search" placeholder="Digite aqui o ano para pesquisar" id="search" value="<?php echo (null != $this->search) ? $this->search : ''; ?>">
+        </div>
+        <div class="col-md-1">
+            <button class="btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</form>
+
+<div class="row titulo" >
+</div>
+
+<h1>Feriados cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Nome</th>
+                <th>Descricao</th>
+                <th>Tipo</th>
+                <th>Expediente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->feriados as $feriado): ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($feriado->getDataFeriado()->format("d/m/Y")); ?></td>
+                    <td><?php echo $this->escapeHtml($feriado->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml($feriado->getDescricao()); ?></td>
+                    <td><?php echo $this->escapeHtml($feriado->getTipoFeriado()->getDescricao()); ?></td>
+                    <td><?php echo $this->escapeHtml($expediente[$feriado->getExpediente()]); ?></td>
+
+                    
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/feriado', ['action' => 'save', 'id' => $feriado->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <!--a class="btn btn-primary btn-sm pull-center"
+                           href="<?php //echo $this->url('sig-rh/cidade', ['action' => 'delete', 'id' => $feriado->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a-->
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->feriados, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/feriado']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary pull-center" href="/sig-rh/feriado/save">Novo registro</a>
+        
+        <a class="btn btn-primary pull-center" href="/sig-rh/feriado/import">Importar</a>
+    </div>
+</div>
