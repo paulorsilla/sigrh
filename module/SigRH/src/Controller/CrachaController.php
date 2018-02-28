@@ -131,4 +131,69 @@ class CrachaController extends AbstractActionController
 //				'cracha' => $cracha,
 //		]);
 //	}
+        
+        
+        /**
+	 * Action para salvar um novo registro
+	 */
+	public function saveModalAction()
+	{
+                $id = $this->params()->fromRoute('id', null);
+		//Cria o formulário
+		$form = new CrachaForm();
+		
+		//Verifica se a requisição utiliza o método POST
+		if ($this->getRequest()->isPost()) {
+			
+			//Recebe os dados via POST
+			$data = $this->params()->fromPost();
+                        
+			//Preenche o form com os dados recebidos e o valida
+			$form->setData($data);
+			if ($form->isValid()) {
+				$data = $form->getData();
+                                $repo = $this->entityManager->getRepository(Cracha::class);
+                                $matricula = $this->params()->fromQuery('matricula');
+                                $repo->incluir_ou_editar($data, $id, $matricula);
+                                
+                                // alterar para json
+                                $modelJson = new \Zend\View\Model\JsonModel();
+				return $modelJson->setVariable('success',1);
+			}
+		} else {
+                    if ( !empty($id)){
+                        $repo = $this->entityManager->getRepository(Cracha::class);
+                        $row = $repo->find($id);
+                        if ( !empty($row)){
+//                            $form->get("ativo")->setValue("0");
+                            $form->setData($row->toArray());
+                        }
+                    }
+                }
+                $view = new ViewModel([
+				'form' => $form
+		]);
+		return $view->setTerminal(true);
+	}
+        
+        public function deleteModalAction()
+        {
+		$id = (int) $this->params()->fromRoute('id', null);
+                $matricula = $this->params()->fromQuery('matricula');
+                
+		if ($this->getRequest()->isPost()) {
+                    $repo = $this->entityManager->getRepository(Cracha::class);
+                    $repo->delete($id, $matricula);
+                    $modelJson = new \Zend\View\Model\JsonModel();
+                    return $modelJson->setVariable('success', 1);
+		}
+                
+                $repo = $this->entityManager->getRepository(Cracha::class);
+                $cracha= $repo->find($id);
+
+                $view = new ViewModel([
+				'cracha' => $cracha,
+		]);
+                return $view->setTerminal(true);
+        }
 }

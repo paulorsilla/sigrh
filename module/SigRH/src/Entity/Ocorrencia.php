@@ -18,80 +18,44 @@ class Ocorrencia extends AbstractEntity {
     protected $id;
     
     /**
-     * @ORM\Column(name="data", type="date")
-     */
-    protected $dataOcorrencia; 
+     * @ORM\ManyToOne(targetEntity="MovimentacaoPonto")
+     * @ORM\JoinColumn(name="movimentacao_ponto_id", referencedColumnName="id")
+     * */
+    protected $movimentacaoPonto;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Colaborador")
-     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
-     * */
-    protected $colaboradorMatricula; //colaborador_matricula
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="BatidaPonto")
-     * @ORM\JoinColumn(name="batida_ponto_id", referencedColumnName="id")
-     * */
-    protected $batidaPonto;
+     * @ORM\ManyToOne(targetEntity="Justificativa")
+     * @ORM\JoinColumn(name="justificativa_id", referencedColumnName="id")
+     **/
+    protected $justificativa;
  
     /**
      * @ORM\Column(name="descricao", type="string")
      */
     protected $descricao;
     
-    /**
-     * @ORM\Column(name="saldo_minutos", type="integer")
-     **/
-    protected $saldoMinutos;
-    
-    /**
-     * Returns user ID.
-     * 
-     * @return integer
-     */
     public function getId() {
         return $this->id;
     }
-    function getColaboradorMatricula() {
-        return $this->colaboradorMatricula;
+
+    public function getMovimentacaoPonto() {
+        return $this->movimentacaoPonto;
     }
-    public function getDataOcorrencia() {
-        return $this->dataOcorrencia;
-    }
-    public function getBatidaPonto() {
-        return $this->batidaPonto;
-    }
-    
+
     public function getDescricao() {
         return $this->descricao;
     }
-            
-    public function getSaldoMinutos() {
-        return $this->saldoMinutos;
-    }
-    
-    /**
-     * Sets user ID.
-     * 
-     * @param int $id        	
-     */
+
     public function setId($id) {
         $this->id = $id;
     }
-    function setColaboradorMatricula($colaboradorMatricula) {
-        $this->colaboradorMatricula = $colaboradorMatricula;
+
+    public function setMovimentacaoPonto($movimentacaoPonto) {
+        $this->movimentacaoPonto = $movimentacaoPonto;
     }
-    public function setDataOcorrencia($dataOcorrencia) {
-        $this->dataOcorrencia = $dataOcorrencia;
-    }
-    public function setBatidaPonto($batidaPonto) {
-        $this->batidaPonto = $batidaPonto;
-    }
+
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
-    }
-    public function setSaldoMinutos($saldoMinutos) {
-        $this->saldoMinutos = $saldoMinutos;
     }
 
 

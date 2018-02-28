@@ -17,9 +17,13 @@
                 <td><?php echo $this->escapeHtml($cracha->getObservacoes()); ?></td>
                 <td><?php echo ($cracha->getAtivo() ? "Sim" : "Não"); ?></td>
 
-                <td><a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/cracha', ['action' => 'save', 'id' => $cracha->getId()]) ?>"
-                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                            onclick="editarCracha('<?php echo $cracha->getId();?>')"
+                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                    <button type="button" class="btn btn-primary btn-sm pull-center" 
+                               onclick="excluirCracha('<?php echo $cracha->getId();?>')"
+                        title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
+
                 </td>
             </tr>
         <?php endforeach; ?>

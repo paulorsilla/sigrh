@@ -1,0 +1,41 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-4">
+                <?php echo $this->formLabel($form->get('numeroChip')); ?><br>
+                <?php echo $this->formElement($form->get('numeroChip')); ?>
+                <?php echo $this->formElementErrors($form->get('numeroChip')); ?>                  
+            </div>
+            <div class="col-md-3">
+                <?php echo $this->formLabel($form->get('dataInclusao')); ?><br>
+                <?php echo $this->formElement($form->get('dataInclusao')); ?>
+                <?php echo $this->formElementErrors($form->get('dataInclusao')); ?>                  
+            </div>
+            <div class="col-md-3">
+                <?php echo $this->formLabel($form->get('dataExclusao')); ?><br>
+                <?php echo $this->formElement($form->get('dataExclusao')); ?>
+                <?php echo $this->formElementErrors($form->get('dataExclusao')); ?>                  
+            </div>
+            <div class="col-md-2">
+                <?php echo $this->formLabel($form->get('ativo')); ?><br>
+                <?php echo $this->formElement($form->get('ativo')); ?>
+                <?php echo $this->formElementErrors($form->get('ativo')); ?>                  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->formLabel($form->get('observacoes')); ?><br>
+                <?php echo $this->formElement($form->get('observacoes')); ?>
+                <?php echo $this->formElementErrors($form->get('observacoes')); ?>                  
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?= $this->form()->closeTag(); ?>

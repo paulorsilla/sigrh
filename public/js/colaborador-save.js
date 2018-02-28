@@ -66,35 +66,38 @@
         });
     } 
     
-    function novoEstagio(matricula){
-        url = "/sig-rh/estagio/save-modal?matricula="+matricula;
-        $('#EstagioModal .modal-body').html('carregando...');
-        $('#EstagioModal .modal-body').attr('url',url);
-        $('#EstagioModal .modal-body').load(url);
-        $('#EstagioModal').modal('show');
-    }
-    function editarEstagio(id){
-        url = "/sig-rh/estagio/save-modal/"+id;
-        $('#EstagioModal .modal-body').html('carregando...');
-        $('#EstagioModal .modal-body').attr('url',url);
-        $('#EstagioModal .modal-body').load(url);
-        $('#EstagioModal').modal('show');
-    }
+//    function novoEstagio(matricula){
+//        url = "/sig-rh/estagio/save-modal?matricula="+matricula;
+//        $('#EstagioModal .modal-body').html('carregando...');
+//        $('#EstagioModal .modal-body').attr('url',url);
+//        $('#EstagioModal .modal-body').load(url);
+//        $('#EstagioModal').modal('show');
+//    }
     
-    function novoTermo(estagio){
-        url = "/sig-rh/termo/save-modal?estagio="+estagio;
-        $('#TermoModal .modal-body').html('carregando...');
-        $('#TermoModal .modal-body').attr('url',url);
-        $('#TermoModal .modal-body').load(url);
-        $('#TermoModal').modal('show');
-    }
-    function editarTermo(id){
-        url = "/sig-rh/termo/save-modal/"+id;
-        $('#TermoModal .modal-body').html('carregando...');
-        $('#TermoModal .modal-body').attr('url',url);
-        $('#TermoModal .modal-body').load(url);
-        $('#TermoModal').modal('show');
-    }
+//    function editarEstagio(id){
+//        url = "/sig-rh/estagio/save-modal/"+id;
+//        $('#EstagioModal .modal-body').html('carregando...');
+//        $('#EstagioModal .modal-body').attr('url',url);
+//        $('#EstagioModal .modal-body').load(url);
+//        $('#EstagioModal').modal('show');
+//    }
+    
+//    function novoTermo(estagio){
+//        url = "/sig-rh/termo/save-modal?estagio="+estagio;
+//        $('#TermoModal .modal-body').html('carregando...');
+//        $('#TermoModal .modal-body').attr('url',url);
+//        $('#TermoModal .modal-body').load(url);
+//        $('#TermoModal').modal('show');
+//    }
+//    
+//    function editarTermo(id){
+//        url = "/sig-rh/termo/save-modal/"+id;
+//        $('#TermoModal .modal-body').html('carregando...');
+//        $('#TermoModal .modal-body').attr('url',url);
+//        $('#TermoModal .modal-body').load(url);
+//        $('#TermoModal').modal('show');
+//    }
+    
     function novoVinculo(matricula){
         url = "/sig-rh/vinculo/save-modal?matricula="+matricula;
         $('#VinculoModal .modal-body').html('carregando...');
@@ -118,11 +121,11 @@
         $('#VinculoModal').modal('show');
     }
     
-    function refreshGridEstagio(matricula){
-        url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
-        $('#gridEstagio').html('carregando...');
-        $('#gridEstagio').load(url);
-    }
+//    function refreshGridEstagio(matricula){
+//        url = "/sig-rh/estagio/grid-modal?matricula="+matricula;
+//        $('#gridEstagio').html('carregando...');
+//        $('#gridEstagio').load(url);
+//    }
 
     function fncSalvarVinculo(obj){
         $(this).html("aguarde ...").attr("disabled",true);
@@ -173,29 +176,27 @@
             }
         });
     }
-    
-    
-
-    function fncSalvarEstagio(obj){
-        $(this).html("aguarde ...").attr("disabled",true);
-        form =  $("form",$(obj).closest(".modal-content"));
-        dados = $(form).serializeObject();
-        
-        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
-        
-        $.post(urlPost,dados,function(data){
-            if ( data.success == 1 ){
-                
-                $("#EstagioModal").modal('hide');
-                refreshGridEstagio($("input#matricula").val());
-                 
-                
-            } else {
-                $(".modal-body",$(obj).closest(".modal-content")).html(data);
-            }
-            $(this).html("Salvar").removeAttr("disabled");
-        });
-    } 
+//
+//    function fncSalvarEstagio(obj){
+//        $(this).html("aguarde ...").attr("disabled",true);
+//        form =  $("form",$(obj).closest(".modal-content"));
+//        dados = $(form).serializeObject();
+//        
+//        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+//        
+//        $.post(urlPost,dados,function(data){
+//            if ( data.success == 1 ){
+//                
+//                $("#EstagioModal").modal('hide');
+//                refreshGridEstagio($("input#matricula").val());
+//                 
+//                
+//            } else {
+//                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+//            }
+//            $(this).html("Salvar").removeAttr("disabled");
+//        });
+//    } 
     
     function fncSalvarHorario(obj){
         $(this).html("aguarde ...").attr("disabled",true);
@@ -218,35 +219,35 @@
         });
     } 
 
-    function fncSalvarTermo(obj){
-        $(this).html("aguarde ...").attr("disabled",true);
-        form =  $("form",$(obj).closest(".modal-content"));
-        dados = $(form).serializeObject();
-        
-        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
-        
-        $.post(urlPost,dados,function(data){
-            if ( data.success == 1 ){
-                
-                $("#TermoModal").modal('hide');
-                refreshGridEstagio($("input#matricula").val());
-                 
-                
-            } else {
-                $(".modal-body",$(obj).closest(".modal-content")).html(data);
-            }
-            $(this).html("Salvar").removeAttr("disabled");
-        });
-    } 
+//    function fncSalvarTermo(obj){
+//        $(this).html("aguarde ...").attr("disabled",true);
+//        form =  $("form",$(obj).closest(".modal-content"));
+//        dados = $(form).serializeObject();
+//        
+//        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+//        
+//        $.post(urlPost,dados,function(data){
+//            if ( data.success == 1 ){
+//                
+//                $("#TermoModal").modal('hide');
+//                refreshGridEstagio($("input#matricula").val());
+//                 
+//                
+//            } else {
+//                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+//            }
+//            $(this).html("Salvar").removeAttr("disabled");
+//        });
+//    } 
 
-    function excluirEstagio(id){
-        url = "/sig-rh/estagio/delete/"+id;
-        $('#EstagioModal .modal-body').html('carregando...');
-        $('#EstagioModal .modal-body').attr('url',url);
-        $('#EstagioModal .modal-body').load(url);
-        $('#EstagioModal').modal('show');
-    }
-    
+//    function excluirEstagio(id){
+//        url = "/sig-rh/estagio/delete/"+id;
+//        $('#EstagioModal .modal-body').html('carregando...');
+//        $('#EstagioModal .modal-body').attr('url',url);
+//        $('#EstagioModal .modal-body').load(url);
+//        $('#EstagioModal').modal('show');
+//    }
+//    
     
     function novoDependente(matricula){
         url = "/sig-rh/dependente/save-modal?matricula="+matricula;
@@ -284,18 +285,75 @@
         $('#gridHorarios').load(url);
     }
     
-    function refreshGridCracha(matricula){
-        url = "/sig-rh/cracha/grid-modal?matricula="+matricula;
-        $('#gridCracha').html('carregando...');
-        $('#gridCracha').load(url);
-    }
-    
     function editarHorario(matricula){
         url = "/sig-rh/horario/save-modal?matricula="+matricula;
         $('#HorarioModal .modal-body').html('carregando...');
         $('#HorarioModal .modal-body').attr('url',url);
         $('#HorarioModal .modal-body').load(url);
         $('#HorarioModal').modal('show');
+    }
+    
+    function novoCracha(matricula) {
+        url = "/sig-rh/cracha/save-modal?matricula="+matricula;
+        $('#CrachaModal .modal-body').html('carregando...');
+        $('#CrachaModal .modal-body').attr('url',url);
+        $('#CrachaModal .modal-body').load(url);
+        $('#CrachaModal').modal('show');    
+    }
+
+    function refreshGridCracha(matricula){
+        url = "/sig-rh/cracha/grid-modal?matricula="+matricula;
+        $('#gridCracha').html('carregando...');
+        $('#gridCracha').load(url);
+    }
+   
+    function editarCracha(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/cracha/save-modal/"+id+"?matricula="+matricula;
+        $('#CrachaModal .modal-body').html('carregando...');
+        $('#CrachaModal .modal-body').attr('url',url);
+        $('#CrachaModal .modal-body').load(url);
+        $('#CrachaModal').modal('show');
+    }
+    
+    function fncSalvarCracha(obj){
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#CrachaModal").modal('hide');
+                refreshGridCracha($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
+        });
+    }
+    
+    function excluirCracha(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/cracha/delete-modal/"+id+"?matricula="+matricula;
+        $('#ExclusaoCrachaModal .modal-body').html('carregando...');
+        $('#ExclusaoCrachaModal .modal-body').attr('url',url);
+        $('#ExclusaoCrachaModal .modal-body').load(url);
+        $('#ExclusaoCrachaModal').modal('show');
+    }
+    
+    function fncExcluirCracha(obj) {
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#ExclusaoCrachaModal").modal('hide');
+                refreshGridCracha($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+        });
     }
     
     function mascarasEntrada()

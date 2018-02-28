@@ -40,7 +40,7 @@ class Cracha extends AbstractEntity{
     protected $dataExclusao;
     
     /**
-     * @ORM\Column(name="ativo", type="boolean")
+     * @ORM\Column(name="ativo", type="integer")
      */
     protected $ativo;
     
