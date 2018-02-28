@@ -113,30 +113,6 @@ class RelColaboradorController extends AbstractActionController {
 
     public function gerarHtmlAction() {
 
-        /*$search = [
-            "nome" => $this->params()->fromQuery("nome"),
-            "matricula" => $this->params()->fromQuery("matricula"),
-            "sexo" => $this->params()->fromQuery("sexo"),
-            "combo_grupoSanguineo" => $this->params()->fromQuery("combo_grupoSanguineo"),
-            "combo_estadoCivil" => $this->params()->fromQuery("combo_estadoCivil"),
-            "combo_grauInstrucao" => $this->params()->fromQuery("combo_grauInstrucao"),
-            "necessidadeEspecial" => $this->params()->fromQuery("necessidadeEspecial"),
-            "obrigatorio" => $this->params()->fromQuery("obrigatorio"),
-            "nivel" => $this->params()->fromQuery("nivel"),
-            "instituicaoFomento" => $this->params()->fromQuery("instituicaoFomento"),
-            "modalidadeBolsa" => $this->params()->fromQuery("modalidadeBolsa"),
-            "ativo" => $this->params()->fromQuery("ativo"),
-            "aniversariantesMes" => $this->params()->fromQuery("aniversariantesMes"),
-            "tipoVinculo" => $this->params()->fromQuery("tipoVinculo"),
-            "orientador" => $this->params()->fromQuery("orientador"),
-            "inicioVigenciaIni" => $this->params()->fromQuery("inicioVigenciaIni"),
-            "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
-            "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
-            "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
-            "subLotacao" => $this->params()->fromQuery("subLotacao"),
-
-        ];*/
-        
         $search = $this->params()->fromQuery();  
         
         //\Zend\Debug\Debug::dump($search );
@@ -211,7 +187,7 @@ class RelColaboradorController extends AbstractActionController {
     
         public function csvAction()
         {
-                $titulo = "Relatorio blablabla";
+                $titulo = "Relatorio";
 
                
                   $params = $this->params()->fromQuery();   
@@ -221,13 +197,50 @@ class RelColaboradorController extends AbstractActionController {
 
                 //cabecalho
                 $csvData = $titulo."\n";
-                $csvData .= "matricula;nome;Fomento"."\n";
+                $csvData .= "matricula;nome;Fomento;Sub lotação;Grau de instrução;Obrigatório;";
+//                $csvData .= "Data inicio;Data fim;Data nascimento";
+                $csvData .= "Tipo colaborador;Linha ônibus;Endereço;Grupo sanguíneo;Cor pele;Estado civil;Apelido;Sexo;Nacionalidade;Telefone residencial;";
+                $csvData .= "Celular;Ramal; Email;Necessidade especial;Login sede;Email corporativo;RG;  Órgão expedidor; CPF; Número CTPS; Série CTPS; PIS; "."\n";
+//                $csvData .= "Cidade;UF;Natural;Supervisor;Contas correntes;Dependentes;crachás;Data emissão RG;Data expedição CTPS;"."\n";
 
                 foreach ($colaboradores as $colaborador) {
                     foreach( $colaborador->vinculos as $vinculo ) {
                         $csvData .= $colaborador->matricula.";".
                                     $colaborador->nome.";".
                                     ($vinculo->instituicaoFomento!= null?$vinculo->instituicaoFomento->nomFantasia:"").";".
+                                    $vinculo->getSublotacao()->descricao.";".
+                                    $colaborador->getGrauInstrucao()->descricao.";".
+                                    $vinculo->obrigatorio.";".
+//                                    $vinculo->dataInicio.";".
+//                                    $vinculo->dataFim.";".
+//                                    $colaborador->dataNascimento.";".
+                                    $colaborador->getTipoColaborador()->descricao.";".
+                                    $colaborador->getLinhaOnibus()->descricao.";".
+                                    $colaborador->getEndereco()->endereco.";".
+//                                    $colaborador->getEndereco()->cidade.";".
+                                    $colaborador->getGrupoSanguineo()->descricao.";".
+                                    $colaborador->getCorPele()->descricao.";".
+                                    $colaborador->getEstadoCivil()->descricao.";".
+//                                    $colaborador->getNatural()->getCidade()->cidade.";".
+//                                    $colaborador->getSupervisor()->nome.";".
+                                    $colaborador->apelido.";".
+                                    $colaborador->sexo.";".
+                                    $colaborador->nacionalidade.";".
+                                    $colaborador->telefoneResidencial.";".
+                                    $colaborador->telefoneCelular.";".
+                                    $colaborador->ramal.";".
+                                    $colaborador->email.";".
+                                    $colaborador->necessidadeEspecial.";".
+                                    $colaborador->loginSede.";".
+                                    $colaborador->emailCorporativo.";".
+                                    $colaborador->rgNumero.";".
+//                                    $colaborador->rgDataEmissao.";".
+                                    $colaborador->rgOrgaoExpedidor.";".
+                                    $colaborador->cpf.";".
+                                    $colaborador->ctpsNumero.";".
+                                    $colaborador->ctpsSerie.";".
+//                                    $colaborador->ctpsDataExpedicao.";".
+                                    $colaborador->pis.";".
                                     "\n";
                     }
                     
