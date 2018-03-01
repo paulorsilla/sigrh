@@ -12,6 +12,9 @@ class Colaborador extends AbstractRepository {
         $emConfig->addCustomDatetimeFunction("MONTH", \DoctrineExtensions\Query\Mysql\Month::class);
         $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
 
+        //busca da tabela vinculo...
+        $joinVinculo = false;
+        
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')
                 ->from(ColaboradorEntity::class, 'c')
@@ -19,6 +22,16 @@ class Colaborador extends AbstractRepository {
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
+        // Se for usuario do perfil "cadastro estudante", não mostrar os empregados
+        if ( isset($search['perfilUsuario']) && $search['perfilUsuario'] == '5' ) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere('v.tipoVinculo not in (1,6)');
+        }
+             
+        
         if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
             unset($search['tipoColaborador']);
             $qb->andWhere('c.tipoColaborador = 2');
@@ -76,8 +89,7 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("necessidadeEspecial",$search["necessidadeEspecial"]);
         }
         
-        //busca da tabela vinculo...
-        $joinVinculo = false;
+        
         
         if ( !empty($search["inicioVigencia"]) ) {
             $joinVinculo = true;

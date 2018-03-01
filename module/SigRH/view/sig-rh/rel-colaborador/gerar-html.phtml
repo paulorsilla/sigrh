@@ -61,8 +61,12 @@
                     <th>Término vigência</th>
                 <?php endif;?>
                     
-                    
-                <th>Editar</th>
+                <?php if ($this->identity() != null): 
+                         $user = $this->identity(); // pegar o usuario logado da sessao e salvar em uma variavel para verificacoes de papel por exemplo?> 
+                         <?php if ( in_array( $user['papel'], array('1')) ): ?>
+                            <th>Editar</th>
+                         <?php endif;?>
+                <?php endif;?>
             </tr>
         </thead>
         <tbody>
@@ -83,11 +87,13 @@
                         <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataInicio()) ? $vinculo->getDataInicio()->format("d/m/Y") : "-";?></td>
                         <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataTermino()) ? $vinculo->getDataTermino()->format("d/m/Y") : "-";?></td>
                     <?php endif;?>
-                        
-                    <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
-                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
-                    </td>
+
+                    <?php if ( in_array( $user['papel'], array('1')) ): ?>
+                        <td><a class="btn btn-primary btn-sm pull-center"
+                                href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
+                                title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                    <?php endif;?>
                         
                 </tr>
             <?php endforeach; ?>

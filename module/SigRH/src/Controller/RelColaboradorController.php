@@ -115,6 +115,8 @@ class RelColaboradorController extends AbstractActionController {
 
         $search = $this->params()->fromQuery();  
         
+        $user = $this->identity();
+        $search['perfilUsuario'] = $user['papel'];
         //\Zend\Debug\Debug::dump($search );
         //meses do ano
         $array_meses = ["01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho",
@@ -187,42 +189,57 @@ class RelColaboradorController extends AbstractActionController {
     
         public function csvAction()
         {
-                $titulo = "Relatorio";
+                $titulo = "Relatório geral";
 
                
                   $params = $this->params()->fromQuery();   
+                  $user = $this->identity();
+                  $params['perfilUsuario'] = $user['papel'];
+                  
                   $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
                   $colaboradores = $repo->getQuery($params)->getResult();                  
                   
 
                 //cabecalho
                 $csvData = $titulo."\n";
-                $csvData .= "matricula;nome;Fomento;Sub lotação;Grau de instrução;Obrigatório;";
-//                $csvData .= "Data inicio;Data fim;Data nascimento";
-                $csvData .= "Tipo colaborador;Linha ônibus;Endereço;Grupo sanguíneo;Cor pele;Estado civil;Apelido;Sexo;Nacionalidade;Telefone residencial;";
-                $csvData .= "Celular;Ramal; Email;Necessidade especial;Login sede;Email corporativo;RG;  Órgão expedidor; CPF; Número CTPS; Série CTPS; PIS; "."\n";
-//                $csvData .= "Cidade;UF;Natural;Supervisor;Contas correntes;Dependentes;crachás;Data emissão RG;Data expedição CTPS;"."\n";
+                $csvData .= "matricula;nome;Fomento;Sub lotação;Grau de instrução;Obrigatório;Data inicio;Data término;Data nascimento;";
+                $csvData .= "Tipo colaborador;Linha ônibus;Endereço;Cidade;UF;Grupo sanguíneo;Cor pele;Estado civil;Supervisor;Apelido;Sexo;Nacionalidade;Telefone residencial;";
+                $csvData .= "Celular;Ramal; Email;Necessidade especial;Login sede;Email corporativo;RG;Data emissão RG;Órgão expedidor; CPF; Número CTPS; Data expedição CTPS; Série CTPS; PIS;Crachás;Dependentes; "."\n";
+//                $csvData .= "Natural;"."\n";
 
+                $lista_obrigatorio = array(0=>'Não',1=>'Sim');
+                $lista_grauParentesco = [1 => "Cônjuge", 2 => "Filho(a)", 3 => "Irmã(o)", 4 => "Pai", 5 => "Mãe", 99 => "Outros"];
                 foreach ($colaboradores as $colaborador) {
+                    $lista_crachas = array();
+                    foreach($colaborador->crachas as $cracha){
+                        $lista_crachas[] = $cracha->numeroChip;
+                    }
+                    $lista_dependentes = array();
+                    foreach($colaborador->dependentes as $dependente){
+                        $lista_dependentes[] = $dependente->nome." (".$lista_grauParentesco[$dependente->grauParentesco].")";
+                    }                    
                     foreach( $colaborador->vinculos as $vinculo ) {
                         $csvData .= $colaborador->matricula.";".
                                     $colaborador->nome.";".
                                     ($vinculo->instituicaoFomento!= null?$vinculo->instituicaoFomento->nomFantasia:"").";".
                                     $vinculo->getSublotacao()->descricao.";".
                                     $colaborador->getGrauInstrucao()->descricao.";".
-                                    $vinculo->obrigatorio.";".
-//                                    $vinculo->dataInicio.";".
-//                                    $vinculo->dataFim.";".
-//                                    $colaborador->dataNascimento.";".
+                                   // $lista_obrigatorio[$vinculo->obrigatorio].";". // uma forma de fazer
+                                    ($vinculo->obrigatorio==1?'Sim':'Não').";". // segunda forma de fazer
+                                    ($vinculo->dataInicio!=null?$vinculo->dataInicio->format('d/m/Y'):"").";".
+                                    ($vinculo->dataTermino!=null?$vinculo->dataTermino->format('d/m/Y'):"").";".
+                                    ($colaborador->dataNascimento!=null?$colaborador->dataNascimento->format('d/m/Y'):"").";".
                                     $colaborador->getTipoColaborador()->descricao.";".
                                     $colaborador->getLinhaOnibus()->descricao.";".
                                     $colaborador->getEndereco()->endereco.";".
-//                                    $colaborador->getEndereco()->cidade.";".
+                                    ($colaborador->getEndereco()->getCidade()!=null?$colaborador->getEndereco()->getCidade()->cidade:"").";".
+                                    ($colaborador->getEndereco()->getCidade()!=null?$colaborador->getEndereco()->getCidade()->estado->sigla:"").";".
                                     $colaborador->getGrupoSanguineo()->descricao.";".
                                     $colaborador->getCorPele()->descricao.";".
                                     $colaborador->getEstadoCivil()->descricao.";".
+//                                    ($colaborador->getNatural()->getCidade()!=null?$colaborador->getNatural()->getCidade()->cidade:"").";".
 //                                    $colaborador->getNatural()->getCidade()->cidade.";".
-//                                    $colaborador->getSupervisor()->nome.";".
+                                    $vinculo->getOrientador()->nome.";".
                                     $colaborador->apelido.";".
                                     $colaborador->sexo.";".
                                     $colaborador->nacionalidade.";".
@@ -230,17 +247,19 @@ class RelColaboradorController extends AbstractActionController {
                                     $colaborador->telefoneCelular.";".
                                     $colaborador->ramal.";".
                                     $colaborador->email.";".
-                                    $colaborador->necessidadeEspecial.";".
+                                    ($colaborador->necessidadeEspecial==1?'Sim':'Não').";". 
                                     $colaborador->loginSede.";".
                                     $colaborador->emailCorporativo.";".
                                     $colaborador->rgNumero.";".
-//                                    $colaborador->rgDataEmissao.";".
+                                    ($colaborador->rgDataEmissao!=null?$colaborador->rgDataEmissao->format('d/m/Y'):"").";".
                                     $colaborador->rgOrgaoExpedidor.";".
                                     $colaborador->cpf.";".
                                     $colaborador->ctpsNumero.";".
+                                    ($colaborador->ctpsDataExpedicao!=null?$colaborador->ctpsDataExpedicao->format('d/m/Y'):"").";".
                                     $colaborador->ctpsSerie.";".
-//                                    $colaborador->ctpsDataExpedicao.";".
                                     $colaborador->pis.";".
+                                    implode(',',$lista_crachas).";".  // adiciona o separador virgula para um array
+                                    implode(',',$lista_dependentes).";".  
                                     "\n";
                     }
                     

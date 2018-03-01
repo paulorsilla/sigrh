@@ -109,7 +109,8 @@ class UserForm extends Form {
                             "1" => "Admin",
                             "2" => "Usuario",
                             "3" => "Comum",
-                            "4" => "Estudante"
+                            "4" => "Estudante",
+                            "5" => "Cadastro Estudante"
                         ]
                     ],
                 ]);

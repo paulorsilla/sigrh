@@ -40,7 +40,7 @@ class UserController extends AbstractActionController
      */
     public function indexAction() 
     {
-        $lista_papel = [1 => "Admin", 2 => "Usuario", 3 => "Comum", 4 => "Estudante"/*, 4 =>"Convidado"*/];
+        $lista_papel = [1 => "Admin", 2 => "Usuario", 3 => "Comum", 4 => "Estudante", 5 =>"Cadastro estudante"];
         
         $users = $this->entityManager->getRepository(User::class)
                 ->findBy([], ['id'=>'ASC']);

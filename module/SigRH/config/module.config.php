@@ -678,7 +678,7 @@ return [
 
             /* Relatorios */
             Controller\RelColaboradorController::class => [
-                ['actions' => ['index','gerar-html','csv'], 'allow' => array(1,2,3)]
+                ['actions' => ['index','gerar-html','csv'], 'allow' => array(1,2,3,5)]
             ],
             
             /* ponto */
