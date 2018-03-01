@@ -1,0 +1,17 @@
+<?php
+$title = 'Excluir um registro';
+$url   = $this->url('sig-rh/cracha', ['action' => 'delete-modal', 'id' => $cracha->getId()]);
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title) ?></h1>
+
+<p>
+    Deseja realmente excluir 
+    "<?php echo $this->escapeHtml($cracha->getNumeroChip()); ?>"
+</p>
+
+<form action="<?php echo $url; ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?php echo (int) $cracha->getId(); ?>" />
+    </div>
+</form>

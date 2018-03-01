@@ -10,15 +10,13 @@ use Zend\InputFilter\InputFilter;
  */
 class CrachaForm extends Form {
 
-    protected $objectManager;
     /**
      * Construtor
      */
-    public function __construct($objectManager) {
+    public function __construct() {
         //Determina o nome do formulário
         parent::__construct('cracha-form');
 
-        $this->objectManager = $objectManager;
         //Define o método POST para envio do formulário
         $this->setAttribute('method', 'post');
 
@@ -26,14 +24,8 @@ class CrachaForm extends Form {
         $this->addInputFilter();
     }
 
-        public function setObjectManager(ObjectManager $objectManager) {
-        $this->objectManager = $objectManager;
-    }
-
-    public function getObjectManager() {
-        return $this->objectManager;
-    }
     protected function addElements() {
+        
         //Adiciona o campo "numeroChip"
         $this->add([
             'type' => 'text',
@@ -45,6 +37,65 @@ class CrachaForm extends Form {
             ],
             'options' => [
                 'label' => 'Número chip'
+            ],
+        ]);
+        
+        //Adiciona o campo "data_inclusao"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataInclusao',
+            'attributes' => [
+                'id' => 'dataInclusao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Data inclusão'
+            ],
+        ]);
+
+        //Adiciona o campo "data_exclusao"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'dataExclusao',
+            'attributes' => [
+                'id' => 'dataExclusao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Data exclusão'
+            ],
+        ]);
+
+        //Adiciona o campo "ativo"
+        $this->add([
+            'type' => 'select',
+            'name' => 'ativo',
+            'attributes' => [
+                'id' => 'ativo',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Ativo',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+        
+        //Adiciona o campo "observacoes"
+        $this->add([
+            'type' => 'text',
+            'name' => 'observacoes',
+            'attributes' => [
+                'id' => 'observacoes',
+                'class' => 'form-control',
+                'placeholder' => 'Digite as obsevarções aqui'
+            ],
+            'options' => [
+                'label' => 'Observações'
             ],
         ]);
 
@@ -81,10 +132,34 @@ class CrachaForm extends Form {
                 ],
             ],
         ]);
+
+        $inputFilter->add([
+            'name' => 'observacoes',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ]
+        ]);
         
-        
-         
-         
+        //data_inclusao
+        $inputFilter->add([
+            'name' => 'dataInclusao',
+            'required' => true,
+        ]);
+
+        //data_exclusao
+        $inputFilter->add([
+            'name' => 'dataExclusao',
+            'required' => false,
+        ]);
+
+        //ativo
+        $inputFilter->add([
+            'name' => 'ativo',
+            'required' => true,
+        ]);
     }
 
 }

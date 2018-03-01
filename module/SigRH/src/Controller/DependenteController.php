@@ -51,7 +51,8 @@ class DependenteController extends AbstractActionController
 		return 	$view->setTerminal(true);
             
 	}
-	/**
+
+        /**
 	 * Action para salvar um novo registro
 	 */
 	public function saveModalAction()

@@ -39,15 +39,15 @@ class Cracha extends AbstractRepository {
 //        return $array;
 //    }
 //    
-//    public function delete($id){
-//        $row = $this->find($id);
-//        if ($row) {
-//                $this->getEntityManager()->remove($row);
-//                $this->getEntityManager()->flush();
-//        }
-//    }
+    public function delete($id){
+        $row = $this->find($id);
+        if ($row) {
+                $this->getEntityManager()->remove($row);
+                $this->getEntityManager()->flush();
+        }
+    }
     
-    public function incluir_ou_editar($dados,$id = null){
+    public function incluir_ou_editar($dados, $id = null, $matricula = null){
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
@@ -57,7 +57,29 @@ class Cracha extends AbstractRepository {
             $row = new CrachaEntity();
         }
         
+        if ( !empty($matricula)) {
+            $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
+            if ( empty($colaborador) )
+                throw new Exception('Colaborador nao encontrado');
+            $row->setColaboradorMatricula($colaborador);
+        }
         
+        $row->setDataInclusao(null);
+        if ($dados ['dataInclusao'] != "") {					
+            $dataInclusao = \DateTime::createFromFormat("Y-m-d", $dados["dataInclusao"]);
+            if ( !empty($dataInclusao)  )
+                $row->setDataInclusao($dataInclusao);
+        }
+        unset($dados['dataInclusao']);
+        
+        $row->setDataExclusao(null);
+        if ($dados ['dataExclusao'] != "") {					
+            $dataExclusao = \DateTime::createFromFormat("Y-m-d", $dados["dataExclusao"]);
+            if ( !empty($dataExclusao)  )
+                $row->setDataExclusao($dataExclusao);
+        }
+        unset($dados['dataExclusao']);
+
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
