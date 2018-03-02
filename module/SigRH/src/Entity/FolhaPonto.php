@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe FolhaPonto.
@@ -30,6 +31,12 @@ class FolhaPonto extends AbstractEntity {
     protected $referencia; //AAAAMM
     
     /**
+     * @ORM\OneToMany(targetEntity="MovimentacaoPonto", mappedBy="folhaPonto")
+     * @ORM\OrderBy({"diaPonto" = "ASC"})
+     **/
+    protected $movimentacaoPonto;
+    
+    /**
      * @ORM\Column(name="saldo_minutos", type="integer")
      **/
     protected $saldoMinutos;
@@ -38,6 +45,10 @@ class FolhaPonto extends AbstractEntity {
      * @ORM\Column(name="status", type="integer")
      **/
     protected $status;
+    
+    public function __contruct() {
+        $this->movimentacaoPonto = new ArrayCollection();
+    }
     
     public function getId() {
         return $this->id;
@@ -77,6 +88,14 @@ class FolhaPonto extends AbstractEntity {
 
     public function setStatus($status) {
         $this->status = $status;
+    }
+    
+    public function getMovimentacaoPonto() {
+        return $this->movimentacaoPonto;
+    }
+
+    public function setMovimentacaoPonto($movimentacaoPonto) {
+        $this->movimentacaoPonto = $movimentacaoPonto;
     }
 
 }

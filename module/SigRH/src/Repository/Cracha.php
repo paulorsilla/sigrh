@@ -27,8 +27,6 @@ class Cracha extends AbstractRepository {
        return $qb;
     }
     
-    
-    
 //    public function getListParaCombo(){
 //        
 //        $array = array();

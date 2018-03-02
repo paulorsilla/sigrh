@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Form\ImportacaoPontoForm;
 use SigRH\Entity\ImportacaoPonto;
+use SigRH\Entity\FolhaPonto;
 
 class ImportacaoPontoController extends AbstractActionController
 {
@@ -63,6 +64,8 @@ class ImportacaoPontoController extends AbstractActionController
 				$data = $form->getData();
                                 
                                 $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
+                                $folha_repo = $this->entityManager->getRepository(FolhaPonto::class);
+                                
                                 $importacaoPonto = $repo->incluir_ou_editar($data, $user, null, $id);
 
                                 $file = $this->params()->fromFiles('arquivo');
@@ -71,6 +74,8 @@ class ImportacaoPontoController extends AbstractActionController
 
                                 $repo->incluir_ou_editar($data, $user, $log, $importacaoPonto->getId());
                                 $this->entityManager->flush();
+                                
+                                $folha_repo->complete($importacaoPonto->getReferencia());
                                 
 				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'index']);
 			} else {

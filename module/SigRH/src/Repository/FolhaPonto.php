@@ -3,7 +3,7 @@
 namespace SigRH\Repository;
 
 use SigRH\Entity\FolhaPonto as FolhaPontoEntity;
-//use SigRH\Entity\HoraBatidaPonto as HoraBatidaPontoEntity;
+use SigRH\Entity\MovimentacaoPonto as MovimentacaoPontoEntity;
 
 class FolhaPonto extends AbstractRepository {
 
@@ -46,8 +46,35 @@ class FolhaPonto extends AbstractRepository {
         }
     }
 
-    public function incluir_ou_editar($data, $id) {
-        
+  
+    public function create($colaborador, $referencia) {
+        $row = new FolhaPontoEntity();
+        $row->setColaboradorMatricula($colaborador);
+        $row->setReferencia($referencia);
+        $row->setStatus(0);
+        $row->setSaldoMinutos(0);
+        $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
+        $this->getEntityManager()->flush(); // Confirma a atualizacao
+        return $row;
+    }
+    
+    public function complete($referencia) {
+        $dataInicial = \DateTime::createFromFormat("Ymd", $referencia."01");
+        $rows = $this->findBy(['referencia' => $referencia]);
+        foreach($rows as $row) {
+            $dataPesquisa = \DateTime::createFromFormat("Ymd", $dataInicial->format("Ymd"));
+            while($dataInicial->format('m') == $dataPesquisa->format('m')) {
+                $movimentacaoPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->findOneBy(['folhaPonto' => $row, 'diaPonto' => $dataPesquisa->format("d")]);
+                if(null == $movimentacaoPonto) {
+                    $movimentacaoPonto = new MovimentacaoPontoEntity();
+                    $movimentacaoPonto->setFolhaPonto($row);
+                    $movimentacaoPonto->setDiaPonto($dataPesquisa->format('d'));
+                    $this->getEntityManager()->persist($movimentacaoPonto);
+                }
+                $dataPesquisa->add(new \DateInterval('P1D'));
+            }
+        }
+        $this->getEntityManager()->flush();
     }
 //    public function incluir_ou_editar($batidasPonto, $importacaoPonto) {
 //        foreach($batidasPonto as $k => $value) {

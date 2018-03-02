@@ -16,25 +16,24 @@ class MovimentacaoPonto extends AbstractEntity {
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
-     */
+     **/
     protected $id;
     
     /**
      * @ORM\Column(name="dia_ponto", type="integer")
-     */
+     **/
     protected $diaPonto;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Colaborador")
-     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
-     * */    
-    protected $colaboradorMatricula;
+     * @ORM\ManyToOne(targetEntity="FolhaPonto", inversedBy="movimentacaoPonto")
+     * @ORM\JoinColumn(name="folha_ponto_id", referencedColumnName="id")
+     **/
+    protected $folhaPonto;
     
     /**
      * @ORM\OneToMany(targetEntity="RegistroHorario", mappedBy="movimentacaoPonto")
      * @ORM\OrderBy({"horaRegistro" = "ASC"})
-     * 
-     */
+     **/
     protected $registros;
     
     /**
@@ -55,10 +54,6 @@ class MovimentacaoPonto extends AbstractEntity {
         return $this->diaPonto;
     }
 
-    public function getColaboradorMatricula() {
-        return $this->colaboradorMatricula;
-    }
-
     public function getRegistros() {
         return $this->registros;
     }
@@ -71,16 +66,20 @@ class MovimentacaoPonto extends AbstractEntity {
         $this->diaPonto = $diaPonto;
     }
 
-    public function setColaboradorMatricula($colaboradorMatricula) {
-        $this->colaboradorMatricula = $colaboradorMatricula;
-    }
-
     public function setRegistros($registros) {
         $this->registros = $registros;
     }
 
     public function setOcorrencias($ocorrencias) {
         $this->ocorrencias = $ocorrencias;
+    }
+    
+    public function getFolhaPonto() {
+        return $this->folhaPonto;
+    }
+
+    public function setFolhaPonto($folhaPonto) {
+        $this->folhaPonto = $folhaPonto;
     }
 
 }

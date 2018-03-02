@@ -21,7 +21,7 @@ class FileUpload {
 
         $fileName = $file['tmp_name'];
         $log = "Crachás não encontrados: ";
-        $batidasPonto = [];
+        $registrosPonto = [];
         
         $ponteiro = fopen ( $fileName, 'r' );
 	while ( ! feof ( $ponteiro ) ) {
@@ -37,23 +37,18 @@ class FileUpload {
                 if (!$cracha) {
                     $log .= $numeroChip.";";
                 } else {
-//                    $data['horaBatida'] = $hora."-".$minuto;
-//                    $data['dataBatida'] = $ano."-".$mes."-".$dia;
-//                    $data['colaboradorMatricula'] = $cracha->getColaboradorMatricula()->getMatricula();
                     $matricula = $cracha->getColaboradorMatricula()->getMatricula();
-                    if(empty($batidasPonto[$matricula.$ano.$mes.$dia])) {
-                        $batidasPonto[$matricula.$ano.$mes.$dia] = $hora."-".$minuto;
+                    if(empty($registrosPonto[$matricula.$ano.$mes.$dia])) {
+                        $registrosPonto[$matricula.$ano.$mes.$dia] = $hora."-".$minuto;
                     } else {
-                        $batidasPonto[$matricula.$ano.$mes.$dia] .= ";".$hora."-".$minuto;
+                        $registrosPonto[$matricula.$ano.$mes.$dia] .= ";".$hora."-".$minuto;
                     }
-//                    $data['importacaoPontoId'] = $importacaoPonto->getId();
-//                    $repo->incluir_ou_editar($data, null);
                 }
             }
         }
         fclose($ponteiro);
-        $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\BatidaPonto::class);
-        $repo->incluir_ou_editar($batidasPonto, $importacaoPonto);
+        $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class);
+        $repo->incluir_ou_editar($registrosPonto, $importacaoPonto->getReferencia());
         return $log;
     }
 }

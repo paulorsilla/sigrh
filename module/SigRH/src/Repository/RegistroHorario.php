@@ -11,5 +11,4 @@ class RegistroHorario extends AbstractRepository {
         $registro->setMovimentacaoPonto($movimentacaoPonto);
         $this->getEntityManager()->persist($registro);
     }
-
 }

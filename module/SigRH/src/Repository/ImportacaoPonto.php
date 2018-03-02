@@ -37,10 +37,17 @@ class ImportacaoPonto extends AbstractRepository {
                 $row->setDataImportacao($dataImportacao);
             }
         }
+        $referencia = null;
+        if($dados ['referencia'] != "" ) {
+            $refAux = explode("/", $dados['referencia']);
+            $referencia = $refAux[1].$refAux[0];
+        }
         unset($dados['dataImportacao']);
         unset($dados['usuario']);
+        unset($dados['referencia']);
         
         $row->setUsuario($user);
+        $row->setReferencia($referencia);
         $row->setLog($log);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario

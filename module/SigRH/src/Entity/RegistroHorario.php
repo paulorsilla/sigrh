@@ -66,5 +66,4 @@ class RegistroHorario extends AbstractEntity {
     public function setMovimentacaoPonto($movimentacaoPonto) {
         $this->movimentacaoPonto = $movimentacaoPonto;
     }
-
 }

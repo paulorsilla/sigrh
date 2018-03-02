@@ -3,6 +3,7 @@
 namespace SigRH\Repository;
 
 use SigRH\Entity\MovimentacaoPonto as MovimentacaoPontoEntity;
+use SigRH\Entity\RegistroHorario as RegistroHorarioEntity;
 
 class MovimentacaoPonto extends AbstractRepository {
 
@@ -17,36 +18,47 @@ class MovimentacaoPonto extends AbstractRepository {
             $this->getEntityManager()->flush();
         }
     }
-
-//    public function incluir_ou_editar($batidasPonto, $importacaoPonto) {
-//        foreach($batidasPonto as $k => $value) {
-//            $matricula = substr($k, 0, 6);
-//            $ano = substr($k, 6, 4);
-//            $mes = substr($k, 10, 2);
-//            $dia = substr($k, 12, 2);
-//            $dataBatida = \DateTime::createFromFormat( "Y-m-d", $ano."-".$mes."-".$dia);
-//            $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
-//            
-//            $row = $this->findOneBy(['dataBatida' => $dataBatida, 'colaboradorMatricula' => $colaborador]);
-//            if (!$row) {
-//                $row = new BatidaPontoEntity();
-//            }
-//            
-//            $row->setColaboradorMatricula($colaborador);
-//            $row->setDataBatida($dataBatida);
-//            $row->setImportacaoPonto($importacaoPonto);
-//            $this->getEntityManager()->persist($row);
-//
-//            $horarios = explode(";", $value);
-//            foreach($horarios as $hora) {
-//                $horaBatida = \DateTime::createFromFormat( "H-i", $hora);
-//                $horaBatidaPonto = new HoraBatidaPontoEntity();
-//                $horaBatidaPonto->setHoraBatida($horaBatida);
-//                $horaBatidaPonto->setBatidaPonto($row);
-//                $this->getEntityManager()->persist($horaBatidaPonto);
-//            }
-//        }
-//    }
+    
+    public function incluir_ou_editar($registrosPonto, $referencia) {
+        
+        foreach($registrosPonto as $k => $value) {
+            $matricula = substr($k, 0, 6);
+            $ano = substr($k, 6, 4);
+            $mes = substr($k, 10, 2);
+            $dia = substr($k, 12, 2);
+            
+            $dataRegistro = \DateTime::createFromFormat( "Y-m-d", $ano."-".$mes."-".$dia);
+            $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
+            
+            //verifica a existencia da folha para o colaborador no mes/ano referencia
+            //caso nao exista, cria a folha para o colaborador
+            $folhaPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\FolhaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'referencia' => $dataRegistro->format("Ym")]);
+            if (null == $folhaPonto) {
+                $folhaPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\FolhaPonto::class)->create($colaborador, $dataRegistro->format("Ym"));
+            }
+            
+//            //verifica a existencia de movimentacao para o colaborador no dia
+//            //caso nao exista, inicia a movimentacao
+            $movimentacaoPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->findOneBy(['folhaPonto' => $folhaPonto, 'diaPonto' => $dataRegistro->format('d')]);
+            if (null == $movimentacaoPonto ) {
+                $movimentacaoPonto = new MovimentacaoPontoEntity();
+                $movimentacaoPonto->setDiaPonto($dataRegistro->format("d"));
+                $movimentacaoPonto->setFolhaPonto($folhaPonto);
+                $this->getEntityManager()->persist($movimentacaoPonto);
+            }
+            
+            $horarios = explode(";", $value);
+            foreach($horarios as $hora) {
+                $horaRegistro = \DateTime::createFromFormat( "H-i", $hora);
+                $registroHorario = new RegistroHorarioEntity();
+                $registroHorario->setHoraRegistro($horaRegistro);
+                $registroHorario->setMovimentacaoPonto($movimentacaoPonto);
+                $registroHorario->setTipo('C');
+                $this->getEntityManager()->persist($registroHorario);
+            }
+        }
+    }
+    
 //    
 //    public function marcacao_intervalo($batidaPonto, $escala) {
 //        $horaBatidaPontoS1 = new HoraBatidaPontoEntity();

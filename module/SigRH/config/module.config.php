@@ -53,20 +53,20 @@ return [
                         ]
                     ],
                     
-                    'batida-ponto' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/batida-ponto[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\BatidaPontoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
+//                    'batida-ponto' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route' => '/batida-ponto[/:action[/:id]]',
+//                            'constraints' => [
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id' => '[0-9]+'
+//                            ],
+//                            'defaults' => [
+//                                'controller' => Controller\BatidaPontoController::class,
+//                                'action' => 'index'
+//                            ]
+//                        ]
+//                    ],
                     
                     'cidade' => [
                         'type' => Segment::class,
@@ -234,20 +234,20 @@ return [
                         ]
                     ],
                     
-                    'vinculo' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '/vinculo[/:action[/:id]]',
-                            'constraints' => [
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ],
-                            'defaults' => [
-                                'controller' => Controller\VinculoController::class,
-                                'action' => 'index'
-                            ]
-                        ]
-                    ],
+//                    'vinculo' => [
+//                        'type' => Segment::class,
+//                        'options' => [
+//                            'route' => '/vinculo[/:action[/:id]]',
+//                            'constraints' => [
+//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id' => '[0-9]+'
+//                            ],
+//                            'defaults' => [
+//                                'controller' => Controller\VinculoController::class,
+//                                'action' => 'index'
+//                            ]
+//                        ]
+//                    ],
                     
                     'fonte-seguro' => [
                         'type' => Segment::class,
@@ -384,6 +384,21 @@ return [
                         ]
                     ],
                     
+                    'movimentacao-ponto' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/movimentacao-ponto[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\MovimentacaoPontoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'nivel' => [
                         'type' => Segment::class,
                         'options' => [
@@ -444,21 +459,6 @@ return [
                         ]
                     ],
                     
-//                    'termo' => [
-//                        'type' => Segment::class,
-//                        'options' => [
-//                            'route' => '/termo[/:action[/:id]]',
-//                            'constraints' => [
-//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-//                                'id' => '[0-9]+'
-//                            ],
-//                            'defaults' => [
-//                                'controller' => Controller\TermoController::class,
-//                                'action' => 'index'
-//                            ]
-//                        ]
-//                    ],
-                    
                     'tipo-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -498,7 +498,6 @@ return [
         'factories' => [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\BatidaPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
@@ -509,7 +508,6 @@ return [
             Controller\DependenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
-//            Controller\EstagioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FeriadoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
@@ -520,11 +518,11 @@ return [
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LocalizacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ModalidadeBolsaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\MovimentacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
-//            Controller\TermoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\VinculoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
@@ -682,10 +680,14 @@ return [
             ],
             
             /* ponto */
-            Controller\BatidaPontoController::class => [
-                ['actions' => ['index', 'folhaPonto'], 'allow' => 1]
+//            Controller\BatidaPontoController::class => [
+//                ['actions' => ['index', 'folhaPonto'], 'allow' => 1]
+//            ],
+//            
+            Controller\MovimentacaoPontoController::class => [
+                ['actions' => ['index'], 'allow' => 1]
             ],
-            
+        
             Controller\ImportacaoPontoController::class => [
                 ['actions' => ['index'], 'allow' => 1]
             ],

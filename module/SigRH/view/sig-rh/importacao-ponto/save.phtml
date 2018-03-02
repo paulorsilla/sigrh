@@ -1,3 +1,6 @@
+<script src="/js/inputmask.js"></script>
+<script src="/js/jquery.inputmask.js"></script>
+
 <?php
 $this->headScript()->appendFile('/js/importacao-ponto-save.js', 'text/javascript');
 $form = $this->form;
@@ -6,7 +9,7 @@ $form->get('submit')->setAttributes([
 ]);
 ?>
 
-<h1>Imporação do registro das catracas</h1>
+<h1>Importação do registro das catracas</h1>
 
 <div class="row">
     <div class="col-md-12">
@@ -44,3 +47,7 @@ $form->get('submit')->setAttributes([
         </div>
     </div>
 </div>
+
+<script>
+    $("#referencia").inputmask("99/9999");
+</script>

@@ -30,7 +30,7 @@ class BatidaPontoController extends AbstractActionController {
     public function __construct($entityManager) {
         $this->entityManager = $entityManager;
     }
-
+    
     public function indexAction() {
         $request = $this->getRequest();
         $paginator = null;
