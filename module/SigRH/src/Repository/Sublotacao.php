@@ -20,7 +20,7 @@ class Sublotacao extends AbstractRepository {
             $qb->setParameter("ano", $search['ano']);
         }
         
-        if (null != $search['combo'] && $search['combo'] == 1) {
+        if (!empty($search['combo']) && $search['combo'] == 1) {
             return $qb->getQuery()->getResult();
         } else {
             return $qb->getQuery();

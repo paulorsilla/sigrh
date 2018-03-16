@@ -35,7 +35,7 @@ return [
     'Zend\Validator',
     'DoctrineModule',
     'DoctrineORMModule',
-    'ZendDeveloperTools',
+//    'ZendDeveloperTools',
     'SigRH',
     'User'
 ];

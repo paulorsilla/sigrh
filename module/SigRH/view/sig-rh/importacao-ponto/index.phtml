@@ -14,8 +14,8 @@
         <tbody>
             <?php foreach ($this->importacoesPonto as $importacao): ?>
                 <tr>
-                    <td><?php echo $this->escapeHtml($importacao->getReferencia()); ?></td>
-                    <td><?php echo $this->escapeHtml($importacao->getDataImportacao()->format("d-m-Y")); ?></td>
+                    <td><?php echo $this->escapeHtml(substr($importacao->getReferencia(), 4,2)."/".substr($importacao->getReferencia(), 0,4)); ?></td>
+                    <td><?php echo $this->escapeHtml($importacao->getDataImportacao()->format("d/m/Y")); ?></td>
                     <td><?php echo $this->escapeHtml($importacao->getUsuario()->getNome()); ?></td>
                     <td><?php echo $this->escapeHtml(substr($importacao->getLog(), 0, 80)." ..."); ?></td>
                     <td></td>

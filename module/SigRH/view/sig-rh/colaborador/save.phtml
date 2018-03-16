@@ -24,7 +24,7 @@
             </div>
 
             <div class="panel-body">
-                <?= $this->form()->openTag($form); ?>
+                <?php echo $this->form()->openTag($form); ?>
 
                 <div class="form-group row">
                     <div class="col-md-2"><?php echo $this->formRow($form->get('matricula')); ?></div>
@@ -68,62 +68,62 @@
                 <div class="tab-content">
                     <div id="dadosPessoais" class="tab-pane fade in active">
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('dataNascimento')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('natural_estado')); ?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('natural')); ?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('nacionalidade')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('dataNascimento')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('natural_estado')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('natural')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('nacionalidade')); ?></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('sexo')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('grupoSanguineo')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('corPele')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('estadoCivil')); ?></div>
-                            <div class="col-md-4"><?= $this->formRow($form->get('grauInstrucao')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('sexo')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('grupoSanguineo')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('corPele')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('estadoCivil')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('grauInstrucao')); ?></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6"><?= $this->formRow($form->get('nomePai')); ?></div>
-                            <div class="col-md-6"><?= $this->formRow($form->get('nomeMae')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('nomePai')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('nomeMae')); ?></div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-2"><?= $this->formRow($form->get('cep')); ?></div>
-                            <div class="col-md-6"><?= $this->formRow($form->get('endereco')); ?></div>
-                            <div class="col-md-1"><?= $this->formRow($form->get('numero')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('complemento')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('cep')); ?></div>
+                            <div class="col-md-6"><?php echo $this->formRow($form->get('endereco')); ?></div>
+                            <div class="col-md-1"><?php echo $this->formRow($form->get('numero')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('complemento')); ?></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('bairro')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('estado')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('cidade')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('necessidadeEspecial')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('bairro')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('estado')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('cidade')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('necessidadeEspecial')); ?></div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"><?php echo $this->formRow($form->get('telefoneResidencial')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('telefoneCelular')); ?></div>
-                            <div class="col-md-8"><?= $this->formRow($form->get('email')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('telefoneCelular')); ?></div>
+                            <div class="col-md-8"><?php echo $this->formRow($form->get('email')); ?></div>
                         </div>
                     </div>
 
                     <div id="documentacao" class="tab-pane fade">
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('rgNumero')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('rgDataEmissao')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('rgOrgaoExpedidor')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('rgNumero')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('rgDataEmissao')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('rgOrgaoExpedidor')); ?></div>
                             <div class="col-md-3"></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('cpf')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('cpf')); ?></div>
                             <div class="col-md-8"></div>
 
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4"><?= $this->formRow($form->get('ctpsNumero')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('ctpsSerie')); ?></div>
-                            <div class="col-md-2"><?= $this->formRow($form->get('ctpsUf')); ?></div>
-                            <div class="col-md-3"><?= $this->formRow($form->get('ctpsDataExpedicao')); ?></div>
+                            <div class="col-md-4"><?php echo $this->formRow($form->get('ctpsNumero')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('ctpsSerie')); ?></div>
+                            <div class="col-md-2"><?php echo $this->formRow($form->get('ctpsUf')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('ctpsDataExpedicao')); ?></div>
                         </div>
 
                         <div class="row">
@@ -298,8 +298,8 @@
                 <br>
                 <br>
                 <hr>
-                <?= $this->formElement($form->get('submit')); ?>
-                <?= $this->form()->closeTag(); ?>
+                <?php echo $this->formElement($form->get('submit')); ?>
+                <?php echo $this->form()->closeTag(); ?>
                 
                 <?php if ( !empty($this->mensagens) ) \Zend\Debug\Debug::dump($this->mensagens); ?>
             </div>

@@ -22,6 +22,27 @@ class Feriado extends AbstractRepository {
        return $qb;
     }
     
+    public function getFeriadoReferencia($referencia) {
+        $ano = substr($referencia, 0, 4);
+        $mes = substr($referencia, 4, 2);
+        $emConfig = $this->getEntityManager()->getConfiguration();
+        $emConfig->addCustomDatetimeFunction("YEAR", \DoctrineExtensions\Query\Mysql\Year::class);
+        $emConfig->addCustomDatetimeFunction("MONTH", \DoctrineExtensions\Query\Mysql\Month::class);
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('f')
+            ->from(FeriadoEntity::class, 'f')
+            ->where('f.expediente = :false')
+            ->andWhere('YEAR(f.dataFeriado) = :ano')
+            ->andWhere('MONTH(f.dataFeriado) = :mes')
+            ->setParameter('ano', $ano)
+            ->setParameter('mes', $mes)
+            ->setParameter('false', false)
+            ->orderby('f.dataFeriado','ASC');
+       return $qb->getQuery()->getResult();
+        
+    }
+    
     public function delete($id){
         $row = $this->find($id);
         if ($row) {

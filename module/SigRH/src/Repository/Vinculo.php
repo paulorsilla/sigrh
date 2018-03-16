@@ -19,10 +19,6 @@ class Vinculo extends AbstractRepository {
             $qb->setParameter("matricula",$search['matricula']);
         }
         
-/*      echo "DQL: ".$qb->getDQL();
-        echo "<hr>";
-        echo "SQL: ".$qb->getQuery()->getSQL();
-        die();*/
        return $qb;
     }
     
@@ -39,8 +35,9 @@ class Vinculo extends AbstractRepository {
         error_log("excluindo id = ".$id);
         if ($row) {
             $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
-            if ( empty($colaborador) )
+            if ( empty($colaborador) ) {
                 throw new Exception('Colaborador nao encontrado');
+            }
             $colaborador->getVinculos()->removeElement($row);
             $this->getEntityManager()->flush();
 //            $this->getEntityManager()->persist($colaborador);
@@ -61,8 +58,9 @@ class Vinculo extends AbstractRepository {
         }
         if ( !empty($matricula)) {
             $colaborador = $this->getEntityManager()->find('SigRH\Entity\Colaborador', $matricula);
-            if ( empty($colaborador) )
+            if ( empty($colaborador) ) {
                 throw new Exception('Colaborador nao encontrado');
+            }
             $row->setColaboradorMatricula($colaborador);
         }
         

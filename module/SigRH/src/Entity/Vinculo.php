@@ -174,6 +174,16 @@ class Vinculo extends AbstractEntity {
      */
     protected $obrigatorio;
     
+    /**
+     * @ORM\Column(name="dias_recesso", type="integer")
+     */
+    protected $diasRecesso;
+    
+    /**
+     * @ORM\Column(name="observacoes", type="string")
+     */
+    protected $observacoes;
+    
     public function getId() {
         return $this->id;
     }
@@ -293,7 +303,15 @@ class Vinculo extends AbstractEntity {
     public function getObrigatorio() {
         return $this->obrigatorio;
     }
+    
+    public function getDiasRecesso() {
+        return $this->diasRecesso;
+    }
 
+    public function getObservacoes() {
+        return $this->observacoes;
+    }
+    
     public function setId($id) {
         $this->id = $id;
     }
@@ -336,7 +354,6 @@ class Vinculo extends AbstractEntity {
     else
         $this->orientador = $orientador;
     }
-    
 
     public function setLocalizacao($localizacao) {
         $this->localizacao = $localizacao;
@@ -352,7 +369,6 @@ class Vinculo extends AbstractEntity {
     else
         $this->atividade = $atividade;
     }
-    
 
     public function setPlanoAcao($planoAcao) {
         $this->planoAcao = $planoAcao;
@@ -371,7 +387,6 @@ class Vinculo extends AbstractEntity {
     else
         $this->tipoAditivo = $tipoAditivo;
     }
-    
 
     public function setInicio($inicio) {
         $this->inicio = $inicio;
@@ -419,7 +434,6 @@ class Vinculo extends AbstractEntity {
         $this->valorBolsa = $valorBolsa;
     }
     
-
     public function setSeguroApolice($seguroApolice) {
         $this->seguroApolice = $seguroApolice;
     }
@@ -439,5 +453,12 @@ class Vinculo extends AbstractEntity {
         $this->obrigatorio = obrigatorio;
     }
     
+    public function setDiasRecesso($diasRecesso) {
+        $this->diasRecesso = $diasRecesso;
+    }
+
+    public function setObservacoes($observacoes) {
+        $this->observacoes = $observacoes;
+    }
 
 }

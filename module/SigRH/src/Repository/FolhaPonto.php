@@ -11,15 +11,13 @@ class FolhaPonto extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('f')
                 ->from(FolhaPontoEntity::class, 'f')
-                ->orderby('f.referencia', 'ASC');
-//        if (!empty($search['search'])) {
-//            $qb->where('b.id like :busca');
-//            $qb->setParameter("busca", '%' . $search['search'] . '%');
-//        }
-//        
-        if (!empty($search['matricula'])) {
-            $qb->where('f.colaboradorMatricula =  :matricula');
-            $qb->setParameter("matricula",  $search['matricula'] );
+                ->join('f.colaboradorMatricula', 'c')
+                ->join('c.vinculos', 'v')
+                ->where('v.tipoVinculo in (2, 4, 5, 6, 8)')
+                ->orderby('c.nome', 'ASC');
+        if (!empty($search['referencia'])) {
+            $qb->andWhere('f.referencia =  :referencia');
+            $qb->setParameter("referencia", $search['referencia']);
         }
         return $qb;
     }
@@ -45,13 +43,12 @@ class FolhaPonto extends AbstractRepository {
             $this->getEntityManager()->flush();
         }
     }
-
   
-    public function create($colaborador, $referencia) {
+    public function create($colaborador, $referencia, $status) {
         $row = new FolhaPontoEntity();
         $row->setColaboradorMatricula($colaborador);
         $row->setReferencia($referencia);
-        $row->setStatus(0);
+        $row->setStatus($status);
         $row->setSaldoMinutos(0);
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao

@@ -48,7 +48,7 @@ class FileUpload {
         }
         fclose($ponteiro);
         $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class);
-        $repo->incluir_ou_editar($registrosPonto, $importacaoPonto->getReferencia());
+        $repo->incluir_ou_editar($registrosPonto);
         return $log;
     }
 }

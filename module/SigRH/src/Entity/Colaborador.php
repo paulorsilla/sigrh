@@ -103,6 +103,7 @@ class Colaborador extends AbstractEntity {
     /**
      * One Colaborador has Many vinculos
      * @ORM\OneToMany(targetEntity="Vinculo", mappedBy="colaboradorMatricula")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $vinculos;
 

@@ -1,0 +1,77 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <?php
+            $colaborador = $this->movimentacaoPonto->getFolhaPonto()->getColaboradorMatricula();
+        ?>
+        <hr>
+        <h4 class="panel-info">
+            <?php echo $this->escapeHtml($colaborador->getMatricula(). " - ". $colaborador->getNome(). " - Data: ".$this->dataPonto->format('d/m/Y'));?>
+        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="alert alert-warning">
+                    Escala - 
+                    <?php echo (null != $this->escala->getEntrada1() ? "Entrada 1: ".$this->escala->getEntrada1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala->getSaida1() ? "Saída 1: ".$this->escala->getSaida1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala->getEntrada2() ? "Entrada 2: ".$this->escala->getEntrada2()->format("H:i")."hs "  : "");?>
+                    <?php echo (null != $this->escala->getSaida2() ? "Saída 2: ".$this->escala->getSaida2()->format("H:i")."hs "  : "");?>
+                </p>
+            </div>
+        </div>
+            
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->formLabel($this->form->get('descricao')); ?><br>
+                <?php echo $this->formElement($this->form->get('descricao')); ?>
+                <?php echo $this->formElementErrors($this->form->get('descricao')); ?>                  
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->formLabel($this->form->get('justificativa')); ?><br>
+                <?php echo $this->formElement($this->form->get('justificativa')); ?>
+                <?php echo $this->formElementErrors($this->form->get('justificativa')); ?>                  
+            </div>
+        </div>
+        <div id="horarios">
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="panel-title">Caso necessário, ajuste os horários de entrada e saída utilizando os campos abaixo:</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('entrada1')); ?><br>
+                    <?php echo $this->formElement($this->form->get('entrada1')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('entrada1')); ?>                  
+                </div>
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('saida1')); ?><br>
+                    <?php echo $this->formElement($this->form->get('saida1')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('saida1')); ?>                  
+                </div>
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('entrada2')); ?><br>
+                    <?php echo $this->formElement($this->form->get('entrada2')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('entrada2')); ?>                  
+                </div>
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('saida2')); ?><br>
+                    <?php echo $this->formElement($this->form->get('saida2')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('saida2')); ?>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<?php echo $this->form()->closeTag(); ?>

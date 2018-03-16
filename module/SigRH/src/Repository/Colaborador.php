@@ -89,8 +89,6 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("necessidadeEspecial",$search["necessidadeEspecial"]);
         }
         
-        
-        
         if ( !empty($search["inicioVigencia"]) ) {
             $joinVinculo = true;
             $dataInicio = \DateTime::createFromFormat("Y-m-d", $search["inicioVigencia"]);
@@ -219,6 +217,16 @@ class Colaborador extends AbstractRepository {
             }
             $qb->andWhere('v.sublotacao = :sublotacao');
             $qb->setParameter("sublotacao", $search["subLotacao"]);
+        }
+        
+        if ( !empty($search['contratoVencido'])) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            $qb->andWhere("v.dataTermino <= :dataAtual")
+               ->andWhere("v.dataDesligamento is NULL")
+               ->setParameter("dataAtual", date("Ymd"));
         }
         
 //        echo "SQL: ".$qb->getQuery()->getSQL();        

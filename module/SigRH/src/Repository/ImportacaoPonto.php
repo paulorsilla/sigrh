@@ -10,7 +10,7 @@ class ImportacaoPonto extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
                 ->from(ImportacaoPontoEntity::class, 'i')
-                ->orderby('i.id','ASC');
+                ->orderby('i.referencia','DESC');
        return $qb;
     }
     

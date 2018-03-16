@@ -6,12 +6,11 @@ use SigRH\Entity\Justificativa as JustificativaEntity;
 
 class Justificativa extends AbstractRepository {
 
-    public function getQuery() {
+    public function getQuery($search = []) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('j')
                 ->from(JustificativaEntity::class, 'j');
        return $qb;
-       
     }
     
     public function delete($id) {

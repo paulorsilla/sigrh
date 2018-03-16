@@ -183,7 +183,7 @@
         </div>
     
         <div class="col-sm-3 form-group" >
-                     <label for="subLotacao">Sub lotação: </label>
+                     <label for="subLotacao">Sublotação: </label>
                                     <select name="subLotacao" id="subLotacao" class="form-control">
                                      <option value="">Selecione aqui...</option>
                                      <?php foreach($this->array_subLotacao as $row) { ?>
@@ -193,6 +193,14 @@
                                      <?php } ?>
                                    </select>                      
         </div>
+        <div class="col-sm-3 form-group" >
+                    <label for="contratoVencido">Contrato vencido: </label>
+                                <select name="contratoVencido" id="contratoVencido" class="form-control">
+                                 <option value="">Não</option>
+                                 <option value="1">Sim</option>
+                               </select>                      
+        </div>
+
 
     </div>
 

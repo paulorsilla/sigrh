@@ -7,6 +7,10 @@ use SigRH\Form\ColaboradorForm;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
 
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
+
 class ColaboradorController extends AbstractActionController
 {
         /**
@@ -29,24 +33,29 @@ class ColaboradorController extends AbstractActionController
                 $this->objectManager = $objectManager;
 	}
 	
-	public function indexAction()
+        public function indexAction()
 	{
-                
-                $repo = $this->entityManager->getRepository(Colaborador::class);
-                $page = $this->params()->fromQuery('page', 1);
+            $repo = $this->entityManager->getRepository(Colaborador::class);
+            $page = $this->params()->fromQuery('page', 1);
 
-                $search = $this->params()->fromQuery();
+            $search = $this->params()->fromQuery();
+            $search['tipoColaborador'] = 2;
 
-                $search['tipoColaborador'] = 2;
-                
-                $paginator = $repo->getPaginator($page, $search);
-		return new ViewModel([
-				'colaboradores' => $paginator,
-                                'page' => $page,
-                                'nome' => $search['nome'],
-                                'ativo' => $search['ativo']
-		]);
+            $adapter = new DoctrineAdapter(new ORMPaginator($repo->getQuery($search)));
+            $paginator = new Paginator($adapter);
+//            $paginator = $repo->getPaginator($page, $search);
+            $paginator->setDefaultItemCountPerPage(10);        
+            $paginator->setCurrentPageNumber($page);
+            
+            return new ViewModel([
+                            'colaboradores' => $paginator,
+                            'page' => $page,
+                            'nome' => $search['nome'],
+                            'ativo' => $search['ativo']
+            ]);
 	}
+
+        
 	
 	/**
 	 * Action para salvar um novo registro

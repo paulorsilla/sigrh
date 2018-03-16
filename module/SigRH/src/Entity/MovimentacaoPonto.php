@@ -37,7 +37,7 @@ class MovimentacaoPonto extends AbstractEntity {
     protected $registros;
     
     /**
-     * @ORM\OneToMany(targetEntity="RegistroHorario", mappedBy="movimentacaoPonto")
+     * @ORM\OneToMany(targetEntity="Ocorrencia", mappedBy="movimentacaoPonto")
      **/
     protected $ocorrencias;
     

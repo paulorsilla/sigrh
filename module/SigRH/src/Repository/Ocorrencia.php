@@ -28,22 +28,12 @@ class Ocorrencia extends AbstractRepository {
         return $qb->getQuery();//->getResult();
     }
     
-    public function incluir_ou_editar($colaborador, $dataOcorrencia, $batidaPonto, $descricao, $ocorrencia, $saldoMinutos){
-        
-        $row = null;
-        if ( null != $ocorrencia) { // verifica se foi passado o codigo (se sim, considera edicao)
-            $row = $ocorrencia; 
-        } else  {
-            $row = new OcorrenciaEntity();
-        }
-        $row->setColaboradorMatricula($colaborador);
-        $row->setDataOcorrencia($dataOcorrencia);
+    public function incluir_ou_editar($movimentacao_ponto, $descricao) {
+        $row = new OcorrenciaEntity();
+        $row->setMovimentacaoPonto($movimentacao_ponto);
         $row->setDescricao($descricao);
-        $row->setBatidaPonto($batidaPonto);
-        $row->setSaldoMinutos($saldoMinutos);
         $this->getEntityManager()->persist($row); // persiste o model no banco ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
-        
         return $row;
     }
 

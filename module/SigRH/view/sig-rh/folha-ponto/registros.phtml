@@ -1,0 +1,94 @@
+<?php $this->headScript()->appendFile('/js/folha-ponto-registros.js', 'text/javascript'); ?>
+
+<h1>Folha ponto</h1>
+
+<?php
+
+if ($this->folhaPonto != null):    
+    $mesesAno = ["1" => "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    $diasSemana = [0 => "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    $tipoRegistro = ["A" => "*", "C" => ""];
+
+    $movimentacoesPonto = $this->folhaPonto->getMovimentacaoPonto();
+    $ano = substr($this->folhaPonto->getReferencia(), 0, 4);
+    $mes = substr($this->folhaPonto->getReferencia(), 4, 2);
+    
+?>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 panel-title">
+            <a href="/sig-rh/colaborador/save/<?php echo $this->folhaPonto->getColaboradorMatricula()->getMatricula(); ?>">
+            <?php echo $this->escapeHtml($this->folhaPonto->getColaboradorMatricula()->getMatricula()." - ".$this->folhaPonto->getColaboradorMatricula()->getNome()); ?></a>
+        </div>
+        <div class="col-md-4 panel-title">
+            <span class="pull-center">Referência: <?php echo $mesesAno[(int)$mes]."/".$ano;?></span>
+        </div>
+        <div class="col-md-2 panel-title"> 
+            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto/index?periodoMovimentacao=<?php echo $mes;?>/<?php echo $ano;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
+    </div>
+    <hr>
+    
+    <div class="row">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Dia da semana</th>
+                <th>Hora do registro</th>
+                <th>Total de horas no dia</th>
+                <th>Observações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($movimentacoesPonto as $movimentacaoPonto):
+                $dataPonto = \DateTime::createFromFormat("Ymd", $folhaPonto->getReferencia().$movimentacaoPonto->getDiaPonto());
+                if( ($dataPonto->format('w') == 0) || ($dataPonto->format('w') == 6) || (isset($this->feriadosPeriodo[$dataPonto->format("d")])) ) {?>
+                    <tr style="background-color: #F0FFFF;">
+                    <?php } else {?>
+                        <tr>
+                    <?php }?>
+                <td><?php echo $this->escapeHtml($dataPonto->format("d/m/Y"));?></td>
+                <td><?php echo $this->escapeHtml($diasSemana[$dataPonto->format("w")]); ?></td>
+                <td><?php foreach($movimentacaoPonto->getRegistros() as $registro):
+                    echo $this->escapeHtml($registro->getHoraRegistro()->format("H:i").$tipoRegistro[$registro->getTipo()]. " ");
+                    endforeach;?>
+                </td>
+                <td></td>
+                <td><?php 
+                    if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
+                        echo $this->escapeHtml("Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome());
+                    endif;
+                    foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
+                        echo $this->escapeHtml($ocorrencia->getDescricao());?>
+                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="novaJustificativa('<?php echo $ocorrencia->getId();?>')">
+                                    <span class="glyphicon glyphicon-copy"></span> Justificar
+                        </button><br><br>
+
+                    <?php endforeach;?>
+                </td>
+            </tr>
+            <?php endforeach;?>
+
+        </tbody>
+        </table>
+    </div>
+<?php endif; ?>
+
+<div class="modal fade " id="JustificativaModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Justificativa</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="fncSalvarJustificativa(this)">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

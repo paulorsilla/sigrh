@@ -16,7 +16,7 @@ class VinculoForm extends Form {
      */
     public function __construct($objectManager) {
         //Determina o nome do formulário
-        parent::__construct('estagio-form');
+        parent::__construct('vinculo-form');
 
         $this->objectManager = $objectManager;
         //Define o método POST para envio do formulário
@@ -113,6 +113,14 @@ class VinculoForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Curso::class,
                 'property' => 'descricao',
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1
+                        ]
+                    ]
+                ],
                 'display_empty_item' => true,
             ]
         ]);
@@ -225,6 +233,20 @@ class VinculoForm extends Form {
                 'property' => 'descricao',
                 'display_empty_item' => true,
             ]
+        ]);
+
+        //Adiciona o campo "diasRecesso"
+        $this->add([
+            'type' => 'text',
+            'name' => 'diasRecesso',
+            'attributes' => [
+                'id' => 'diasRecesso',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o recesso aqui'
+            ],
+            'options' => [
+                'label' => 'Recesso (dias)'
+            ],
         ]);
         
         //Adiciona o campo "seguroApolice"
@@ -518,6 +540,21 @@ class VinculoForm extends Form {
             ]
         ]);
         
+        //Adiciona o campo "observacoes"
+        $this->add([
+            'type' => 'text',
+            'name' => 'observacoes',
+            'attributes' => [
+                'id' => 'observacoes',
+                'class' => 'form-control',
+                'placeholder' => 'Digite as observações aqui'
+            ],
+            'options' => [
+                'label' => 'Observações'
+            ],
+        ]);
+
+        
         $this->add([
             'type' => 'submit',
             'name' => 'submit',
@@ -652,7 +689,6 @@ class VinculoForm extends Form {
                 ],
             ],
         ]);
-         
          
          $inputFilter->add([
             'name' => 'instituicaoFomento',
@@ -878,7 +914,46 @@ class VinculoForm extends Form {
             'name' => 'aditivo',
             'required' => false,
         ]);
-        
+
+         $inputFilter->add([
+            'name' => 'diasRecesso',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 2
+                    ],
+                ],
+            ],
+        ]);
+
+         $inputFilter->add([
+            'name' => 'observacoes',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 0,
+                        'max' => 500
+                    ],
+                ],
+            ],
+        ]);
+
+
         
         
         

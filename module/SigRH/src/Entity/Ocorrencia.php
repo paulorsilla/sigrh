@@ -45,6 +45,10 @@ class Ocorrencia extends AbstractEntity {
     public function getDescricao() {
         return $this->descricao;
     }
+    
+    public function getJustificativa() {
+        return $this->justificativa;
+    }
 
     public function setId($id) {
         $this->id = $id;
@@ -57,6 +61,9 @@ class Ocorrencia extends AbstractEntity {
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
-
+    
+    public function setJustificativa($justificativa) {
+        $this->justificativa = $justificativa;
+    }
 
 }

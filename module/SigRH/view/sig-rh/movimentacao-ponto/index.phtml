@@ -1,7 +1,6 @@
 <script src="/js/inputmask.js"></script>
 <script src="/js/jquery.inputmask.js"></script>
 
-
 <h1>Registro de ponto</h1>
 <form method="get" action="/sig-rh/movimentacao-ponto/index">
     <div class="row">
@@ -10,8 +9,8 @@
             <input class="form-control" type="text" name="matricula" id="matricula" value="<?php echo (null != $this->colaborador) ? $this->colaborador->getMatricula() : ''; ?>">
         </div>
         <div class="col-md-2">
-            <label for="periodoMovimentacao">Período (mês/ano)</label>
-            <input pattern="(0[1-9]|1[012]).[0-9]{4}" title="Período (mm/aaaa)" class="form-control" type="text" name="periodoMovimentacao" id="periodoMovimentacao" value="<?php echo (null != $this->periodoMovimentacao) ? $this->periodoMovimentacao : ''; ?>">
+            <label for="referencia">Período (mês/ano)</label>
+            <input pattern="(0[1-9]|1[012]).[0-9]{4}" title="Referência (mm/aaaa)" class="form-control" type="text" name="referencia" id="referencia" value="<?php echo (null != $this->referencia) ? $this->referencia : ''; ?>">
         </div>
     </div>
     <div class="row">
@@ -19,7 +18,6 @@
             <input type="submit" class="btn btn-sm" value="Enviar">
         </div>
     </div>
-</form>
 
 <?php
 
@@ -69,6 +67,8 @@ if ($this->folhaPonto != null):
         </table>
     </div>
 <?php endif; ?>
+</form>
+
 
 <script>
     $("#matricula").inputmask("999999");

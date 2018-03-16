@@ -84,17 +84,24 @@
                 <?php echo $this->formElementErrors($this->form->get('obrigatorio')); ?>                  
             </div>
         
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('chSemanal')); ?><br>
                 <?php echo $this->formElement($this->form->get('chSemanal')); ?>
                 <?php echo $this->formElementErrors($this->form->get('chSemanal')); ?>                  
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('horarioFlexivel')); ?><br>
                 <?php echo $this->formElement($this->form->get('horarioFlexivel')); ?>
                 <?php echo $this->formElementErrors($this->form->get('horarioFlexivel')); ?>                  
             </div>
+            
+            <div class="col-md-2">
+                <?php echo $this->formLabel($this->form->get('diasRecesso')); ?><br>
+                <?php echo $this->formElement($this->form->get('diasRecesso')); ?>
+                <?php echo $this->formElementErrors($this->form->get('diasRecesso')); ?>                  
+            </div>
+
         </div>
         
         <div class="row">
@@ -193,6 +200,14 @@
                 <?php echo $this->formElementErrors($this->form->get('seguroSeguradora')); ?>                  
             </div>
 
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <?php echo $this->formLabel($this->form->get('observacoes')); ?><br>
+                <?php echo $this->formElement($this->form->get('observacoes')); ?>
+                <?php echo $this->formElementErrors($this->form->get('observacoes')); ?>                  
+            </div>
         </div>
 
     </div>

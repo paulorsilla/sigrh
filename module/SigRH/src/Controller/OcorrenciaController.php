@@ -7,24 +7,100 @@ use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
 use SigRH\Entity\Ocorrencia;
 use SigRH\Entity\BatidaPonto;
+use SigRH\Form\OcorrenciaForm;
 
 class OcorrenciaController extends AbstractActionController {
-
-    /**
-     * Entity Manager
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
-
-    /**
-     * Construtor da classe, utilizado para injetar as dependências no controller
-     */
-    public function __construct($entityManager) {
-        $this->entityManager = $entityManager;
-    }
-
+    
+        /**
+         * Object Manager
+         */
+         private $objectManager;
+         
+	/**
+	 * Entity Manager
+	 * @var \Doctrine\ORM\EntityManager
+	 */
+	private $entityManager;
+	
+	/**
+	 * Construtor da classe, utilizado para injetar as dependências no controller
+	 */
+	public function __construct($entityManager, $objectManager)
+	{
+		$this->entityManager = $entityManager;
+                $this->objectManager = $objectManager;
+	}
     public function indexAction() {
         
+    }
+
+    public function saveModalAction() {
+        
+        $id = $this->params()->fromRoute('id', null);
+        
+        //Cria o formulário
+        $form = new OcorrenciaForm($this->objectManager);
+        $movimentacaoPonto = null;
+        $dataPonto = null;
+        $escala = null;
+
+        //Verifica se a requisição utiliza o método POST
+        if ($this->getRequest()->isPost()) {
+
+            //Recebe os dados via POST
+            $data = $this->params()->fromPost();
+
+            //Preenche o form com os dados recebidos e o valida
+            $form->setData($data);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $repo = $this->entityManager->getRepository(Ocorrencia::class);
+//                $repo->incluir_ou_editar($data, $id, $matricula);
+                // alterar para json
+                $modelJson = new \Zend\View\Model\JsonModel();
+                return $modelJson->setVariable('success', 1);
+            }
+        } else {
+            if (!empty($id)) {
+                $repo = $this->entityManager->getRepository(Ocorrencia::class);
+                $ocorrencia = $repo->find($id);
+                if (!empty($ocorrencia)) {
+                    $movimentacaoPonto = $ocorrencia->getMovimentacaoPonto();
+                    $dataPonto = \DateTime::createFromFormat("Ymd", $movimentacaoPonto->getFolhaPonto()->getReferencia().$movimentacaoPonto->getDiaPonto());
+                    
+                    $diaSemana = $dataPonto->format("w");
+
+                    //busca a escala de horarios do colaborador
+                    $escala = null;
+                    foreach ($movimentacaoPonto->getFolhaPonto()->getColaboradorMatricula()->getHorarios() as $horarioEscala) {
+                        if ($horarioEscala->getDiaSemana() == $diaSemana + 1) {
+                            $escala = $horarioEscala->getEscala();
+                            break;
+                        }
+                    }
+                    
+                    $form->setData($ocorrencia->toArray());
+                    $form->get("descricao")->setValue($ocorrencia->getDescricao());
+                    if (null != $ocorrencia->getJustificativa()) {
+                        $form->get("justificativa")->setValue($ocorrencia->getJustificativa()->getId());
+                    }
+                    $registros = $movimentacaoPonto->getRegistros();
+                    if(null != $registros) {
+                        $form->get("entrada1")->setValue(null != $registros[0] ? $registros[0]->getHoraRegistro()->format("H:i") : "");
+                        $form->get("saida1")->setValue(null != $registros[1] ? $registros[1]->getHoraRegistro()->format("H:i") : "");
+                        $form->get("entrada2")->setValue(null != $registros[2] ? $registros[2]->getHoraRegistro()->format("H:i") : "");
+                        $form->get("saida2")->setValue(null != $registros[3] ? $registros[3]->getHoraRegistro()->format("H:i") : "");
+                    }
+                }
+            }
+        }
+        $view = new ViewModel([
+            'form' => $form,
+            'movimentacaoPonto' => $movimentacaoPonto,
+            'dataPonto' => $dataPonto,
+            'escala' => $escala
+        ]);
+        return $view->setTerminal(true);
     }
 
     public function gerarAction() {
@@ -72,7 +148,7 @@ class OcorrenciaController extends AbstractActionController {
                             break;
                         }
                     }
-                    
+
                     $cargaHorariaP1 = ((null != $escala) && (null != $escala->getSaida1()) && (null != $escala->getEntrada1())) ? $escala->getEntrada1()->diff($escala->getSaida1()) : \DateInterval::createFromDateString("0:0");
                     $cargaHorariaP2 = ((null != $escala) && (null != $escala->getSaida2()) && (null != $escala->getEntrada2())) ? $escala->getEntrada2()->diff($escala->getSaida2()) : \DateInterval::createFromDateString("0:0");
                     $cargaHorariaMinutos = (($cargaHorariaP1->h * 60) + $cargaHorariaP1->i) + (($cargaHorariaP2->h * 60) + $cargaHorariaP2->i);
@@ -81,46 +157,47 @@ class OcorrenciaController extends AbstractActionController {
                     //busca os registros na catraca para o dia em questão
 //                    $batidaPonto = $this->entityManager->getRepository(\SigRH\Entity\BatidaPonto::class)->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
                     $batidaPonto = $repoBatidaPonto->findOneBy(['colaboradorMatricula' => $colaborador, 'dataBatida' => $dataPesquisa]);
-                    
+
                     if ($batidaPonto && $escala) {
-                        if ( (count($batidaPonto->getHorarios()) == 2) && (null != $escala->getEntrada2())) {
+
+                        if ((count($batidaPonto->getHorarios()) == 2) && (null != $escala->getEntrada2())) {
                             $repoBatidaPonto->marcacao_intervalo($batidaPonto, $escala);
                         }
-                        
+
                         $registrosEsperados = ["E1" => "", "S1" => ""];
                         $intervaloMinutos = ["E1" => null, "S1" => null];
-                        
+
                         if (null != $escala->getEntrada2()) {
                             $registrosEsperados = ["E2" => "", "S2" => ""];
                             $intervaloMinutos = ["E2" => null, "S2" => null];
                         }
-                        
+
                         foreach ($batidaPonto->getHorarios() as $k => $horario) {
                             $intervaloE1 = $escala->getEntrada1()->diff($horario->getHoraBatida());
                             $intervaloS1 = $escala->getSaida1()->diff($horario->getHoraBatida());
                             $intervaloMinutos["E1"] = ($intervaloE1->h * 60) + $intervaloE1->i;
                             $intervaloMinutos["S1"] = ($intervaloS1->h * 60) + $intervaloS1->i;
 
-                            if(null != $escala->getEntrada2()) {
+                            if (null != $escala->getEntrada2()) {
                                 $intervaloE2 = $escala->getEntrada2()->diff($horario->getHoraBatida());
                                 $intervaloS2 = $escala->getSaida2()->diff($horario->getHoraBatida());
                                 $intervaloMinutos["E2"] = $intervaloE2->h * 60 + $intervaloE2->i;
                                 $intervaloMinutos["S2"] = $intervaloS2->h * 60 + $intervaloS2->i;
                             }
-                            
+
                             asort($intervaloMinutos);
                             $registro = key($intervaloMinutos);
-                            if ( ($registro != "E1") && ($registrosEsperados["E1"] == "") ) {
+                            if (($registro != "E1") && ($registrosEsperados["E1"] == "")) {
                                 $registro = "E1";
                             }
-                            if ( ($k == 3) && ($registro != "S2")) {
+                            if (($k == 3) && ($registro != "S2")) {
                                 $registro = "S2";
                             }
-                            
+
                             $registrosEsperados[$registro] = $horario;
-                            error_log($registro." => ".$registrosEsperados[$registro]->getHoraBatida()->format("H:i"));
-                            
-                            if($registro == "E1") {
+                            error_log($registro . " => " . $registrosEsperados[$registro]->getHoraBatida()->format("H:i"));
+
+                            if ($registro == "E1") {
                                 if ($intervaloMinutos["E1"] > $tolerancia) {
                                     $lancarOcorrencia = true;
                                     if ($intervaloE1->format("%R") == "-") {
@@ -175,7 +252,7 @@ class OcorrenciaController extends AbstractActionController {
                     if ($lancarOcorrencia) {
                         $ocorrencia = $repo->findOneBy(['colaboradorMatricula' => $colaborador, 'dataOcorrencia' => $dataPesquisa]);
                         $repo->incluir_ou_editar($colaborador, $dataPesquisa, $batidaPonto, $descricaoOcorrencia, $ocorrencia, $saldoMinutos);
-                        error_log("Saldo em minutos " .$saldoMinutos);
+                        error_log("Saldo em minutos " . $saldoMinutos);
                     }
                     $dataPesquisa->add(new \DateInterval('P1D'));
                 }

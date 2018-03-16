@@ -11,13 +11,16 @@ class Curso extends AbstractRepository {
         $qb->select('c')
                 ->from(CursoEntity::class, 'c')
                 ->orderby('c.descricao','ASC');
-        
         if ( !empty($search['search'])){
             $qb->where('c.descricao like :busca');
             $qb->setParameter("busca",'%'.$search['search'].'%');
         }
-       return $qb;
-       
+        if (null != $search['combo'] && $search['combo'] == 1) {
+            return $qb->getQuery()->getResult();
+        } else {
+            return $qb->getQuery();
+        }
+//       return $qb;
     }
     
     public function getListParaCombo(){

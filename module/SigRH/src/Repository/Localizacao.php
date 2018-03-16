@@ -13,7 +13,8 @@ class Localizacao extends AbstractRepository {
         }
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('l')
-                ->from(LocalizacaoEntity::class, 'l');
+                ->from(LocalizacaoEntity::class, 'l')
+                ->orderBy(('l.descricao'));
         if ($combo) {
             return $qb->getQuery()->getResult();
         } else {

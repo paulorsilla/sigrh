@@ -249,6 +249,24 @@ return [
 //                        ]
 //                    ],
                     
+                    'folha-ponto' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/folha-ponto[/:action[/:id][/:referencia][/:page]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'referencia' => '[0-9]+',
+                                'page' => '[0-9]+'
+
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\FolhaPontoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'fonte-seguro' => [
                         'type' => Segment::class,
                         'options' => [
@@ -509,6 +527,7 @@ return [
             Controller\EscalaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\EstadoCivilController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FeriadoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\FolhaPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\FonteSeguroController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrauInstrucaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
@@ -684,6 +703,11 @@ return [
 //                ['actions' => ['index', 'folhaPonto'], 'allow' => 1]
 //            ],
 //            
+
+            Controller\FolhaPontoController::class => [
+                ['actions' => ['index'], 'allow' => 1]
+            ],
+
             Controller\MovimentacaoPontoController::class => [
                 ['actions' => ['index'], 'allow' => 1]
             ],
