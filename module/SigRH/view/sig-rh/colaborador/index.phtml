@@ -2,8 +2,7 @@
 
 <form method="get" action="/sig-rh/colaborador/index">
     <div class="row" style="padding-top: 10px;">
-        <div class="col-md-4"></div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <input class="form-control" type="text" name="nome" placeholder="Digite o nome aqui para pesquisar" id="nome" value="<?php echo (null != $this->nome) ? $this->nome : ''; ?>">
         </div>
         <div class="col-md-2">
@@ -13,7 +12,13 @@
                 <option value="T" <?php echo ($this->ativo == 'T') ? 'selected' : ''?>>Todos</option>
             </select>
         </div>
-        <input type="hidden" name="tipoColaborador" id="tipoColaborador" value="2">
+        <div class="col-md-3">
+            <select class="form-control" name="tipoColaborador" id="tipoColaborador" value="<?php echo $this->tipoColaborador; ?>">
+                <option value="2" <?php echo ($this->tipoColaborador == '2') ? 'selected' : ''?>>Outros (Estagiários, bolsistas, terceiros, etc)</option>
+                <option value="1" <?php echo ($this->tipoColaborador == '1') ? 'selected' : ''?>>Empregados</option>
+            </select>
+        </div>
+        
         <div class="col-md-1">
             <button class="btn-primary btn-sm" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
         </div>
@@ -27,7 +32,7 @@
             <tr>
                 <th>Matrícula</th>
                 <th>Nome</th>
-                <th>Tipo</th>
+                <th>Tipo de vínculo</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -53,7 +58,7 @@
         </tbody>
     </table>
     <span class="pull-right">
-        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator_colaborador', ['route' => 'sig-rh/colaborador', 'query' => ['nome' => $this->nome, 'ativo' => $this->ativo]]); ?>
+        <?= $this->paginationControl($this->colaboradores, 'Elastic', 'sig-rh/partial/paginator_colaborador', ['route' => 'sig-rh/colaborador', 'query' => ['nome' => $this->nome, 'ativo' => $this->ativo, 'tipoColaborador' => $this->tipoColaborador] ]); ?>
     </span>
 </div>
 

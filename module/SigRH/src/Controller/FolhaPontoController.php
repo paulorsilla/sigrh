@@ -82,9 +82,11 @@ class FolhaPontoController extends AbstractActionController
             
             foreach($folhasPonto as $folhaPonto) {
                 $colaborador = $folhaPonto->getColaboradorMatricula();
+                $vinculo = $colaborador->getVinculos()->last();
+                $horarioFlexivel = $vinculo->getHorarioFlexivel();
                 
                 //remover
-                error_log("Processando a folha de: ".$colaborador->getNome());
+//                error_log("Processando a folha de: ".$colaborador->getNome());
                 
                 //movimentacao ponto
                 foreach($folhaPonto->getMovimentacaoPonto() as $movimentacaoPonto) {
@@ -112,7 +114,7 @@ class FolhaPontoController extends AbstractActionController
                     $cargaHorariaMinutos = (($cargaHorariaP1->h * 60) + $cargaHorariaP1->i) + (($cargaHorariaP2->h * 60) + $cargaHorariaP2->i);
 
                     //remover
-                    error_log("Dia: ".$movimentacaoPonto->getDiaPonto() ." -- carga horaria: ".floor($cargaHorariaMinutos/60).":".($cargaHorariaMinutos%60)." hs.");
+//                    error_log("Dia: ".$movimentacaoPonto->getDiaPonto() ." -- carga horaria: ".floor($cargaHorariaMinutos/60).":".($cargaHorariaMinutos%60)." hs.");
 
                     if ($escala != null) {
                         $registrosEsperados = ["E1" => "", "S1" => ""];
@@ -137,15 +139,15 @@ class FolhaPontoController extends AbstractActionController
                         $registrosEsperados = ["E2" => "", "S2" => ""];
                         $intervaloMinutos = ["E2" => null, "S2" => null];
                     }
-                    if ( (count($movimentacaoPonto->getRegistros()) <= 1) && ($cargaHorariaMinutos != 0) && ($expediente) ) {
-                            $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "Omissão de ponto.");
+                    if ( (count($movimentacaoPonto->getRegistros()) <= 1) && ($cargaHorariaMinutos != 0) && ($expediente) && (!$horarioFlexivel) ) {
+                            $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "-Omissão de ponto.");
                     } else { 
                         //registros de ponto realizados na data 
                         foreach($movimentacaoPonto->getRegistros() as $k => $registro) {
                             $lancarOcorrencia = false;
 
                             //remover
-                            error_log("Registro: ".$registro->getHoraRegistro()->format("H:i"));
+//                            error_log("Registro: ".$registro->getHoraRegistro()->format("H:i"));
 
                             if(null != $escala) {
                                 $intervaloE1 = $escala->getEntrada1()->diff($registro->getHoraRegistro());
@@ -174,10 +176,10 @@ class FolhaPontoController extends AbstractActionController
                                     if ($intervaloMinutos["E1"] > $tolerancia) {
                                         $lancarOcorrencia = true;
                                         if ($intervaloE1->format("%R") == "-") {
-                                            $descricaoOcorrencia = "Entrada (E1) antecipada fora da tolerância.";
+                                            $descricaoOcorrencia = "-Entrada (E1) antecipada fora da tolerância.";
                                             $saldoMinutos += $intervaloMinutos["E1"];
                                         } else {
-                                            $descricaoOcorrencia = "Entrada (E1) com atraso fora da tolerância.";
+                                            $descricaoOcorrencia = "-Entrada (E1) com atraso fora da tolerância.";
                                             $saldoMinutos -= $intervaloMinutos["E1"];
                                         }
                                     }
@@ -185,10 +187,10 @@ class FolhaPontoController extends AbstractActionController
                                     if ($intervaloMinutos["S1"] > $tolerancia) {
                                         $lancarOcorrencia = true;
                                         if ($intervaloS1->format("%R") == "-") {
-                                            $descricaoOcorrencia = "Saída (S1) antecipada fora da tolerância.";
+                                            $descricaoOcorrencia = "-Saída (S1) antecipada fora da tolerância.";
                                             $saldoMinutos -= $intervaloMinutos["S1"];
                                         } else {
-                                            $descricaoOcorrencia = "Saída (S1) com atraso fora tolerância.";
+                                            $descricaoOcorrencia = "-Saída (S1) com atraso fora tolerância.";
                                             $saldoMinutos += $intervaloMinutos["S1"];
                                         }
                                     }
@@ -196,10 +198,10 @@ class FolhaPontoController extends AbstractActionController
                                     if ($intervaloMinutos["E2"] > $tolerancia) {
                                         $lancarOcorrencia = true;
                                         if ($intervaloE2->format("%R") == "-") {
-                                            $descricaoOcorrencia = "Entrada (E2) antecipada fora da tolerância";
+                                            $descricaoOcorrencia = "-Entrada (E2) antecipada fora da tolerância.";
                                             $saldoMinutos += $intervaloMinutos["E2"];
                                         } else {
-                                            $descricaoOcorrencia = "Entrada (E2) com atraso fora da tolerância.";
+                                            $descricaoOcorrencia = "-Entrada (E2) com atraso fora da tolerância.";
                                             $saldoMinutos -= $intervaloMinutos["E2"];
                                         }
                                     }
@@ -207,24 +209,33 @@ class FolhaPontoController extends AbstractActionController
                                     if ($intervaloMinutos["S2"] > $tolerancia) {
                                         $lancarOcorrencia = true;
                                         if ($intervaloS2->format("%R") == "-") {
-                                            $descricaoOcorrencia = "Saída (S2) antecipada fora da tolerância.";
+                                            $descricaoOcorrencia = "-Saída (S2) antecipada fora da tolerância.";
                                             $saldoMinutos -= $intervaloMinutos["S2"];
                                         } else {
-                                            $descricaoOcorrencia = "Saída (S2) com atraso fora da tolerância.";
+                                            $descricaoOcorrencia = "-Saída (S2) com atraso fora da tolerância.";
                                             $saldoMinutos += $intervaloMinutos["S2"];
                                         }
                                     }
                                 }
-                                if ($lancarOcorrencia) {
+                                if ( ($lancarOcorrencia) && (!$horarioFlexivel) ) {
                                     $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, $descricaoOcorrencia);
                                 }
-                            } else {
-                                    $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "Registro em dia fora da escala");
+                            } else if (!$horarioFlexivel) {
+                                    $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "-Registro em dia fora da escala.");
                             }
                         }
                     }
                     
                 }
+                //muda o status da folha para aguardando justificativas
+                if(!$horarioFlexivel) {
+                    $folhaPonto->setStatus(1);
+                } else {
+                //muda o status da folha para finalizada, caso o aluno possua horário flexível
+                    $folhaPonto->setStatus(2);
+                }
+                $this->entityManager->persist($folhaPonto);
+                $this->entityManager->flush();
                 
             }
             return $this->redirect()->toUrl('/sig-rh/folha-ponto?referencia='.substr($referencia, 4, 2)."/".substr($referencia, 0, 4).'&page='.$page);
@@ -233,6 +244,8 @@ class FolhaPontoController extends AbstractActionController
         public function registrosAction()
         {
             $id = $this->params()->fromRoute('id');
+            $referencia = $this->params()->fromRoute('referencia');
+            $page = $this->params()->fromRoute('page');
             if ($id != '') {
                 $folhaPonto = $this->entityManager->find(FolhaPonto::class, $id);
                 $feriados = $this->entityManager->getRepository(\SigRH\Entity\Feriado::class)->getFeriadoReferencia($folhaPonto->getReferencia());
@@ -243,7 +256,9 @@ class FolhaPontoController extends AbstractActionController
             }
             return new ViewModel([
                 'folhaPonto' => $folhaPonto,
-                'feriadosPeriodo' => $feriadosPeriodo
+                'feriadosPeriodo' => $feriadosPeriodo,
+                'referencia' => $referencia,
+                'page' => $page
             ]);
 
         }

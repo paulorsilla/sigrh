@@ -28,13 +28,39 @@ class Ocorrencia extends AbstractRepository {
         return $qb->getQuery();//->getResult();
     }
     
-    public function incluir_ou_editar($movimentacao_ponto, $descricao) {
-        $row = new OcorrenciaEntity();
-        $row->setMovimentacaoPonto($movimentacao_ponto);
-        $row->setDescricao($descricao);
+    public function incluir_ou_editar($movimentacaoPonto, $descricao) {
+        $row = $this->findOneBy(['movimentacaoPonto' => $movimentacaoPonto]);
+        if (!$row) {
+            $row = new OcorrenciaEntity();
+            $row->setMovimentacaoPonto($movimentacaoPonto);
+        }
+        $descricaoAux = $descricao;
+        if(strpos($row->getDescricao(), $descricaoAux) == false) {
+            $descricao = $row->getDescricao()." ".$descricao;
+            $row->setDescricao($descricao);
+        }
         $this->getEntityManager()->persist($row); // persiste o model no banco ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         return $row;
+    }
+    
+    public function justificar($id, $data) {
+        $row = $this->find($id);
+        if ($row) {
+            $justificativa1 = null;
+            $justificativa2 = null;
+            if (!empty($data['justificativa1'])) {
+                $justificativa1 = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, $data['justificativa1']);
+            }
+            if (!empty($data['justificativa2'])) {
+                $justificativa2 = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, $data['justificativa2']);
+            }
+            $row->setJustificativa1($justificativa1);
+            $row->setJustificativa2($justificativa2);
+            $this->getEntityManager()->persist($row);
+            $this->getEntityManager()->flush();
+            
+        }
     }
 
 }

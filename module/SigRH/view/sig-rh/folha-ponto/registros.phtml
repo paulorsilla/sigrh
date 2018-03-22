@@ -24,7 +24,7 @@ if ($this->folhaPonto != null):
             <span class="pull-center">Referência: <?php echo $mesesAno[(int)$mes]."/".$ano;?></span>
         </div>
         <div class="col-md-2 panel-title"> 
-            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto/index?periodoMovimentacao=<?php echo $mes;?>/<?php echo $ano;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto?referencia=<?php echo $this->referencia;?>&page=<?php echo $this->page;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
     <hr>
@@ -57,10 +57,10 @@ if ($this->folhaPonto != null):
                 <td></td>
                 <td><?php 
                     if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
-                        echo $this->escapeHtml("Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome());
+                        echo $this->escapeHtml("-Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome());
                     endif;
                     foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
-                        echo $this->escapeHtml($ocorrencia->getDescricao());?>
+                        echo str_replace(". -", ".<br>-", $ocorrencia->getDescricao());?>
                         <button type="button" class="btn btn-primary btn-sm pull-right" onclick="novaJustificativa('<?php echo $ocorrencia->getId();?>')">
                                     <span class="glyphicon glyphicon-copy"></span> Justificar
                         </button><br><br>
@@ -80,10 +80,9 @@ if ($this->folhaPonto != null):
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Justificativa</h4>
+        <h4 class="modal-title">Justificar ocorrência</h4>
       </div>
       <div class="modal-body">
-        <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

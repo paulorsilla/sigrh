@@ -18,7 +18,7 @@ if (null == $folhasPonto):?>
     </div>
 <?php
 else:
-    $status = [0 => "<span class='label label-danger'>Aguardando justificativas.</span>",
+    $status = [0 => "<span class='label label-danger'>Aguardando processamento.</span>",
                1 => "<span class='label label-warning'>Justificativas pendentes.</span>",
                2 => "<span class='label label-success'>Finalizada.</span>",
                10 => "<span class='label label-info'>Treinando.</span>",
@@ -48,7 +48,7 @@ else:
                            title="Processar folha ."><span class="glyphicon glyphicon-dashboard"></span></a>
                            
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId()]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'page' => $this->page]) ?>"
                            title="Visualizar folha ponto."><span class="glyphicon glyphicon-list-alt"></span></a>
                            
                     </td>

@@ -25,9 +25,15 @@ class Ocorrencia extends AbstractEntity {
     
     /**
      * @ORM\ManyToOne(targetEntity="Justificativa")
-     * @ORM\JoinColumn(name="justificativa_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="justificativa1_id", referencedColumnName="id")
      **/
-    protected $justificativa;
+    protected $justificativa1;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Justificativa")
+     * @ORM\JoinColumn(name="justificativa2_id", referencedColumnName="id")
+     **/
+    protected $justificativa2;
  
     /**
      * @ORM\Column(name="descricao", type="string")
@@ -46,10 +52,14 @@ class Ocorrencia extends AbstractEntity {
         return $this->descricao;
     }
     
-    public function getJustificativa() {
-        return $this->justificativa;
+    public function getJustificativa1() {
+        return $this->justificativa1;
     }
 
+    public function getJustificativa2() {
+        return $this->justificativa2;
+    }
+    
     public function setId($id) {
         $this->id = $id;
     }
@@ -62,8 +72,12 @@ class Ocorrencia extends AbstractEntity {
         $this->descricao = $descricao;
     }
     
-    public function setJustificativa($justificativa) {
-        $this->justificativa = $justificativa;
+    public function setJustificativa1($justificativa) {
+        $this->justificativa1 = $justificativa;
+    }
+    
+    public function setJustificativa2($justificativa) {
+        $this->justificativa2 = $justificativa;
     }
 
 }

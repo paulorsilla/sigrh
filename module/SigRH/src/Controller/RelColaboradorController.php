@@ -51,6 +51,7 @@ class RelColaboradorController extends AbstractActionController {
             "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
             "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
             "subLotacao" => $this->params()->fromQuery("subLotacao"),
+            "instituicaoEnsino" => $this->params()->fromQuery("instituicaoEnsino")
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -76,8 +77,8 @@ class RelColaboradorController extends AbstractActionController {
         $array_nivelEscolaridade = $repo_nivelEscolaridade->getListParaCombo();
 
         //instituicao fomento...
-        $repo_fomento = $this->entityManager->getRepository(\SigRH\Entity\Instituicao::class);
-        $array_fomento = $repo_fomento->getQuery(["combo" => "1"]);
+        $repo_instituicao = $this->entityManager->getRepository(\SigRH\Entity\Instituicao::class);
+        $array_instituicao = $repo_instituicao->getQuery(["combo" => "1"]);
 
         //modalidade bolsa...
         $repo_bolsa = $this->entityManager->getRepository(\SigRH\Entity\ModalidadeBolsa::class);
@@ -101,7 +102,7 @@ class RelColaboradorController extends AbstractActionController {
         $view->setVariable("array_estadoCivil", $array_estadoCivil);
         $view->setVariable("array_grauInstrucao", $array_grauInstrucao);
         $view->setVariable("array_nivelEscolaridade", $array_nivelEscolaridade);
-        $view->setVariable("array_fomento", $array_fomento);
+        $view->setVariable("array_instituicao", $array_instituicao);
         $view->setVariable("array_bolsa", $array_bolsa);
         $view->setVariable("array_meses", $array_meses);
         $view->setVariable("array_tipo_vinculo", $array_tipo_vinculo);
@@ -133,6 +134,12 @@ class RelColaboradorController extends AbstractActionController {
         if (!empty($search['instituicaoFomento'])) {
             $instituicaoFomento = $this->entityManager->find(\SigRH\Entity\Instituicao::class, $search['instituicaoFomento']);
         }
+        
+        $instituicaoEnsino = NULL;
+        if(!empty($search['instituicaoEnsino'])) {
+            $instituicaoEnsino = $this->entityManager->find(\SigRH\Entity\Instituicao::class, $search['instituicaoEnsino']);
+        }
+        
         $aniversariantesMes = NULL;
         if (!empty($search['aniversariantesMes'])) {
             $aniversariantesMes = $array_meses[$search['aniversariantesMes']];
@@ -174,6 +181,7 @@ class RelColaboradorController extends AbstractActionController {
         $view = new \Zend\View\Model\ViewModel();
         $view->setVariables(["colaboradores"        => $colaboradores,
                              "instituicaoFomento"   => $instituicaoFomento,
+                             "instituicaoEnsino"    => $instituicaoEnsino,
                              "aniversariantesMes"   => $aniversariantesMes,
                              "tipoVinculo"          => $tipoVinculo,
                              "orientador"           => $orientador,
@@ -190,7 +198,6 @@ class RelColaboradorController extends AbstractActionController {
         public function csvAction()
         {
                 $titulo = "Relatório geral";
-
                
                   $params = $this->params()->fromQuery();   
                   $user = $this->identity();

@@ -1,18 +1,18 @@
 <form action="/sig-rh/rel-colaborador/gerar-html" method="get">
     <br>    
 <div class="row">
-    <div class="col-sm-5 form-group" >
+    <div class="col-sm-4 form-group" >
         <label for="nome">Nome:</label>                
         <input type="text" name="nome" id="nome" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["nome"])) ? $search["nome"] : "";?>" placeholder="Nome"/>
     </div>
     
-    <div class="col-sm-3 form-group" >
+    <div class="col-sm-2 form-group" >
         <label for="matricula">Matrícula:</label>                
         <input type="text" name="matricula" id="matricula" class="form-control" size="12"  maxlength="40" value="<?php echo (!empty($search["matricula"])) ? $search["matricula"] : "";?>" placeholder="Matrícula"/>
     </div>
     
     <div class="col-sm-2 form-group">
-        <label for="tipoVinculo">Tipo de vínculo: </label>
+        <label for="tipoVinculo">Vínculo (individual): </label>
         <select name="tipoVinculo" id="tipoVinculo" class="form-control">
             <option value="">Selecione aqui...</option>
                <?php foreach($this->array_tipo_vinculo as $row) { ?>
@@ -20,6 +20,15 @@
                        <?php if ( (!empty($search["tipoVinculo"])) && ($row["id"] == $search["tipoVinculo"]) ){ echo "selected";}?>
             ><?php echo $row["descricao"]; ?></option>
              <?php } ?>
+        </select>                      
+    </div>
+
+    <div class="col-sm-2 form-group">
+        <label for="tipoColaborador">Vínculo (agrupado): </label>
+        <select name="tipoColaborador" id="tipoColaborador" class="form-control">
+            <option value="">Selecione aqui...</option>
+            <option value="1">Empregados</option>
+            <option value="2">Outros (Estagiários, bolsistas, terceiros, etc)</option>
         </select>                      
     </div>
     
@@ -134,10 +143,10 @@
         </div>
         
         <div class="col-sm-3 form-group" >
-                     <label for="instituicaoFomento">Instituicao de fomento: </label>
+                     <label for="instituicaoFomento">Instituição de fomento: </label>
                                     <select name="instituicaoFomento" id="instituicaoFomento" class="form-control">
                                      <option value="">Selecione aqui...</option>
-                                     <?php foreach($this->array_fomento as $row) { ?>
+                                     <?php foreach($this->array_instituicao as $row) { ?>
                                         <option value="<?php echo $row["id"]; ?>"  
                                                  <?php if ( (!empty($search["instituicaoFomento"]))  && ( $row["id"] == $search["instituicaoFomento"])){ echo "selected";}?>
                                                 ><?php echo $row["desRazaoSocial"]; ?></option>
@@ -181,8 +190,27 @@
                      <?php } ?>
                    </select>                      
         </div>
-    
+        
         <div class="col-sm-3 form-group" >
+                     <label for="instituicaoEnsino">Instituição de ensino: </label>
+                                    <select name="instituicaoEnsino" id="instituicaoEnsino" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_instituicao as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( (!empty($search["instituicaoEnsino"]))  && ( $row["id"] == $search["instituicaoEnsino"])){ echo "selected";}?>
+                                                ><?php echo $row["desRazaoSocial"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+                    <label for="contratoVencido">Contrato vencido: </label>
+                                <select name="contratoVencido" id="contratoVencido" class="form-control">
+                                 <option value="">Não</option>
+                                 <option value="1">Sim</option>
+                               </select>                      
+        </div>
+            <div class="col-sm-3 form-group" >
                      <label for="subLotacao">Sublotação: </label>
                                     <select name="subLotacao" id="subLotacao" class="form-control">
                                      <option value="">Selecione aqui...</option>
@@ -193,14 +221,6 @@
                                      <?php } ?>
                                    </select>                      
         </div>
-        <div class="col-sm-3 form-group" >
-                    <label for="contratoVencido">Contrato vencido: </label>
-                                <select name="contratoVencido" id="contratoVencido" class="form-control">
-                                 <option value="">Não</option>
-                                 <option value="1">Sim</option>
-                               </select>                      
-        </div>
-
 
     </div>
 
@@ -209,7 +229,7 @@
                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Relatório</button>
                 <br/>
                 <br/>
-                <button type="submit" formaction="/sig-rh/rel-colaborador/csv">CSV</button>                    
+                <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/csv"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> CSV</button>                    
         </div>
         
     </div>

@@ -28,19 +28,32 @@ class Colaborador extends AbstractRepository {
                 $qb->join('c.vinculos', 'v');
                 $joinVinculo = true;
             }
-            $qb->andWhere('v.tipoVinculo not in (1,6)');
+            $qb->andWhere('v.tipoVinculo not in (1, 6)');
         }
-             
         
-        if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
-            unset($search['tipoColaborador']);
-            $qb->andWhere('c.tipoColaborador = 2');
-            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen em 02/02/2018...
-            $qb->orWhere('c.tipoColaborador = 4');
-            $qb->orWhere('c.tipoColaborador = 5');
-            $qb->orWhere('c.tipoColaborador = 6');
-            $qb->orWhere('c.tipoColaborador = 8');
+//        if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
+//            unset($search['tipoColaborador']);
+//            $qb->andWhere('c.tipoColaborador = 2');
+//            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen em 02/02/2018...
+//            $qb->orWhere('c.tipoColaborador = 4');
+//            $qb->orWhere('c.tipoColaborador = 5');
+//            $qb->orWhere('c.tipoColaborador = 6');
+//            $qb->orWhere('c.tipoColaborador = 8');
+//        }
+        
+        if (isset($search['tipoColaborador'])) {
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+            if($search['tipoColaborador'] == 1) {
+                $qb->andWhere('v.tipoVinculo in (1,7)');
+            } else {
+                $qb->andWhere('v.tipoVinculo not in (1,7)');
+            }
+            
         }
+        
         if ( (isset($search["aniversariantesMes"])) && (!empty($search["aniversariantesMes"]))) {
                 $qb->andWhere("MONTH(c.dataNascimento) = :mes")
                     ->orderby('DAY(c.dataNascimento)','ASC')
@@ -199,6 +212,15 @@ class Colaborador extends AbstractRepository {
             }
              $qb->andWhere('v.instituicaoFomento = :instituicaoFomento');
              $qb->setParameter("instituicaoFomento", $search["instituicaoFomento"]);
+        }
+        
+        if ( !empty($search["instituicaoEnsino"]) ){
+            if (!$joinVinculo) {
+                $qb->join('c.vinculos', 'v');
+                $joinVinculo = true;
+            }
+             $qb->andWhere('v.instituicaoEnsino = :instituicaoEnsino');
+             $qb->setParameter("instituicaoEnsino", $search["instituicaoEnsino"]);
         }
         
         if ( !empty($search['orientador'])) {

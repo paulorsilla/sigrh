@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
 use SigRH\Entity\Ocorrencia;
-use SigRH\Entity\BatidaPonto;
+use SigRH\Entity\Justificativa;
 use SigRH\Form\OcorrenciaForm;
 
 class OcorrenciaController extends AbstractActionController {
@@ -43,10 +43,10 @@ class OcorrenciaController extends AbstractActionController {
         $movimentacaoPonto = null;
         $dataPonto = null;
         $escala = null;
+        $colaborador = null;
 
         //Verifica se a requisição utiliza o método POST
         if ($this->getRequest()->isPost()) {
-
             //Recebe os dados via POST
             $data = $this->params()->fromPost();
 
@@ -55,17 +55,34 @@ class OcorrenciaController extends AbstractActionController {
             if ($form->isValid()) {
                 $data = $form->getData();
                 $repo = $this->entityManager->getRepository(Ocorrencia::class);
-//                $repo->incluir_ou_editar($data, $id, $matricula);
+                $repo->justificar($id, $data);
+
                 // alterar para json
                 $modelJson = new \Zend\View\Model\JsonModel();
                 return $modelJson->setVariable('success', 1);
+            } else {
+                foreach($form->getMessages() as $messages) {
+                    foreach($messages as $k => $m) {
+                        error_log($k. " => ".$m);
+                    }
+                }
             }
         } else {
             if (!empty($id)) {
                 $repo = $this->entityManager->getRepository(Ocorrencia::class);
+                $search['indicarHorario'] = true;
+                $indicarHorario = $this->entityManager->getRepository(Justificativa::class)->getQuery($search)->getQuery()->getResult();
+                $stringIndicarHorario = '';
+                foreach($indicarHorario as $k => $justificativa) {
+                    $stringIndicarHorario .= $justificativa->getId();
+                    if(!empty($indicarHorario[$k+1])) {
+                        $stringIndicarHorario .= ",";
+                    }
+                }
                 $ocorrencia = $repo->find($id);
                 if (!empty($ocorrencia)) {
                     $movimentacaoPonto = $ocorrencia->getMovimentacaoPonto();
+                    $colaborador = $movimentacaoPonto->getFolhaPonto()->getColaboradorMatricula();
                     $dataPonto = \DateTime::createFromFormat("Ymd", $movimentacaoPonto->getFolhaPonto()->getReferencia().$movimentacaoPonto->getDiaPonto());
                     
                     $diaSemana = $dataPonto->format("w");
@@ -78,11 +95,13 @@ class OcorrenciaController extends AbstractActionController {
                             break;
                         }
                     }
-                    
                     $form->setData($ocorrencia->toArray());
                     $form->get("descricao")->setValue($ocorrencia->getDescricao());
-                    if (null != $ocorrencia->getJustificativa()) {
-                        $form->get("justificativa")->setValue($ocorrencia->getJustificativa()->getId());
+                    if (null != $ocorrencia->getJustificativa1()) {
+                        $form->get("justificativa1")->setValue($ocorrencia->getJustificativa1()->getId());
+                    }
+                    if (null != $ocorrencia->getJustificativa2()) {
+                        $form->get("justificativa2")->setValue($ocorrencia->getJustificativa2()->getId());
                     }
                     $registros = $movimentacaoPonto->getRegistros();
                     if(null != $registros) {
@@ -91,6 +110,7 @@ class OcorrenciaController extends AbstractActionController {
                         $form->get("entrada2")->setValue(null != $registros[2] ? $registros[2]->getHoraRegistro()->format("H:i") : "");
                         $form->get("saida2")->setValue(null != $registros[3] ? $registros[3]->getHoraRegistro()->format("H:i") : "");
                     }
+                    $form->get("indicarHorario")->setValue($stringIndicarHorario);
                 }
             }
         }
@@ -98,7 +118,9 @@ class OcorrenciaController extends AbstractActionController {
             'form' => $form,
             'movimentacaoPonto' => $movimentacaoPonto,
             'dataPonto' => $dataPonto,
-            'escala' => $escala
+            'escala' => $escala,
+            'colaborador' => $colaborador,
+            'indicarHorario' => $indicarHorario
         ]);
         return $view->setTerminal(true);
     }

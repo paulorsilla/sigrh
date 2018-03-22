@@ -42,7 +42,7 @@ class OcorrenciaForm extends Form {
             'name' => 'descricao',
             'attributes' => [
                 'id' => 'descricao',
-                'class' => 'form-control',
+                'class' => 'form-control alert-danger',
                 'readonly' => true
             ],
             'options' => [
@@ -59,7 +59,8 @@ class OcorrenciaForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Entrada 1'
+                'label' => 'Entrada 1',
+                'format' => 'H:i'
             ],
         ]);
         
@@ -72,7 +73,8 @@ class OcorrenciaForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Saída 1'
+                'label' => 'Saída 1',
+                'format' => 'H:i'
             ],
         ]);
 
@@ -85,7 +87,8 @@ class OcorrenciaForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Entrada 2'
+                'label' => 'Entrada 2',
+                'format' => 'H:i'
             ],
         ]);
         
@@ -98,17 +101,20 @@ class OcorrenciaForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'label' => 'Saída 2'
+                'label' => 'Saída 2',
+                'format' => 'H:i'
             ],
         ]);
-        
-        //Adiciona o campo "justificativa"
+       
+        //Adiciona o campo "justificativa1"
         $this->add([
             'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'justificativa',
+            'name' => 'justificativa1',
             'attributes' => [
-                'id' => 'justificativa',
+                'id' => 'justificativa1',
                 'class' => 'form-control',
+                'onChange' => 'exibicaoHorarios()'
+
             ],
             'options' => [
                 'label' => 'Justificativa',
@@ -116,7 +122,38 @@ class OcorrenciaForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Justificativa::class,
                 'property' => 'descricao',
-                'display_empty_item' => true,
+                'display_empty_item' => true
+            ]
+        ]);
+
+        //Adiciona o campo "justificativa2"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'justificativa2',
+            'attributes' => [
+                'id' => 'justificativa2',
+                'class' => 'form-control',
+                'onChange' => 'exibicaoHorarios()'
+
+            ],
+            'options' => [
+                'label' => 'Justificativa',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Justificativa::class,
+                'property' => 'descricao',
+                'display_empty_item' => true
+            ]
+        ]);
+        
+        $this->add([
+            'type' => 'hidden',
+            'name' => 'indicarHorario',
+            'attributes' => [
+                'id' => 'indicarHorario',
+            ],
+            'options' => [
+                'label' => 'indicar horário'
             ]
         ]);
 
@@ -136,7 +173,7 @@ class OcorrenciaForm extends Form {
 
         $inputFilter->add([
             'name' => 'descricao',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
@@ -154,8 +191,13 @@ class OcorrenciaForm extends Form {
         ]);
         
         $inputFilter->add([
-            'name' => 'justificativa',
+            'name' => 'justificativa1',
             'required' => true,
+        ]);
+
+        $inputFilter->add([
+            'name' => 'justificativa2',
+            'required' => false,
         ]);
         
         $inputFilter->add([

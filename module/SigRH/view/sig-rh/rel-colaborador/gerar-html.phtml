@@ -11,6 +11,9 @@
         if (!empty($this->instituicaoFomento)): ?>
             <h4>Instituição de fomento: <?php echo $this->escapeHtml($this->instituicaoFomento->getDesRazaoSocial());?></h4>
         <?php endif;
+        if (!empty($this->instituicaoEnsino)): ?>
+            <h4>Instituição de ensino: <?php echo $this->escapeHtml($this->instituicaoEnsino->getDesRazaoSocial());?></h4>
+        <?php endif;
         if (!empty($this->aniversariantesMes)):
             $aniversariantes = True;
             $vigencia = False;?>
@@ -74,7 +77,7 @@
         <tbody>
             <?php foreach ($colaboradores as $colaborador):
                 
-                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last() : NULL;
+                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->first() : NULL;
             ?>            
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>

@@ -5,21 +5,18 @@
             Por favor, preencha o formulário abaixo e, em seguida, clique sobre
             o botão <i>Salvar</i>. 
         </h3>
-        <?php
-            $colaborador = $this->movimentacaoPonto->getFolhaPonto()->getColaboradorMatricula();
-        ?>
         <hr>
         <h4 class="panel-info">
-            <?php echo $this->escapeHtml($colaborador->getMatricula(). " - ". $colaborador->getNome(). " - Data: ".$this->dataPonto->format('d/m/Y'));?>
+            <?php echo (null != $this->colaborador) ? $this->escapeHtml($this->colaborador->getMatricula(). " - ". $this->colaborador->getNome(). " - Data: ".$this->dataPonto->format('d/m/Y')): " ";?>
         </h4>
         <div class="row">
             <div class="col-md-12">
-                <p class="alert alert-warning">
-                    Escala - 
-                    <?php echo (null != $this->escala->getEntrada1() ? "Entrada 1: ".$this->escala->getEntrada1()->format("H:i")."hs " : "");?>
-                    <?php echo (null != $this->escala->getSaida1() ? "Saída 1: ".$this->escala->getSaida1()->format("H:i")."hs " : "");?>
-                    <?php echo (null != $this->escala->getEntrada2() ? "Entrada 2: ".$this->escala->getEntrada2()->format("H:i")."hs "  : "");?>
-                    <?php echo (null != $this->escala->getSaida2() ? "Saída 2: ".$this->escala->getSaida2()->format("H:i")."hs "  : "");?>
+                <p class="alert alert-info">
+                    Escala do dia - 
+                    <?php echo (null != $this->escala && null != $this->escala->getEntrada1() ? "Entrada 1: ".$this->escala->getEntrada1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getSaida1() ? "Saída 1: ".$this->escala->getSaida1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getEntrada2() ? "Entrada 2: ".$this->escala->getEntrada2()->format("H:i")."hs "  : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getSaida2() ? "Saída 2: ".$this->escala->getSaida2()->format("H:i")."hs "  : "");?>
                 </p>
             </div>
         </div>
@@ -29,22 +26,29 @@
             <div class="col-md-12">
                 <?php echo $this->formLabel($this->form->get('descricao')); ?><br>
                 <?php echo $this->formElement($this->form->get('descricao')); ?>
-                <?php echo $this->formElementErrors($this->form->get('descricao')); ?>                  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <?php echo $this->formLabel($this->form->get('justificativa1')); ?><br>
+                <?php echo $this->formElement($this->form->get('justificativa1')); ?>
+                <?php echo $this->formElementErrors($this->form->get('justificativa1')); ?><br>                  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <?php echo $this->formLabel($this->form->get('justificativa2')); ?><br>
+                <?php echo $this->formElement($this->form->get('justificativa2')); ?>
+                <?php echo $this->formElementErrors($this->form->get('justificativa2')); ?><br>                  
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <?php echo $this->formLabel($this->form->get('justificativa')); ?><br>
-                <?php echo $this->formElement($this->form->get('justificativa')); ?>
-                <?php echo $this->formElementErrors($this->form->get('justificativa')); ?>                  
-            </div>
-        </div>
+        <br>
         <div id="horarios">
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="panel-title">Caso necessário, ajuste os horários de entrada e saída utilizando os campos abaixo:</h3>
+                    <h3 class="panel-title">Ajuste os horários de entrada e saída utilizando os campos abaixo:</h3>
                 </div>
             </div>
             <hr>
@@ -73,5 +77,5 @@
         </div>
     </div>
 </div>
-</div>
+<?php echo $this->formElement($this->form->get('indicarHorario')); ?>
 <?php echo $this->form()->closeTag(); ?>

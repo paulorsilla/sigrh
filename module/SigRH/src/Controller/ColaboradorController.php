@@ -39,7 +39,7 @@ class ColaboradorController extends AbstractActionController
             $page = $this->params()->fromQuery('page', 1);
 
             $search = $this->params()->fromQuery();
-            $search['tipoColaborador'] = 2;
+            $search['tipoColaborador'] = $this->params()->fromQuery('tipoColaborador');
 
             $adapter = new DoctrineAdapter(new ORMPaginator($repo->getQuery($search)));
             $paginator = new Paginator($adapter);
@@ -51,7 +51,8 @@ class ColaboradorController extends AbstractActionController
                             'colaboradores' => $paginator,
                             'page' => $page,
                             'nome' => $search['nome'],
-                            'ativo' => $search['ativo']
+                            'ativo' => $search['ativo'],
+                            'tipoColaborador' => $search['tipoColaborador']
             ]);
 	}
 
