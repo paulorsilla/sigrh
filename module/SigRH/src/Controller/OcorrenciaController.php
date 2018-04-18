@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
 use SigRH\Entity\Ocorrencia;
 use SigRH\Entity\Justificativa;
+use SigRH\Entity\RegistroHorario;
 use SigRH\Form\OcorrenciaForm;
 
 class OcorrenciaController extends AbstractActionController {
@@ -55,7 +56,22 @@ class OcorrenciaController extends AbstractActionController {
             if ($form->isValid()) {
                 $data = $form->getData();
                 $repo = $this->entityManager->getRepository(Ocorrencia::class);
+                $repoRegistroHorario = $this->entityManager->getRepository(RegistroHorario::class);
                 $repo->justificar($id, $data);
+                
+                $ocorrencia = $repo->find($id);
+                if (isset($data['entrada1']) && ($data["entrada1"] != "")) {
+                    $repoRegistroHorario->incluir_ou_editar($ocorrencia->getMovimentacaoPonto(), $data['entrada1']);
+                }
+                if (isset($data['saida1']) && ($data['saida1'] != "")) {
+                    $repoRegistroHorario->incluir_ou_editar($ocorrencia->getMovimentacaoPonto(), $data['saida1']);
+                }
+                if (isset($data['entrada2']) && ($data['entrada2'] != "")) {
+                    $repoRegistroHorario->incluir_ou_editar($ocorrencia->getMovimentacaoPonto(), $data['entrada2']);
+                }
+                if (isset($data['saida2']) && ($data['saida2'] != "")) {
+                    $repoRegistroHorario->incluir_ou_editar($ocorrencia->getMovimentacaoPonto(), $data['saida2']);
+                }
 
                 // alterar para json
                 $modelJson = new \Zend\View\Model\JsonModel();

@@ -22,6 +22,7 @@ class Colaborador extends AbstractRepository {
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
+        
         // Se for usuario do perfil "cadastro estudante", não mostrar os empregados
         if ( isset($search['perfilUsuario']) && $search['perfilUsuario'] == '5' ) {
             if (!$joinVinculo) {
@@ -41,9 +42,9 @@ class Colaborador extends AbstractRepository {
 //            $qb->orWhere('c.tipoColaborador = 8');
 //        }
         
-        if (isset($search['tipoColaborador'])) {
+        if (isset($search['tipoColaborador']) && ($search['tipoColaborador'] != '') ) {
             if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
+                $qb->leftJoin('c.vinculos', 'v');
                 $joinVinculo = true;
             }
             if($search['tipoColaborador'] == 1) {
@@ -51,7 +52,11 @@ class Colaborador extends AbstractRepository {
             } else {
                 $qb->andWhere('v.tipoVinculo not in (1,7)');
             }
-            
+            if ( (isset($search['ativo'])) && ($search['ativo'] == "T") ) {
+                $qb->orWhere('v is null');
+            } else {
+                $qb->andWhere('v is not null');
+            }
         }
         
         if ( (isset($search["aniversariantesMes"])) && (!empty($search["aniversariantesMes"]))) {
@@ -62,7 +67,7 @@ class Colaborador extends AbstractRepository {
         
         if ( !empty($search['nome'])){
             $qb->andWhere('c.nome like :nome' );
-             $qb->setParameter('nome', "%".$search['nome']."%");
+            $qb->setParameter('nome', "%".$search['nome']."%");
         }
         
         if ( !empty($search['matricula'])){
@@ -175,7 +180,7 @@ class Colaborador extends AbstractRepository {
                 case 'N': $qb->andWhere('v.dataDesligamento is NOT NULL');
             }
         }
-
+        
         if ( !empty($search["tipoVinculo"]) ){
             if (!$joinVinculo) {
                 $qb->join('c.vinculos', 'v');

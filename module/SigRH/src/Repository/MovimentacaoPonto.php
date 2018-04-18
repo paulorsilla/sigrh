@@ -30,11 +30,12 @@ class MovimentacaoPonto extends AbstractRepository {
             $dataRegistro = \DateTime::createFromFormat( "Y-m-d", $ano."-".$mes."-".$dia);
             $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
             if ($colaborador) {
-                $vinculoAtual = $colaborador->getVinculos()->last();
-                if($colaborador->getMatricula() == "503385") {
-                    error_log($colaborador->getNome()." ".$vinculoAtual->getTipoVinculo()->getId());
-                    
+                $vinculoAtual = $colaborador->getVinculos()->first();
+                
+                if($colaborador->getMatricula() == "503418") {
+                    error_log($colaborador->getNome()." ".$vinculoAtual->getTipoVinculo()->getDescricao());
                 }
+                
                 if  ( ($vinculoAtual) && (in_array($vinculoAtual->getTipoVinculo()->getId(), [2, 4, 6, 8]))) {
             
                     //verifica a existencia da folha para o colaborador no mes/ano referencia

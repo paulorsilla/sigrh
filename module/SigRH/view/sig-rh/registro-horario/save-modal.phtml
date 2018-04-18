@@ -1,0 +1,63 @@
+<?php echo $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <hr>
+        <h4 class="panel-info">
+            <?php echo (null != $this->colaborador) ? $this->escapeHtml($this->colaborador->getMatricula(). " - ". $this->colaborador->getNome(). " - Data: ".$this->dataPonto->format('d/m/Y')): " ";?>
+        </h4>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="alert alert-info">
+                    Escala do dia - 
+                    <?php echo (null != $this->escala && null != $this->escala->getEntrada1() ? "Entrada 1: ".$this->escala->getEntrada1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getSaida1() ? "Saída 1: ".$this->escala->getSaida1()->format("H:i")."hs " : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getEntrada2() ? "Entrada 2: ".$this->escala->getEntrada2()->format("H:i")."hs "  : "");?>
+                    <?php echo (null != $this->escala && null != $this->escala->getSaida2() ? "Saída 2: ".$this->escala->getSaida2()->format("H:i")."hs "  : "");?>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="panel-info">Registros existentes</h4>
+            </div>
+        </div>
+        <div class="row">
+            <?php foreach($this->movimentacaoPonto->getRegistros() as $k => $registro):?>
+            <div class="col-md-1" id="horario<?php echo $k;?>">
+                <div class="dropup" id="registrosExistentes">
+                        <button class="btn btn-secondary btn-info btn-sm dropdown-toggle" type="button" id="registroHorario<?php echo $k;?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php echo $registro->getHoraRegistro()->format("H:i");?><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labellydby="registroHorario<?php echo $k;?>">
+                            <li><a onclick="excluirHorario(<?php echo $k.",".$registro->getId().",'".$registro->getHoraRegistro()->format("H:i")."'";?>)" class="alert alert-danger" href="#">Excluir</a></li>
+                        </ul>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="alert alert-warning">Crie um novo registro de ponto para o dia, incluindo os horários de entrada e de saída nos campos abaixo:</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('entrada')); ?><br>
+                <?php echo $this->formElement($this->form->get('entrada')); ?>
+                <?php echo $this->formElementErrors($this->form->get('entrada')); ?>                  
+            </div>
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('saida')); ?><br>
+                <?php echo $this->formElement($this->form->get('saida')); ?>
+                <?php echo $this->formElementErrors($this->form->get('saida')); ?>                  
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>

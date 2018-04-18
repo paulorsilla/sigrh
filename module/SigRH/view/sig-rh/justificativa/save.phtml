@@ -1,0 +1,62 @@
+<?php
+$form = $this->form;
+$form->get('descricao')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Digite a descrição aqui'
+]);
+
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro de justificativas</h1>
+
+<div class="row">
+    <div class="col-md-22">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/justificativa" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?php echo $this->form()->openTag($form); ?>
+                
+                <div class="row">
+                    <div class="col-md-10">
+                        <?php echo $this->formLabel($form->get('descricao')); ?><br>
+                        <?php echo $this->formElement($form->get('descricao')); ?>
+                        <?php echo $this->formElementErrors($form->get('descricao')); ?>                  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($form->get('indicarHorario')); ?><br>
+                        <?php echo $this->formElement($form->get('indicarHorario')); ?>
+                        <?php echo $this->formElementErrors($form->get('indicarHorario')); ?>                  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($form->get('considerarHoras')); ?><br>
+                        <?php echo $this->formElement($form->get('considerarHoras')); ?>
+                        <?php echo $this->formElementErrors($form->get('considerarHoras')); ?>                  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formElement($form->get('submit')); ?>
+                    </div>
+                </div>
+
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

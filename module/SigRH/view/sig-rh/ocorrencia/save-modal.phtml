@@ -1,4 +1,5 @@
 <?php echo $this->form()->openTag($this->form); ?>
+
 <div class="row">
     <div class="col-md-12">
         <h3 class="panel-title">
@@ -72,6 +73,27 @@
                     <?php echo $this->formLabel($this->form->get('saida2')); ?><br>
                     <?php echo $this->formElement($this->form->get('saida2')); ?>
                     <?php echo $this->formElementErrors($this->form->get('saida2')); ?>                  
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 text-right">
+                    <button type="button" id="moverE1S1" class="btn btn-primary btn-sm" onclick="moverE1S1()"><span class="glyphicon glyphicon-arrow-right"> S1</span></button>
+                </div>
+                <div class="col-md-1 text-left">
+                      <button type="button" id="moverS1E1" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-left"> E1</span></button>
+                </div>
+                <div class="col-md-2 text-right">
+                      <button type="button" id="moverS1E2" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-right"> E2</span></button>
+                </div>
+                <div class="col-md-1">
+                      <button type="button" id="moverE2S1" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-left"> S1</span></button>
+                </div>
+                <div class="col-md-2 text-right">
+                      <button type="button" id="moverE2S2" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-right"> S2</span></button>
+                </div>
+                <div class="col-md-3">
+                      <button type="button" id="moverS2E2" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-left"> E2</span></button>
                 </div>
             </div>
         </div>

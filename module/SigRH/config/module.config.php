@@ -53,21 +53,6 @@ return [
                         ]
                     ],
                     
-//                    'batida-ponto' => [
-//                        'type' => Segment::class,
-//                        'options' => [
-//                            'route' => '/batida-ponto[/:action[/:id]]',
-//                            'constraints' => [
-//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-//                                'id' => '[0-9]+'
-//                            ],
-//                            'defaults' => [
-//                                'controller' => Controller\BatidaPontoController::class,
-//                                'action' => 'index'
-//                            ]
-//                        ]
-//                    ],
-                    
                     'cidade' => [
                         'type' => Segment::class,
                         'options' => [
@@ -86,7 +71,7 @@ return [
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/colaborador[/:action[/:id][/:ativo][/:page]]',
+                            'route' => '/colaborador[/:action[/:id][/:ativo][/:tipoColaborador][/:page]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
@@ -203,21 +188,6 @@ return [
                             ]
                         ]
                     ],
-                    
-//                    'estagio' => [
-//                        'type' => Segment::class,
-//                        'options' => [
-//                            'route' => '/estagio[/:action[/:id]]',
-//                            'constraints' => [
-//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-//                                'id' => '[0-9]+'
-//                            ],
-//                            'defaults' => [
-//                                'controller' => Controller\EstagioController::class,
-//                                'action' => 'index'
-//                            ]
-//                        ]
-//                    ],
 
                     'feriado' => [
                         'type' => Segment::class,
@@ -234,29 +204,15 @@ return [
                         ]
                     ],
                     
-//                    'vinculo' => [
-//                        'type' => Segment::class,
-//                        'options' => [
-//                            'route' => '/vinculo[/:action[/:id]]',
-//                            'constraints' => [
-//                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-//                                'id' => '[0-9]+'
-//                            ],
-//                            'defaults' => [
-//                                'controller' => Controller\VinculoController::class,
-//                                'action' => 'index'
-//                            ]
-//                        ]
-//                    ],
-                    
                     'folha-ponto' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/folha-ponto[/:action[/:id][/:referencia][/:page]]',
+                            'route' => '/folha-ponto[/:action[/:id][/:referencia][/:nomePesquisa][/:page]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'referencia' => '[0-9]+',
+                                'nomePesquisa' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'page' => '[0-9]+'
 
                             ],
@@ -356,6 +312,21 @@ return [
                             ]
                         ]
                     ],
+
+                    'justificativa' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/justificativa[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\JustificativaController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                     'linha-onibus' => [
                         'type' => Segment::class,
@@ -447,6 +418,21 @@ return [
                         ]
                     ],                    
                     
+                    'registro-horario' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/registro-horario[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RegistroHorarioController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
+                    
                     'rel-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -533,6 +519,7 @@ return [
             Controller\GrupoSanguineoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\HorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\InstituicaoController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\JustificativaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ImportacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LinhaOnibusController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\LocalizacaoController::class => Service\Factory\PadraoControllerFactory::class,
@@ -540,6 +527,7 @@ return [
             Controller\MovimentacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\RegistroHorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
@@ -647,6 +635,11 @@ return [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
+        
+            Controller\JustificativaController::class => [
+                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['delete'], 'allow' => 1] // admin
+            ],
 
             Controller\LinhaOnibusController::class => [
                 ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
@@ -718,7 +711,12 @@ return [
 
             Controller\OcorrenciaController::class => [
                 ['actions' => ['gerar'], 'allow' => 1]
-            ]
+            ],
+        
+            Controller\RegistroHorarioController::class => [
+                ['actions' => ['save-modal', 'delete'], 'allow' => array(1,2)],  // Admin e Usuario
+            ],
+
         ]
         
     ],

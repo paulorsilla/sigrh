@@ -73,8 +73,6 @@ class VinculoController extends AbstractActionController
                         
                         $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
                         $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
-                    
-                    
 			
 			//Recebe os dados via POST
 			$data = $this->params()->fromPost();
@@ -142,7 +140,6 @@ class VinculoController extends AbstractActionController
                         $listIdsAtivs = $serviceEmbraorc->getIdsAtividadesComMovimentosPorPeriodo(date('Y'));
                         $listAtiv = [""=>"Selecione"] + $serviceAtividades->getListAtividadesParaCombo(0,null,$listIdsAtivs);
                         $form->get("atividade")->setOptions(array('value_options'=>$listAtiv));
-                        //var_dump($listAtiv); die();
                     }
                         
                 }

@@ -47,7 +47,7 @@
                     <td><?php echo $this->escapeHtml($colaborador->getNome()); ?></td>
                     <td><?php echo (null != $vinculo) ? $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()) : ""; ?>
                     <td><a class="btn btn-primary btn-sm pull-center"
-                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => $this->ativo, 'page' => $this->page]) ?>"
+                           href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => $this->ativo, 'tipoColaborador'=> $this->tipoColaborador, 'page' => $this->page]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         <!--a class="btn btn-primary btn-sm pull-center"
                            href="<?php //echo $this->url('sig-rh/colaborador', ['action' => 'delete', 'id' => $colaborador->getMatricula()]) ?>"

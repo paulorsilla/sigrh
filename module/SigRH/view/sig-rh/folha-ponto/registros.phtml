@@ -7,7 +7,7 @@
 if ($this->folhaPonto != null):    
     $mesesAno = ["1" => "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     $diasSemana = [0 => "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-    $tipoRegistro = ["A" => "*", "C" => ""];
+    $tipoRegistro = ["A" => "*", "C" => "", "M" => "!"];
 
     $movimentacoesPonto = $this->folhaPonto->getMovimentacaoPonto();
     $ano = substr($this->folhaPonto->getReferencia(), 0, 4);
@@ -24,7 +24,7 @@ if ($this->folhaPonto != null):
             <span class="pull-center">Referência: <?php echo $mesesAno[(int)$mes]."/".$ano;?></span>
         </div>
         <div class="col-md-2 panel-title"> 
-            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto?referencia=<?php echo $this->referencia;?>&page=<?php echo $this->page;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto?nome=<?php echo $this->nome;?>&referencia=<?php echo $this->referencia;?>&page=<?php echo $this->page;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
     <hr>
@@ -38,12 +38,18 @@ if ($this->folhaPonto != null):
                 <th>Hora do registro</th>
                 <th>Total de horas no dia</th>
                 <th>Observações</th>
+                <th>Opções</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($movimentacoesPonto as $movimentacaoPonto):
                 $dataPonto = \DateTime::createFromFormat("Ymd", $folhaPonto->getReferencia().$movimentacaoPonto->getDiaPonto());
-                if( ($dataPonto->format('w') == 0) || ($dataPonto->format('w') == 6) || (isset($this->feriadosPeriodo[$dataPonto->format("d")])) ) {?>
+                $dataPonto->setTime(0, 0);
+                $expediente = true;
+            
+                if( ($dataPonto->format('w') == 0) || ($dataPonto->format('w') == 6) || (isset($this->feriadosPeriodo[$dataPonto->format("d")])) ) {
+                    $expediente = false;
+                    ?>
                     <tr style="background-color: #F0FFFF;">
                     <?php } else {?>
                         <tr>
@@ -54,18 +60,48 @@ if ($this->folhaPonto != null):
                     echo $this->escapeHtml($registro->getHoraRegistro()->format("H:i").$tipoRegistro[$registro->getTipo()]. " ");
                     endforeach;?>
                 </td>
-                <td></td>
+                <td>
+                    <?php 
+                        if($expediente) {
+                            $saldoMinutos = $movimentacaoPonto->getSaldoMinutos();
+                            if($saldoMinutos < 0) {
+                                $horasSaldo = sprintf('%03d', intdiv($saldoMinutos, 60));
+                            } else {
+                                $horasSaldo = sprintf('%02d', intdiv($saldoMinutos, 60));
+                            }
+                            $minutosSaldo = sprintf('%02d', ($saldoMinutos % 60));
+                            echo $horasSaldo.":".$minutosSaldo;
+                        }
+                    ?>
+                </td>
                 <td><?php 
                     if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
-                        echo $this->escapeHtml("-Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome());
+                        echo "<font class='alert-info'><strong>-Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome()."</strong></font>";
                     endif;
+                    $ocorrenciaId = null;
                     foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
-                        echo str_replace(". -", ".<br>-", $ocorrencia->getDescricao());?>
-                        <button type="button" class="btn btn-primary btn-sm pull-right" onclick="novaJustificativa('<?php echo $ocorrencia->getId();?>')">
-                                    <span class="glyphicon glyphicon-copy"></span> Justificar
-                        </button><br><br>
-
-                    <?php endforeach;?>
+                        echo (null == $ocorrencia->getJustificativa1() && null == $ocorrencia->getJustificativa2()) ? "<font class='alert-danger'>" : "<font class='alert-warning'>";
+                        echo "<strong>";
+                        echo str_replace(". -", ".<br>-", $ocorrencia->getDescricao());
+                        echo "</strong></font>";
+    
+                        $ocorrenciaId = $ocorrencia->getId();
+                        echo (null != $ocorrencia->getJustificativa1()) ? "<br><font class='alert-success'>(".$ocorrencia->getJustificativa1()->getDescricao().")</font>" : "";
+                        echo (null != $ocorrencia->getJustificativa2()) ? "<br><font class='alert-success'>(".$ocorrencia->getJustificativa2()->getDescricao().")</font>" : "";
+                    endforeach;
+                    ?>
+                </td>
+                <td><?php 
+                    if($ocorrenciaId != null):?>
+                        <button type="button" class="btn btn-sm btn-primary pull-left" data-toggle="tooltip" data-placement="top" title="Justificar ocorrência." onclick="novaJustificativa('<?php echo $ocorrenciaId;?>')">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                    <?php endif;
+                    if ($expediente):?>
+                        <button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="Incluir/excluir registro de horário." onclick="incluirHorario('<?php echo $movimentacaoPonto->getId();?>')">
+                                    <span class="glyphicon glyphicon-time"></span>
+                        </button>
+                    <?php endif; ?>
                 </td>
             </tr>
             <?php endforeach;?>
@@ -87,6 +123,23 @@ if ($this->folhaPonto != null):
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary" onclick="fncSalvarJustificativa(this)">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade " id="IncluirHorarioModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Incluir novo registro de horário</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onclick="fncSalvarHorario(this)">Salvar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

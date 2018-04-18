@@ -5,15 +5,22 @@ use SigRH\Entity\RegistroHorario as RegistroHorarioEntity;
 
 class RegistroHorario extends AbstractRepository {
 
-    public function incluir_ou_editar($movimentacaoPonto, $hora ) {
-        $horaBatida = \DateTime::createFromFormat( "H-i", $hora);
-        $registro = new RegistroHorarioEntity();
-        $registro->setHoraRegistro($horaBatida);
-        $registro->setMovimentacaoPonto($movimentacaoPonto);
-        $this->getEntityManager()->persist($registro);
+    public function incluir_ou_editar($movimentacaoPonto, $hora) 
+    {
+        $horaRegistro = \DateTime::createFromFormat( "H:i", $hora);
+        $row = $this->findOneBy(["horaRegistro" => $horaRegistro, "movimentacaoPonto" => $movimentacaoPonto]);
+        if(!$row) {
+            $row = new RegistroHorarioEntity();
+            $row->setMovimentacaoPonto($movimentacaoPonto);
+            $row->setHoraRegistro($horaRegistro);
+            $row->setTipo('M');
+            $this->getEntityManager()->persist($row);
+            $this->getEntityManager()->flush();
+        }
     }
     
-    public function marcacao_intervalo($movimentacaoPonto, $escala) {
+    public function marcacao_intervalo($movimentacaoPonto, $escala) 
+    {
         //saida 1
         $horaRegistroS1 = new RegistroHorarioEntity();
         $horaRegistroS1->setMovimentacaoPonto($movimentacaoPonto);
@@ -32,5 +39,14 @@ class RegistroHorario extends AbstractRepository {
         
         $this->getEntityManager()->flush();
 
+    }
+    
+    public function delete($id)
+    {
+        $row = $this->find($id);
+        if ($row) {
+            $this->getEntityManager()->remove($row);
+            $this->getEntityManager()->flush();
+        }
     }
 }

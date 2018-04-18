@@ -170,7 +170,7 @@ class Vinculo extends AbstractEntity {
     protected $tipoContrato;
     
     /**
-     * @ORM\Column(name="obrigatorio", type="boolean")
+     * @ORM\Column(name="obrigatorio", type="integer")
      */
     protected $obrigatorio;
     
@@ -428,10 +428,12 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setValorBolsa($valorBolsa) {
-    if ( empty($valorBolsa) )
-        $this->valorBolsa = null;
-    else
-        $this->valorBolsa = $valorBolsa;
+        if ( empty($valorBolsa) ) {
+            
+            $this->valorBolsa = null;
+        } else {
+            $this->valorBolsa = $valorBolsa;
+        }
     }
     
     public function setSeguroApolice($seguroApolice) {
@@ -447,10 +449,12 @@ class Vinculo extends AbstractEntity {
     }
 
     public function setObrigatorio($obrigatorio) {
-    if ( empty($obrigatorio) )
-        $this->obrigatorio = null;
-    else
-        $this->obrigatorio = obrigatorio;
+        if ( $obrigatorio == "") {
+            $this->obrigatorio = null;
+        }
+        else {
+            $this->obrigatorio = $obrigatorio;
+        }
     }
     
     public function setDiasRecesso($diasRecesso) {

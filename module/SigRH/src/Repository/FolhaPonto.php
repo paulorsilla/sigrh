@@ -19,6 +19,14 @@ class FolhaPonto extends AbstractRepository {
             $qb->andWhere('f.referencia =  :referencia');
             $qb->setParameter("referencia", $search['referencia']);
         }
+        if (!empty($search['nome'])) {
+            $qb->andWhere('c.nome like :nome' );
+            $qb->setParameter('nome', "%".$search['nome']."%");
+        }
+        if (!empty($search['processamentoGeral'])) {
+            //durante o processamento geral, não inclui a folha dos treinandos
+            $qb->andWhere('f.status not in (10)');
+        }
         return $qb;
     }
     

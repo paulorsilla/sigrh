@@ -41,6 +41,11 @@ class MovimentacaoPonto extends AbstractEntity {
      **/
     protected $ocorrencias;
     
+    /**
+     * @ORM\Column(name="saldo_minutos", type="integer")
+     **/
+    protected $saldoMinutos;
+    
     public function __construct() {
         $this->registros = new ArrayCollection();
         $this->ocorrencias = new ArrayCollection();
@@ -61,6 +66,10 @@ class MovimentacaoPonto extends AbstractEntity {
     public function getOcorrencias() {
         return $this->ocorrencias;
     }
+    
+    public function getSaldoMinutos() {
+        return $this->saldoMinutos;
+    }
 
     public function setDiaPonto($diaPonto) {
         $this->diaPonto = $diaPonto;
@@ -80,6 +89,10 @@ class MovimentacaoPonto extends AbstractEntity {
 
     public function setFolhaPonto($folhaPonto) {
         $this->folhaPonto = $folhaPonto;
+    }
+    
+    public function setSaldoMinutos($saldoMinutos) {
+        $this->saldoMinutos = $saldoMinutos;
     }
 
 }

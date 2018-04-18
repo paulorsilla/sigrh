@@ -3,6 +3,9 @@
 
 <h1>Folhas de ponto dos estudantes</h1>
 <?php
+if ($this->nome == "") {
+    $this->nome = null;
+}
 if (null == $folhasPonto):?>
 <form method="get" action="/sig-rh/folha-ponto/index">
     <div class="row">
@@ -23,9 +26,30 @@ else:
                2 => "<span class='label label-success'>Finalizada.</span>",
                10 => "<span class='label label-info'>Treinando.</span>",
         ];?>
-<h3 class="panel-title">Referência: <?php echo $this->stringReferencia; ?>
-    <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
-</h3>
+    <div class="row">
+        <h3 class="panel-title">
+            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+        </h3>
+    </div>
+
+    <form method="get" action="/sig-rh/folha-ponto/index">
+        <div class="row">
+            <div class="col-md-5">
+                <input type="text" name="nome" id="nome" placeholder="Digite o nome aqui para pesquisar" class="form-control" value="<?php echo $this->nome;?>">
+                <input type="hidden" name="referencia" value="<?php echo $this->referencia; ?>">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+
+            <div class="col-md-6 text-right">
+                <b>Referência: <?php echo $this->stringReferencia; ?></b>
+            </div>
+
+        </div>
+    </form>
+
+<hr>    
 <div class="row">
     <table class="table table-striped table-hover">
         <thead>
@@ -44,11 +68,11 @@ else:
                     <td><?php echo $status[$folhaPonto->getStatus()];?></td>
                     <td>
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia ,'page' => $this->page]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
                            title="Processar folha ."><span class="glyphicon glyphicon-dashboard"></span></a>
                            
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'page' => $this->page]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
                            title="Visualizar folha ponto."><span class="glyphicon glyphicon-list-alt"></span></a>
                            
                     </td>

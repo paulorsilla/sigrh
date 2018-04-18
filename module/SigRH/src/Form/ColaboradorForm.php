@@ -64,23 +64,20 @@ class ColaboradorForm extends Form {
                 'label' => 'Nome'
             ],
         ]);
-
-        //Adiciona o campo "tipo colaborador"
+        
+        //Adiciona o campo "tipo vinculo"
         $this->add([
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'tipoColaborador',
+            'type' => 'text',
+            'name' => 'tipoVinculo',
             'attributes' => [
-                'id' => 'tipoColaborador',
+                'id' => 'tipoVinculo',
                 'class' => 'form-control',
+                'readonly' => true
+
             ],
             'options' => [
-                'label' => 'Tipo',
-                'empty_option' => 'Selecione',
-                'object_manager' => $this->getObjectManager(),
-                'target_class' => \SigRH\Entity\TipoColaborador::class,
-                'property' => 'descricao',
-                'display_empty_item' => true,
-            ]
+                'label' => 'Tipo de Vínculo'
+            ],
         ]);
         
         //Adiciona o campo "Apelido"
@@ -90,10 +87,10 @@ class ColaboradorForm extends Form {
             'attributes' => [
                 'id' => 'apelido',
                 'class' => 'form-control',
-                'placeholder' => 'Digite o apelido aqui'
+                'placeholder' => 'Digite o apelido aqui',
             ],
             'options' => [
-                'label' => 'Apelido'
+                'label' => 'Apelido',
             ],
         ]);
 

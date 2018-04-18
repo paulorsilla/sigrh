@@ -10,7 +10,7 @@ class Vinculo extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('v')
                 ->from(VinculoEntity::class, 'v')
-                ->orderby('v.inicio','ASC');
+                ->orderby('v.id','DESC');
         
         //inclui a pesquisa por matricula por meio de um join
         if ( !empty($search['matricula'])){
@@ -168,8 +168,6 @@ class Vinculo extends AbstractRepository {
         }    
         unset($dados['orientador']);
         
-        
-        
         $row->setdataInicio(null);
         if ($dados ['dataInicio'] != "") {					
             $inicio = \DateTime::createFromFormat ("Y-m-d", $dados ['dataInicio']);
@@ -224,7 +222,6 @@ class Vinculo extends AbstractRepository {
             }
         }    
         unset($dados['tipoVinculo']);
-
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         // \Doctrine\Common\Util\Debug::dump($row); nunca usar print_r para elemento doctrine
         $this->getEntityManager()->persist($row); // persiste o model no mando ( preparar o insert / update)

@@ -82,9 +82,9 @@
                 <tr>
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->matricula); ?></td>
-                    <td><?php echo (null != $vinculo->getTipoVinculo()) ? $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()) : "";?></td>
-                    <td><?php echo (null != $vinculo->getSublotacao()) ? $this->escapeHtml($vinculo->getSublotacao()->getDescricao()) : ""; ?></td>
-                    <td><?php echo (null != $vinculo->getLocalizacao()) ? $this->escapeHtml($vinculo->getLocalizacao()->getDescricao()) : ""; ?></td>
+                    <td><?php echo (null != $vinculo && null != $vinculo->getTipoVinculo()) ? $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()) : "";?></td>
+                    <td><?php echo (null != $vinculo && null != $vinculo->getSublotacao()) ? $this->escapeHtml($vinculo->getSublotacao()->getDescricao()) : ""; ?></td>
+                    <td><?php echo (null != $vinculo && null != $vinculo->getLocalizacao()) ? $this->escapeHtml($vinculo->getLocalizacao()->getDescricao()) : ""; ?></td>
                     <td><?php echo (null != $colaborador->getGrauInstrucao())? $this->escapeHtml($colaborador->getGrauInstrucao()->getDescricao()) : "";?></td>
                     <td><?php echo ($vinculo != NULL) ? $vinculo->getObrigatorio() ? "Sim" : "Não" : "-"; ?></td>
                     <?php if ($aniversariantes):?>
