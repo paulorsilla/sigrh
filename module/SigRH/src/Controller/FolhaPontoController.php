@@ -159,8 +159,7 @@ class FolhaPontoController extends AbstractActionController
                         //verifica se houve registro fora da escala e cria uma 
                         //escala temporária para computar o período realizado
                         
-                        if ( (null != $escala)  && (null == $escala->getEntrada2()) && (count($movimentacaoPonto->getRegistros()) >= 4) ) {
-//                            error_log("Dia: ".$movimentacaoPonto->getDiaPonto());
+                        if ( (null != $escala) && (null != $escala->getEntrada1()) && (null == $escala->getEntrada2()) && (count($movimentacaoPonto->getRegistros()) >= 4) ) {
 
                             $calcularIntervaloP1 = false;
                             $calcularIntervaloP2 = false;
@@ -168,7 +167,7 @@ class FolhaPontoController extends AbstractActionController
                             //saída 1 até as 13:00hs configura escala normal no
                             //período matutino
 
-                            error_log($movimentacaoPonto->getDiaPonto());
+//                            error_log($movimentacaoPonto->getDiaPonto());
                             
                             $refEscala = \DateTime::createFromFormat("YmdHi", "197001011300");
                             $verificaTurno = $refEscala->diff($escala->getSaida1());

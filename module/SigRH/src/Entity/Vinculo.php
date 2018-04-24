@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe Estagio.
@@ -83,6 +84,11 @@ class Vinculo extends AbstractEntity {
      * @ORM\JoinColumn(name="sublotacao_id", referencedColumnName="id")
      **/      
     protected $sublotacao;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RecessoObrigatorio", mappedBy="vinculo")
+     **/
+    protected $recessos;
     
     /**
      * @ORM\Column(name="atividade_id", type="integer") 
@@ -183,6 +189,10 @@ class Vinculo extends AbstractEntity {
      * @ORM\Column(name="observacoes", type="string")
      */
     protected $observacoes;
+    
+    public function __construct() {
+        $this->recessos = new ArrayCollection();
+    }
     
     public function getId() {
         return $this->id;
@@ -310,6 +320,10 @@ class Vinculo extends AbstractEntity {
 
     public function getObservacoes() {
         return $this->observacoes;
+    }
+    
+    public function getRecessos() {
+        return $this->recessos;
     }
     
     public function setId($id) {
@@ -463,6 +477,10 @@ class Vinculo extends AbstractEntity {
 
     public function setObservacoes($observacoes) {
         $this->observacoes = $observacoes;
+    }
+    
+    public function setRecessos($recessos) {
+        $this->recessos = $recessos;
     }
 
 }

@@ -105,6 +105,7 @@
         $('#VinculoModal .modal-body').load(url);
         $('#VinculoModal').modal('show');
     }
+    
     function editarVinculo(id){
         url = "/sig-rh/vinculo/save-modal/"+id;
         $('#VinculoModal .modal-body').html('carregando...');
@@ -353,6 +354,30 @@
             } else {
                 $(".modal-body",$(obj).closest(".modal-content")).html(data);
             }
+        });
+    }
+    
+    function editarRecessoObrigatorio(id){
+        url = "/sig-rh/recesso-obrigatorio/save-modal?id="+id;
+        $('#RecessoModal .modal-body').html('carregando...');
+        $('#RecessoModal .modal-body').attr('url',url);
+        $('#RecessoModal .modal-body').load(url);
+        $('#RecessoModal').modal('show');
+    }
+    
+    function fncSalvarRecessoObrigatorio(obj){
+        $(this).html("aguarde ...").attr("disabled", true);
+        form =  $("form", $(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#RecessoModal").modal('hide');
+//                refreshGridCracha($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+            $(this).html("Salvar").removeAttr("disabled");
         });
     }
     

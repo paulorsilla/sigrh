@@ -39,7 +39,7 @@
         <tbody>
             <?php foreach ($this->colaboradores as $colaborador): 
                 
-                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->last() : NULL;
+                $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->first() : NULL;
             
                 ?>
                 <tr>

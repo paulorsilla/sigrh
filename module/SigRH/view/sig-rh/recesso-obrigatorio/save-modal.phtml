@@ -1,0 +1,86 @@
+<?php 
+$this->headScript()->appendFile('/js/inputmask.js', 'text/javascript');
+$this->headScript()->appendFile('/js/jquery.inputmask.js', 'text/javascript');
+
+echo $this->form()->openTag($this->form); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="panel-title">
+            Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+            o botão <i>Salvar</i>. 
+        </h3>
+        <hr>
+        <h4 class="panel-info">
+            <?php echo (null != $this->vinculo) ? $this->escapeHtml($this->vinculo->getColaboradorMatricula()->getMatricula(). " - ". $this->vinculo->getColaboradorMatricula()->getNome())." - Recesso: ".$vinculo->getDiasRecesso()." dias.": "";?>
+        </h4>
+        <hr>
+        <?php if (null != $this->vinculo && count($this->vinculo->getRecessos()) > 0 ):?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="panel-info">Recessos cadastrados</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Ano referência</th>
+                                <th>Início do período</th>
+                                <th>Término do período</th>
+                                <th>Dias utilizados</th>
+                                <th>Dias restantes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($this->vinculo->getRecessos() as $recesso):
+                                $dataInicio = $recesso->getDataInicio();
+                                $dataInicio->setTime(0, 0);
+                                $dataTermino = $recesso->getDataTermino();
+                                $dataTermino->setTime(0, 0);
+                                $diasUtilizados = $dataTermino->diff($dataInicio);
+                                
+                                if (!isset($saldoAnual[$recesso->getAnoReferencia()])) {
+                                    $saldoAnual[$recesso->getAnoReferencia()] = $this->vinculo->getDiasRecesso() - $diasUtilizados->days;
+                                } else {
+                                    $saldoAnual[$recesso->getAnoReferencia()] = $saldoAnual[$recesso->getAnoReferencia()] - $diasUtilizados->days;
+                                }
+                            ?>
+                                <tr>
+                                    <td><?php echo $this->escapeHtml($recesso->getAnoReferencia());?></td>
+                                    <td><?php echo $this->escapeHtml($recesso->getDataInicio()->format("d/m/Y"));?></td>
+                                    <td><?php echo $this->escapeHtml($recesso->getDataTermino()->format("d/m/Y"));?></td>
+                                    <td><?php echo $diasUtilizados->days;?></td>
+                                    <td><?php echo $saldoAnual[$recesso->getAnoReferencia()];?></td>
+                                </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <hr>
+        <?php endif;?>
+            <div class="row">
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('anoReferencia')); ?><br>
+                    <?php echo $this->formElement($this->form->get('anoReferencia')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('anoReferencia')); ?>                  
+                </div>
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('dataInicio')); ?><br>
+                    <?php echo $this->formElement($this->form->get('dataInicio')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('dataInicio')); ?>                  
+                </div>
+                <div class="col-md-3">
+                    <?php echo $this->formLabel($this->form->get('dataTermino')); ?><br>
+                    <?php echo $this->formElement($this->form->get('dataTermino')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('dataTermino')); ?>                  
+                </div>
+
+            </div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<script>
+        $("#anoReferencia").inputmask("9999");
+</script>

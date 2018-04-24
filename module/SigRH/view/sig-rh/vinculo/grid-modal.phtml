@@ -42,6 +42,11 @@
                     <button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="clonarVinculo('<?php echo $vinculo->getId();?>','<?php echo $vinculo->colaboradorMatricula->getMatricula();?>')"
                        title="Clonar registro."><span class="glyphicon glyphicon-refresh"></span></button>
+                       
+                    <button type="button" class="btn btn-primary btn-sm pull-center"
+                            onclick="editarRecessoObrigatorio('<?php echo $vinculo->getId();?>')"
+                       title="Gerenciar recesso obrigatório."><span class="glyphicon glyphicon-sunglasses"></span></button>
+
                 </td>
             </tr>
         <?php endforeach; ?>

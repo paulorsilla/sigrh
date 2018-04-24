@@ -417,6 +417,21 @@ return [
                             ]
                         ]
                     ],                    
+
+                    'recesso-obrigatorio' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/recesso-obrigatorio[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\RecessoObrigatorioController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                     'registro-horario' => [
                         'type' => Segment::class,
@@ -527,6 +542,7 @@ return [
             Controller\MovimentacaoPontoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\NivelController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\RecessoObrigatorioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RegistroHorarioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
@@ -662,6 +678,11 @@ return [
             ],
             
             Controller\OcorrenciaController::class => [
+                ['actions' => ['save'], 'allow' => 'admin'],
+                ['actions' => ['delete'], 'allow' => 1] // admin
+            ],
+        
+            Controller\RecessoObrigatorioController::class => [
                 ['actions' => ['save'], 'allow' => 'admin'],
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
