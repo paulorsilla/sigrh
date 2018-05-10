@@ -10,6 +10,16 @@ class RecessoObrigatorio extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('r')
            ->from(RecessoObrigatorioEntity::class, 'r');
+        
+        if ( !empty($search["dataPonto"]) ) {
+            $qb->andWhere(":dataPonto BETWEEN r.dataInicio AND r.dataTermino")
+                ->setParameter("dataPonto", $search["dataPonto"]->format("Ymd"));
+        }
+        if ( !empty($search["vinculo"]) ) {
+            $qb->andWhere("r.vinculo = :vinculo")
+                ->setParameter("vinculo", $search["vinculo"]);
+        }
+        
        return $qb;
     }
     

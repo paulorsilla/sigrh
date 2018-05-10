@@ -12,18 +12,29 @@ if ($this->folhaPonto != null):
     $movimentacoesPonto = $this->folhaPonto->getMovimentacaoPonto();
     $ano = substr($this->folhaPonto->getReferencia(), 0, 4);
     $mes = substr($this->folhaPonto->getReferencia(), 4, 2);
-    
+
+    $saldoMinutosTotal = $this->folhaPonto->getSaldoMinutos();
+    if($saldoMinutosTotal < 0) {
+        $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
+    } else {
+        $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
+    }
+    $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));
 ?>
+
     <hr>
     <div class="row">
         <div class="col-md-6 panel-title">
             <a href="/sig-rh/colaborador/save/<?php echo $this->folhaPonto->getColaboradorMatricula()->getMatricula(); ?>">
             <?php echo $this->escapeHtml($this->folhaPonto->getColaboradorMatricula()->getMatricula()." - ".$this->folhaPonto->getColaboradorMatricula()->getNome()); ?></a>
         </div>
-        <div class="col-md-4 panel-title">
-            <span class="pull-center">Referência: <?php echo $mesesAno[(int)$mes]."/".$ano;?></span>
+        <div class="col-md-3 panel-title">
+            <span class="pull-left">Referência: <?php echo $mesesAno[(int)$mes]."/".$ano;?></span>
         </div>
-        <div class="col-md-2 panel-title"> 
+        <div class="col-md-2 panel-title">
+            <span class="pull-right">Saldo: <?php echo $horasSaldoTotal.":".$minutosSaldoTotal;?>hs</span>
+        </div>
+        <div class="col-md-1 panel-title"> 
             <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto?nome=<?php echo $this->nome;?>&referencia=<?php echo $this->referencia;?>&page=<?php echo $this->page;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
@@ -76,7 +87,7 @@ if ($this->folhaPonto != null):
                 </td>
                 <td><?php 
                     if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
-                        echo "<font class='alert-info'><strong>-Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome()."</strong></font>";
+                        echo "<font class='alert-info'><strong>-Feriado: ".$this->feriadosPeriodo[$dataPonto->format("d")]->getNome()."</strong></font><br>";
                     endif;
                     $ocorrenciaId = null;
                     foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):

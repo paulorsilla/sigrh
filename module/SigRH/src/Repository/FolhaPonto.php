@@ -8,12 +8,18 @@ use SigRH\Entity\MovimentacaoPonto as MovimentacaoPontoEntity;
 class FolhaPonto extends AbstractRepository {
 
     public function getQuery($search = []) {
+        
+//        $dataAtual = \DateTime::createFromFormat("Ymd", date("Ymd"));
+        
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('f')
                 ->from(FolhaPontoEntity::class, 'f')
                 ->join('f.colaboradorMatricula', 'c')
                 ->join('c.vinculos', 'v')
-                ->where('v.tipoVinculo in (2, 4, 5, 6, 8)')
+//                ->where('v.dataDesligamento is NULL')
+//                ->andWhere('v.dataTermino >= :dataAtual')
+//                ->andWhere('v.tipoVinculo in (2, 4, 5, 6, 8)')
+//                ->setParameter('dataAtual', $dataAtual->format("Ymd"))
                 ->orderby('c.nome', 'ASC');
         if (!empty($search['referencia'])) {
             $qb->andWhere('f.referencia =  :referencia');
@@ -22,6 +28,20 @@ class FolhaPonto extends AbstractRepository {
         if (!empty($search['nome'])) {
             $qb->andWhere('c.nome like :nome' );
             $qb->setParameter('nome', "%".$search['nome']."%");
+        }
+        if (!empty($search['orientador'])) {
+            $qb->join('v.orientador', 'o');
+            $qb->andWhere('o.nome like :orientador' );
+            $qb->setParameter('orientador', "%".$search['orientador']."%");
+        }
+        if (!empty($search['instituicaoFomento'])) {
+            $qb->join('v.instituicaoFomento', 'i');
+            $qb->andWhere('i.desRazaoSocial like :instituicaoFomento' );
+            $qb->setParameter('instituicaoFomento', "%".$search['instituicaoFomento']."%");
+        }
+        if (!empty($search['status'])) {
+            $qb->andWhere('f.status = :status' );
+            $qb->setParameter('status', $search['status']);
         }
         if (!empty($search['processamentoGeral'])) {
             //durante o processamento geral, não inclui a folha dos treinandos

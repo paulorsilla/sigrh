@@ -196,4 +196,26 @@ class CrachaController extends AbstractActionController
 		]);
                 return $view->setTerminal(true);
         }
+        
+//        public function migraAction()
+//        {
+//            $crachas = $this->entityManager->getRepository(Cracha::class)->findAll();
+//            $contador = 0;
+//            $contadorTotal = 0;
+//            foreach($crachas as $cracha) {
+//                if (null == $cracha->getDataInclusao()) {
+//                    $vinculo = $cracha->getColaboradorMatricula()->getVinculos()->first();
+//                    $contadorTotal++;
+//                    if ($vinculo) { 
+//                        $contador++;
+//                        error_log($cracha->getColaboradorMatricula()->getMatricula()."-".$cracha->getColaboradorMatricula()->getNome()." - ".$vinculo->getDataInicio()->format("d/m/Y"));
+//                        $cracha->setDataInclusao($vinculo->getDataInicio());
+//                        $this->entityManager->persist($cracha);
+//                    }
+//                }
+//            }
+//            $this->entityManager->flush();
+//            error_log("Quantidade: ".$contadorTotal);
+//            error_log("Quantidade: ".$contador);
+//        }
 }

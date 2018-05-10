@@ -1,0 +1,156 @@
+<?php 
+    $diasSemana = [0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"];
+    $tiposRegistro = ["A" => "*", "C" => "", "M" => "!"];
+
+    foreach ($this->folhasPonto as $folha):
+        $colaborador = $folha->getColaboradorMatricula();
+        $vinculoAtual = $colaborador->getVinculos()->first();
+        $dataPesquisa = \DateTime::createFromFormat("Ymd", $folha->getReferencia()."01");
+        $dataPesquisa->setTime(0, 0);
+?>
+
+        <div class="row">
+            <div class="col-xs-2"><img src="/img/embrapa-cor.png" height="40"></div>
+            <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL - ESTÁGIO</h4></div>
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-xs-2">
+                <b>Mês/Ano:</b><br>
+                <?php echo $this->escapeHtml($dataPesquisa->format("m/Y"));?>
+            </div>
+
+            <div class="col-xs-2">
+                <b>Unidade:</b><br>
+                Embrapa Soja
+            </div>
+            <div class="col-xs-2">
+                <b>CH Semanal:</b><br>
+                <?php echo $this->escapeHtml($vinculoAtual->getChSemanal())." horas";?>
+            </div>
+
+            <div class="col-xs-6">
+                <b>Área:</b><br>
+                <?php echo (null != $vinculoAtual->getSublotacao()) ? $this->escapeHtml($vinculoAtual->getSublotacao()->getDescricao()) : "";?>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-4">
+                <b>Nome:</b><br>
+                <?php echo $this->escapeHtml($colaborador->getNome());?>
+            </div>
+            <div class="col-xs-2">
+                <b>Matrícula:</b><br>
+                <?php echo $this->escapeHtml($colaborador->getMatricula());?>
+            </div>
+            <div class="col-xs-6">
+                <b>Orientador:</b><br>
+                <?php echo (null != $vinculoAtual->getOrientador()) ? $this->escapeHtml($vinculoAtual->getOrientador()->getNome()) : "";?>
+            </div>
+        </div><br>
+        <hr style="margin: 0px;">
+        <div class="row">
+            <div class="col-xs-1">
+                <b>Dia</b>
+            </div>
+            <div class="col-xs-2">
+                <b>Dia semana</b>
+            </div>
+            <div class="col-xs-4">
+                <b>Registro(s)</b>
+            </div>
+            <div class="col-xs-1 text-right">
+                <b>Horas</b>
+            </div>
+            <div class="col-xs-4">
+                <b>Observações</b>
+            </div>
+        </div>
+        
+        <hr style="margin: 0px;">
+        
+        <?php foreach ($folha->getMovimentacaoPonto() as $movimentacaoPonto):
+            $dataPonto = \DateTime::createFromFormat("Ymd", $folha->getReferencia().$movimentacaoPonto->getDiaPonto());
+            $dataPonto->setTime(0, 0); 
+            $saldoMinutos = $movimentacaoPonto->getSaldoMinutos();
+            if($saldoMinutos < 0) {
+                $horasSaldo = sprintf('%03d', intdiv($saldoMinutos, 60));
+            } else {
+                $horasSaldo = sprintf('%02d', intdiv($saldoMinutos, 60));
+            }
+            $minutosSaldo = sprintf('%02d', ($saldoMinutos % 60)); 
+            
+            $saldoMinutosTotal = $folha->getSaldoMinutos();
+            if($saldoMinutosTotal < 0) {
+                $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
+            } else {
+                $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
+            }
+            $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));?>
+        
+            <div class="row">
+                <div class="col-xs-1">
+                    <?php echo $this->escapeHtml($movimentacaoPonto->getDiaPonto()); ?>
+                </div>
+                <div class="col-xs-2">
+                    <?php echo $this->escapeHtml($diasSemana[$dataPonto->format("w")]); ?>
+                </div>
+                <div class="col-xs-4 text-left">
+                    <?php foreach($movimentacaoPonto->getRegistros() as $registro):
+                        echo $this->escapeHtml($registro->getHoraRegistro()->format("H:i").$tiposRegistro[$registro->getTipo()]. " ");
+                    endforeach;?>
+                </div>
+                <div class="col-xs-1 text-right">
+                    <?php echo (($horasSaldo == 0) && ($minutosSaldo == 0)) ? "" : $this->escapeHtml($horasSaldo.":".$minutosSaldo);?>
+                </div>
+                <div class="col-xs-4">
+                    <?php 
+                    if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
+                        echo "-Feriado.";
+                    endif;
+                    $ocorrenciaId = null;
+                    foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
+                        echo $ocorrencia->getDescricao();
+                        echo (null != $ocorrencia->getJustificativa1()) ? $ocorrencia->getJustificativa1()->getDescricao() : "";
+                        echo (null != $ocorrencia->getJustificativa2()) ? $ocorrencia->getJustificativa2()->getDescricao() : "";
+                    endforeach;
+                    ?>
+                </div>
+            </div>
+        <?php endforeach;?>
+        <br>
+        <hr style="margin: 0px;">
+        <div class="row">
+            <div class="col-xs-7">
+                <b>Quantidade de horas trabalhadas: </b>
+            </div>
+            <div class="col-xs-1 text-right">
+                <?php echo $horasSaldoTotal . ":" . $minutosSaldoTotal; ?></b>
+            </div>
+        </div>
+        <hr style="margin: 0px;">
+        <br>
+        <div class="row">
+            <div class="col-xs-6">Londrina, _____de_______________de_________</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>De acordo:</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-4" style="text-align: center; border-top: 1px solid black;">
+                <p><?php echo $this->escapeHtml($colaborador->getNome());?></p>
+            </div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-4" style="text-align: center;  border-top: 1px solid black;">
+                <p><?php echo $this->escapeHtml($vinculoAtual->getOrientador()->getNome());?></p>
+            </div>
+        </div>
+        <p style="page-break-after: always">&nbsp;</p>
+    <?php endforeach;

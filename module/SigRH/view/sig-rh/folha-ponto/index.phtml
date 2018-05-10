@@ -1,12 +1,12 @@
 <script src="/js/inputmask.js"></script>
 <script src="/js/jquery.inputmask.js"></script>
 
-<h1>Folhas de ponto dos estudantes</h1>
 <?php
 if ($this->nome == "") {
     $this->nome = null;
 }
 if (null == $folhasPonto):?>
+<h1>Folhas de ponto dos estudantes</h1>
 <form method="get" action="/sig-rh/folha-ponto/index">
     <div class="row">
         <div class="col-md-2">
@@ -26,6 +26,7 @@ else:
                2 => "<span class='label label-success'>Finalizada.</span>",
                10 => "<span class='label label-info'>Treinando.</span>",
         ];?>
+    <h1>Folhas de ponto dos estudantes - <?php echo $this->stringReferencia;?> </h1>
     <div class="row">
         <h3 class="panel-title">
             <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
@@ -34,18 +35,28 @@ else:
 
     <form method="get" action="/sig-rh/folha-ponto/index">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <input type="text" name="nome" id="nome" placeholder="Digite o nome aqui para pesquisar" class="form-control" value="<?php echo $this->nome;?>">
                 <input type="hidden" name="referencia" value="<?php echo $this->referencia; ?>">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="instituicaoFomento" id="instituicaoFomento" placeholder="Digite a instituição de fomento aqui para pesquisar" class="form-control" value="<?php echo $this->instituicaoFomento;?>">
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="orientador" id="orientador" placeholder="Digite o orientador aqui para pesquisar" class="form-control" value="<?php echo $this->orientador;?>">
+            </div>
+            <div class="col-md-2">
+                <select name="status" id="status" class="form-control">
+                    <option value="" <?php echo ($this->status == '') ? "selected" : "";?>>Selecione o status</option>
+                    <option value="0" <?php echo ($this->status == '0') ? "selected" : "";?>>Aguardando processamento.</option>
+                    <option value="1" <?php echo ($this->status == '1') ? "selected" : "";?>>Justificativas pendentes.</option>
+                    <option value="2" <?php echo ($this->status == '2') ? "selected" : "";?>>Finalizada.</option>
+                    <option value="10" <?php echo ($this->status == '10') ? "selected" : "";?>>Treinando.</option>
+                </select>
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
             </div>
-
-            <div class="col-md-6 text-right">
-                <b>Referência: <?php echo $this->stringReferencia; ?></b>
-            </div>
-
         </div>
     </form>
 
@@ -55,6 +66,7 @@ else:
         <thead>
             <tr>
                 <th>Colaborador</th>
+                <th>Instituição de fomento</th>
                 <th>Orientador</th>
                 <th>Status</th>
                 <th>Opções</th>
@@ -64,7 +76,8 @@ else:
             <?php foreach ($this->folhasPonto as $folhaPonto): ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getNome()); ?></td>
-                    <td><?php echo $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getVinculos()->last()->getOrientador()->getNome());?></td>
+                    <td><?php echo (null != $folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getInstituicaoFomento()) ? $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getInstituicaoFomento()->getDesRazaoSocial()) : "";?></td>
+                    <td><?php echo $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getOrientador()->getNome());?></td>
                     <td><?php echo $status[$folhaPonto->getStatus()];?></td>
                     <td>
                         <a class="btn btn-primary btn-sm pull-center"
@@ -74,6 +87,10 @@ else:
                         <a class="btn btn-primary btn-sm pull-center"
                            href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
                            title="Visualizar folha ponto."><span class="glyphicon glyphicon-list-alt"></span></a>
+                           
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => $folhaPonto->getId(), 'referencia' => $this->referencia, 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           title="Imprimir folha ponto."><span class="glyphicon glyphicon-print"></span></a>
                            
                     </td>
                 </tr>
@@ -85,9 +102,12 @@ else:
     </span>
 </div>
 
-<div class="row">
-    <a class="btn btn-primary pull-left" href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => '0', 'referencia' => $this->referencia, 'page' => $this->page]);?>">Processar todas</a>
-</div>
+    <div class="row">
+        <div class="btn-toolbar">
+            <a class="btn btn-primary pull-left" href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => '0', 'referencia' => $this->referencia, 'page' => $this->page]);?>">Processar todas</a>
+            <a class="btn btn-primary pull-left" href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => '0', 'referencia' => $this->referencia, 'page' => $this->page]);?>">Imprimir todas</a>
+        </div>
+    </div>
 </form>
 <?php endif;?>
 <script>

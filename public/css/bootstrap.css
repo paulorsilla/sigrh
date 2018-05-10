@@ -195,8 +195,17 @@ td,
 th {
   padding: 0;
 }
+
+@page {
+    size: A4;
+    margin: 0;
+}
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
+    html, body {
+      width: 210mm;
+      height: 297mm;
+    }
   *,
   *:before,
   *:after {

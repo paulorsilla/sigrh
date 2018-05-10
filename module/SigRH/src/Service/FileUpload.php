@@ -34,7 +34,8 @@ class FileUpload {
             $numeroChip = substr($linha, 15, 12);
             if($numeroChip != '') {
                 $cracha = $this->getEntityManager()->getRepository(\SigRH\Entity\Cracha::class)->findOneBy(['numeroChip' => $numeroChip, 'ativo' => true]);
-                if (!$cracha) {
+                $dataPonto = \DateTime::createFromFormat("Ymd", $ano.$mes.$dia);
+                if ( (!$cracha) || ($dataPonto < $cracha->getDataInclusao()) ) {
                     $log .= $numeroChip.";";
                 } else {
                     $matricula = $cracha->getColaboradorMatricula()->getMatricula();
@@ -48,7 +49,7 @@ class FileUpload {
         }
         fclose($ponteiro);
         $repo = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class);
-        $repo->incluir_ou_editar($registrosPonto);
+        $repo->incluir_ou_editar($registrosPonto, $importacaoPonto->getReferencia());
         return $log;
     }
 }

@@ -719,7 +719,7 @@ return [
 //            
 
             Controller\FolhaPontoController::class => [
-                ['actions' => ['index'], 'allow' => 1]
+                ['actions' => ['index','impressao'], 'allow' => 1]
             ],
 
             Controller\MovimentacaoPontoController::class => [

@@ -28,17 +28,22 @@ class Ocorrencia extends AbstractRepository {
         return $qb->getQuery();//->getResult();
     }
     
-    public function incluir_ou_editar($movimentacaoPonto, $descricao) {
+    public function incluir_ou_editar($movimentacaoPonto, $descricao, $recesso=null) {
         $row = $this->findOneBy(['movimentacaoPonto' => $movimentacaoPonto]);
         if (!$row) {
             $row = new OcorrenciaEntity();
             $row->setMovimentacaoPonto($movimentacaoPonto);
         }
-        $descricaoAux = $descricao;
-        if(strpos($row->getDescricao(), $descricaoAux) == false) {
-            $descricao = $row->getDescricao()." ".$descricao;
-            $row->setDescricao($descricao);
+        if (null == $recesso) {
+            $descricaoAux = $descricao;
+            if(strpos($row->getDescricao(), $descricaoAux) === false) {
+                $descricao = $row->getDescricao()." ".$descricao;
+            }
+        } else {
+            $justificativa = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, 11);
+            $row->setJustificativa1($justificativa);
         }
+        $row->setDescricao($descricao);
         $this->getEntityManager()->persist($row); // persiste o model no banco ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         return $row;
