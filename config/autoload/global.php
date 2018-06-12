@@ -51,5 +51,6 @@ return [
 		// Session storage configuration.
 		'session_storage' => [ 
 				'type' => SessionArrayStorage::class 
-		]
+		],
+                
 ];

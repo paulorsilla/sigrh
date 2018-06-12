@@ -35,6 +35,7 @@ return [
     'Zend\Validator',
     'DoctrineModule',
     'DoctrineORMModule',
+    'TCPDFModule',
 //    'ZendDeveloperTools',
     'SigRH',
     'User'

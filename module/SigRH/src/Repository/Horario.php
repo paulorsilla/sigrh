@@ -11,13 +11,24 @@ class Horario extends AbstractRepository {
         $qb->select('h')
                 ->from(HorarioEntity::class, 'h')
               ->orderby('h.diaSemana','ASC');
+
         //inclui a pesquisa por matricula por meio de um join
         if ( !empty($search['matricula'])){
             $qb->join("h.colaboradorMatricula",'c');
             $qb->where('c.matricula = :matricula');
             $qb->setParameter("matricula",$search['matricula']);
         }
-       return $qb;
+        
+        //inclui a pesquisa por vinculo por meio de um join
+        if ( !empty($search['vinculoId'])){
+            $qb->join("h.vinculo", 'v');
+            $qb->where('v.id = :vinculoId');
+            $qb->setParameter("vinculoId",$search['vinculoId']);
+        }
+//        echo $qb->getQuery()->getSQL();
+//        die();
+        return $qb;
+       
     }
     
     public function delete($id){
@@ -27,9 +38,11 @@ class Horario extends AbstractRepository {
                 $this->getEntityManager()->flush();
         }
     }
-    public function incluir_ou_editar($dados,$colaborador){
+    public function incluir_ou_editar($dados, $vinculo){
         
-        foreach( $colaborador->horarios as $horario ){
+        $colaborador = $vinculo->getColaboradorMatricula();
+        
+        foreach( $vinculo->horarios as $horario ){
              $this->getEntityManager()->remove($horario);
         }
         $campos=array(1=>"escalaDomingo",2=>"escalaSegunda",3=>"escalaTerca",4=>"escalaQuarta",5=>"escalaQuinta",6=>"escalaSexta",7=>"escalaSabado");
@@ -39,16 +52,15 @@ class Horario extends AbstractRepository {
                 $escalaObj = $repoEscala->find($dados[$escalaId]);
                 if ( !empty($escalaObj)){
                     $horario = new HorarioEntity();
-                    $horario->setColaboradorMatricula($colaborador);
+                    $horario->setVinculo($vinculo);
                     $horario->setDiaSemana($diaSemana);
                     $horario->setEscala($escalaObj);
+                    $horario->setColaboradorMatricula($colaborador);
                     $this->getEntityManager()->persist($horario); // persiste o model no mando ( preparar o insert / update)
                 }
             }
         }
-        
         $this->getEntityManager()->flush(); // Confirma a atualizacao
-        
         return true;
     }
 

@@ -33,7 +33,7 @@ class FileUpload {
             $ano = 2000 + (int) substr($linha, 11, 2);
             $numeroChip = substr($linha, 15, 12);
             if($numeroChip != '') {
-                $cracha = $this->getEntityManager()->getRepository(\SigRH\Entity\Cracha::class)->findOneBy(['numeroChip' => $numeroChip, 'ativo' => true]);
+                $cracha = $this->getEntityManager()->getRepository(\SigRH\Entity\Cracha::class)->findOneBy(['numeroChip' => $numeroChip], ['dataInclusao' => 'DESC']);
                 $dataPonto = \DateTime::createFromFormat("Ymd", $ano.$mes.$dia);
                 if ( (!$cracha) || ($dataPonto < $cracha->getDataInclusao()) ) {
                     $log .= $numeroChip.";";

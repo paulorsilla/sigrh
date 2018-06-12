@@ -46,10 +46,10 @@
                     </div>
                 </div>
                 
-                <div class="form-group row">
+<!--                <div class="form-group row">
                     <div class="col-md-10"></div>
-                    <div class="col-md-2"><?php echo $this->formRow($form->get('foto')); ?></div>
-                </div>
+                    <div class="col-md-2"><?php #echo $this->formRow($form->get('foto')); ?></div>
+                </div>-->
                 <hr>
 
                 <ul class="nav nav-tabs">
@@ -155,6 +155,7 @@
                         </div>
                         <?php if ( !empty($this->colaborador) ) { 
                             $matricula = $this->colaborador->getMatricula();
+                            $vinculoCorrente = $this->colaborador->getVinculos()->first();
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
@@ -247,7 +248,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-right">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="editarHorario('<?php echo $matricula;?>')">
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="editarEscala('<?php echo (null != $vinculoCorrente) ? $vinculoCorrente->getId() : null;?>')">
                                             <span class="glyphicon glyphicon-plus"></span> Editar...
                                         </button>
                                     </div>
@@ -255,7 +256,7 @@
                             </div>
                             <script>
                                 $(document).ready(function () {
-                                    refreshGridHorario('<?php echo $matricula;?>');
+                                    refreshGridHorario('<?php echo (null != $vinculoCorrente) ? $vinculoCorrente->getId() : null;?>');
                                 });
                                 </script>
                         <?php }
@@ -442,7 +443,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" onclick="fncSalvarHorario(this)">Salvar</button>
+        <button type="button" class="btn btn-primary" onclick="fncSalvarHorario(this, <?php echo (null != $vinculoCorrente) ? $vinculoCorrente->getId() : null;?>)">Salvar</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

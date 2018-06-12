@@ -7,10 +7,16 @@
         </h3>
         <hr>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('tipoVinculo')); ?><br>
                 <?php echo $this->formElement($this->form->get('tipoVinculo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('tipoVinculo')); ?>                  
+            </div>
+
+            <div class="col-md-2">
+                <?php echo $this->formLabel($this->form->get('cargo')); ?><br>
+                <?php echo $this->formElement($this->form->get('cargo')); ?>
+                <?php echo $this->formElementErrors($this->form->get('cargo')); ?>                  
             </div>
 
             <div class="col-md-3">
@@ -24,7 +30,7 @@
                 <?php echo $this->formElementErrors($this->form->get('aditivo')); ?>  
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php echo $this->formLabel($this->form->get('tipoAditivo')); ?><br>
                 <?php echo $this->formElement($this->form->get('tipoAditivo')); ?>
                 <?php echo $this->formElementErrors($this->form->get('tipoAditivo')); ?>                  

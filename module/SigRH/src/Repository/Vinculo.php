@@ -121,6 +121,13 @@ class Vinculo extends AbstractRepository {
             $row->setSublotacao($sublotacao);
         }
         unset($dados['sublotacao']);
+
+        //cargo...
+        if ( !empty($dados['cargo'] )) {
+            $cargo = $this->getEntityManager()->find('SigRH\Entity\Cargo', $dados['cargo']); //busca as informações
+            $row->setCargo($cargo);
+        }
+        unset($dados['cargo']);
         
         $row->setDataInicioEfetivo(null);
         if ($dados ['dataInicioEfetivo'] != "") {					

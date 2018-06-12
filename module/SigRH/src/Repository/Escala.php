@@ -6,12 +6,21 @@ use SigRH\Entity\Escala as EscalaEntity;
 
 class Escala extends AbstractRepository {
 
-    public function getQuery() {
+    public function getQuery($search = []) {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('e')
                 ->from(EscalaEntity::class, 'e');
        return $qb;
        
+    }
+    
+    public function getListParaCombo() {
+        $array = [];
+        $list = $this->getQuery()->getQuery()->getResult();
+        foreach($list  as $row){
+            $array[] = array("id"=>$row->getId(), "descricao" => $row->getEscalaComposta());
+        }
+        return $array;
     }
     
     public function delete($id){

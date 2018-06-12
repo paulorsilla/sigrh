@@ -64,8 +64,16 @@ class Ocorrencia extends AbstractRepository {
             $row->setJustificativa2($justificativa2);
             $this->getEntityManager()->persist($row);
             $this->getEntityManager()->flush();
-            
         }
+    }
+    
+    public function excluir($movimentacaoPonto) {
+        $row = $this->findOneBy(['movimentacaoPonto' => $movimentacaoPonto]);
+        if ($row) {
+            $this->getEntityManager()->remove($row);
+            $this->getEntityManager()->flush();
+        }
+
     }
 
 }

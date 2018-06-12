@@ -15,25 +15,31 @@ class Horario extends AbstractEntity {
      * @ORM\Id
      * @ORM\Column(name="id")
      * @ORM\GeneratedValue
-     */
+     **/
     protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Colaborador")
      * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
-     * */
+     **/
     protected $colaboradorMatricula;
     
     /**
+     * @ORM\ManyToOne(targetEntity="Vinculo")
+     * @ORM\JoinColumn(name="vinculo_id", referencedColumnName="id")
+     **/
+   protected $vinculo;
+
+   /**
      * @ORM\ManyToOne(targetEntity="Escala")
      * @ORM\JoinColumn(name="escala_id", referencedColumnName="id")
-     */
+     **/
     protected $escala;
     
     /**
      * 
      * @ORM\column(name="dia_semana", type="integer")
-     */
+     **/
     protected $diaSemana;
     
     public function getId() {
@@ -42,6 +48,10 @@ class Horario extends AbstractEntity {
 
     public function getColaboradorMatricula() {
         return $this->colaboradorMatricula;
+    }
+    
+    public function getVinculo() {
+        return $this->vinculo;
     }
 
     public function getEscala() {
@@ -58,6 +68,10 @@ class Horario extends AbstractEntity {
 
     public function setColaboradorMatricula($colaboradorMatricula) {
         $this->colaboradorMatricula = $colaboradorMatricula;
+    }
+    
+    public function setVinculo($vinculo) {
+        $this->vinculo = $vinculo;
     }
 
     public function setEscala($escala) {

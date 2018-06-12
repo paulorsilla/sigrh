@@ -47,6 +47,11 @@ class FolhaPonto extends AbstractRepository {
             //durante o processamento geral, não inclui a folha dos treinandos
             $qb->andWhere('f.status not in (10)');
         }
+        if (!empty($search['colaborador'])) {
+            $qb->andWhere('f.colaboradorMatricula =:colaborador')
+               ->setParameter('colaborador', $search['colaborador'])
+               ->orderBy('f.referencia', 'DESC');
+        }
         return $qb;
     }
     

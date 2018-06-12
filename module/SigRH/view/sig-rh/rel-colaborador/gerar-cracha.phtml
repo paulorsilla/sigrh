@@ -1,0 +1,70 @@
+<?php if (isset($this->colaboradores)):
+foreach ($this->colaboradores as $colaborador):
+    $numeroChip = (count($colaborador->getCrachas()) > 0) ? $colaborador->getCrachas()->first()->getNumeroChip() : "0";
+    $vinculo = $colaborador->getVinculos()->first();
+    
+
+    if ( in_array($vinculo->getTipoVinculo()->getId(), [1, 7]) ) {
+        $cor = "blue";
+    } else {
+        $cor = "green";
+    }
+    ?>
+    <div class="panel-body" style="border: 1px solid;">
+        <div class="row">
+            <div class="col-sm-4" style="text-align: center">
+                <img style="object-fit: contain; " src="/img/embrapa-soja-cor.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" style="text-align: center;">
+                <img style="object-fit: contain;" src="/img/fotos/<?php echo $colaborador->getFoto();?>">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <div class="col-sm-4">
+                <p style="padding-top: 10px; padding-bottom: 10px; text-align: center; font-size:larger; background-color: <?php echo $cor;?>; color: white">
+                   <b><?php echo strtoupper($colaborador->getApelido());?></b>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <p style="padding-top: 5px; padding-bottom: 5px; text-align: center; color: <?php echo $cor;?>;">
+                    <b><?php echo (null != $vinculo->getLocalizacao()) ? $vinculo->getLocalizacao()->getDescricao() : "";?></b>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="panel-body" style="border: 1px solid;">
+        <div class="row">
+            <div class="col-sm-4"><i style="color: blue">Nome</i><br><b><?php echo $colaborador->getNome();?></b></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><i style="color: blue">CPF</i><br><b><?php echo $colaborador->getCpf();?></b></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><i style="color: blue">Identidade/Órgão</i><br><b><?php echo $colaborador->getRgNumero()." ".$colaborador->getRgOrgaoExpedidor();?></b></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><i style="color: blue">Nascimento</i><br><b><?php echo $colaborador->getDataNascimento()->format("d/m/Y");?></b></div>
+            <div class="col-sm-2"><i style="color: blue">Admissão</i><br><b><?php echo $vinculo->getDataInicio()->format("d/m/Y");?></b></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"><i style="color: blue">Cargo</i><br><b><?php echo $vinculo->getTipoVinculo()->getDescricao();?></b></div>
+            <div class="col-sm-2"><i style="color: blue">Matrícula</i><br><b><?php echo $colaborador->getMatricula();?></b></div>
+        </div>
+        <div class="row" style="padding-top: 25px;">
+            <div class="col-sm-4" style="text-align: center; font-size: small;"><i><b>José Renato Bouças Farias<br>Chefe-geral da Embrapa Soja</b></i><br></div>
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <div class="col-sm-4" style="text-align: center; color: blue; font-size: smaller;"><i>Empresa Brasileira de Pesquisa Agropecuária<br>Ministério da Agricultura, Pecuária e Abastecimento<br>Fone: (43) 3371-6000</i><br></div>
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <div class="col-sm-4" style="text-align: center;"><img style="height: 40px; width: 200px;" src="/sig-rh/barcode/code25interleaved/<?php echo $colaborador->getMatricula();?>"></div>
+        </div>
+    </div>
+
+<?php endforeach; endif;?>
+

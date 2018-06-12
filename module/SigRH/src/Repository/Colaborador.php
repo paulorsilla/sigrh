@@ -13,40 +13,18 @@ class Colaborador extends AbstractRepository {
         $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
 
         //busca da tabela vinculo...
-        $joinVinculo = false;
+        $joinVinculo = true;
         
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('c')
+        $qb->select('c', 'v')
                 ->from(ColaboradorEntity::class, 'c')
                 ->orderby('c.nome','ASC')
                 ->where('c.nome is not NULL')
                 ->andWhere('c.nome != :empty')
                 ->setParameter('empty', ' ');
         
-        // Se for usuario do perfil "cadastro estudante", não mostrar os empregados
-        if ( isset($search['perfilUsuario']) && $search['perfilUsuario'] == '5' ) {
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
-            $qb->andWhere('v.tipoVinculo not in (1, 6)');
-        }
-        
-//        if ( (isset($search['tipoColaborador'])) && ($search['tipoColaborador'] == 2) ) {
-//            unset($search['tipoColaborador']);
-//            $qb->andWhere('c.tipoColaborador = 2');
-//            $qb->orWhere('c.tipoColaborador = 3'); //inclusao do parceiro tb a pedido da karen em 02/02/2018...
-//            $qb->orWhere('c.tipoColaborador = 4');
-//            $qb->orWhere('c.tipoColaborador = 5');
-//            $qb->orWhere('c.tipoColaborador = 6');
-//            $qb->orWhere('c.tipoColaborador = 8');
-//        }
-        
         if (isset($search['tipoColaborador']) && ($search['tipoColaborador'] != '') ) {
-            if (!$joinVinculo) {
-                $qb->leftJoin('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
+            $qb->leftJoin('c.vinculos', 'v');
             if($search['tipoColaborador'] == 1) {
                 $qb->andWhere('v.tipoVinculo in (1,7)');
             } else {
@@ -57,6 +35,13 @@ class Colaborador extends AbstractRepository {
             } else {
                 $qb->andWhere('v is not null');
             }
+        } else {
+            $qb->join('c.vinculos', 'v');
+        }
+        
+        // Se for usuario do perfil "cadastro estudante", não mostrar os empregados
+        if ( isset($search['perfilUsuario']) && $search['perfilUsuario'] == '5' ) {
+            $qb->andWhere('v.tipoVinculo not in (1, 6)');
         }
         
         if ( (isset($search["aniversariantesMes"])) && (!empty($search["aniversariantesMes"]))) {
@@ -80,13 +65,6 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("sexo", $search["sexo"]);
         }
         
-//        if (isset($search['ativo'])) {
-//            switch($search['ativo']) {
-//                case 'S': $qb->andWhere('c.dataDesligamento is NULL'); break;
-//                case 'N': $qb->andWhere('c.dataDesligamento is NOT NULL');
-//            }
-//        }
-        
         if ( !empty($search["combo_grupoSanguineo"]) ){
              $qb->andWhere('c.grupoSanguineo in ( :combo_grupoSanguineo )');
             $qb->setParameter("combo_grupoSanguineo",$search["combo_grupoSanguineo"]);
@@ -108,61 +86,36 @@ class Colaborador extends AbstractRepository {
         }
         
         if ( !empty($search["inicioVigencia"]) ) {
-            $joinVinculo = true;
             $dataInicio = \DateTime::createFromFormat("Y-m-d", $search["inicioVigencia"]);
-            $qb->join('c.vinculos', 'v')
-                ->andWhere("v.dataInicio >= :dataInicio")
+            $qb->andWhere("v.dataInicio >= :dataInicio")
                 ->setParameter("dataInicio", $dataInicio->format("Ymd"));
         }
         
         if ( !empty($search["inicioVigenciaIni"]) ) {
             $dataInicioIni = \DateTime::createFromFormat("Y-m-d", $search["inicioVigenciaIni"]);
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere("v.dataInicio >= :dataInicioIni")
-//                ->orderBy("v.dataInicio")
                 ->setParameter("dataInicioIni", $dataInicioIni->format("Ymd"));
         }
                 
         if ( !empty($search["inicioVigenciaFim"]) ) {
             $dataInicioFim = \DateTime::createFromFormat("Y-m-d", $search["inicioVigenciaFim"]);
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere("v.dataInicio <= :dataInicioFim")
                 ->setParameter("dataInicioFim", $dataInicioFim->format("Ymd"));
         }        
         
         if ( !empty($search["terminoVigenciaIni"]) ) {
             $dataTerminoIni = \DateTime::createFromFormat("Y-m-d", $search["terminoVigenciaIni"]);
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere("v.dataTermino >= :dataTerminoIni")
-//                ->orderBy("v.dataTermino")
                 ->setParameter("dataTerminoIni", $dataTerminoIni->format("Ymd"));
         }
                 
         if ( !empty($search["terminoVigenciaFim"]) ) {
             $dataTerminoFim = \DateTime::createFromFormat("Y-m-d", $search["terminoVigenciaFim"]);
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere("v.dataTermino <= :dataTerminoFim")
                 ->setParameter("dataTerminoFim", $dataTerminoFim->format("Ymd"));
         }
 
         if ( !empty($search["obrigatorio"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
-            
             if ($search['obrigatorio'] == '9') {
                 $search['obrigatorio'] = 0;
             }
@@ -171,10 +124,6 @@ class Colaborador extends AbstractRepository {
         }
         
         if ( (isset($search['ativo'])) && ($search['ativo'] != "T")) {
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             switch($search['ativo']) {
                 case 'S': $qb->andWhere('v.dataDesligamento is NULL'); break;
                 case 'N': $qb->andWhere('v.dataDesligamento is NOT NULL');
@@ -182,10 +131,6 @@ class Colaborador extends AbstractRepository {
         }
         
         if ( !empty($search["tipoVinculo"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             if ($search["tipoVinculo"] == "FP") { // Folha ponto: 2 => estagiário, 4 => Treinando, 6 => Bolsista, 8 => Estudante, 
                 $qb->andWhere('v.tipoVinculo in (2, 4, 6, 8)');
             } else {
@@ -195,71 +140,53 @@ class Colaborador extends AbstractRepository {
         }
         
         if ( !empty($search["nivel"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-                
-            }
              $qb->andWhere('v.nivel = :nivel');
              $qb->setParameter("nivel",$search["nivel"]);
         }
         
         if ( !empty($search["modalidadeBolsa"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
              $qb->andWhere('v.modalidadeBolsa = :modalidadeBolsa');
              $qb->setParameter("modalidadeBolsa",$search["modalidadeBolsa"]);
         }
         
         if ( !empty($search["instituicaoFomento"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-//                $qb->join('v.instituicaoFomento', 'i');
-                $joinVinculo = true;
-            }
              $qb->andWhere('v.instituicaoFomento = :instituicaoFomento');
              $qb->setParameter("instituicaoFomento", $search["instituicaoFomento"]);
         }
         
         if ( !empty($search["instituicaoEnsino"]) ){
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
              $qb->andWhere('v.instituicaoEnsino = :instituicaoEnsino');
              $qb->setParameter("instituicaoEnsino", $search["instituicaoEnsino"]);
         }
         
         if ( !empty($search['orientador'])) {
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere('v.orientador = :orientador');
             $qb->setParameter("orientador", $search["orientador"]);
         }
         
         if ( !empty($search['subLotacao'])) {
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere('v.sublotacao = :sublotacao');
             $qb->setParameter("sublotacao", $search["subLotacao"]);
         }
         
         if ( !empty($search['contratoVencido'])) {
-            if (!$joinVinculo) {
-                $qb->join('c.vinculos', 'v');
-                $joinVinculo = true;
-            }
             $qb->andWhere("v.dataTermino <= :dataAtual")
                ->andWhere("v.dataDesligamento is NULL")
                ->setParameter("dataAtual", date("Ymd"));
         }
         
+        if ( !empty($search['escala'])) {
+            $qb->join('c.horarios', 'h');
+            $qb->join('h.escala', 'e');
+            $qb->andWhere("e.id =:escala");
+            $qb->setParameter("escala", $search["escala"]);
+        }
+        
+        if (!empty($search['referenciaEstatistica']))  {
+            $qb->andWhere("v.dataInicio <= :dataControle")
+               ->andWhere("v.dataDesligamento >= :dataControle OR v.dataDesligamento is NULL")
+               ->setParameter("dataControle", $search["referenciaEstatistica"]."31");
+        }
 //        echo "SQL: ".$qb->getQuery()->getSQL();        
 //        die();
           
@@ -277,8 +204,7 @@ class Colaborador extends AbstractRepository {
         } else {
             return $qb->getQuery();
         }
-        
-        }
+    }
     
     public function getEstagiarios($graduacao = false, $foraEmbrapaSoja = false)
     {

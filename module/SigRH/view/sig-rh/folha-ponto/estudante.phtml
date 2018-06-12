@@ -1,0 +1,57 @@
+<?php
+    $status = [0 => "<span class='label label-danger'>Aguardando processamento.</span>",
+               1 => "<span class='label label-warning'>Justificativas pendentes.</span>",
+               2 => "<span class='label label-success'>Finalizada.</span>",
+        ];?>
+    <h1>Folhas ponto</h1>
+    <div class="row">
+        <h3 class="panel-title">
+            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+        </h3>
+    </div>
+
+<hr>    
+<h4><?php echo $this->colaborador->getMatricula()." - ".$this->colaborador->getNome();?></h4>
+<hr>
+<div class="row">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Mês/Ano</th>
+                <th>Status</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->folhasPonto as $folhaPonto): ?>
+                <tr>
+                    <td><?php
+                        $mes = (int)substr($folhaPonto->getReferencia(), 4, 2);
+                        $ano = substr($folhaPonto->getReferencia(), 0, 4);
+                        $mesString = $this->meses[$mes];
+                        echo $this->escapeHtml($mesString."/".$ano); ?></td>
+                    <td><?php echo $status[$folhaPonto->getStatus()];?></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           title="Processar folha ."><span class="glyphicon glyphicon-dashboard"></span></a>
+                           
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           title="Visualizar folha ponto."><span class="glyphicon glyphicon-list-alt"></span></a>
+                           
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           title="Imprimir folha ponto."><span class="glyphicon glyphicon-print"></span></a>
+                           
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?php echo $this->paginationControl($this->folhasPonto, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/folha-ponto']); ?>
+    </span>
+</div>
+
+</form>

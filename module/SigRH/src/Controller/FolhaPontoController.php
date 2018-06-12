@@ -8,6 +8,7 @@ use SigRH\Entity\FolhaPonto;
 use SigRH\Entity\RegistroHorario;
 use SigRH\Entity\Ocorrencia;
 use SigRH\Entity\Feriado;
+use SigRH\Entity\Colaborador;
 //use SigRH\Entity\Escala;
 
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
@@ -87,6 +88,32 @@ class FolhaPontoController extends AbstractActionController
                     'page' => $page
             ]);	
 	}
+        
+        public function estudanteAction()
+        {
+            $meses = ['1' => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            $colaborador = null;
+            if ($this->identity() != null) {
+                $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity());
+//                $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByMatricula('503514');
+            }
+            
+            $search['colaborador'] = $colaborador;
+            $page = $this->params()->fromQuery('page', 1);
+            
+            $repo = $this->entityManager->getRepository(FolhaPonto::class);
+            $adapter = new DoctrineAdapter(new ORMPaginator($repo->getQuery($search)));
+            $paginator = new Paginator($adapter);
+            $paginator->setDefaultItemCountPerPage(10);
+            $paginator->setCurrentPageNumber($page);
+            
+            return new ViewModel([
+                'colaborador' => $colaborador,
+                'meses' => $meses,
+                'folhasPonto' => $paginator
+            ]);
+            
+        }
         
         public function processarAction()
         {
@@ -173,9 +200,9 @@ class FolhaPontoController extends AbstractActionController
                     }
                     
                     //localiza omissão de ponto
-                    if ( (count($movimentacaoPonto->getRegistros()) <= 1) && ($cargaHorariaMinutos != 0) && ($expediente) && (!$horarioFlexivel) && (!$recesso)) {
-                            $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "-Omissão de ponto.");
-                            $saldoMinutos = $considerarPeriodo ?  (-1 * $cargaHorariaMinutos) : 0;
+                    if ( (count($movimentacaoPonto->getRegistros()) <= 1) && ($cargaHorariaMinutos != 0) && ($expediente) && (!$horarioFlexivel) && (!$recesso) ){
+                        $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "-Omissão de ponto.");
+                        $saldoMinutos = $considerarPeriodo ?  (-1 * $cargaHorariaMinutos) : 0;
                     } else {
                         $calcularIntervaloP1 = false;
                         $calcularIntervaloP2 = false;
@@ -184,7 +211,6 @@ class FolhaPontoController extends AbstractActionController
                         //escala temporária para computar o período realizado
                         
                         if ( (null != $escala) && (null != $escala->getEntrada1()) && (null == $escala->getEntrada2()) && (count($movimentacaoPonto->getRegistros()) >= 4) ) {
-
 
                             //saída 1 até as 13:00hs configura escala normal no
                             //período matutino
@@ -316,7 +342,7 @@ class FolhaPontoController extends AbstractActionController
                                     if ( $lancarOcorrencia )  {
                                         $calcularMinutos = true;
                                         $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, $descricaoOcorrencia);
-                                    } 
+                                    }
                                 } else {
                                     $calcularMinutos = true;
                                     $calcularIntervaloP1 = true;
@@ -346,11 +372,13 @@ class FolhaPontoController extends AbstractActionController
  //                           $saldoMinutos = $considerarMinutos ?  (-1 * $cargaHorariaMinutos) : 0;
                         } else if (!$horarioFlexivel && !$recesso) {
                             $saldoMinutos = $cargaHorariaMinutos;
+                            $repoOcorrencia->excluir($movimentacaoPonto);
                         } else {
                             $saldoMinutos = 0;
                         }
                     }
-                    $saldoMinutosTotal += $saldoMinutos; 
+                    $saldoMinutosTotal += $saldoMinutos;
+                    
                     //grava o saldo em minutos calculado para o dia
                     $movimentacaoPonto->setSaldoMinutos($saldoMinutos);
                     $this->entityManager->persist($movimentacaoPonto);

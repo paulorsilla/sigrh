@@ -35,7 +35,6 @@ return [
                         'action' => 'index',
                     ],
                 ],
-                
                 'may_terminate' => true,
                 'child_routes' => [
                     'banco' => [
@@ -52,7 +51,20 @@ return [
                             ]
                         ]
                     ],
-                    
+                    'barcode' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/barcode[/:type/:label]',
+                            'constraints' => [     
+                                'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'label' => '[a-zA-Z0-9_-]*'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\IndexController::class,
+                                'action' => 'barcode',
+                            ],
+                        ],          
+                    ],
                     'cidade' => [
                         'type' => Segment::class,
                         'options' => [
@@ -544,7 +556,7 @@ return [
             Controller\OcorrenciaController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RecessoObrigatorioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\RegistroHorarioController::class => Service\Factory\PadraoControllerFactory::class,
-            Controller\RelColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\RelColaboradorController::class => Service\Factory\RelControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\VinculoController::class => Service\Factory\PadraoControllerFactory::class,

@@ -202,6 +202,31 @@ class VinculoForm extends Form {
                 ],
             ]
         ]);
+        
+        //Adiciona o campo "cargo"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'cargo',
+            'attributes' => [
+                'id' => 'cargo',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Cargo',
+                'empty_option' => 'Selecione',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\Cargo::class,
+                'property' => 'descricao',
+                'find_method' => [
+                    'name' => 'getQuery',
+                    'params' => [
+                        'search' => [
+                            'combo' => 1,
+                        ]
+                    ]
+                ],
+            ]
+        ]);
        
         //Adiciona o campo "dataInicioEfetivo"
         $this->add([
@@ -699,6 +724,11 @@ class VinculoForm extends Form {
             'name' => 'sublotacao',
             'required' => false,
         ]);
+         
+        $inputFilter->add([
+            'name' => 'cargo',
+            'required' => false,
+        ]);
         
         $inputFilter->add([
             'name' => 'localizacao',
@@ -828,7 +858,7 @@ class VinculoForm extends Form {
          
          $inputFilter->add([
             'name' => 'dataTermino',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],

@@ -168,7 +168,6 @@ class VinculoController extends AbstractActionController
                 
                 $repo = $this->entityManager->getRepository(Vinculo::class);
                 $vinculo = $repo->find($id);
-
                 
                 $view = new ViewModel([
 				'vinculo' => $vinculo,

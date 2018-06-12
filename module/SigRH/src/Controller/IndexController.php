@@ -10,7 +10,7 @@ namespace SigRH\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use User\Entity\User;
-
+use Zend\Barcode\Barcode;
 
 class IndexController extends AbstractActionController
 {
@@ -36,4 +36,28 @@ class IndexController extends AbstractActionController
         		'user' => $user
         ]);
     }
+    
+    public function barcodeAction()
+    {
+       // Get parameters from route.
+        $type = $this->params()->fromRoute('type', 'code39');
+        $label = $this->params()->fromRoute('label', 'HELLO-WORLD');
+
+        // Set barcode options.
+        $barcodeOptions = ['text' => $label, 'drawText' => false];        
+        $rendererOptions = [];
+
+        // Create barcode object
+        $barcode = Barcode::factory($type, 'image', 
+                     $barcodeOptions, $rendererOptions);
+
+        
+        // The line below will output barcode image to standard 
+        // output stream.
+        $barcode->render();
+
+        // Return Response object to disable default view rendering. 
+        return $this->getResponse();   
+    }
 }
+

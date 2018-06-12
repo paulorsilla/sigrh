@@ -32,25 +32,29 @@ class HorarioController extends AbstractActionController
 	
         public function gridModalAction()
 	{
-                $repo = $this->entityManager->getRepository(Horario::class);
-                $page = $this->params()->fromQuery('page', 1);
-                $matricula = $this->params()->fromQuery('matricula',0);
+            $repo = $this->entityManager->getRepository(Horario::class);
+            $page = $this->params()->fromQuery('page', 1);
+            $vinculoId = $this->params()->fromQuery('vinculoId', null);
+            if (null != $vinculoId) {
                 $search = $this->params()->fromPost();
-                $search['matricula'] = $matricula;
-                $paginator = $repo->getPaginator($page,$search);
-                $diasSemana = ['1' => 'Domingo', 
-                                '2' => 'Segunda-feira',
-                                '3' => 'Terça-feira',
-                                '4' => 'Quarta-feira',
-                                '5' => 'Quinta-feira',
-                                '6' => 'Sexta-feira',
-                                '7' => 'Sábado',
-                    ];
-                $view = new ViewModel([
-				'horarios' => $paginator,
-                                'diasSemana' => $diasSemana
-		]);
-		return 	$view->setTerminal(true);
+                $search['vinculoId'] = $vinculoId;
+                $paginator = $repo->getPaginator($page, $search);
+            } else {
+                $paginator = null;
+            }
+            $diasSemana = ['1' => 'Domingo', 
+                            '2' => 'Segunda-feira',
+                            '3' => 'Terça-feira',
+                            '4' => 'Quarta-feira',
+                            '5' => 'Quinta-feira',
+                            '6' => 'Sexta-feira',
+                            '7' => 'Sábado',
+                ];
+            $view = new ViewModel([
+                            'horarios' => $paginator,
+                            'diasSemana' => $diasSemana
+            ]);
+            return 	$view->setTerminal(true);
 	}
         
 	/**
@@ -58,15 +62,14 @@ class HorarioController extends AbstractActionController
 	 */
 	public function saveModalAction()
 	{
-                $matricula = $this->params()->fromQuery('matricula',null);
-                if ( empty($matricula))
-                    die('Matricula em branco');
+                $id = $this->params()->fromQuery('id', null);
+                if ( empty($id))
+                    die('Id em branco');
                 
-                $repoColaborador = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
-                
-                $colaborador = $repoColaborador->find($matricula);
-                if ( empty($colaborador) )
-                    die('Matricula não encontrada');
+                $repoVinculo = $this->entityManager->getRepository(\SigRH\Entity\Vinculo::class);
+                $vinculo = $repoVinculo->find($id);
+                if ( empty($vinculo) )
+                    die('Vínculo não encontrado');
                  
 		//Cria o formulário
 		$form = new HorarioForm($this->objectManager);
@@ -82,8 +85,9 @@ class HorarioController extends AbstractActionController
 			if ($form->isValid()) {
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Horario::class);
-                                $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$colaborador);
+                                $id = $this->params()->fromQuery('id');
+                                $repo->incluir_ou_editar($data, $vinculo);
+                                
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
 				return $modelJson->setVariable('success',1);
@@ -91,10 +95,9 @@ class HorarioController extends AbstractActionController
 		} else {
                         $dados = array();
                         $campos=array(1=>"escalaDomingo",2=>"escalaSegunda",3=>"escalaTerca",4=>"escalaQuarta",5=>"escalaQuinta",6=>"escalaSexta",7=>"escalaSabado");
-                        foreach ( $colaborador->horarios as $horario ) {
+                        foreach ( $vinculo->getHorarios() as $horario ) {
                             $dados[ $campos[ $horario->diaSemana ] ] = $horario->escala->id;
                         }
-                       // var_dump($dados); die();
                         $form->setData($dados);
                     
                 }
@@ -123,6 +126,28 @@ class HorarioController extends AbstractActionController
 				'horario' => $horario,
 		]);
                 return $view->setTerminal(true);
+        }
+        
+        public function migraAction()
+        {
+            $colaboradores = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class)->findAll();
+            
+            foreach($colaboradores as $colaborador) {
+                $horarios = $colaborador->getHorarios();
+                if ((null != $horarios) && (count($colaborador->getVinculos())> 0) ) {
+                    error_log($colaborador->getMatricula()."-".$colaborador->getNome());
+                    $vinculo = $colaborador->getVinculos()->first();
+                    foreach($horarios as $horario) {
+                        error_log(gettype($vinculo->getHorarios()));
+                        $horario->setVinculo($vinculo);
+                        $this->entityManager->persist($horario);
+                    }
+                }
+            }
+            $this->entityManager->flush();
+
+            $view = new ViewModel();
+            return $view->setTerminal(true);
         }
         
 }

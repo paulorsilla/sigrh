@@ -86,6 +86,12 @@ class Vinculo extends AbstractEntity {
     protected $sublotacao;
     
     /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cargo")
+     * @ORM\JoinColumn(name="cargo_id", referencedColumnName="id")
+     **/      
+    protected $cargo;
+    
+    /**
      * @ORM\OneToMany(targetEntity="RecessoObrigatorio", mappedBy="vinculo")
      **/
     protected $recessos;
@@ -190,8 +196,15 @@ class Vinculo extends AbstractEntity {
      */
     protected $observacoes;
     
+    /**
+     * One Vinculo has Many horarios
+     * @ORM\OneToMany(targetEntity="Horario", mappedBy="vinculo")
+     **/
+    protected $horarios;
+    
     public function __construct() {
         $this->recessos = new ArrayCollection();
+        $this->horarios = new ArrayCollection();
     }
     
     public function getId() {
@@ -324,6 +337,15 @@ class Vinculo extends AbstractEntity {
     
     public function getRecessos() {
         return $this->recessos;
+    }
+
+    public function getCargo() {
+        return $this->cargo;
+    }
+    
+    public function getHorarios()
+    {
+        return $this->horarios;
     }
     
     public function setId($id) {
@@ -481,6 +503,15 @@ class Vinculo extends AbstractEntity {
     
     public function setRecessos($recessos) {
         $this->recessos = $recessos;
+    }
+    
+    public function setCargo($cargo) {
+        $this->cargo = $cargo;
+    }
+    
+    public function setHorarios($horarios)
+    {
+        $this->horarios = $horarios;
     }
 
 }

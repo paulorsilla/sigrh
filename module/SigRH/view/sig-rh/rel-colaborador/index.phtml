@@ -1,3 +1,6 @@
+<script src="/js/inputmask.js"></script>
+<script src="/js/jquery.inputmask.js"></script>
+
 <form action="/sig-rh/rel-colaborador/gerar-html" method="get">
     <br>    
 <div class="row">
@@ -125,7 +128,7 @@
                  <label for="obrigatorio">Obrigatório: </label>
                          <select name="obrigatorio" id="obrigatorio" class="form-control">
                                  <option value="">Selecione aqui...</option>
-                                 <option value="9" <?php if ( (!empty($search["obrigatorio"])) && ( "0" == $search["obrigatorio"])) { echo "selected";}?>>Não</option>
+                                 <option value="9" <?php if ( (!empty($search["obrigatorio"])) && ("0" == $search["obrigatorio"])) { echo "selected";}?>>Não</option>
                                  <option value="1" <?php if ( (!empty($search["obrigatorio"])) && ("1" == $search["obrigatorio"])) { echo "selected";}?>>Sim</option>
                          </select>                      
         </div>
@@ -223,17 +226,61 @@
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-sm-4 form-group">
+            <label for="escala">Escala de horários:</label>
+            <select name="escala" id="escala" class="form-control">
+                <option value="">Selecione aqui...</option>
+                    <?php foreach($this->array_escala as $row): ?>
+                        <option value="<?php echo $row["id"]; ?>"  
+                            <?php if ( (!empty($search["escala"]))  && ( $row["id"] == $search["escala"])){ echo "selected";}?>
+                            ><?php echo $row["descricao"]; ?></option>
+                    <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
 
     <div class="row">
-       <div class="col-sm-3 form-group" style="padding-top: 25px;">                  
+       <div class="col-sm-6 form-group" style="padding-top: 25px;">                  
                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Relatório</button>
-                <br/>
-                <br/>
+                <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/gerar-cracha"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crachá</button>
                 <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/csv"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> CSV</button>                    
         </div>
-        
+    </div>
+</form>
+<hr>
+<form action="/sig-rh/rel-colaborador/estatisticas" method="get">
+    <div class="row">
+        <div class="col-sm-2 form-group">
+            <label for="tipoVinculo">Vínculo: </label>
+            <select name="tipoVinculo" id="tipoVinculo" class="form-control">
+                <option value="">Selecione aqui...</option>
+                   <?php foreach($this->array_tipo_vinculo as $row) { ?>
+                <option value="<?php echo $row["id"]; ?>"  
+                           <?php if ( (!empty($search["tipoVinculo"])) && ($row["id"] == $search["tipoVinculo"]) ){ echo "selected";}?>
+                ><?php echo $row["descricao"]; ?></option>
+                 <?php } ?>
+            </select>                      
+        </div>
+        <div class="col-sm-3">
+            <label for="periodoIni">Início do período (mês/ano):</label>
+            <input class="form-control" type="text" value="" name="periodoIni" id="periodoIni"> 
+        </div>
+        <div class="col-sm-3">
+            <label for="periodoFim">Final do período (mês/ano):</label>
+            <input class="form-control" type="text" value="" name="periodoFim" id="periodoFim"> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Estatísticas</button>
+        </div>
     </div>
 </form>
 
+<script>
+    $("#periodoIni").inputmask("99/9999");
+    $("#periodoFim").inputmask("99/9999");
+</script>
 
 
