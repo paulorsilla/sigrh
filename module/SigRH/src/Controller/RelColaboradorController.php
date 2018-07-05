@@ -63,7 +63,8 @@ class RelColaboradorController extends AbstractActionController {
             "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
             "subLotacao" => $this->params()->fromQuery("subLotacao"),
             "instituicaoEnsino" => $this->params()->fromQuery("instituicaoEnsino"),
-            "escala" => $this->params()->fromQuery("escala")
+            "escala" => $this->params()->fromQuery("escala"),
+            "numeroChip" => $this->params()->fromQuery("numeroChip")
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -197,6 +198,11 @@ class RelColaboradorController extends AbstractActionController {
         if (!empty($search['escala'])) {
             $escala = $this->entityManager->find(\SigRH\Entity\Escala::class, $search['escala']);
         }
+        
+        $numeroChip = NULL;
+        if (!empty($search['numeroChip'])) {
+            $numeroChip = $search['numeroChip'];
+        }
 
         $this->layout()
                 ->setTemplate("layout/impressao")
@@ -214,6 +220,7 @@ class RelColaboradorController extends AbstractActionController {
                              "terminoVigenciaFim"   => $terminoVigenciaFim,
                              "subLotacao"           => $subLotacao,
                              "escala"               => $escala,
+                             "numeroChip"           => $numeroChip,
                 ]);
         return $view;
 //}
@@ -482,74 +489,74 @@ class RelColaboradorController extends AbstractActionController {
                     $cpf = $colaborador->getCpf();
                     $cpfFormatado = substr($cpf, 0, 3).".".substr($cpf, 3, 3).".". substr($cpf, 6, 3)."-".substr($cpf, 9, 2);
                     $pdf->SetFont('arialnarrow', 'IB', 14, '', false);
-                    $pdf->Rect($x[$c], $y[$l], 56, 86);
+                    $pdf->Rect($x[$c]+8, $y[$l], 56, 86);
                     $pdf->Rect($x[$c]+65, $y[$l], 56, 86);
 
-                    $pdf->Image("/img/embrapa-soja-cor.png", $x[$c]+13, $y[$l]+5, 30);
+                    $pdf->Image("/img/embrapa-soja-cor.png", $x[$c]+79, $y[$l]+5, 30);
                     if(file_exists(__DIR__."/../../../../public/img/fotos/jpg/".$colaborador->getMatricula().".jpg")) {
-                        $pdf->Image("/img/fotos/jpg/".$colaborador->getMatricula().".jpg", $x[$c]+13, $y[$l]+23, 30, 0);
+                        $pdf->Image("/img/fotos/jpg/".$colaborador->getMatricula().".jpg", $x[$c]+79, $y[$l]+23, 30, 0);
                     }
                     $pdf->ln(66);
                     $pdf->SetFillColor($cor['r'], $cor['g'], $cor['b']);
-                    $pdf->SetAbsXY($x[$c], $y[$l]+62);
+                    $pdf->SetAbsXY($x[$c]+65, $y[$l]+62);
                     $pdf->SetTextColor(255, 255, 255);
                     $pdf->Cell(56, 10, strtoupper($colaborador->getApelido()), 0, 0, 'C', 1);
                     $pdf->ln(15);
                     $pdf->SetFont('arialnarrow', 'IB', 12, '', false);
                     $pdf->SetTextColor(0, 0, 128);
-                    $pdf->SetAbsX($x[$c]);
+                    $pdf->SetAbsX($x[$c]+65);
                     $pdf->Cell(56, 0, $vinculo->getLocalizacao()->getDescricao(), 0, 0, 'C');
 
                     $pdf->SetFont('arialnarrow', 'IB', 10, '', false);
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+2);
+                    $pdf->SetAbsXY($x[$c]+8, $y[$l]+2);
                     $pdf->Cell(54, 0, "Nome", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+13);
+                    $pdf->SetAbsXY($x[$c]+8, $y[$l]+13);
                     $pdf->Cell(54, 0, "CPF", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+22);
+                    $pdf->SetAbsXY($x[$c]+8, $y[$l]+22);
                     $pdf->Cell(54, 0, "Identidade/Órgão", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+31);
+                    $pdf->SetAbsXY($x[$c]+8, $y[$l]+31);
                     $pdf->Cell(54, 0, "Nascimento", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+97, $y[$l]+31);
+                    $pdf->SetAbsXY($x[$c]+45, $y[$l]+31);
                     $pdf->Cell(54, 0, "Admissão", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+40);
+                    $pdf->SetAbsXY($x[$c]+8, $y[$l]+40);
                     $pdf->Cell(54, 0, "Cargo", 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+97, $y[$l]+40);
+                    $pdf->SetAbsXY($x[$c]+45, $y[$l]+40);
                     $pdf->Cell(54, 0, "Matrícula", 0, 0, 'L');
 
                     $pdf->SetFont('arialnarrow', 'I', 7, '', false);
 
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+62);
+                    $pdf->SetAbsXY($x[$c]+13, $y[$l]+63);
                     $pdf->Cell(45, 0, "Empresa Brasileira de Pesquisa Agropecuária", 0, 0, 'C');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+65);
+                    $pdf->SetAbsXY($x[$c]+13, $y[$l]+66);
                     $pdf->Cell(45, 0, "Ministério da Agricultura, Pecuária e Abastecimento", 0, 0, 'C');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+68);
+                    $pdf->SetAbsXY($x[$c]+13, $y[$l]+69);
                     $pdf->Cell(45, 0, "Fone: (43) 3371-6000", 0, 0, 'C');
 
                     $pdf->SetFont('arialnarrow', 'IB', 10, '', false);
                     $pdf->SetTextColor(0, 0, 0);
-                    $pdf->SetAbsXY($x[$c]+69, $y[$l]+6);
+                    $pdf->SetAbsXY($x[$c]+10, $y[$l]+6);
                     $pdf->Cell(54, 0, $colaborador->getNome(), 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+69, $y[$l]+17);
+                    $pdf->SetAbsXY($x[$c]+10, $y[$l]+17);
                     $pdf->Cell(54, 0, $cpfFormatado, 0, 0, 'L');
-                    $pdf->SetAbsXY($x[$c]+69, $y[$l]+26);
+                    $pdf->SetAbsXY($x[$c]+10, $y[$l]+26);
                     $pdf->Cell(54, 0, $colaborador->getRgNumero()." ".$colaborador->getRgOrgaoExpedidor(), 0, 0, "L");
-                    $pdf->SetAbsXY($x[$c]+69, $y[$l]+35);
+                    $pdf->SetAbsXY($x[$c]+10, $y[$l]+35);
                     $pdf->Cell(54, 0, $colaborador->getDataNascimento()->format("d/m/Y"), 0, 0, "L");
-                    $pdf->SetAbsXY($x[$c]+99, $y[$l]+35);
+                    $pdf->SetAbsXY($x[$c]+46, $y[$l]+35);
                     $pdf->Cell(54, 0, $vinculo->getDataInicio()->format("d/m/Y"), 0, 0, "L");
-                    $pdf->SetAbsXY($x[$c]+69, $y[$l]+44);
+                    $pdf->SetAbsXY($x[$c]+10, $y[$l]+44);
                     $pdf->Cell(54, 0, $cargo, 0, 0, "L");
-                    $pdf->SetAbsXY($x[$c]+99, $y[$l]+44);
+                    $pdf->SetAbsXY($x[$c]+46, $y[$l]+44);
                     $pdf->Cell(54, 0, $colaborador->getMatricula(), 0, 0, "L");
 
                     $pdf->SetFont('arialnarrow', 'IB', 8, '', false);
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+55);
+                    $pdf->SetAbsXY($x[$c]+13, $y[$l]+55);
                     $pdf->Cell(45, 0, "José Renato Bouças Farias", 0, 0, 'C');
-                    $pdf->SetAbsXY($x[$c]+67, $y[$l]+58);
+                    $pdf->SetAbsXY($x[$c]+13, $y[$l]+58);
                     $pdf->SetFont('arialnarrow', 'IB', 7, '', false);
                     $pdf->Cell(45, 0, "Chefe-geral da Embrapa Soja", 0, 0, 'C');
 
-                    $pdf->SetAbsXY($x[$c]+66, $y[$l]+74);
+                    $pdf->SetAbsXY($x[$c]+16, $y[$l]+74);
                     $pdf->write1DBarcode($colaborador->getMatricula(), "I25", "", "", 40, 12, 40);
                     
                     $c+= 1;

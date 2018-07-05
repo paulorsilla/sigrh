@@ -56,26 +56,30 @@ class MovimentacaoPonto extends AbstractRepository {
                 $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
                 $folhaPonto = $folhas[$matricula];
                 
-                //verifica a existencia de movimentacao para o colaborador no dia
-                //caso nao exista, inicia a movimentacao
-                $movimentacaoPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->findOneBy(['folhaPonto' => $folhaPonto, 'diaPonto' => $dataRegistro->format('d')]);
-                if (null == $movimentacaoPonto ) {
-                    $movimentacaoPonto = new MovimentacaoPontoEntity();
-                    $movimentacaoPonto->setDiaPonto($dataRegistro->format("d"));
-                    $movimentacaoPonto->setFolhaPonto($folhaPonto);
-                    $this->getEntityManager()->persist($movimentacaoPonto);
-                }
+                //verifica se o ano/mês do registro é compatível com a referência da folha
+                if ($folhaPonto->getReferencia() == $ano.$mes ) {
 
-                $horarios = explode(";", $value);
-                foreach($horarios as $hora) {
-                    $horaRegistro = \DateTime::createFromFormat( "H-i", $hora);
-                    $registroHorario = $this->getEntityManager()->getRepository(\SigRH\Entity\RegistroHorario::class)->findOneBy(["horaRegistro" => $horaRegistro, "tipo" => "C", "movimentacaoPonto" => $movimentacaoPonto]);
-                    if (null == $registroHorario) {
-                        $registroHorario = new RegistroHorarioEntity();
-                        $registroHorario->setHoraRegistro($horaRegistro);
-                        $registroHorario->setMovimentacaoPonto($movimentacaoPonto);
-                        $registroHorario->setTipo('C');
-                        $this->getEntityManager()->persist($registroHorario);
+                    //verifica a existencia de movimentacao para o colaborador no dia
+                    //caso nao exista, inicia a movimentacao
+                    $movimentacaoPonto = $this->getEntityManager()->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->findOneBy(['folhaPonto' => $folhaPonto, 'diaPonto' => $dataRegistro->format('d')]);
+                    if (null == $movimentacaoPonto ) {
+                        $movimentacaoPonto = new MovimentacaoPontoEntity();
+                        $movimentacaoPonto->setDiaPonto($dataRegistro->format("d"));
+                        $movimentacaoPonto->setFolhaPonto($folhaPonto);
+                        $this->getEntityManager()->persist($movimentacaoPonto);
+                    }
+
+                    $horarios = explode(";", $value);
+                    foreach($horarios as $hora) {
+                        $horaRegistro = \DateTime::createFromFormat( "H-i", $hora);
+                        $registroHorario = $this->getEntityManager()->getRepository(\SigRH\Entity\RegistroHorario::class)->findOneBy(["horaRegistro" => $horaRegistro, "tipo" => "C", "movimentacaoPonto" => $movimentacaoPonto]);
+                        if (null == $registroHorario) {
+                            $registroHorario = new RegistroHorarioEntity();
+                            $registroHorario->setHoraRegistro($horaRegistro);
+                            $registroHorario->setMovimentacaoPonto($movimentacaoPonto);
+                            $registroHorario->setTipo('C');
+                            $this->getEntityManager()->persist($registroHorario);
+                        }
                     }
                 }
             }

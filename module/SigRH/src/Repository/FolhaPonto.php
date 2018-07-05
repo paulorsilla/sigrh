@@ -39,7 +39,7 @@ class FolhaPonto extends AbstractRepository {
             $qb->andWhere('i.desRazaoSocial like :instituicaoFomento' );
             $qb->setParameter('instituicaoFomento', "%".$search['instituicaoFomento']."%");
         }
-        if (!empty($search['status'])) {
+        if ( (isset($search['status'])) && ($search['status'] != "")) {
             $qb->andWhere('f.status = :status' );
             $qb->setParameter('status', $search['status']);
         }

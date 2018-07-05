@@ -13,7 +13,7 @@ class Colaborador extends AbstractRepository {
         $emConfig->addCustomDatetimeFunction("DAY", \DoctrineExtensions\Query\Mysql\Day::class);
 
         //busca da tabela vinculo...
-        $joinVinculo = true;
+//        $joinVinculo = true;
         
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c', 'v')
@@ -51,8 +51,19 @@ class Colaborador extends AbstractRepository {
         }
         
         if ( !empty($search['nome'])){
-            $qb->andWhere('c.nome like :nome' );
-            $qb->setParameter('nome', "%".$search['nome']."%");
+            $nomes = explode(",", $search['nome']);
+            if (count($nomes) > 0) {
+                $qb->andWhere('c.nome like :nome_0' );
+                $qb->setParameter('nome_0', "%".$nomes[0]."%");
+                
+                for($i=1; $i< count($nomes); $i++) {
+                    $qb->orWhere('c.nome like :nome_'.$i );
+                    $qb->setParameter('nome_'.$i, "%".$nomes[$i]."%");
+                }
+            } else { 
+                $qb->andWhere('c.nome like :nome' );
+                $qb->setParameter('nome', "%".$search['nome']."%");
+            }
         }
         
         if ( !empty($search['matricula'])){
@@ -180,6 +191,12 @@ class Colaborador extends AbstractRepository {
             $qb->join('h.escala', 'e');
             $qb->andWhere("e.id =:escala");
             $qb->setParameter("escala", $search["escala"]);
+        }
+        
+        if (!empty($search['numeroChip'])) {
+            $qb->join('c.crachas', 'cr');
+            $qb->andWhere('cr.numeroChip like :numeroChip');
+            $qb->setParameter("numeroChip", "%".$search['numeroChip']."%");
         }
         
         if (!empty($search['referenciaEstatistica']))  {

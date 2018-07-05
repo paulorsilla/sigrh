@@ -49,17 +49,12 @@ class RecessoObrigatorioController extends AbstractActionController
                 
 		//Cria o formulário
 		$form = new RecessoObrigatorioForm($this->objectManager);
-
-                error_log("Aqui1");
-
                 
 		//Verifica se a requisição utiliza o método POST
 		if ($this->getRequest()->isPost()) {
 			
 			//Recebe os dados via POST
 			$data = $this->params()->fromPost();
-                        
-                        error_log("Aqui2");
 			
 			//Preenche o form com os dados recebidos e o valida
 			$form->setData($data);

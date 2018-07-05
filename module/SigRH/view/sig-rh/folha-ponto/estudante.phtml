@@ -33,15 +33,15 @@
                     <td><?php echo $status[$folhaPonto->getStatus()];?></td>
                     <td>
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'processar', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'restrito' => 1, 'page' => $this->page]) ?>"
                            title="Processar folha ."><span class="glyphicon glyphicon-dashboard"></span></a>
                            
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'registros', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'restrito' => 1, 'page' => $this->page]) ?>"
                            title="Visualizar folha ponto."><span class="glyphicon glyphicon-list-alt"></span></a>
                            
                         <a class="btn btn-primary btn-sm pull-center"
-                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'page' => $this->page]) ?>"
+                           href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'restrito' => 1, 'page' => $this->page]) ?>"
                            title="Imprimir folha ponto."><span class="glyphicon glyphicon-print"></span></a>
                            
                     </td>

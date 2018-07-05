@@ -7,8 +7,6 @@
 
 namespace SigRH;
 
-use Zend\Mvc\MvcEvent;
-
 class Module
 {
     const VERSION = '3.0.2';

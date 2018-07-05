@@ -67,8 +67,6 @@ class ColaboradorController extends AbstractActionController
                 $page = $this->params()->fromRoute('page', null);
                 $ativo = $this->params()->fromRoute('ativo');
                 $tipoColaborador = $this->params()->fromRoute('tipoColaborador', null);
-                
-                error_log("Tipo-colaborador ".$tipoColaborador);
 		$mensagens = array();
                 
                 //Cria o formulário
@@ -102,10 +100,8 @@ class ColaboradorController extends AbstractActionController
                         
                         if ( !empty($colaborador)){
                             $form->setData($colaborador->toArray());
-                            
                             $vinculoAtual = $colaborador->getVinculos()->first();
                             $form->get("tipoVinculo")->setValue((null != $vinculoAtual) ? $vinculoAtual->getTipoVinculo()->getDescricao() : null );
-
                             $form->get("supervisor")->setValue((null != $colaborador->getSupervisor()) ? $colaborador->getSupervisor() : null);
 //                            $form->get("tipoColaborador")->setValue((null != $colaborador->getTipoColaborador()) ? $colaborador->getTipoColaborador() : null);
                             $form->get("natural_estado")->setValue((null != $colaborador->getNatural()) ? $colaborador->getNatural()->getEstado() : null);

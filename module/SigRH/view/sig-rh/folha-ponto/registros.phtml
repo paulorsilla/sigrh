@@ -35,7 +35,14 @@ if ($this->folhaPonto != null):
             <span class="pull-right">Saldo: <?php echo $horasSaldoTotal.":".$minutosSaldoTotal;?>hs</span>
         </div>
         <div class="col-md-1 panel-title"> 
-            <a class="btn btn-secondary btn-sm pull-right" href="/sig-rh/folha-ponto?nome=<?php echo $this->nome;?>&referencia=<?php echo $this->referencia;?>&page=<?php echo $this->page;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
+            <?php 
+                if ($this->restrito == 1) {
+                    $urlFechar= "/sig-rh/folha-ponto/estudante?page=".$this->page; 
+                } else {
+                    $urlFechar= "/sig-rh/folha-ponto?nome=".$this->nome."&referencia=".$this->referencia."&page=".$this->page;
+                }
+            ?>
+            <a class="btn btn-secondary btn-sm pull-right" href="<?php echo $urlFechar;?>" title="Fechar"><span class="glyphicon glyphicon-remove"></span></a>
         </div>
     </div>
     <hr>
@@ -110,7 +117,7 @@ if ($this->folhaPonto != null):
                     <?php endif;
                     if ($expediente):?>
                         <button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="Incluir/excluir registro de horário." onclick="incluirHorario('<?php echo $movimentacaoPonto->getId();?>')">
-                                    <span class="glyphicon glyphicon-time"></span>
+                                    <span class="glyphicon glyphicon-pencil"></span>
                         </button>
                     <?php endif; ?>
                 </td>

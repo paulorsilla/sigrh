@@ -30,9 +30,8 @@ class Vinculo extends AbstractRepository {
 //        }
 //    }
     
-    public function delete($id, $matricula){
+    public function delete($id, $matricula) {
         $row = $this->find($id);
-        error_log("excluindo id = ".$id);
         if ($row) {
             $colaborador = $this->getEntityManager()->find(\SigRH\Entity\Colaborador::class, $matricula);
             if ( empty($colaborador) ) {
@@ -46,8 +45,7 @@ class Vinculo extends AbstractRepository {
         }
     }
     
-        
-    public function incluir_ou_editar($dados,$id = null,$matricula=null){
+    public function incluir_ou_editar($dados,$id = null,$matricula=null) {
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
@@ -236,5 +234,27 @@ class Vinculo extends AbstractRepository {
         
         return $row;
     }
-
+    
+    public function buscar_vinculo_por_referencia($matricula, $referencia) 
+    {
+        $referenciaIni = $referencia."01";
+        $referenciaFim = $referencia."31";
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('v')
+                ->from(VinculoEntity::class, 'v')
+                ->join("v.colaboradorMatricula",'c')
+                ->where('c.matricula = :matricula')
+                ->andWhere('v.dataInicio <= :referenciaFim')
+                ->andWhere('v.dataDesligamento BETWEEN :referenciaIni AND :referenciaFim OR v.dataDesligamento is null OR v.dataDesligamento > :referenciaFim')
+                ->setParameter("matricula", $matricula)
+                ->setParameter("referenciaIni", $referenciaIni)
+                ->setParameter("referenciaFim", $referenciaFim);
+        $vinculo = $qb->getQuery()->getResult();
+//        echo $qb->getQuery()->getSql();
+        if( count($vinculo) > 0 ) {
+            return $vinculo[0];
+        } else {
+            return null;
+        }
+    }
 }

@@ -38,19 +38,24 @@ echo $this->form()->openTag($this->form); ?>
                                 $dataInicio->setTime(0, 0);
                                 $dataTermino = $recesso->getDataTermino();
                                 $dataTermino->setTime(0, 0);
+                                
+//                                $dataTerminoAux = $recesso->getDataTermino();
+//                                $dataTermino->setTime(0, 0);
+                                
+//                                $dataTerminoAux->add(new DateInterval('P1D'));
                                 $diasUtilizados = $dataTermino->diff($dataInicio);
                                 
                                 if (!isset($saldoAnual[$recesso->getAnoReferencia()])) {
-                                    $saldoAnual[$recesso->getAnoReferencia()] = $this->vinculo->getDiasRecesso() - $diasUtilizados->days;
+                                    $saldoAnual[$recesso->getAnoReferencia()] = $this->vinculo->getDiasRecesso() - ($diasUtilizados->days+1);
                                 } else {
-                                    $saldoAnual[$recesso->getAnoReferencia()] = $saldoAnual[$recesso->getAnoReferencia()] - $diasUtilizados->days;
+                                    $saldoAnual[$recesso->getAnoReferencia()] = $saldoAnual[$recesso->getAnoReferencia()] - ($diasUtilizados->days+1);
                                 }
                             ?>
                                 <tr>
                                     <td><?php echo $this->escapeHtml($recesso->getAnoReferencia());?></td>
                                     <td><?php echo $this->escapeHtml($recesso->getDataInicio()->format("d/m/Y"));?></td>
                                     <td><?php echo $this->escapeHtml($recesso->getDataTermino()->format("d/m/Y"));?></td>
-                                    <td><?php echo $diasUtilizados->days;?></td>
+                                    <td><?php echo $diasUtilizados->days+1;?></td>
                                     <td><?php echo $saldoAnual[$recesso->getAnoReferencia()];?></td>
                                 </tr>
                             <?php endforeach;?>

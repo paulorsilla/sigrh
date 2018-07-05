@@ -23,6 +23,11 @@
             $vigencia = True; ?>
             <h4>Orientador: <?php echo $this->escapeHtml($this->orientador->getNome());?></h4>
         <?php endif;
+        if (!empty($this->numeroChip)):
+            $numeroChip = True;
+            $vigencia = False;?>
+            <h4>Número do chip (crachá): <?php echo $this->escapeHtml($this->numeroChip);?></h4>
+        <?php endif;
         
         if(!empty($this->inicioVigenciaIni) || !empty($this->inicioVigenciaFim)):
             $vigencia = True;?>
@@ -70,9 +75,8 @@
                 <?php if ($vigencia):?>
                     <th>Início vigência</th>
                     <th>Término vigência</th>
-                <?php endif;?>
-                    
-                <?php if ($this->identity() != null): 
+                <?php endif;
+                if ($this->identity() != null): 
                          $user = $this->identity(); // pegar o usuario logado da sessao e salvar em uma variavel para verificacoes de papel por exemplo?> 
                          <?php if ( in_array( $user['papel'], array('1')) ): ?>
                             <th>Editar</th>
@@ -81,7 +85,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($colaboradores as $colaborador):
+            <?php foreach ($colaboradores as $k => $colaborador):
                 $vinculo = ($colaborador->getVinculos()->count() > 0) ? $colaborador->getVinculos()->first() : NULL;
             ?>            
                 <tr>
@@ -98,17 +102,52 @@
                     if ($vigencia):?>
                         <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataInicio()) ? $vinculo->getDataInicio()->format("d/m/Y") : "-";?></td>
                         <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataTermino()) ? $vinculo->getDataTermino()->format("d/m/Y") : "-";?></td>
-                    <?php endif;?>
-
-                    <?php if ( in_array( $user['papel'], array('1')) ): ?>
+                    <?php endif;
+                    if ( in_array( $user['papel'], array('1')) ): ?>
                         <td><a class="btn btn-primary btn-sm pull-center"
-                                href="<?= $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
+                                href="<?php echo $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
                                 title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
                         </td>
                     <?php endif;?>
-                        
                 </tr>
-            <?php endforeach; ?>
+                <?php if($numeroChip):?>
+                    <tr>
+                        <th>Número do chip (crachá)</th>
+                        <th>Data Inclusão</th>
+                        <th>Data Exclusão</th>
+                        <th>Observações</th>
+                        <th></th>
+                        <th></th>
+                        <th>Ativo</th>
+                        <th></th>
+                    </tr>
+                    <?php foreach($colaborador->getCrachas() as $cracha):?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($cracha->getNumeroChip());?></td>
+                        <td><?php echo (null != $cracha->getDataInclusao()) ? $this->escapeHtml($cracha->getDataInclusao()->format("d/m/Y")) : "";?></td>
+                        <td><?php echo (null != $cracha->getDataExclusao()) ? $this->escapeHtml($cracha->getDataExclusao()->format("d/m/Y")) : "";?></td>
+                        <td colspan="3"><?php echo $this->escapeHtml($cracha->getObservacoes());?></td>
+                        <td><?php echo ($cracha->getAtivo()) ? "Sim" : "Não";?></td>
+                        <td></td>
+                    </tr>
+                    <?php endforeach;
+                    if(null != $colaboradores[$k+1]):?>
+                        <tr>
+                            <td colspan="8"><br></td>
+                        </tr>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Matrícula</th>
+                            <th>Tipo de vínculo</th>
+                            <th>Sublotação</th>
+                            <th>Localização</th>
+                            <th>Grau instrução</th>
+                            <th>Obrigatório</th>
+                            <th>Editar</th>
+                        </tr>
+                    <?php endif;
+                endif;
+            endforeach; ?>
     </table>
     </div>
 </div>

@@ -219,15 +219,16 @@ return [
                     'folha-ponto' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route' => '/folha-ponto[/:action[/:id][/:referencia][/:nomePesquisa][/:page]]',
+                            'route' => '/folha-ponto[/:action[/:id][/:referencia][/:nomePesquisa][/:restrito][/:page]]',
                             'constraints' => [
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'referencia' => '[0-9]+',
                                 'nomePesquisa' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'restrito' => '[0-9]',
                                 'page' => '[0-9]+'
 
-                            ],
+                                ],
                             'defaults' => [
                                 'controller' => Controller\FolhaPontoController::class,
                                 'action' => 'index'

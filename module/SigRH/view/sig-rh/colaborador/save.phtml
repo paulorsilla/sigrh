@@ -243,12 +243,11 @@
                             
                         </div>
                         <?php if ( !empty($this->colaborador) ) { 
-                            $matricula = $this->colaborador->getMatricula();
-                            if ( !empty($matricula) ) { ?>
+                            if ( (null != $vinculoCorrente ) && (count($vinculoCorrente->getHorarios()) > 0) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="pull-right">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="editarEscala('<?php echo (null != $vinculoCorrente) ? $vinculoCorrente->getId() : null;?>')">
+                                        <button type="button" class="btn btn-primary btn-sm" onclick="editarEscala('<?php echo $vinculoCorrente->getId();?>')">
                                             <span class="glyphicon glyphicon-plus"></span> Editar...
                                         </button>
                                     </div>

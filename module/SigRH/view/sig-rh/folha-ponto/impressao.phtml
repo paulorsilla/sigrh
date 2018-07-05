@@ -1,17 +1,27 @@
 <?php 
     $diasSemana = [0 => "Domingo", 1 => "Segunda-feira", 2 => "Terça-feira", 3 => "Quarta-feira", 4 => "Quinta-feira", 5 => "Sexta-feira", 6 => "Sábado"];
     $tiposRegistro = ["A" => "*", "C" => "", "M" => "!"];
+    $descricaoFolha = "";
 
     foreach ($this->folhasPonto as $folha):
+        $descricaoFolha = "";
         $colaborador = $folha->getColaboradorMatricula();
-        $vinculoAtual = $colaborador->getVinculos()->first();
+        
+        $vinculoAtual = $this->repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $folha->getReferencia());
+        
         $dataPesquisa = \DateTime::createFromFormat("Ymd", $folha->getReferencia()."01");
         $dataPesquisa->setTime(0, 0);
+        switch($vinculoAtual->getTipoVinculo()->getDescricao()) {
+            case "Treinando": $descricaoFolha = " - TREINAMENTO"; break;
+            case "Bolsista": $descricaoFolha = " - BOLSISTA"; break;
+            case "Estagiário": $descricaoFolha = " - ESTÁGIO"; break;
+            case "Estudante": $descricaoFolha = " - ESTÁGIO"; break;
+        }
 ?>
 
         <div class="row">
             <div class="col-xs-2"><img src="/img/embrapa-cor.png" height="40"></div>
-            <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL - ESTÁGIO</h4></div>
+            <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL <?php echo $descricaoFolha;?></h4></div>
         </div>
         <hr>    
         <div class="row">
