@@ -63,6 +63,10 @@ class ImportacaoPonto extends AbstractEntity{
         return $this->usuario;
     }
     
+    public function getUltimoDia() {
+        return $this->ultimoDia;
+    }
+    
     /**
      * Sets ID.
      * 
@@ -86,6 +90,10 @@ class ImportacaoPonto extends AbstractEntity{
 
     public function setUsuario($usuario) {
         $this->usuario = $usuario;
+    }
+    
+    public function setUltimoDia($ultimoDia) {
+        $this->ultimoDia = $ultimoDia;
     }
 
 }

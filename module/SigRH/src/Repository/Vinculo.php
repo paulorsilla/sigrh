@@ -250,11 +250,11 @@ class Vinculo extends AbstractRepository {
                 ->setParameter("referenciaIni", $referenciaIni)
                 ->setParameter("referenciaFim", $referenciaFim);
         $vinculo = $qb->getQuery()->getResult();
-//        echo $qb->getQuery()->getSql();
-        if( count($vinculo) > 0 ) {
-            return $vinculo[0];
-        } else {
+        $total = count($vinculo);
+        if ($total == 0) {
             return null;
+        } else {
+            return $vinculo[$total -1];
         }
     }
 }

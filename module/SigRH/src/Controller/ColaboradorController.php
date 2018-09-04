@@ -67,7 +67,7 @@ class ColaboradorController extends AbstractActionController
                 $page = $this->params()->fromRoute('page', null);
                 $ativo = $this->params()->fromRoute('ativo');
                 $tipoColaborador = $this->params()->fromRoute('tipoColaborador', null);
-		$mensagens = array();
+		$mensagens = [];
                 
                 //Cria o formulário
 		$form = new ColaboradorForm($this->objectManager);
@@ -83,15 +83,26 @@ class ColaboradorController extends AbstractActionController
 		if ($this->getRequest()->isPost()) {
 
                     //Recebe os dados via POST
-			$data = $this->params()->fromPost();
-			
+//			$data = $this->params()->fromPost();
+                        
+                        $post = array_merge($this->getRequest()->getPost()->toArray(), $this->getRequest()->getFiles()->toArray());
+                        $form->setData($post);
+  			
 			//Preenche o form com os dados recebidos e o valida
-			$form->setData($data);
+//			$form->setData($data);
 			if ($form->isValid()) {
-				$data = $form->getData();
-                                $repo = $this->entityManager->getRepository(Colaborador::class);
-                                $repo->incluir_ou_editar($data, $id);
-				return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'index']);
+                            $data = $form->getData();
+                            $validacaoFoto = $data['validacaoFoto'];
+                            $repo = $this->entityManager->getRepository(Colaborador::class);
+                            $repo->incluir_ou_editar($data, $id);
+                            $file = $this->params()->fromFiles('arquivoFoto');
+                            if (null != $file && isset($file['tmp_name']) && $file['tmp_name'] != "" && $validacaoFoto == '1') {
+                                $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
+                                $serviceImportacao->uploadFoto($file, $colaborador->getMatricula());
+                                return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => $ativo, 'tipoColaborador' => $tipoColaborador, 'page' => $page]);
+                            } else {
+                                return $this->redirect()->toRoute('sig-rh/colaborador', ['action' => 'index']);
+                            }
 			} else {
                             $mensagens = $form->getMessages();
                         }

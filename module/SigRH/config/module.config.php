@@ -95,6 +95,22 @@ return [
                             ]
                         ]
                     ],
+
+                    'constantes-mes' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/constantes-mes[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ConstantesMesController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     
                     'convenio' => [
                         'type' => Segment::class,
@@ -532,6 +548,7 @@ return [
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\ConstantesMesController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ContaCorrenteController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ConvenioController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CorPeleController::class => Service\Factory\PadraoControllerFactory::class,
@@ -586,7 +603,7 @@ return [
             ],
             
             Controller\ColaboradorController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index','save'], 'allow' => array(1,2,3)],  // Admin, Usuario e comum para consultas
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
             
@@ -732,7 +749,8 @@ return [
 //            
 
             Controller\FolhaPontoController::class => [
-                ['actions' => ['index','impressao'], 'allow' => 1]
+                ['actions' => ['index'], 'allow' => [1,2]],
+                ['actions' => ['impressao'], 'allow' => [1,2,4]]
             ],
 
             Controller\MovimentacaoPontoController::class => [
@@ -748,7 +766,7 @@ return [
             ],
         
             Controller\RegistroHorarioController::class => [
-                ['actions' => ['save-modal', 'delete'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['save-modal', 'delete'], 'allow' => [1,2, 4]],  // Admin e Usuario
             ],
 
         ]

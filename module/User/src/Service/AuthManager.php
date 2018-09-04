@@ -54,16 +54,20 @@ class AuthManager {
 	 * to last for one month (otherwise the session expires on one hour).
 	 */
 	public function login($login, $password) {
-		// Check if user has already logged in. If so, do not allow to log in
+
+
+                // Check if user has already logged in. If so, do not allow to log in
 		// twice.
 		if ($this->authService->getIdentity () != null) {
 			throw new \Exception ( 'Already logged in' );
-		}
-
-		//Verifica se o usuário está cadastrado no sistema
+                }
+            
+                //Verifica se o usuário está cadastrado no sistema
 		$user = $this->entityManager->getRepository(User::class)->findOneByLogin($login);
 		$result = new \Zend\Authentication\Result(0, null);
-		if ($user != null) {
+
+                
+                if ($user != null) {
 		
 			// Authenticate with login/password.
 			$authAdapter = $this->authService->getAdapter ();

@@ -82,7 +82,7 @@ class DependenteForm extends Form {
                 'class' => 'form-control',
             ],
             'options' => [
-                'format' => 'd/m/Y',
+                'format' => 'Y-m-d',
                 'label' => 'Data de nascimento'
             ],
         ]);

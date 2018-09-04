@@ -168,6 +168,39 @@
         $('#DependenteModal .modal-body').load(url);
         $('#DependenteModal').modal('show');
     }
+    
+    function editarDependente(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/dependente/save-modal/"+id+"?matricula="+matricula;
+        $('#DependenteModal .modal-body').html('carregando...');
+        $('#DependenteModal .modal-body').attr('url',url);
+        $('#DependenteModal .modal-body').load(url);
+        $('#DependenteModal').modal('show');
+    }
+
+    function excluirDependente(id){
+        var matricula = $("input#matricula").val();
+        url = "/sig-rh/dependente/delete-modal/"+id+"?matricula="+matricula;
+        $('#ExclusaoDependenteModal .modal-body').html('carregando...');
+        $('#ExclusaoDependenteModal .modal-body').attr('url',url);
+        $('#ExclusaoDependenteModal .modal-body').load(url);
+        $('#ExclusaoDependenteModal').modal('show');
+    }
+
+    function fncExcluirDependente(obj) {
+        $(this).html("aguarde ...").attr("disabled",true);
+        form =  $("form",$(obj).closest(".modal-content"));
+        dados = $(form).serializeObject();
+        urlPost = $(".modal-body",$(obj).closest(".modal-content")).attr('url');
+        $.post(urlPost, dados, function(data){
+            if ( data.success == 1 ){
+                $("#ExclusaoDependenteModal").modal('hide');
+                refreshGridDependente($("input#matricula").val());
+            } else {
+                $(".modal-body",$(obj).closest(".modal-content")).html(data);
+            }
+        });
+    }
 
     function refreshGridDependente(matricula){
         url = "/sig-rh/dependente/grid-modal?matricula="+matricula;
@@ -298,10 +331,37 @@
         $("#cep").inputmask("99999-999");
     }
     
+    function uploadFoto()
+    {
+//        var extensoesPermitidas = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        var extensoesPermitidas = ['jpg'];
+        var extensao = $("#arquivoFoto").val().split('.').pop().toLowerCase();
+        if ($.inArray(extensao, extensoesPermitidas) === -1) {
+            $("#validacaoFoto").val("");
+            alert("Formato de arquivo inválido, verifique!");
+        } else {
+            $("#validacaoFoto").val("1");
+            $("#foto").val(extensao);
+        }
+    }
+    
+    function excluirRecesso(recessoId, vinculoId) 
+    {
+        if (confirm("Clique em 'OK' para confirmar a exclusão do registro.")) {
+            $.ajax({
+                method: 'get',
+                url: '/sig-rh/recesso-obrigatorio/delete/'+recessoId,
+                async: false,
+            });
+        }
+        url = "/sig-rh/recesso-obrigatorio/save-modal?id="+vinculoId;
+        $('#RecessoModal .modal-body').load(url);
+    }
+    
 $(document).ready(function () {
     mascarasEntrada();
-    var matricula = $("#matricula").val();
-    $("#imgFoto").attr("src", "/img/fotos/jpg/"+matricula+".jpg");
+    //var matricula = $("#matricula").val();
+    //$("#imgFoto").attr("src", "/img/fotos/jpg/"+matricula+"."+$("#foto").val());
     
 // Carregar as cidades do banco de dados e salvar na variavel vCidades em JSON
 //    var vCidades = [

@@ -9,7 +9,9 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($this->crachas as $cracha): ?>
+        <?php 
+        $user = $this->identity();
+        foreach ($this->crachas as $cracha): ?>
             <tr>
                 <td><?php echo $this->escapeHtml($cracha->getNumeroChip()); ?></td>
                 <td><?php echo (null != $cracha->getDataInclusao() ? $this->escapeHtml($cracha->getDataInclusao()->format("d/m/Y")) : ""); ?></td>
@@ -17,12 +19,14 @@
                 <td><?php echo $this->escapeHtml($cracha->getObservacoes()); ?></td>
                 <td><?php echo ($cracha->getAtivo() ? "Sim" : "Não"); ?></td>
 
-                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                <td><?php if ($user['papel'] != 3):?>
+                    <button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="editarCracha('<?php echo $cracha->getId();?>')"
                        title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
                     <button type="button" class="btn btn-primary btn-sm pull-center" 
                                onclick="excluirCracha('<?php echo $cracha->getId();?>')"
                         title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
+                        <?php endif;?>
 
                 </td>
             </tr>

@@ -10,8 +10,14 @@ class Justificativa extends AbstractRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('j')
                 ->from(JustificativaEntity::class, 'j');
+        if (!empty($search['listar'])) {
+            $qb->where('j.listar = 1');
+        }
         if (!empty($search['indicarHorario'])) {
             $qb->where('j.indicarHorario = 1');
+        }
+        if (!empty($search['indicarCracha'])) {
+            $qb->where('j.indicarCracha = 1');
         }
        return $qb;
     }

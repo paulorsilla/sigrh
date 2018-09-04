@@ -8,7 +8,6 @@ $this->headTitle ( 'Users' );
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
-			<th>Id</th>
 			<th>Nome</th>
 			<th>Login</th>
 			<th>E-mail</th>
@@ -20,7 +19,6 @@ $this->headTitle ( 'Users' );
     <?php foreach ($users as $user): ?>
     
     <tr>
-		<td><?= $this->escapeHtml($user->getId()); ?></td>
 		<td><?= $this->escapeHtml($user->getNome()); ?></td>
 		<td><?= $this->escapeHtml($user->getLogin()); ?></td>
 		<td><?= $this->escapeHtml($user->getEmail()); ?></td>

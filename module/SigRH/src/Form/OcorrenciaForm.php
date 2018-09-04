@@ -105,6 +105,19 @@ class OcorrenciaForm extends Form {
                 'format' => 'H:i'
             ],
         ]);
+        
+        //Adiciona o campo "crachaVisitante"
+        $this->add([
+            'type' => 'text',
+            'name' => 'numeroCrachaVisitante',
+            'attributes' => [
+                'id' => 'numeroCrachaVisitante',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Número do crachá de visitante utilizado'
+            ],
+        ]);
        
         //Adiciona o campo "justificativa1"
         $this->add([
@@ -122,7 +135,14 @@ class OcorrenciaForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Justificativa::class,
                 'property' => 'descricao',
-                'display_empty_item' => true
+                'display_empty_item' => true,
+                'is_method' => true,
+                'find_method' => [
+                    'name'      =>'findBy',
+                    'params'    => [
+                        'criteria'  => ['listar' => '1'],
+                    ],
+                ],
             ]
         ]);
 
@@ -142,7 +162,14 @@ class OcorrenciaForm extends Form {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => \SigRH\Entity\Justificativa::class,
                 'property' => 'descricao',
-                'display_empty_item' => true
+                'display_empty_item' => true,
+                'is_method' => true,
+                'find_method' => [
+                    'name'      =>'findBy',
+                    'params'    => [
+                        'criteria'  => ['listar' => '1'],
+                    ],
+                ],
             ]
         ]);
         
@@ -154,6 +181,17 @@ class OcorrenciaForm extends Form {
             ],
             'options' => [
                 'label' => 'indicar horário'
+            ]
+        ]);
+        
+        $this->add([
+            'type' => 'hidden',
+            'name' => 'indicarCracha',
+            'attributes' => [
+                'id' => 'indicarCracha',
+            ],
+            'options' => [
+                'label' => 'indicar crachá visitante'
             ]
         ]);
 
@@ -201,6 +239,11 @@ class OcorrenciaForm extends Form {
         ]);
         
         $inputFilter->add([
+            'name' => 'crachaVisitante',
+            'required' => false,
+        ]);
+        
+        $inputFilter->add([
             'name' => 'entrada1',
             'required' => false,
         ]);
@@ -219,7 +262,6 @@ class OcorrenciaForm extends Form {
             'name' => 'saida2',
             'required' => false,
         ]);
-
 
     }
 

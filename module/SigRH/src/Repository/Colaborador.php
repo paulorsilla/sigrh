@@ -376,8 +376,9 @@ class Colaborador extends AbstractRepository {
         $row->setDataNascimento(null);
         if ($dados ['dataNascimento'] != "") {					
             $dataNascimento = \DateTime::createFromFormat ( "Y-m-d", $dados ['dataNascimento'] );
-            if ( !empty($dataNascimento)  )
+            if ( !empty($dataNascimento)  ) {
                $row->setDataNascimento($dataNascimento);
+            }
         }
         unset($dados['dataNascimento']);
         

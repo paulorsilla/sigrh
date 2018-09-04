@@ -11,6 +11,7 @@ class FolhaPonto extends AbstractRepository {
         
 //        $dataAtual = \DateTime::createFromFormat("Ymd", date("Ymd"));
         
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('f')
                 ->from(FolhaPontoEntity::class, 'f')
@@ -24,7 +25,10 @@ class FolhaPonto extends AbstractRepository {
         if (!empty($search['referencia'])) {
             $qb->andWhere('f.referencia =  :referencia');
             $qb->setParameter("referencia", $search['referencia']);
+        } else {
+            $qb->andWhere('f.referencia > 201806');
         }
+        
         if (!empty($search['nome'])) {
             $qb->andWhere('c.nome like :nome' );
             $qb->setParameter('nome', "%".$search['nome']."%");
@@ -52,6 +56,7 @@ class FolhaPonto extends AbstractRepository {
                ->setParameter('colaborador', $search['colaborador'])
                ->orderBy('f.referencia', 'DESC');
         }
+//        echo $qb->getQuery()->getSql();
         return $qb;
     }
     

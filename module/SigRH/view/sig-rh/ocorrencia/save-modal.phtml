@@ -43,8 +43,6 @@
                 <?php echo $this->formElementErrors($this->form->get('justificativa2')); ?><br>                  
             </div>
         </div>
-
-        <br>
         <div id="horarios">
             <hr>
             <div class="row">
@@ -75,7 +73,6 @@
                     <?php echo $this->formElementErrors($this->form->get('saida2')); ?>                  
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-md-3 text-right">
                     <button type="button" id="moverE1S1" class="btn btn-primary btn-sm" onclick="moverE1S1()"><span class="glyphicon glyphicon-arrow-right"> S1</span></button>
@@ -97,7 +94,19 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <div id="crachaVisitante">
+            <div class="row">
+                <div class="col-md-5">
+                    <?php echo $this->formLabel($this->form->get('numeroCrachaVisitante')); ?><br>
+                    <?php echo $this->formElement($this->form->get('numeroCrachaVisitante')); ?>
+                    <?php echo $this->formElementErrors($this->form->get('numeroCrachaVisitante')); ?>                  
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php echo $this->formElement($this->form->get('indicarHorario')); ?>
-<?php echo $this->form()->closeTag(); ?>
+<?php echo $this->formElement($this->form->get('indicarCracha')); ?>
+<?php echo $this->form()->closeTag();
+

@@ -72,7 +72,7 @@ class DependenteController extends AbstractActionController
 				$data = $form->getData();
                                 $repo = $this->entityManager->getRepository(Dependente::class);
                                 $matricula = $this->params()->fromQuery('matricula');
-                                $repo->incluir_ou_editar($data,$id,$matricula);
+                                $repo->incluir_ou_editar($data, $id, $matricula);
                                 
                                 // alterar para json
                                 $modelJson = new \Zend\View\Model\JsonModel();
@@ -84,13 +84,12 @@ class DependenteController extends AbstractActionController
                         $row = $repo->find($id);
                         if ( !empty($row)){
                             $form->setData($row->toArray());
-                          
                         }
 
                     }
                 }
                 $view = new ViewModel([
-				'form' => $form
+                    'form' => $form
 		]);
 		return $view->setTerminal(true);
 	}
@@ -122,4 +121,26 @@ class DependenteController extends AbstractActionController
 //		]);
 //		
 //	}
+        
+        public function deleteModalAction()
+        {
+		$id = (int) $this->params()->fromRoute('id', null);
+                $matricula = $this->params()->fromQuery('matricula');
+                
+		if ($this->getRequest()->isPost()) {
+                    $repo = $this->entityManager->getRepository(Dependente::class);
+                    $repo->delete($id, $matricula);
+                    $modelJson = new \Zend\View\Model\JsonModel();
+                    return $modelJson->setVariable('success', 1);
+		}
+                
+                $repo = $this->entityManager->getRepository(Dependente::class);
+                $dependente= $repo->find($id);
+
+                $view = new ViewModel([
+				'dependente' => $dependente,
+		]);
+                return $view->setTerminal(true);
+        }
+
 }

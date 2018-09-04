@@ -31,8 +31,9 @@ $form->get('submit')->setAttributes([
                 <?php echo $this->formRow($form->get('dataServidor')); ?>
 
                 <div class="form-group row">
-                        <div class="col-md-4"><?php echo $this->formRow($form->get('referencia')); ?></div>
-                        <div class="col-md-4"><?php echo $this->formRow($form->get('dataImportacao')); ?></div>
+                        <div class="col-md-3"><?php echo $this->formRow($form->get('referencia')); ?></div>
+                        <div class="col-md-2"><?php echo $this->formRow($form->get('ultimoDia')); ?></div>
+                        <div class="col-md-3"><?php echo $this->formRow($form->get('dataImportacao')); ?></div>
                         <div class="col-md-4"><?php echo $this->formRow($form->get('usuario')); ?></div>
                 </div>
                 
@@ -50,4 +51,5 @@ $form->get('submit')->setAttributes([
 
 <script>
     $("#referencia").inputmask("99/9999");
+    $("#ultimoDia").inputmask("99");
 </script>

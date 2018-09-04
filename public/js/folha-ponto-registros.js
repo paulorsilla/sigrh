@@ -29,6 +29,16 @@
 
     function fncSalvarJustificativa(obj) 
     {
+        var indicarCracha = $("#indicarCracha").val().split(",");
+        var justificativa1 = $("#justificativa1").val();
+        var justificativa2 = $("#justificativa2").val();
+        if ( (indicarCracha.indexOf(justificativa1) > -1) || (indicarCracha.indexOf(justificativa2)) > -1 ) {
+            if ($("#numeroCrachaVisitante").val() === "") {
+                alert("Por favor, anote o número do crachá de visitiante utilizado no dia. Obrigado!");
+                return false;
+            }
+        }
+    
         $(this).html("aguarde ...").attr("disabled", true);
         form = $("form", $(obj).closest(".modal-content"));
         dados = $(form).serializeObject();
@@ -111,6 +121,19 @@
             $("#horarios").show();
         } else {
             $("#horarios").hide();
+        }
+        exibicaoCrachaVisitante();
+    }
+    
+    function exibicaoCrachaVisitante()
+    {
+        var indicarCracha = $("#indicarCracha").val().split(",");
+        var justificativa1 = $("#justificativa1").val();
+        var justificativa2 = $("#justificativa2").val();
+        if ( (indicarCracha.indexOf(justificativa1) > -1) || (indicarCracha.indexOf(justificativa2)) > -1 ) {
+            $("#crachaVisitante").show();
+        } else {
+            $("#crachaVisitante").hide();
         }
     }
     

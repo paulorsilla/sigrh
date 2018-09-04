@@ -11,22 +11,27 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($this->dependentes as $dependente): ?>
+        <?php 
+        $user = $this->identity();
+        foreach ($this->dependentes as $dependente): ?>
             <tr>
-                <td><?= $this->escapeHtml($dependente->getNome()); ?></td>
-                <td><?= $this->escapeHtml($this->grauParentesco[$dependente->getGrauParentesco()]); ?></td>
+                <td><?php echo $this->escapeHtml($dependente->getNome()); ?></td>
+                <td><?php echo $this->escapeHtml($this->grauParentesco[$dependente->getGrauParentesco()]); ?></td>
                 <td><?php echo $this->escapeHtml(null!= $dependente->getDataNascimento()?$dependente->getDataNascimento()->format("d/m/Y"):''); ?></td>
                 <td><?php echo $dependente->getAtivo() ? "Sim" : "Nao"; ?></td>
                 <td><?php echo $dependente->getUniversitario() ? "Sim": "Não"; ?></td>
                 <td><?php echo $dependente->getSalarioFamilia() ? "Sim":"Não"; ?></td>
                 <td><?php echo $dependente->getImpostoRenda() ? "Sim":"Não"; ?></td>
 
-                <td><a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/dependente', ['action' => 'save', 'id' => $dependente->getId()]) ?>"
-                       title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a class="btn btn-primary btn-sm pull-center"
-                       href="<?php echo $this->url('sig-rh/dependente', ['action' => 'delete', 'id' => $dependente->getId()]) ?>"
-                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                <td>
+                    <?php if($user['papel'] != 3):?>
+                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                                onclick="editarDependente('<?php echo $dependente->getId();?>')"
+                                title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-primary btn-sm pull-center" 
+                                onclick="excluirDependente('<?php echo $dependente->getId();?>')"
+                                title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
+                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach; ?>

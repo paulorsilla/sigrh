@@ -6,6 +6,8 @@
     $form->get('submit')->setAttributes([
         'class' => 'btn btn-primary'
     ]);
+    $user = $this->identity();
+
 ?>
 
 <h1>Cadastro de colaboradores</h1>
@@ -24,7 +26,10 @@
             </div>
 
             <div class="panel-body">
-                <?php echo $this->form()->openTag($form); ?>
+                <?php 
+                    $this->form->prepare();
+                    echo $this->form()->openTag($form); 
+                ?>
 
                 <div class="form-group row">
                     <div class="col-md-2"><?php echo $this->formRow($form->get('matricula')); ?></div>
@@ -34,16 +39,24 @@
                 </div>
                 
                 <div class="form-group row">
+                    <div class="col-md-10"><?php echo $this->basepath();?></div>
+                    <div class="col-md-2">
+                        <img id="imgFoto" src="/img/fotos/jpg/<?php echo $colaborador->getMatricula().".".$colaborador->getFoto();?>" style="height: 100%; width: 100%; object-fit: contain; border: 2px solid gray"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
                     <div class="col-md-10">
-<!--                        <div class="form-group row">
-                           <div class="col-md-6"><?php //echo $this->formRow($form->get('supervisor')); ?></div>
-                            <div class="col-md-3"><?php //echo $this->formRow($form->get('dataAdmissao')); ?></div>
-                            <div class="col-md-3"><?php //echo $this->formRow($form->get('dataDesligamento')); ?></div>
-                        </div>-->
+                        <?php echo $this->formRow($form->get('foto')); ?>
+                        <?php echo $this->formRow($form->get('validacaoFoto')); ?>
                     </div>
                     <div class="col-md-2">
-                        <img id="imgFoto" style="height: 100%; width: 100%; object-fit: contain; border: 2px solid gray"/>
+                        <label class="btn btn-primary btn-xs btn-block" >
+                            <?php echo $this->formRow($form->get('arquivoFoto')); ?>
+                        </label>
                     </div>
+                       
                 </div>
                 
 <!--                <div class="form-group row">
@@ -159,11 +172,13 @@
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoCracha('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
-                                        </button>
-                                    </div>
+                                    <?php if($user['papel'] != 3):?>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="novoCracha('<?php echo $matricula;?>')">
+                                                <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                            </button>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <script>
@@ -187,11 +202,13 @@
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="novaContaCorrente('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
-                                        </button>
-                                    </div>
+                                    <?php if($user['papel'] != 3):?>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="novaContaCorrente('<?php echo $matricula;?>')">
+                                                <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                            </button>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <script>
@@ -216,14 +233,16 @@
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-info btn-sm" onclick="refreshGridVinculo('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span>Atualizar
-                                        </button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="novoVinculo('<?php echo $matricula;?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Incluir...
-                                        </button>
-                                    </div>
+                                    <?php if($user['papel'] != 3):?>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-info btn-sm" onclick="refreshGridVinculo('<?php echo $matricula;?>')">
+                                                <span class="glyphicon glyphicon-plus"></span>Atualizar
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="novoVinculo('<?php echo $matricula;?>')">
+                                                <span class="glyphicon glyphicon-plus"></span> Incluir...
+                                            </button>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <script>
@@ -246,11 +265,13 @@
                             if ( (null != $vinculoCorrente ) && (count($vinculoCorrente->getHorarios()) > 0) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick="editarEscala('<?php echo $vinculoCorrente->getId();?>')">
-                                            <span class="glyphicon glyphicon-plus"></span> Editar...
-                                        </button>
-                                    </div>
+                                    <?php if($user['papel'] != 3):?>
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-primary btn-sm" onclick="editarEscala('<?php echo $vinculoCorrente->getId();?>')">
+                                                <span class="glyphicon glyphicon-plus"></span> Editar...
+                                            </button>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <script>
@@ -279,11 +300,13 @@
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">
+                                    <?php if($user['papel'] != 3):?>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-primary btn-sm" onclick="novoDependente('<?php echo $matricula;?>')">
                                             <span class="glyphicon glyphicon-plus"></span> Incluir...
                                         </button>
                                     </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <script>
@@ -298,8 +321,12 @@
                 <br>
                 <br>
                 <hr>
-                <?php echo $this->formElement($form->get('submit')); ?>
-                <?php echo $this->form()->closeTag(); ?>
+                <?php 
+                
+                if ($user['papel'] != 3) {
+                    echo $this->formElement($form->get('submit'));
+                }
+                echo $this->form()->closeTag(); ?>
                 
                 <?php if ( !empty($this->mensagens) ) \Zend\Debug\Debug::dump($this->mensagens); ?>
             </div>
@@ -376,6 +403,25 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade " id="ExclusaoDependenteModal" data-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Exclusão</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onclick="fncExcluirDependente(this)">Sim</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <div class="modal fade " id="ExclusaoVinculoModal" data-backdrop="static">
   <div class="modal-dialog modal-lg">

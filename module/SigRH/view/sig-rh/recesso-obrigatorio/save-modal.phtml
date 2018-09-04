@@ -30,6 +30,7 @@ echo $this->form()->openTag($this->form); ?>
                                 <th>Término do período</th>
                                 <th>Dias utilizados</th>
                                 <th>Dias restantes</th>
+                                <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,6 +58,8 @@ echo $this->form()->openTag($this->form); ?>
                                     <td><?php echo $this->escapeHtml($recesso->getDataTermino()->format("d/m/Y"));?></td>
                                     <td><?php echo $diasUtilizados->days+1;?></td>
                                     <td><?php echo $saldoAnual[$recesso->getAnoReferencia()];?></td>
+                                    <td><button type="button" class="btn btn-primary btn-sm pull-center" onclick="excluirRecesso('<?php echo $recesso->getId();?>','<?php echo $vinculo->getId();?>')" 
+                                                title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button></td>
                                 </tr>
                             <?php endforeach;?>
                         </tbody>

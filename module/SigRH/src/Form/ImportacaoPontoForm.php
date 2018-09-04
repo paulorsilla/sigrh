@@ -63,6 +63,22 @@ class ImportacaoPontoForm extends Form {
             ],
         ]);
         
+        //Adiciona o campo "ultimoDia"
+        $this->add([
+            'type' => 'text',
+            'name' => 'ultimoDia',
+            'attributes' => [
+                'id' => 'ultimoDia',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o dia aqui'
+
+            ],
+            'options' => [
+                'label' => 'Até o dia'
+            ],
+        ]);
+
+        
         //Adiciona o campo "usuario"
         $this->add([
             'type' => \DoctrineModule\Form\Element\ObjectSelect::class,
@@ -136,6 +152,25 @@ class ImportacaoPontoForm extends Form {
                     'options' => [
                         'min' => 7,
                         'max' => 7
+                    ],
+                ],
+            ],
+        ]);
+
+        $inputFilter->add([
+            'name' => 'ultimoDia',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'min' => 1,
+                        'max' => 2
                     ],
                 ],
             ],

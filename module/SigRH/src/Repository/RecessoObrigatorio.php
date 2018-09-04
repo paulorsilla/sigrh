@@ -19,7 +19,6 @@ class RecessoObrigatorio extends AbstractRepository {
             $qb->andWhere("r.vinculo = :vinculo")
                 ->setParameter("vinculo", $search["vinculo"]);
         }
-        
        return $qb;
     }
     

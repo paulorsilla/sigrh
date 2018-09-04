@@ -100,10 +100,32 @@ class ColaboradorForm extends Form {
             'name' => 'foto',
             'attributes' => [
                 'id' => 'foto',
+                'style' => 'display: none'
+            ],
+        ]);
+
+        //Adiciona o campo "foto"
+        $this->add([
+            'type' => 'text',
+            'name' => 'validacaoFoto',
+            'attributes' => [
+                'id' => 'validacaoFoto',
+                'style' => 'display: none'
+            ],
+        ]);
+        
+        //Adiciona o campo "arquivo"
+        $this->add([
+            'type' => \Zend\Form\Element\File::class,
+            'name' => 'arquivoFoto',
+            'attributes' => [
+                'id' => 'arquivoFoto',
+                'onchange' => 'uploadFoto()',
                 'class' => 'form-control',
+                'style' => 'display:none'
             ],
             'options' => [
-                'label' => 'Foto'
+                'label' => 'Carregar foto'
             ],
         ]);
         
@@ -460,8 +482,6 @@ class ColaboradorForm extends Form {
                 'label' => 'Data de emissão'
             ],
         ]);
-        
-        
 
         //Adiciona o campo "rg_orgao_expedidor"
         $this->add([
@@ -623,7 +643,6 @@ class ColaboradorForm extends Form {
                 'label' => 'E-mail corporativo'
             ],
         ]);
-        
         
         //Adiciona o campo "linhaOnibus"
         $this->add([

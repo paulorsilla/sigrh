@@ -111,7 +111,7 @@ class AuthController extends AbstractActionController
                         $this->redirect()->toUrl($redirectUrl);
                     }
                 } else {
-                	 $isLoginError = true;
+                    $isLoginError = true;
                 }                
             } else {
                 $isLoginError = true;

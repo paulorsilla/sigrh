@@ -49,6 +49,23 @@ $form->get('submit')->setAttributes([
                         <?php echo $this->formElementErrors($form->get('considerarHoras')); ?>                  
                     </div>
                 </div>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($form->get('listar')); ?><br>
+                        <?php echo $this->formElement($form->get('listar')); ?>
+                        <?php echo $this->formElementErrors($form->get('listar')); ?>                  
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($form->get('indicarCracha')); ?><br>
+                        <?php echo $this->formElement($form->get('indicarCracha')); ?>
+                        <?php echo $this->formElementErrors($form->get('indicarCracha')); ?>                  
+                    </div>
+                </div>
+                
                 <div class="row">
                     <div class="col-md-2">
                         <?php echo $this->formElement($form->get('submit')); ?>

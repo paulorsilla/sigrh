@@ -7,6 +7,8 @@ use Zend\View\Model\ViewModel;
 use SigRH\Form\ImportacaoPontoForm;
 use SigRH\Entity\ImportacaoPonto;
 use SigRH\Entity\FolhaPonto;
+use SigRH\Entity\Feriado;
+use SigRH\Entity\ConstantesMes;
 
 class ImportacaoPontoController extends AbstractActionController
 {
@@ -29,10 +31,10 @@ class ImportacaoPontoController extends AbstractActionController
                 $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
                 $page = $this->params()->fromQuery('page', 1);
                 $search = $this->params()->fromPost();
-                $paginator = $repo->getPaginator($page,$search);
+                $paginator = $repo->getPaginator($page, $search);
             
 		return new ViewModel([
-				'importacoesPonto' => $paginator,
+                    'importacoesPonto' => $paginator,
 		]);	
 	}
 	
@@ -61,23 +63,53 @@ class ImportacaoPontoController extends AbstractActionController
 		    //Preenche o form com os dados recebidos e o valida
 		    //$form->setData($data);
 			if ($form->isValid()) {
-				$data = $form->getData();
-                                
-                                $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
-                                $folha_repo = $this->entityManager->getRepository(FolhaPonto::class);
-                                
-                                $importacaoPonto = $repo->incluir_ou_editar($data, $user, null, $id);
+                            $data = $form->getData();
 
-                                $file = $this->params()->fromFiles('arquivo');
-                                $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
-                                $log = $serviceImportacao->uploadPonto($file, $importacaoPonto);
+                            $repo = $this->entityManager->getRepository(ImportacaoPonto::class);
+                            $folha_repo = $this->entityManager->getRepository(FolhaPonto::class);
+                            $feriado_repo = $this->entityManager->getRepository(Feriado::class);
+                            $constantes_mes_repo = $this->entityManager->getRepository(ConstantesMes::class);
 
-                                $repo->incluir_ou_editar($data, $user, $log, $importacaoPonto->getId());
-                                $this->entityManager->flush();
-                                
-                                $folha_repo->complete($importacaoPonto->getReferencia());
-                                
-				return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'index']);
+                            $importacaoPonto = $repo->incluir_ou_editar($data, $user, null, $id);
+
+                            $file = $this->params()->fromFiles('arquivo');
+                            $serviceImportacao = $this->getEvent()->getApplication()->getServiceManager()->get(\SigRH\Service\FileUpload::class);
+                            $log = $serviceImportacao->uploadPonto($file, $importacaoPonto);
+
+                            $repo->incluir_ou_editar($data, $user, $log, $importacaoPonto->getId());
+                            $this->entityManager->flush();
+
+                            $referencia = $importacaoPonto->getReferencia();
+                            $mes = substr($referencia, 4, 2);
+                            $ano = substr($referencia, 0, 4);
+                            $folha_repo->complete($referencia);
+                            $numeroDiasMes = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
+                            $numeroDiasUteis = $numeroDiasMes;
+                            $feriados = $feriado_repo->getFeriadoReferencia($referencia);
+                            foreach($feriados as $feriado) {
+                                if ($feriado->getExpediente() == 0) {
+                                    $numeroDiasUteis -= 1;
+                                } else if ($feriado->getExpediente() >= 2) {
+                                    $numeroDiasUteis -= 0.5;
+                                }
+                            }
+                            
+                            //busca o número de dias úteis no mês
+                            for($dia = 1; $dia <= $numeroDiasMes; $dia++) {
+                                $dataConsulta = \DateTime::createFromFormat("Ymd", $referencia.$dia);
+                                $dataConsulta->setTime(0, 0);
+                                if ( ($dataConsulta->format("w") == 6) || ($dataConsulta->format("w") == 0) ){
+                                    $numeroDiasUteis -= 1;
+                                }
+                            }
+                            
+                            $dados['referencia'] = $referencia;
+                            $dados['ultimoDiaImportado'] = $data['ultimoDia'];
+                            $dados['numeroDiasUteis'] = $numeroDiasUteis;
+                            
+                            $constantes_mes_repo->incluir_ou_editar($dados);
+
+                            return $this->redirect()->toRoute('sig-rh/importacao-ponto', ['action' => 'index']);
 			} else {
                             print_r($form->getMessages());
                             die();
@@ -125,6 +157,5 @@ class ImportacaoPontoController extends AbstractActionController
                 return new ViewModel([
 				'importacaoPonto' => $importacaoPonto,
 		]);
-		
 	}
 }

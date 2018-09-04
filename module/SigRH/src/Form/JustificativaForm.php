@@ -70,6 +70,41 @@ class JustificativaForm extends Form {
                 ]
             ],
         ]);
+        
+        //Adiciona o campo "listar"
+        $this->add([
+            'type' => 'select',
+            'name' => 'listar',
+            'attributes' => [
+                'id' => 'listar',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Listar para escolha',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+
+        //Adiciona o campo "indicarCracha"
+        $this->add([
+            'type' => 'select',
+            'name' => 'indicarCracha',
+            'attributes' => [
+                'id' => 'indicarCracha',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Indicar o crachá de visitante usado',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
+            ],
+        ]);
+        
 
         $this->add([
             'type' => 'submit',
@@ -113,8 +148,17 @@ class JustificativaForm extends Form {
             'name' => 'indicarHorario',
             'required' => true,
         ]);
+        
+        $inputFilter->add([
+            'name' => 'listar',
+            'required' => true,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'indicarCracha',
+            'required' => true,
+        ]);
 
     }
-    
 
 }

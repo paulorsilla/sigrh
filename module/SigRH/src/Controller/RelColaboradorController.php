@@ -64,7 +64,7 @@ class RelColaboradorController extends AbstractActionController {
             "subLotacao" => $this->params()->fromQuery("subLotacao"),
             "instituicaoEnsino" => $this->params()->fromQuery("instituicaoEnsino"),
             "escala" => $this->params()->fromQuery("escala"),
-            "numeroChip" => $this->params()->fromQuery("numeroChip")
+            "numeroChip" => $this->params()->fromQuery("numeroChip"),
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -203,7 +203,7 @@ class RelColaboradorController extends AbstractActionController {
         if (!empty($search['numeroChip'])) {
             $numeroChip = $search['numeroChip'];
         }
-
+        
         $this->layout()
                 ->setTemplate("layout/impressao")
                 ->setVariable("titulo_impressao", "Colaboradores");

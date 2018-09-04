@@ -35,9 +35,16 @@ class Ocorrencia extends AbstractRepository {
             $row->setMovimentacaoPonto($movimentacaoPonto);
         }
         if (null == $recesso) {
-            $descricaoAux = $descricao;
-            if(strpos($row->getDescricao(), $descricaoAux) === false) {
-                $descricao = $row->getDescricao()." ".$descricao;
+            $dataAtual = new \DateTime();
+            $referencia = $movimentacaoPonto->getFolhaPonto()->getReferencia();
+            $diaPonto = sprintf("%02d", $movimentacaoPonto->getDiaPonto());
+            $dataPonto = $referencia.$diaPonto;
+            
+            if ( ($descricao == "-Omissão de ponto.") && ($dataPonto <= $dataAtual->format("Ymd")) ) { 
+                $descricaoAux = $descricao;
+                if(strpos($row->getDescricao(), $descricaoAux) === false) {
+                    $descricao = $row->getDescricao()." ".$descricao;
+                }
             }
         } else {
             $justificativa = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, 11);
@@ -60,6 +67,9 @@ class Ocorrencia extends AbstractRepository {
             if (!empty($data['justificativa2'])) {
                 $justificativa2 = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, $data['justificativa2']);
             }
+            if (!empty($data['numeroCrachaVisitante'])) {
+                $row->setNumeroCrachaVisitante($data['numeroCrachaVisitante']);
+            }
             $row->setJustificativa1($justificativa1);
             $row->setJustificativa2($justificativa2);
             $this->getEntityManager()->persist($row);
@@ -69,7 +79,7 @@ class Ocorrencia extends AbstractRepository {
     
     public function excluir($movimentacaoPonto) {
         $row = $this->findOneBy(['movimentacaoPonto' => $movimentacaoPonto]);
-        if ($row) {
+        if ( ($row) && (null == $row->getJustificativa1()) && (null == $row->getJustificativa2()) ) {
             $this->getEntityManager()->remove($row);
             $this->getEntityManager()->flush();
         }

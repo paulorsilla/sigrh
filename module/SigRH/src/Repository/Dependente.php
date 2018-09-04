@@ -67,12 +67,11 @@ class Dependente extends AbstractRepository {
         
         $row->setDataNascimento(null);
         if ($dados ['dataNascimento'] != "") {					
-            $dataNascimento = \DateTime::createFromFormat ( "d/m/Y", $dados ['dataNascimento'] );
+            $dataNascimento = \DateTime::createFromFormat ( "Y-m-d", $dados ['dataNascimento'] );
             if ( !empty($dataNascimento)  )
                $row->setDataNascimento($dataNascimento);
         }
         unset($dados['dataNascimento']);
-        
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
         //\Doctrine\Common\Util\Debug::dump($row);// nunca usar print_r para elemento doctrine

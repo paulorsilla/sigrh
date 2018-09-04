@@ -95,6 +95,17 @@ class OcorrenciaController extends AbstractActionController {
                         $stringIndicarHorario .= ",";
                     }
                 }
+                unset($search['indicarHorario']);
+                $search['indicarCracha'] = true;
+                $indicarCracha = $this->entityManager->getRepository(Justificativa::class)->getQuery($search)->getQuery()->getResult();
+                $stringIndicarCracha = '';
+                foreach($indicarCracha as $k => $justificativa) {
+                    $stringIndicarCracha .= $justificativa->getId();
+                    if(!empty($indicarCracha[$k+1])) {
+                        $stringIndicarCracha .= ",";
+                    }
+                }
+
                 $ocorrencia = $repo->find($id);
                 if (!empty($ocorrencia)) {
                     $movimentacaoPonto = $ocorrencia->getMovimentacaoPonto();
@@ -127,6 +138,7 @@ class OcorrenciaController extends AbstractActionController {
                         $form->get("saida2")->setValue(null != $registros[3] ? $registros[3]->getHoraRegistro()->format("H:i") : "");
                     }
                     $form->get("indicarHorario")->setValue($stringIndicarHorario);
+                    $form->get("indicarCracha")->setValue($stringIndicarCracha);
                 }
             }
         }

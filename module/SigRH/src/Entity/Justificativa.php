@@ -34,6 +34,15 @@ class Justificativa extends AbstractEntity {
      **/
     protected $considerarHoras;
     
+    /**
+     * @ORM\Column(name="listar", type="boolean")
+     */
+    protected $listar;
+    
+    /**
+     * @ORM\Column(name="indicar_cracha", type="boolean")
+     */
+    protected $indicarCracha;
     
     public function getId() {
         return $this->id;
@@ -51,6 +60,14 @@ class Justificativa extends AbstractEntity {
         return $this->considerarHoras;
     }
 
+    public function getListar() {
+        return $this->listar;
+    }
+
+    public function getIndicarCracha() {
+        return $this->indicarCracha;
+    }
+    
     public function setId($id) {
         $this->id = $id;
     }
@@ -65,6 +82,14 @@ class Justificativa extends AbstractEntity {
 
     public function setConsiderarHoras($considerarHoras) {
         $this->considerarHoras = $considerarHoras;
+    }
+    
+    public function setListar($listar) {
+        $this->listar = $listar;
+    }
+
+    public function setIndicarCracha($indicarCracha) {
+        $this->indicarCracha = $indicarCracha;
     }
     
 }

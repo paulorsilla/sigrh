@@ -43,7 +43,7 @@ class UserController extends AbstractActionController
         $lista_papel = [1 => "Admin", 2 => "Usuario", 3 => "Comum", 4 => "Estudante", 5 =>"Cadastro estudante"];
         
         $users = $this->entityManager->getRepository(User::class)
-                ->findBy([], ['id'=>'ASC']);
+                ->findBy([], ['nome'=>'ASC']);
         
         return new ViewModel([
             'users' => $users,

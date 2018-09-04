@@ -10,7 +10,9 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($this->contasCorrente as $cc): ?>
+        <?php 
+        $user = $this->identity();
+        foreach ($this->contasCorrente as $cc): ?>
             <tr>
                 <td><?php echo $this->escapeHtml($cc->getBanco()->getBanco()); ?></td>
                 <td><?php echo $this->escapeHtml($cc->getAgencia()); ?></td>
@@ -19,13 +21,14 @@
                 <td><?php echo $this->escapeHtml($cc->getNomeConjunta()); ?></td>
                 <td><?php echo $this->escapeHtml($cc->getCpfConjunta()); ?></td>
 
-                <td><button type="button" class="btn btn-primary btn-sm pull-center"
+                <td><?php if($user['papel'] != 3):?>
+                    <button type="button" class="btn btn-primary btn-sm pull-center"
                             onclick="editarContaCorrente('<?php echo $cc->getId();?>')"
                        title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
                     <button type="button" class="btn btn-primary btn-sm pull-center" 
                                onclick="excluirContaCorrente('<?php echo $cc->getId();?>')"
                         title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
-
+                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach; ?>

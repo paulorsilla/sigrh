@@ -8,6 +8,8 @@
                 <th>Descrição</th>
                 <th>Indicar Horário</th>
                 <th>Considerar Horas</th>
+                <th>Listar para escolha</th>
+                <th>Indicar crachá</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -18,6 +20,8 @@
                     <td><?php echo $this->escapeHtml($justificativa->getDescricao()); ?></td>
                     <td><?php echo ($justificativa->getIndicarHorario()) ? "Sim" : "Não"; ?></td>
                     <td><?php echo ($justificativa->getConsiderarHoras()) ? "Sim" : "Não"; ?></td>
+                    <td><?php echo ($justificativa->getListar()) ? "Sim" : "Não"; ?></td>
+                    <td><?php echo ($justificativa->getIndicarCracha()) ? "Sim" : "Não"; ?></td>
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?php echo $this->url('sig-rh/justificativa', ['action' => 'save', 'id' => $justificativa->getId()]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>

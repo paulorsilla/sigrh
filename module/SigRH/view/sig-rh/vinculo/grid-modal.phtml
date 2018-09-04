@@ -1,5 +1,6 @@
 <?php 
     $obrigatorio = [0 => "Não", 1 => "Sim"];
+    $user = $this->identity();
 ?>
 
 <table class="table table-striped table-hover">
@@ -32,25 +33,28 @@
                 <td><?php echo (null != $vinculo->getNivel()) ? $this->escapeHtml($vinculo->getNivel()->getDescricao()) : "-";?></td>
                 <td><?php echo (null != $vinculo->getObrigatorio()) ? $vinculo->getObrigatorio() ? "Sim" : "Não" : "-";?></td>
 
-                <td><button type="button" class="btn btn-primary btn-sm pull-center"
-                            onclick="editarVinculo('<?php echo $vinculo->getId();?>')"
-                       href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
-                    <button type="button" class="btn btn-primary btn-sm pull-center" 
-                               onclick="excluirVinculo('<?php echo $vinculo->getId();?>')"
-                       title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
-                       
-                    <button type="button" class="btn btn-primary btn-sm pull-center"
-                            onclick="clonarVinculo('<?php echo $vinculo->getId();?>','<?php echo $vinculo->colaboradorMatricula->getMatricula();?>')"
-                       title="Clonar registro."><span class="glyphicon glyphicon-refresh"></span></button>
-                       
-                    <button type="button" class="btn btn-primary btn-sm pull-center"
-                            onclick="editarRecessoObrigatorio('<?php echo $vinculo->getId();?>')"
-                       title="Gerenciar recesso obrigatório."><span class="glyphicon glyphicon-sunglasses"></span></button>
-                       
-                    <button type="button" class="btn btn-primary btn-sm pull-center"
-                            onclick="editarEscala('<?php echo $vinculo->getId();?>')"
-                       title="Gerenciar escala de horários."><span class="glyphicon glyphicon-time"></span></button>
+                <td>
+                    
+                    <?php if($user['papel'] != 3):?>
+                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                                onclick="editarVinculo('<?php echo $vinculo->getId();?>')"
+                           href="#" title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button type="button" class="btn btn-primary btn-sm pull-center" 
+                                   onclick="excluirVinculo('<?php echo $vinculo->getId();?>')"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></button>
 
+                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                                onclick="clonarVinculo('<?php echo $vinculo->getId();?>','<?php echo $vinculo->colaboradorMatricula->getMatricula();?>')"
+                           title="Clonar registro."><span class="glyphicon glyphicon-refresh"></span></button>
+
+                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                                onclick="editarRecessoObrigatorio('<?php echo $vinculo->getId();?>')"
+                           title="Gerenciar recesso obrigatório."><span class="glyphicon glyphicon-sunglasses"></span></button>
+
+                        <button type="button" class="btn btn-primary btn-sm pull-center"
+                                onclick="editarEscala('<?php echo $vinculo->getId();?>')"
+                           title="Gerenciar escala de horários."><span class="glyphicon glyphicon-time"></span></button>
+                    <?php endif;?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -40,6 +40,11 @@ class Ocorrencia extends AbstractEntity {
      */
     protected $descricao;
     
+    /**
+     * @ORM\Column(name="numero_cracha", type="string")
+     */
+    protected $numeroCrachaVisitante;
+    
     public function getId() {
         return $this->id;
     }
@@ -58,6 +63,10 @@ class Ocorrencia extends AbstractEntity {
 
     public function getJustificativa2() {
         return $this->justificativa2;
+    }
+    
+    public function getNumeroCrachaVisitante() {
+        return $this->numeroCrachaVisitante;
     }
     
     public function setId($id) {
@@ -79,5 +88,9 @@ class Ocorrencia extends AbstractEntity {
     public function setJustificativa2($justificativa) {
         $this->justificativa2 = $justificativa;
     }
-
+    
+    public function setNumeroCrachaVisitante($numeroCrachaVisitante) {
+        $this->numeroCrachaVisitante = $numeroCrachaVisitante;
+    }
+    
 }

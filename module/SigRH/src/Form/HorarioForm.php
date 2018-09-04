@@ -153,6 +153,27 @@ class HorarioForm extends Form {
     private function addInputFilter() {
         $inputFilter = new InputFilter();
         $this->setInputFilter($inputFilter);
+        
+        $inputFilter->add([
+            'name' => 'escalaSegunda',
+            'required' => false,
+        ]);
+        $inputFilter->add([
+            'name' => 'escalaTerca',
+            'required' => false,
+        ]);
+        $inputFilter->add([
+            'name' => 'escalaQuarta',
+            'required' => false,
+        ]);
+        $inputFilter->add([
+            'name' => 'escalaQuinta',
+            'required' => false,
+        ]);
+        $inputFilter->add([
+            'name' => 'escalaSexta',
+            'required' => false,
+        ]);
 
 //        $inputFilter->add([
 //            'name' => 'diaSemana',
