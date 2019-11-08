@@ -9,6 +9,8 @@ use SigRH\Entity\Ocorrencia;
 use SigRH\Entity\Justificativa;
 use SigRH\Entity\RegistroHorario;
 use SigRH\Form\OcorrenciaForm;
+use User\Entity\User;
+
 
 class OcorrenciaController extends AbstractActionController {
     
@@ -28,8 +30,8 @@ class OcorrenciaController extends AbstractActionController {
 	 */
 	public function __construct($entityManager, $objectManager)
 	{
-		$this->entityManager = $entityManager;
-                $this->objectManager = $objectManager;
+            $this->entityManager = $entityManager;
+            $this->objectManager = $objectManager;
 	}
     public function indexAction() {
         
@@ -38,9 +40,10 @@ class OcorrenciaController extends AbstractActionController {
     public function saveModalAction() {
         
         $id = $this->params()->fromRoute('id', null);
+        $user = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity()['login']);
         
         //Cria o formulário
-        $form = new OcorrenciaForm($this->objectManager);
+        $form = new OcorrenciaForm($this->objectManager, $user->getPapel());
         $movimentacaoPonto = null;
         $dataPonto = null;
         $escala = null;

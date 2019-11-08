@@ -3,6 +3,7 @@
 namespace SigRH\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Classe Colaborador.
@@ -248,18 +249,28 @@ class Colaborador extends AbstractEntity {
      * @ORM\Column(name="pis", type="string")
      */
     protected $pis;
-
+    
+    /**
+     * @ORM\Column(name="registro_profissional_numero", type="string")
+     */
+    protected $registroProfissional;
+    
+    /**
+     * @ORM\Column(name="papel", type="integer")
+     */
+    protected $papel;
+    
     /*
      * Construtor da classe Colaborador
      */
     
     public function __construct() {
-        $this->contasCorrente = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->dependentes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->estagios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->vinculos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->horarios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->crachas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contasCorrente = new ArrayCollection();
+        $this->dependentes = new ArrayCollection();
+        $this->estagios = new ArrayCollection();
+        $this->vinculos = new ArrayCollection();
+        $this->horarios = new ArrayCollection();
+        $this->crachas = new ArrayCollection();
     }
 
     /**
@@ -443,7 +454,15 @@ class Colaborador extends AbstractEntity {
         return $this->crachas;
     }
 
-        /**
+    public function getRegistroProfissional() {
+        return $this->registroProfissional;
+    }
+    
+    public function getPapel() {
+        return $this->papel;
+    }
+
+    /**
      * Sets user ID.
      * 
      * @param int $id        	
@@ -541,6 +560,7 @@ class Colaborador extends AbstractEntity {
     }
 
     function setRamal($ramal) {
+        error_log("Setando ramal ==> ".$ramal);
         $this->ramal = $ramal;
     }
 
@@ -557,6 +577,7 @@ class Colaborador extends AbstractEntity {
     }
 
     function setEmailCorporativo($emailCorporativo) {
+        error_log("Setando email ==> ".$emailCorporativo);
         $this->emailCorporativo = $emailCorporativo;
     }
 
@@ -626,6 +647,14 @@ class Colaborador extends AbstractEntity {
 
     public function setCrachas($crachas) {
         $this->crachas = $crachas;
+    }
+    
+    public function setRegistroProfissional($registroProfissional) {
+        $this->registroProfissional = $registroProfissional;
+    }
+    
+    public function setPapel($papel) {
+        $this->papel = $papel;
     }
 
 }

@@ -31,7 +31,7 @@ class BancoController extends AbstractActionController
                 $paginator = $repo->getPaginator($page,$search);
             
 		return new ViewModel([
-				'bancos' => $paginator,
+                        'bancos' => $paginator,
 		]);	
 	}
 	

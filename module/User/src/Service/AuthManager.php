@@ -2,7 +2,8 @@
 
 namespace User\Service;
 
-use User\Entity\User;
+//use User\Entity\User;
+use SigRH\Entity\Colaborador;
 
 /**
  * The AuthManager service is responsible for user's login/logout and simple access
@@ -63,9 +64,9 @@ class AuthManager {
                 }
             
                 //Verifica se o usuário está cadastrado no sistema
-		$user = $this->entityManager->getRepository(User::class)->findOneByLogin($login);
+		$user = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($login);
+                
 		$result = new \Zend\Authentication\Result(0, null);
-
                 
                 if ($user != null) {
 		

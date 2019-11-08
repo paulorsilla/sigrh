@@ -7,10 +7,10 @@ $this->headTitle($title);
 
 <p>
     Deseja realmente excluir 
-    "<?= $this->escapeHtml($banco->getBanco()); ?>"
+    "<?php echo $this->escapeHtml($banco->getBanco()); ?>"
 </p>
 
-<form action="<?= $url ?>" method="post">
+<form action="<?php echo $url ?>" method="post">
     <div class="form-group">
         <input type="hidden" name="id" value="<?= (int) $banco->getId() ?>" />
         <input type="submit" class="btn btn-danger" name="del" value="Sim" />

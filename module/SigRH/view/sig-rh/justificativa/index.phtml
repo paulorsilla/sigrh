@@ -1,4 +1,9 @@
+<?php 
+$listarJustificativa = ["0" => "Não",  "1" => "Sim", "2" => "Admin" ]
+?>
+
 <h1>Justificativas cadastradas</h1>
+
 <div class="row">
 
     <table class="table table-striped table-hover">
@@ -20,7 +25,7 @@
                     <td><?php echo $this->escapeHtml($justificativa->getDescricao()); ?></td>
                     <td><?php echo ($justificativa->getIndicarHorario()) ? "Sim" : "Não"; ?></td>
                     <td><?php echo ($justificativa->getConsiderarHoras()) ? "Sim" : "Não"; ?></td>
-                    <td><?php echo ($justificativa->getListar()) ? "Sim" : "Não"; ?></td>
+                    <td><?php echo ($listarJustificativa[$justificativa->getListar()]); ?></td>
                     <td><?php echo ($justificativa->getIndicarCracha()) ? "Sim" : "Não"; ?></td>
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?php echo $this->url('sig-rh/justificativa', ['action' => 'save', 'id' => $justificativa->getId()]) ?>"

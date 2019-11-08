@@ -7,9 +7,22 @@ use SigRH\Entity\RegistroHorario as RegistroHorarioEntity;
 
 class MovimentacaoPonto extends AbstractRepository {
 
-//    public function getQuery($search = []) {
-//
-//    }
+    public function getQuery($search = []) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('m')
+                ->from(MovimentacaoPontoEntity::class, 'm');
+        if (!empty($search['referencia'])) {
+            $qb->innerJoin('m.folhaPonto', 'f')
+               ->where('f.referencia = :referencia')
+               ->setParameter('referencia', $search['referencia']);
+        }
+        if (!empty($search['dia'])) {
+            $qb->andWhere('m.diaPonto = :dia')
+               ->setParameter('dia', $search['dia']); 
+        }
+       return $qb;
+
+    }
     
     public function delete($id) {
         $row = $this->find($id);

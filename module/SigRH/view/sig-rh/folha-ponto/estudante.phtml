@@ -43,15 +43,9 @@
                         <a class="btn btn-primary btn-sm pull-center"
                            href="<?php echo $this->url('sig-rh/folha-ponto', ['action' => 'impressao', 'id' => $folhaPonto->getId(), 'referencia' => $folhaPonto->getReferencia(), 'nomePesquisa' => $this->nome, 'restrito' => 1, 'page' => $this->page]) ?>"
                            title="Imprimir folha ponto."><span class="glyphicon glyphicon-print"></span></a>
-                           
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <span class="pull-right">
-        <?php echo $this->paginationControl($this->folhasPonto, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/folha-ponto']); ?>
-    </span>
 </div>
-
-</form>

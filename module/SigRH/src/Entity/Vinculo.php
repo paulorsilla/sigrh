@@ -53,13 +53,13 @@ class Vinculo extends AbstractEntity {
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
      * @ORM\JoinColumn(name="instituicao_ensino_id", referencedColumnName="cod_instituicao")
      **/        
-    protected $instituicaoEnsino; 
+    protected $instituicaoEnsino;
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Instituicao")
      * @ORM\JoinColumn(name="instituicao_fomento_id", referencedColumnName="cod_instituicao")
      **/        
-    protected $instituicaoFomento; 
+    protected $instituicaoFomento;
     
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\ModalidadeBolsa")

@@ -8,21 +8,30 @@
                 <th>Razão social</th>
                 <th>Nome fantasia</th>
                 <th>PF/PJ</th>
+                <th>Opções</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($this->instituicoes as $instituicao): ?>
                 <tr>
-                    <td><?= $this->escapeHtml($instituicao->getCodInstituicao()); ?></td>
-                    <td><?= $this->escapeHtml($instituicao->getDesRazaoSocial()); ?></td>
-                    <td><?= $this->escapeHtml($instituicao->getNomFantasia()); ?></td>
-                    <td><?= $this->escapeHtml($instituicao->getDesPfPj()); ?></td>
+                    <td><?php echo $this->escapeHtml($instituicao->getCodInstituicao()); ?></td>
+                    <td><?php echo $this->escapeHtml($instituicao->getDesRazaoSocial()); ?></td>
+                    <td><?php echo $this->escapeHtml($instituicao->getNomFantasia()); ?></td>
+                    <td><?php echo $this->escapeHtml($instituicao->getDesPfPj()); ?></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?php echo $this->url('sig-rh/instituicao', ['action' => 'save', 'id' => $instituicao->getCodInstituicao()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
     <span class="pull-right">
-        <?= $this->paginationControl($this->instituicoes, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/instituicao']); ?>
+        <?php echo $this->paginationControl($this->instituicoes, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/instituicao']); ?>
     </span>
 </div>
 
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/instituicao/save">Novo registro</a>
+</div>

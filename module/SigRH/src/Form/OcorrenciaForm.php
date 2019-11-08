@@ -11,16 +11,20 @@ use Zend\InputFilter\InputFilter;
 class OcorrenciaForm extends Form {
 
     protected $objectManager;
+    protected $papel;
+    protected $listar;
 
     /**
      * Construtor
      */
-    public function __construct($objectManager) {
+    public function __construct($objectManager, $papel) {
         //Determina o nome do formulário
         parent::__construct('ocorrencia-form');
 
         $this->objectManager = $objectManager;
-
+        $this->papel = $papel;
+        $this->listar = ($papel == 1) ? "2":"1";
+        
         //Define o método POST para envio do formulário
         $this->setAttribute('method', 'post');
         $this->addElements();
@@ -34,7 +38,7 @@ class OcorrenciaForm extends Form {
     public function getObjectManager() {
         return $this->objectManager;
     }
-
+    
     protected function addElements() {
         //Adiciona o campo "descricao"
         $this->add([
@@ -138,9 +142,9 @@ class OcorrenciaForm extends Form {
                 'display_empty_item' => true,
                 'is_method' => true,
                 'find_method' => [
-                    'name'      =>'findBy',
+                    'name'      =>'getQuery',
                     'params'    => [
-                        'criteria'  => ['listar' => '1'],
+                        'search' => ['listar' => $this->listar, 'combo' => 1]
                     ],
                 ],
             ]
@@ -165,9 +169,9 @@ class OcorrenciaForm extends Form {
                 'display_empty_item' => true,
                 'is_method' => true,
                 'find_method' => [
-                    'name'      =>'findBy',
+                    'name'      =>'getQuery',
                     'params'    => [
-                        'criteria'  => ['listar' => '1'],
+                        'search' => ['listar' => $this->listar, 'combo' => 1]
                     ],
                 ],
             ]
@@ -262,7 +266,5 @@ class OcorrenciaForm extends Form {
             'name' => 'saida2',
             'required' => false,
         ]);
-
     }
-
 }

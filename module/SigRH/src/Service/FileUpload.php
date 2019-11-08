@@ -56,6 +56,8 @@ class FileUpload {
     public function uploadFoto($file, $matricula)
     {
         $fileName = $file['name'];
+        error_log($fileName);
+        
 	$uploadDir = __DIR__."/../../../../public/img/fotos/jpg/";
         $tmp_fileName = $file['tmp_name'];
         if ( (file_exists($tmp_fileName)) && (getimagesize($tmp_fileName) !== FALSE) ) {

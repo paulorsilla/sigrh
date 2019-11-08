@@ -20,19 +20,19 @@ class GrupoSanguineoController extends AbstractActionController
 	 */
 	public function __construct($entityManager)
 	{
-		$this->entityManager = $entityManager;
+            $this->entityManager = $entityManager;
 	}
 	
 	public function indexAction()
 	{
-                $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
-                $page = $this->params()->fromQuery('page', 1);
-                $search = $this->params()->fromPost();
-                $paginator = $repo->getPaginator($page,$search);
-            
-		return new ViewModel([
-				'grupoSanguineos' => $paginator,
-		]);	
+            $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
+            $page = $this->params()->fromQuery('page', 1);
+            $search = $this->params()->fromPost();
+            $paginator = $repo->getPaginator($page,$search);
+
+            return new ViewModel([
+                'grupoSanguineos' => $paginator,
+            ]);	
 	}
 	
 	/**
@@ -40,36 +40,36 @@ class GrupoSanguineoController extends AbstractActionController
 	 */
 	public function saveAction()
 	{
-                $id = $this->params()->fromRoute('id', null);
-		//Cria o formulário
-		$form = new GrupoSanguineoForm();
-		
-		//Verifica se a requisição utiliza o método POST
-		if ($this->getRequest()->isPost()) {
-			
-			//Recebe os dados via POST
-			$data = $this->params()->fromPost();
-			
-			//Preenche o form com os dados recebidos e o valida
-			$form->setData($data);
-			if ($form->isValid()) {
-				$data = $form->getData();
-                                $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
-                                $repo->incluir_ou_editar($data,$id);
-				return $this->redirect()->toRoute('sig-rh/grupo-sanguineo', ['action' => 'save']);
-			}
-		} else {
-                    if ( !empty($id)){
-                        $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
-                        $row = $repo->find($id);
-                        if ( !empty($row)){
-                            $form->setData($row->toArray());
-                        }
+            $id = $this->params()->fromRoute('id', null);
+            //Cria o formulário
+            $form = new GrupoSanguineoForm();
+
+            //Verifica se a requisição utiliza o método POST
+            if ($this->getRequest()->isPost()) {
+
+                //Recebe os dados via POST
+                $data = $this->params()->fromPost();
+
+                //Preenche o form com os dados recebidos e o valida
+                $form->setData($data);
+                if ($form->isValid()) {
+                    $data = $form->getData();
+                    $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
+                    $repo->incluir_ou_editar($data,$id);
+                    return $this->redirect()->toRoute('sig-rh/grupo-sanguineo', ['action' => 'save']);
+                }
+            } else {
+                if ( !empty($id)){
+                    $repo = $this->entityManager->getRepository(GrupoSanguineo::class);
+                    $row = $repo->find($id);
+                    if ( !empty($row)){
+                        $form->setData($row->toArray());
                     }
                 }
-		return new ViewModel([
-				'form' => $form
-		]);
+            }
+            return new ViewModel([
+                            'form' => $form
+            ]);
 	}
 	
 	public function deleteAction()

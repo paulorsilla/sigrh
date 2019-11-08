@@ -92,7 +92,6 @@ if ($this->folhaPonto != null):
                 <td>
                     <?php 
                         if ( $ultimoDiaImportado >= $movimentacaoPonto->getDiaPonto() ) {
-
                             $saldoMinutos = $movimentacaoPonto->getSaldoMinutos();
                             if($saldoMinutos < 0) {
                                 $horasSaldo = sprintf('%03d', intdiv($saldoMinutos, 60));
@@ -125,7 +124,7 @@ if ($this->folhaPonto != null):
                 </td>
                 <td><?php 
                     if ($ultimoDiaImportado >= $movimentacaoPonto->getDiaPonto() ):
-                        if($ocorrenciaId != null):?>
+                        if($ocorrenciaId != null && $ocorrencia->getDescricao() != ''):?>
                             <button type="button" class="btn btn-sm btn-primary pull-left" data-toggle="tooltip" data-placement="top" title="Justificar ocorrência." onclick="novaJustificativa('<?php echo $ocorrenciaId;?>')">
                                 <span class="glyphicon glyphicon-copy"></span>
                             </button>

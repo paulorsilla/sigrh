@@ -126,7 +126,7 @@ class Colaborador extends AbstractRepository {
                 ->setParameter("dataTerminoFim", $dataTerminoFim->format("Ymd"));
         }
 
-        if ( !empty($search["obrigatorio"]) ){
+        if ( !empty($search["obrigatorio"]) ) {
             if ($search['obrigatorio'] == '9') {
                 $search['obrigatorio'] = 0;
             }
@@ -136,8 +136,11 @@ class Colaborador extends AbstractRepository {
         
         if ( (isset($search['ativo'])) && ($search['ativo'] != "T")) {
             switch($search['ativo']) {
-                case 'S': $qb->andWhere('v.dataDesligamento is NULL'); break;
-                case 'N': $qb->andWhere('v.dataDesligamento is NOT NULL');
+                case 'S': 
+                    $qb->andWhere('v.dataDesligamento is NULL and v.tipoVinculo != 11');
+                    break;
+                case 'N':
+                    $qb->andWhere('v.dataDesligamento is NOT NULL OR v.tipoVinculo = 11'); //tipovinculo 11 => pratas da casa
             }
         }
         
@@ -204,9 +207,14 @@ class Colaborador extends AbstractRepository {
                ->andWhere("v.dataDesligamento >= :dataControle OR v.dataDesligamento is NULL")
                ->setParameter("dataControle", $search["referenciaEstatistica"]."31");
         }
-//        echo "SQL: ".$qb->getQuery()->getSQL();        
-//        die();
-          
+
+        if ( (!empty($search['ativoEmInicio'])) && (!empty($search['ativoEmFinal']))) {
+            $qb->andWhere("v.dataInicio <= :dataControleF")
+               ->andWhere("v.dataDesligamento >= :dataControleI or v.dataDesligamento is NULL")
+               ->setParameter("dataControleI", $search["ativoEmInicio"])
+               ->setParameter("dataControleF", $search["ativoEmFinal"]);
+        }
+        
         if (!empty($search['combo'])) {
             if ($search['combo'] == 1) {
                 $array = [];
@@ -221,6 +229,24 @@ class Colaborador extends AbstractRepository {
         } else {
             return $qb->getQuery();
         }
+    }
+   
+    public function getColaboradoresRecesso($dataIni, $dataFim)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+//        $qb->select('c.nome, c.cpf, r.dataInicio, r.dataTermino, v.obrigatorio, i.desRazaoSocial')
+        $qb->select('c.matricula, c.nome, c.cpf, r.dataInicio, r.dataTermino, v.obrigatorio')
+                ->from(ColaboradorEntity::class, 'c')
+                ->orderby('c.nome','ASC')
+                ->join('c.vinculos', 'v')
+//                ->join('v.instituicaoFomento', 'i')
+                ->join('v.recessos', 'r')
+                ->where('r.dataInicio >= :dataIni1 or r.dataTermino >= :dataIni2')
+                ->andWhere('r.dataInicio <= :dataFim')
+                ->setParameter('dataIni1', $dataIni)
+                ->setParameter('dataIni2', $dataIni)
+                ->setParameter('dataFim', $dataFim);
+       return $qb->getQuery();
     }
     
     public function getEstagiarios($graduacao = false, $foraEmbrapaSoja = false)
@@ -266,12 +292,14 @@ class Colaborador extends AbstractRepository {
         $query->select('MAX(c.matricula) AS last_matricula');
         $query->where("c.matricula like '5_____' ");
         $row = $query->getQuery()->getOneOrNullResult();
-        if ( empty($row) || $row['last_matricula'] < 500000)
+        if ( empty($row) || $row['last_matricula'] < 500000) {
             return 500000;
-        else
-            return $row['last_matricula'];        
+        } 
+        else {
+            return $row['last_matricula'];         
+        }
     }
-    public function incluir_ou_editar($dados,$id = null){
+    public function incluir_ou_editar($dados, $id = null) {
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
@@ -321,6 +349,7 @@ class Colaborador extends AbstractRepository {
             $endereco->setCidade($cidade);
         }
         unset($dados['cidade']);
+        $this->getEntityManager()->persist($endereco);
         
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -385,37 +414,41 @@ class Colaborador extends AbstractRepository {
         $row->setDataAdmissao(null);
         if ($dados ['dataAdmissao'] != "") {					
             $dataAdmissao = \DateTime::createFromFormat ( "Y-m-d", $dados ['dataAdmissao'] );
-            if ( !empty($dataAdmissao)  )
+            if ( !empty($dataAdmissao)  ) {
                 $row->setDataAdmissao($dataAdmissao);
+            }
         }
         unset($dados['dataAdmissao']);
         
         $row->setDataDesligamento(null);
         if ($dados ['dataDesligamento'] != "") {					
             $dataDesligamento = \DateTime::createFromFormat ( "Y-m-d", $dados ['dataDesligamento'] );
-            if ( !empty($dataDesligamento)  )
+            if ( !empty($dataDesligamento)  ) {
                 $row->setDataDesligamento($dataDesligamento);
+            }
         }
         unset($dados['dataDesligamento']);
         
         $row->setRgDataEmissao(null);
         if ($dados ['rgDataEmissao'] != "") {					
             $rgDataEmissao = \DateTime::createFromFormat ( "Y-m-d", $dados ['rgDataEmissao'] );
-            if ( !empty($rgDataEmissao)  )
+            if ( !empty($rgDataEmissao)  ) {
                 $row->setRgDataEmissao($rgDataEmissao);
+            }
         }
         unset($dados['rgDataEmissao']);
         
         $row->setCtpsDataExpedicao(null);
         if ($dados ['ctpsDataExpedicao'] != "") {					
             $ctpsDataExpedicao = \DateTime::createFromFormat ( "Y-m-d", $dados ['ctpsDataExpedicao'] );
-            if ( !empty($ctpsDataExpedicao)  )
+            if ( !empty($ctpsDataExpedicao)  ) {
                 $row->setCtpsDataExpedicao($ctpsDataExpedicao);
+            }
         }
         unset($dados['ctpsDataExpedicao']);
         
-        if ( !empty($dados['linhaOnibus'] )) {
-            $estadoCivil = $this->getEntityManager()->find('SigRH\Entity\LinhaOnibus', $dados['linhaOnibus']); //busca as informações
+        if ( !empty($dados['linhaOnibus'])) {
+            $linhaOnibus = $this->getEntityManager()->find('SigRH\Entity\LinhaOnibus', $dados['linhaOnibus']); //busca as informações
             $row->setLinhaOnibus($linhaOnibus);
         }
         unset($dados['linhaOnibus']);
@@ -427,10 +460,8 @@ class Colaborador extends AbstractRepository {
         unset($dados['cpf']);
         
         $row->setData($dados); // setar os dados da model a partir dos dados capturados do formulario
-        $this->getEntityManager()->persist($endereco);
         $this->getEntityManager()->persist($row); // persiste o model  ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
-        
         return $row;
     }
 

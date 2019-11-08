@@ -25,7 +25,6 @@ return [
                     ],
                 ],
             ],
-            
             'sig-rh' => [
                 'type' => Literal::class,
                 'options' => [
@@ -55,7 +54,7 @@ return [
                         'type' => Segment::class,
                         'options' => [
                             'route' => '/barcode[/:type/:label]',
-                            'constraints' => [     
+                            'constraints' => [
                                 'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'label' => '[a-zA-Z0-9_-]*'
                             ],
@@ -63,7 +62,7 @@ return [
                                 'controller' => Controller\IndexController::class,
                                 'action' => 'barcode',
                             ],
-                        ],          
+                        ],
                     ],
                     'cidade' => [
                         'type' => Segment::class,
@@ -79,7 +78,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -95,7 +93,6 @@ return [
                             ]
                         ]
                     ],
-
                     'constantes-mes' => [
                         'type' => Segment::class,
                         'options' => [
@@ -111,7 +108,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'convenio' => [
                         'type' => Segment::class,
                         'options' => [
@@ -126,7 +122,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'conta-corrente' => [
                         'type' => Segment::class,
                         'options' => [
@@ -141,7 +136,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'cor-pele' => [
                         'type' => Segment::class,
                         'options' => [
@@ -156,7 +150,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'cracha' => [
                         'type' => Segment::class,
                         'options' => [
@@ -171,7 +164,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'curso' => [
                         'type' => Segment::class,
                         'options' => [
@@ -186,7 +178,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'dependente' => [
                         'type' => Segment::class,
                         'options' => [
@@ -201,7 +192,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'estado-civil' => [
                         'type' => Segment::class,
                         'options' => [
@@ -216,7 +206,6 @@ return [
                             ]
                         ]
                     ],
-
                     'feriado' => [
                         'type' => Segment::class,
                         'options' => [
@@ -231,7 +220,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'folha-ponto' => [
                         'type' => Segment::class,
                         'options' => [
@@ -243,15 +231,13 @@ return [
                                 'nomePesquisa' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'restrito' => '[0-9]',
                                 'page' => '[0-9]+'
-
-                                ],
+                            ],
                             'defaults' => [
                                 'controller' => Controller\FolhaPontoController::class,
                                 'action' => 'index'
                             ]
                         ]
                     ],
-                    
                     'fonte-seguro' => [
                         'type' => Segment::class,
                         'options' => [
@@ -266,7 +252,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'grau-instrucao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -281,7 +266,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'grupo-sanguineo' => [
                         'type' => Segment::class,
                         'options' => [
@@ -296,7 +280,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'horario' => [
                         'type' => Segment::class,
                         'options' => [
@@ -311,7 +294,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'importacao-ponto' => [
                         'type' => Segment::class,
                         'options' => [
@@ -325,8 +307,7 @@ return [
                                 'action' => 'index'
                             ]
                         ]
-                    ], 
-                    
+                    ],
                     'instituicao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -341,7 +322,6 @@ return [
                             ]
                         ]
                     ],
-
                     'justificativa' => [
                         'type' => Segment::class,
                         'options' => [
@@ -356,7 +336,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'linha-onibus' => [
                         'type' => Segment::class,
                         'options' => [
@@ -371,7 +350,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'localizacao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -386,7 +364,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'modalidade-bolsa' => [
                         'type' => Segment::class,
                         'options' => [
@@ -401,7 +378,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'movimentacao-ponto' => [
                         'type' => Segment::class,
                         'options' => [
@@ -416,7 +392,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'nivel' => [
                         'type' => Segment::class,
                         'options' => [
@@ -431,7 +406,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'ocorrencia' => [
                         'type' => Segment::class,
                         'options' => [
@@ -445,8 +419,7 @@ return [
                                 'action' => 'index'
                             ]
                         ]
-                    ],                    
-
+                    ],
                     'recesso-obrigatorio' => [
                         'type' => Segment::class,
                         'options' => [
@@ -461,7 +434,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'registro-horario' => [
                         'type' => Segment::class,
                         'options' => [
@@ -476,7 +448,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'rel-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -490,8 +461,7 @@ return [
                                 'action' => 'index'
                             ]
                         ]
-                    ],                    
-                    
+                    ],
                     'sublotacao' => [
                         'type' => Segment::class,
                         'options' => [
@@ -506,7 +476,6 @@ return [
                             ]
                         ]
                     ],
-                    
                     'tipo-colaborador' => [
                         'type' => Segment::class,
                         'options' => [
@@ -521,7 +490,20 @@ return [
                             ]
                         ]
                     ],
-                    
+                    'tipo-vinculo' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/tipo-vinculo[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\TipoVinculoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'vinculo' => [
                         'type' => Segment::class,
                         'options' => [
@@ -536,12 +518,10 @@ return [
                             ]
                         ]
                     ],
-                    
                 ],
             ],
         ],
     ],
-    
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
@@ -577,202 +557,164 @@ return [
             Controller\RelColaboradorController::class => Service\Factory\RelControllerFactory::class,
             Controller\SublotacaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\TipoColaboradorController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\TipoVinculoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\VinculoController::class => Service\Factory\PadraoControllerFactory::class,
         ],
     ],
-    
-    'access_filter' => [ // Customizar as pemissoes de acesso
-        
+    'access_filter' => [// Customizar as pemissoes de acesso
+
         /*
          *  1 => "Admin", 
-            2 => "Usuario", 
-            3 => "Comum", 
-            4 => "Estudante", 
-            5 => "Convidado"
+          2 => "Usuario",
+          3 => "Comum",
+          4 => "Estudante",
+          5 => "Convidado"
          */
-    'controllers' => [
+        'controllers' => [
             /* Cadastros Gerais */
             Controller\BancoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\CidadeController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\ColaboradorController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2,3)],  // Admin, Usuario e comum para consultas
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2, 3)], // Admin, Usuario e comum para consultas
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\ContaCorrenteController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-
             Controller\ConvenioController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\CorPeleController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\CrachaController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\CursoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\DependenteController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\EscalaController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\EstadoCivilController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
-//            Controller\EstagioController::class => [
-//                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
-//                ['actions' => ['delete'], 'allow' => 1] // admin
-//            ],
-                    
             Controller\FeriadoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-        
             Controller\FonteSeguroController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\GrauInstrucaoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\GrupoSanguineoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\HorarioController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\InstituicaoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-        
             Controller\JustificativaController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-
             Controller\LinhaOnibusController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\LocalizacaoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-
             Controller\ModalidadeBolsaController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\NivelController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\OcorrenciaController::class => [
                 ['actions' => ['save'], 'allow' => 'admin'],
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-        
             Controller\RecessoObrigatorioController::class => [
                 ['actions' => ['save'], 'allow' => 'admin'],
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
             Controller\SublotacaoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
 //            Controller\TermoController::class => [
 //                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
 //                ['actions' => ['delete'], 'allow' => 1] // admin
 //            ],
-            
             Controller\TipoColaboradorController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-            
+            Controller\TipoVinculoController::class => [
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
+                ['actions' => ['delete'], 'allow' => 1] // admin
+            ],
             Controller\VinculoController::class => [
-                ['actions' => ['index','save'], 'allow' => array(1,2)],  // Admin e Usuario
+                ['actions' => ['index', 'save'], 'allow' => array(1, 2)], // Admin e Usuario
                 ['actions' => ['delete'], 'allow' => 1] // admin
             ],
-
             /* Relatorios */
             Controller\RelColaboradorController::class => [
-                ['actions' => ['index','gerar-html','csv'], 'allow' => array(1,2,3,5)]
+                ['actions' => ['index', 'gerar-html', 'csv'], 'allow' => array(1, 2, 3, 5)]
             ],
-            
             /* ponto */
 //            Controller\BatidaPontoController::class => [
 //                ['actions' => ['index', 'folhaPonto'], 'allow' => 1]
 //            ],
 //            
-
             Controller\FolhaPontoController::class => [
-                ['actions' => ['index'], 'allow' => [1,2]],
-                ['actions' => ['impressao'], 'allow' => [1,2,4]]
+                ['actions' => ['index'], 'allow' => [1, 2]],
+                ['actions' => ['impressao'], 'allow' => [1, 2, 4]]
             ],
-
             Controller\MovimentacaoPontoController::class => [
                 ['actions' => ['index'], 'allow' => 1]
             ],
-        
             Controller\ImportacaoPontoController::class => [
                 ['actions' => ['index'], 'allow' => 1]
             ],
-
             Controller\OcorrenciaController::class => [
                 ['actions' => ['gerar'], 'allow' => 1]
             ],
-        
             Controller\RegistroHorarioController::class => [
-                ['actions' => ['save-modal', 'delete'], 'allow' => [1,2, 4]],  // Admin e Usuario
+                ['actions' => ['save-modal', 'delete'], 'allow' => [1, 2, 4]], // Admin e Usuario
             ],
-
         ]
-        
     ],
-    
     'doctrine' => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [
@@ -789,7 +731,6 @@ return [
             ]
         ]
     ],
-    
     'service_manager' => [
         'factories' => [
             Service\Atividades::class => Service\Factory\AtividadesFactory::class,
@@ -797,7 +738,6 @@ return [
             Service\FileUpload::class => Service\Factory\FileUploadFactory::class
         ]
     ],
-    
     'view_manager' => [
         'display_not_found_reason' => true,
         'display_exceptions' => true,
@@ -810,11 +750,9 @@ return [
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ],
-        
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
-        
         'strategies' => array(
             'ViewJsonStrategy',
         ),

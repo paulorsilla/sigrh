@@ -35,7 +35,7 @@ class Justificativa extends AbstractEntity {
     protected $considerarHoras;
     
     /**
-     * @ORM\Column(name="listar", type="boolean")
+     * @ORM\Column(name="listar", type="integer")
      */
     protected $listar;
     

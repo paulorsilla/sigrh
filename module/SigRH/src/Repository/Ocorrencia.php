@@ -28,7 +28,7 @@ class Ocorrencia extends AbstractRepository {
         return $qb->getQuery();//->getResult();
     }
     
-    public function incluir_ou_editar($movimentacaoPonto, $descricao, $recesso=null) {
+    public function incluir_ou_editar($movimentacaoPonto, $descricao, $recesso = null) {
         $row = $this->findOneBy(['movimentacaoPonto' => $movimentacaoPonto]);
         if (!$row) {
             $row = new OcorrenciaEntity();
@@ -38,19 +38,22 @@ class Ocorrencia extends AbstractRepository {
             $dataAtual = new \DateTime();
             $referencia = $movimentacaoPonto->getFolhaPonto()->getReferencia();
             $diaPonto = sprintf("%02d", $movimentacaoPonto->getDiaPonto());
-            $dataPonto = $referencia.$diaPonto;
+            $dataPonto = (int) $referencia.$diaPonto;
             
             if ( ($descricao == "-Omissão de ponto.") && ($dataPonto <= $dataAtual->format("Ymd")) ) { 
                 $descricaoAux = $descricao;
-                if(strpos($row->getDescricao(), $descricaoAux) === false) {
+                if ( (strpos($row->getDescricao(), $descricaoAux) === false) && (strpos($row->getDescricao(), "Feriado") === False) && (strpos($row->getDescricao(), "Recesso") === False)) {
                     $descricao = $row->getDescricao()." ".$descricao;
+                    $row->setDescricao($descricao);
                 }
+            } else {
+                $row->setDescricao($descricao);
             }
         } else {
+            $row->setDescricao("-Recesso obrigatório.");
             $justificativa = $this->getEntityManager()->find(\SigRH\Entity\Justificativa::class, 11);
             $row->setJustificativa1($justificativa);
         }
-        $row->setDescricao($descricao);
         $this->getEntityManager()->persist($row); // persiste o model no banco ( preparar o insert / update)
         $this->getEntityManager()->flush(); // Confirma a atualizacao
         return $row;

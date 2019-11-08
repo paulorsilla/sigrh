@@ -72,8 +72,15 @@
                     <li><a data-toggle="tab" href="#escalaHorarios">Escala de Horários</a></li>
                     <li><a data-toggle="tab" href="#informacoesBancarias">Informações Bancárias</a></li>
                     <li><a data-toggle="tab" href="#vinculo">Vínculo</a></li>
+
+                    <?php 
+                    if (count($this->colaborador->getVinculos()) > 0) {
+                        $vinculoCorrente = $this->colaborador->getVinculos()->first();
+                    } else {
+                        $vinculoCorrente = null;
+                    }
                     
-                    <?php if((null != $this->colaborador->getTipoColaborador()) && ($this->colaborador->getTipoColaborador()->getId() == 1)):?>
+                    if((null != $vinculoCorrente) && ($vinculoCorrente->getTipoVinculo()->getId() == 1)):?>
                         <li><a data-toggle="tab" href="#dependentes">Dependentes</a></li>
                     <?php endif;?>
                 </ul>
@@ -141,15 +148,16 @@
 
                         <div class="row">
                             <div class="col-md-4"><?php echo $this->formRow($form->get('pis')); ?></div>
-                            <div class="col-md-8"></div>
+                            <div class="col-md-5"><?php echo $this->formRow($form->get('registroProfissional')); ?></div>
                         </div>
                     </div>
                     
                     <div id="dadosInstitucionais" class="tab-pane fade">
 
                         <div class="row">
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('papel')); ?></div>
+                            <div class="col-md-3"><?php echo $this->formRow($form->get('loginLocal')); ?></div>
                             <div class="col-md-6"><?php echo $this->formRow($form->get('loginSede')); ?></div>
-                            <div class="col-md-6"><?php echo $this->formRow($form->get('loginLocal')); ?></div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"><?php echo $this->formRow($form->get('ramal')); ?></div>
@@ -168,7 +176,6 @@
                         </div>
                         <?php if ( !empty($this->colaborador) ) { 
                             $matricula = $this->colaborador->getMatricula();
-                            $vinculoCorrente = $this->colaborador->getVinculos()->first();
                             if ( !empty($matricula) ) { ?>
                             <div class="row">
                                 <div class="col-md-12">

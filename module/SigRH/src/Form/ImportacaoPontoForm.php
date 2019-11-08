@@ -77,7 +77,6 @@ class ImportacaoPontoForm extends Form {
                 'label' => 'Até o dia'
             ],
         ]);
-
         
         //Adiciona o campo "usuario"
         $this->add([
@@ -91,7 +90,7 @@ class ImportacaoPontoForm extends Form {
             'options' => [
                 'label' => 'Usuário',
                 'object_manager' => $this->getObjectManager(),
-                'target_class' => \User\Entity\User::class,
+                'target_class' => \SigRH\Entity\Colaborador::class,
                 'property' => 'nome',
                 'display_empty_item' => false,
             ]

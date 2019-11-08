@@ -6,191 +6,206 @@
     foreach ($this->folhasPonto as $folha):
         $descricaoFolha = "";
         $colaborador = $folha->getColaboradorMatricula();
+
+        $vinculoAtual = null;
+        $diaPesq = 1;
+        while($vinculoAtual == null && $diaPesq <= 31 ) {
+            $dataPesquisa = \DateTime::createFromFormat("Ymd", $folha->getReferencia().$diaPesq);
+            $dataPesquisa->setTime(0, 0);
+            $vinculoAtual = $this->repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $folha->getReferencia(), $dataPesquisa);
+            $diaPesq += 1;
+        }
+        if (null != $vinculoAtual) {
+            $numeroDiasSemana = count($vinculoAtual->getHorarios()); 
+            if($numeroDiasSemana == 5) {
+                $cargaHorariaMin = $vinculoAtual->getChSemanal() / 5 * 60 * $this->constantesMes->getNumeroDiasUteis();
+            } else {
+                $cargaHorariaMin = $vinculoAtual->getChSemanal() / $numeroDiasSemana * 60 * (4 * $numeroDiasSemana);
+            }
         
-        $vinculoAtual = $this->repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $folha->getReferencia());
-        $cargaHorariaMin = $vinculoAtual->getChSemanal() / 5 * 60 * $this->constantesMes->getNumeroDiasUteis();
-        $saldoMinutosTotal = $folha->getSaldoMinutos();
-        if($saldoMinutosTotal < 0) {
-            $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
-        } else {
-            $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
-        }
-        $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));
+            $cargaHH = sprintf('%02d', intdiv($cargaHorariaMin, 60));
+            $cargaMM = sprintf('%02d', ($cargaHorariaMin % 60));                
 
-        $dataPesquisa = \DateTime::createFromFormat("Ymd", $folha->getReferencia()."01");
-        $dataPesquisa->setTime(0, 0);
-        switch($vinculoAtual->getTipoVinculo()->getDescricao()) {
-            case "Treinando": $descricaoFolha = " - TREINAMENTO"; break;
-            case "Bolsista": $descricaoFolha = " - BOLSISTA"; break;
-            case "Estagiário": $descricaoFolha = " - ESTÁGIO"; break;
-            case "Estudante": $descricaoFolha = " - ESTÁGIO"; break;
-        }
-        $excedido = false;
-        if ($saldoMinutosTotal > $cargaHorariaMin) {
-            $excedido = true;
-        } 
-        ?>
-                <div class="row">
-                    <div class="col-xs-2"><img src="/img/embrapa-cor.png" height="40"></div>
-                    <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL <?php echo $descricaoFolha;?></h4></div>
-                </div>
-                <hr>    
-                <div class="row">
-                    <div class="col-xs-2">
-                        <b>Mês/Ano:</b><br>
-                        <?php echo $this->escapeHtml($dataPesquisa->format("m/Y"));?>
-                    </div>
+            $saldoMinutosTotal = $folha->getSaldoMinutos();
+            if($saldoMinutosTotal < 0) {
+                $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
+            } else {
+                $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
+            }
+            $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));
 
-                    <div class="col-xs-2">
-                        <b>Unidade:</b><br>
-                        Embrapa Soja
-                    </div>
-                    <div class="col-xs-2">
-                        <b>CH Semanal:</b><br>
-                        <?php echo $this->escapeHtml($vinculoAtual->getChSemanal())." horas";?>
-                    </div>
-
-                    <div class="col-xs-6">
-                        <b>Área:</b><br>
-                        <?php echo (null != $vinculoAtual->getSublotacao()) ? $this->escapeHtml($vinculoAtual->getSublotacao()->getDescricao()) : "";?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-4">
-                        <b>Nome:</b><br>
-                        <?php echo $this->escapeHtml($colaborador->getNome());?>
-                    </div>
-                    <div class="col-xs-2">
-                        <b>Matrícula:</b><br>
-                        <?php echo $this->escapeHtml($colaborador->getMatricula());?>
-                    </div>
-                    <div class="col-xs-6">
-                        <b>Orientador:</b><br>
-                        <?php echo (null != $vinculoAtual->getOrientador()) ? $this->escapeHtml($vinculoAtual->getOrientador()->getNome()) : "";?>
-                    </div>
-                </div><br>
-                <hr style="margin: 0px;">
-                <div class="row">
-                    <div class="col-xs-2";>
-                        <small style="font-size: 10px">
-                            <b>Dia/Dia semana</b>
-                        </small>
-                    </div>
-                    <div class="col-xs-3">
-                        <small style="font-size: 10px">
-                            <b>Registro(s)</b>
-                        </small>
-                    </div>
-                    <div class="col-xs-1 text-right">
-                        <small style="font-size: 10px">
-                            <b>Horas</b>
-                        </small>
-                    </div>
-                    <div class="col-xs-6">
-                        <small style="font-size: 10px">
-                            <b>Observações</b>
-                        </small>
-                    </div>
-                </div>
-
-                <hr style="margin: 0px;">
-
-                <?php 
-                if ($excedido) { ?>
+            switch($vinculoAtual->getTipoVinculo()->getDescricao()) {
+                case "Treinando": $descricaoFolha = " - TREINAMENTO"; break;
+                case "Bolsista": $descricaoFolha = " - BOLSISTA"; break;
+                case "Estagiário": $descricaoFolha = " - ESTÁGIO"; break;
+                case "Estudante": $descricaoFolha = " - ESTÁGIO"; break;
+            }
+            $excedido = false;
+            if ($saldoMinutosTotal > $cargaHorariaMin) {
+                $excedido = true;
+            } 
+            ?>
                     <div class="row">
-                        <div class="col-xs-12">
-                            <p class="alert-danger">ATENÇÃO: O total de horas realizadas no mês excedeu o limite do contrato (<?php echo $cargaHorariaMin/60;?>:00hs).</p>
-                        </div>
+                        <div class="col-xs-2"><img src="/img/embrapa-cor.png" height="40"></div>
+                        <div class="col-xs-10" style="text-align: center;"><h4>FOLHA DE FREQUÊNCIA MENSAL <?php echo $descricaoFolha;?></h4></div>
                     </div>
-                            
-                <?php } else {
-                foreach ($folha->getMovimentacaoPonto() as $movimentacaoPonto):
-                    $dataPonto = \DateTime::createFromFormat("Ymd", $folha->getReferencia().$movimentacaoPonto->getDiaPonto());
-                    $dataPonto->setTime(0, 0); 
-                    $saldoMinutos = $movimentacaoPonto->getSaldoMinutos();
-                    if($saldoMinutos < 0) {
-                        $horasSaldo = sprintf('%03d', intdiv($saldoMinutos, 60));
-                    } else {
-                        $horasSaldo = sprintf('%02d', intdiv($saldoMinutos, 60));
-                    }
-                    $minutosSaldo = sprintf('%02d', ($saldoMinutos % 60)); 
-
-                    if($saldoMinutosTotal < 0) {
-                        $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
-                    } else {
-                        $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
-                    }
-                    $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));                
-                    ?>
-                
-
+                    <hr>    
                     <div class="row">
                         <div class="col-xs-2">
+                            <b>Mês/Ano:</b><br>
+                            <?php echo $this->escapeHtml($dataPesquisa->format("m/Y"));?>
+                        </div>
+
+                        <div class="col-xs-2">
+                            <b>Unidade:</b><br>
+                            Embrapa Soja
+                        </div>
+                        <div class="col-xs-2">
+                            <b>CH Semanal:</b><br>
+                            <?php echo $this->escapeHtml($vinculoAtual->getChSemanal())." horas";?>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <b>Área:</b><br>
+                            <?php echo (null != $vinculoAtual->getSublotacao()) ? $this->escapeHtml($vinculoAtual->getSublotacao()->getDescricao()) : "";?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <b>Nome:</b><br>
+                            <?php echo $this->escapeHtml($colaborador->getNome());?>
+                        </div>
+                        <div class="col-xs-2">
+                            <b>Matrícula:</b><br>
+                            <?php echo $this->escapeHtml($colaborador->getMatricula());?>
+                        </div>
+                        <div class="col-xs-6">
+                            <b>Orientador:</b><br>
+                            <?php echo (null != $vinculoAtual->getOrientador()) ? $this->escapeHtml($vinculoAtual->getOrientador()->getNome()) : "";?>
+                        </div>
+                    </div><br>
+                    <hr style="margin: 0px;">
+                    <div class="row">
+                        <div class="col-xs-2";>
                             <small style="font-size: 10px">
-                                <?php echo $this->escapeHtml($movimentacaoPonto->getDiaPonto()); ?>
-                                /
-                                <?php echo $this->escapeHtml($diasSemana[$dataPonto->format("w")]); ?>
+                                <b>Dia/Dia semana</b>
                             </small>
                         </div>
-                        <div class="col-xs-3 text-left">
+                        <div class="col-xs-3">
                             <small style="font-size: 10px">
-                                <?php foreach($movimentacaoPonto->getRegistros() as $registro):
-                                    echo $this->escapeHtml($registro->getHoraRegistro()->format("H:i").$tiposRegistro[$registro->getTipo()]. " ");
-                                endforeach;?>
+                                <b>Registro(s)</b>
                             </small>
                         </div>
                         <div class="col-xs-1 text-right">
                             <small style="font-size: 10px">
-                                <?php echo (($horasSaldo == 0) && ($minutosSaldo == 0)) ? "" : $this->escapeHtml($horasSaldo.":".$minutosSaldo);?>
+                                <b>Horas</b>
                             </small>
                         </div>
                         <div class="col-xs-6">
                             <small style="font-size: 10px">
-                            <?php 
-                            if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
-                                echo "-Feriado.";
-                            endif;
-                            $ocorrenciaId = null;
-                            foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
-                                $descricaoAux = str_replace(' fora da tolerância', '', $ocorrencia->getDescricao());
-                                echo $descricaoAux;
-                                echo (null != $ocorrencia->getJustificativa1()) ? " (".$ocorrencia->getJustificativa1()->getDescricao().")" : "";
-                                echo (null != $ocorrencia->getJustificativa2()) ? " (".$ocorrencia->getJustificativa2()->getDescricao().")" : "";
-                            endforeach;
-                            ?></small>
+                                <b>Observações</b>
+                            </small>
                         </div>
                     </div>
-                <?php endforeach;
-                }
-                ?>
-                <br>
-                <hr style="margin: 0px;">
 
-                <div class="row">
-                    <div class="col-xs-2">
-                        <small style="font-size: 10px">
-                            <b>Horas a cumprir: </b>
-                        </small>
+                    <hr style="margin: 0px;">
+
+                <?php 
+                if ($excedido && $this->usuario->getPapel() != 1) { ?>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p class="alert-danger">ATENÇÃO: O total de horas realizadas no mês (<?php echo $horasSaldoTotal . ":" . $minutosSaldoTotal."hs";?>) excedeu o limite do contrato (<?php echo $cargaHorariaMin/60;?>:00hs).</p>
+                        </div>
                     </div>
-                    <div class="col-xs-1 text-right">
-                        <small style="font-size: 10px">
-                            <?php echo $cargaHorariaMin/60 . ":00" ?></b>
-                        </small>
+
+                <?php } else {
+
+                    foreach ($folha->getMovimentacaoPonto() as $movimentacaoPonto):
+                        $dataPonto = \DateTime::createFromFormat("Ymd", $folha->getReferencia().$movimentacaoPonto->getDiaPonto());
+                        $dataPonto->setTime(0, 0); 
+                        $vinculoAtual = $this->repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $folha->getReferencia(), $dataPonto);
+
+                        $saldoMinutos = $movimentacaoPonto->getSaldoMinutos();
+                        if($saldoMinutos < 0) {
+                            $horasSaldo = sprintf('%03d', intdiv($saldoMinutos, 60));
+                        } else {
+                            $horasSaldo = sprintf('%02d', intdiv($saldoMinutos, 60));
+                        }
+                        $minutosSaldo = sprintf('%02d', ($saldoMinutos % 60)); 
+
+                        if($saldoMinutosTotal < 0) {
+                            $horasSaldoTotal = sprintf('%03d', intdiv($saldoMinutosTotal, 60));
+                        } else {
+                            $horasSaldoTotal = sprintf('%02d', intdiv($saldoMinutosTotal, 60));
+                        }
+                        $minutosSaldoTotal = sprintf('%02d', ($saldoMinutosTotal % 60));                
+                        ?>
+
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <small style="font-size: 10px">
+                                    <?php echo $this->escapeHtml($movimentacaoPonto->getDiaPonto()); ?>
+                                    /
+                                    <?php echo $this->escapeHtml($diasSemana[$dataPonto->format("w")]); ?>
+                                </small>
+                            </div>
+                            <div class="col-xs-3 text-left">
+                                <small style="font-size: 10px">
+                                    <?php foreach($movimentacaoPonto->getRegistros() as $registro):
+                                        echo $this->escapeHtml($registro->getHoraRegistro()->format("H:i").$tiposRegistro[$registro->getTipo()]. " ");
+                                    endforeach;?>
+                                </small>
+                            </div>
+                            <div class="col-xs-1 text-right">
+                                <small style="font-size: 10px">
+                                    <?php echo (($horasSaldo == 0) && ($minutosSaldo == 0)) ? "" : $this->escapeHtml($horasSaldo.":".$minutosSaldo);?>
+                                </small>
+                            </div>
+                            <div class="col-xs-6">
+                                <small style="font-size: 10px">
+                                <?php 
+                                if (isset($this->feriadosPeriodo[$dataPonto->format("d")])):
+                                    echo "-Feriado.";
+                                endif;
+                                $ocorrenciaId = null;
+                                foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia):
+                                    $descricaoAux = str_replace(' fora da tolerância', '', $ocorrencia->getDescricao());
+                                    echo $descricaoAux;
+                                    echo (null != $ocorrencia->getJustificativa1()) ? " (".$ocorrencia->getJustificativa1()->getDescricao().")" : "";
+                                    echo (null != $ocorrencia->getJustificativa2()) ? " (".$ocorrencia->getJustificativa2()->getDescricao().")" : "";
+                                endforeach;
+                                ?></small>
+                            </div>
+                        </div>
+                    <?php endforeach;?>
+
+                    <br>
+                    <hr style="margin: 0px;">
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <small style="font-size: 10px">
+                                <b>Horas a cumprir: </b>
+                            </small>
+                        </div>
+                        <div class="col-xs-1 text-right">
+                            <small style="font-size: 10px">
+                                <?php echo $cargaHH . ":" . $cargaMM ?></b>
+                            </small>
+                        </div>
+                        <div class="col-xs-2">
+                            <small style="font-size: 10px">
+                                <b>Horas realizadas: </b>
+                            </small>
+                        </div>
+                        <div class="col-xs-1 text-right">
+                            <small style="font-size: 10px">
+                                <?php echo $horasSaldoTotal . ":" . $minutosSaldoTotal; ?></b>
+                            </small>
+                        </div>
                     </div>
-                    <div class="col-xs-2">
-                        <small style="font-size: 10px">
-                            <b>Horas realizadas: </b>
-                        </small>
-                    </div>
-                    <div class="col-xs-1 text-right">
-                        <small style="font-size: 10px">
-                            <?php echo $horasSaldoTotal . ":" . $minutosSaldoTotal; ?></b>
-                        </small>
-                    </div>
-                </div>
-                <hr style="margin: 0px;">
-                <?php if (!$excedido):?>
+                    <hr style="margin: 0px;">
                     <br>
                     <div class="row">
                         <div class="col-xs-6">Londrina, _____de_______________de_________</div>
@@ -213,5 +228,11 @@
                         </div>
                     </div>
                     <p style="page-break-after: always">&nbsp;</p>
-                    <?php endif;?>
-            <?php endforeach;
+
+            <?php }
+        }
+        else {
+            echo "Erro ao processar vínculo. Verifique o cadastro.";
+        }
+        endforeach;
+        

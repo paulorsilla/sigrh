@@ -235,10 +235,10 @@ class Vinculo extends AbstractRepository {
         return $row;
     }
     
-    public function buscar_vinculo_por_referencia($matricula, $referencia) 
+    public function buscar_vinculo_por_referencia($matricula, $referencia, $dataPonto) 
     {
         $referenciaIni = $referencia."01";
-        $referenciaFim = $referencia."31";
+        $referenciaFim = $dataPonto->format("Ymd");
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('v')
                 ->from(VinculoEntity::class, 'v')
@@ -251,6 +251,7 @@ class Vinculo extends AbstractRepository {
                 ->setParameter("referenciaFim", $referenciaFim);
         $vinculo = $qb->getQuery()->getResult();
         $total = count($vinculo);
+        
         if ($total == 0) {
             return null;
         } else {

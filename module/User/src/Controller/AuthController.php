@@ -112,11 +112,13 @@ class AuthController extends AbstractActionController
                     }
                 } else {
                     $isLoginError = true;
+                    $this->authService->clearIdentity();
                 }                
             } else {
                 $isLoginError = true;
-            }           
-        } 
+                $this->authService->clearIdentity();
+            }
+        }
         
         return new ViewModel([
             'form' => $form,

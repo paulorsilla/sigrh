@@ -83,7 +83,8 @@ class JustificativaForm extends Form {
                 'label' => 'Listar para escolha',
                 'value_options' => [
                     "0" => "Não",
-                    "1" => "Sim"
+                    "1" => "Sim",
+                    "2" => "Admin"
                 ]
             ],
         ]);

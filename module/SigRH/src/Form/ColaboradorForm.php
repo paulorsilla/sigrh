@@ -423,20 +423,6 @@ class ColaboradorForm extends Form {
                 'label' => 'Login local'
             ],
         ]);
-
-        //Adiciona o campo "email_corporativo"
-        $this->add([
-            'type' => 'text',
-            'name' => 'email_corporativo',
-            'attributes' => [
-                'id' => 'email_corporativo',
-                'class' => 'form-control',
-                'placeholder' => 'Digite o e-mail corporativo aqui'
-            ],
-            'options' => [
-                'label' => 'Email corporativo'
-            ],
-        ]);
         
         //Adiciona o campo "portador_necessidade_especial"
         $this->add([
@@ -587,6 +573,21 @@ class ColaboradorForm extends Form {
                 'label' => 'Número do PIS'
             ],
         ]);
+        
+        //Adiciona o campo "registroProfissional"
+        $this->add([
+            'type' => 'text',
+            'name' => 'registroProfissional',
+            'attributes' => [
+                'id' => 'registroProfissional',
+                'class' => 'form-control',
+                'placeholder' => 'Digite o registro profissional aqui',
+                'required' => false,
+            ],
+            'options' => [
+                'label' => 'Registro profissional'
+            ],
+        ]);
 
         //Adiciona o campo "Observaçoes"
         $this->add([
@@ -661,7 +662,6 @@ class ColaboradorForm extends Form {
                 'display_empty_item' => true,
             ]
         ]);
-        
 
         ////////////campos do endereço.../////////////////////////////////////////////
         //Adiciona o campo "Endereço"
@@ -798,6 +798,26 @@ class ColaboradorForm extends Form {
                 
                 'display_empty_item' => true,
             ]
+        ]);
+        
+        $this->add([
+            'type' => 'select',
+            'name' => 'papel',
+            'attributes' => [
+                'id' => 'papel',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Papel',
+                'value_options' => [
+                    "" => "Selecione",
+                    "1" => "Admin",
+                    "2" => "Usuario",
+                    "3" => "Comum",
+                    "4" => "Estudante",
+                    "5" => "Cadastro Estudante",
+                ]
+            ],
         ]);
 
 //        //Adiciona o campo "Bairro"
@@ -972,7 +992,13 @@ class ColaboradorForm extends Form {
                 ],
             ],
         ]);
-        
+
+        //email_corporativo
+        $inputFilter->add([
+            'name' => 'emailCorporativo',
+            'required' => false,
+        ]);
+
         //data_desligamento
         $inputFilter->add([
             'name' => 'dataDesligamento',
@@ -991,7 +1017,16 @@ class ColaboradorForm extends Form {
             'required' => false,
         ]);
         
+        //registroProfissional
+        $inputFilter->add([
+            'name' => 'registroProfissional',
+            'required' => false,
+        ]);
         
+        //papel
+        $inputFilter->add([
+            'name' => 'papel',
+            'required' => false,
+        ]);
     }
-
 }

@@ -315,7 +315,7 @@ class VinculoForm extends Form {
                 'value_options' => [
                     "" => "Selecione",
                     "0" => "Determinado",
-                    "1" => "Pré-determinado"
+                    "1" => "Indeterminado"
                 ]
             ],
         ]);

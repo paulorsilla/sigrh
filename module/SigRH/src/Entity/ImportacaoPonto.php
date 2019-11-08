@@ -34,8 +34,8 @@ class ImportacaoPonto extends AbstractEntity{
     protected $log;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\User\Entity\User")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Colaborador")
+     * @ORM\JoinColumn(name="colaborador_matricula", referencedColumnName="matricula")
      */
     protected $usuario;
     

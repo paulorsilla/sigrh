@@ -73,11 +73,17 @@ else:
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->folhasPonto as $k => $folhaPonto): ?>
+            <?php foreach ($this->folhasPonto as $k => $folhaPonto):
+                $dataPonto = \DateTime::createFromFormat("Ymd", $folhaPonto->getReferencia()."31");
+                $dataPonto->setTime(0,0);
+                $colaborador = $folhaPonto->getColaboradorMatricula();
+                $vinculo = $this->repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $folhaPonto->getReferencia(), $dataPonto);
+
+                ?>
                 <tr>
                     <td><small><b><?php echo $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getNome()); ?></b></small></td>
-                    <td style="font-size: 11px;"><?php echo (null != $folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getInstituicaoFomento()) ? $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getInstituicaoFomento()->getDesRazaoSocial()) : "";?></td>
-                    <td style="font-size: 11px;"><?php echo $this->escapeHtml($folhaPonto->getColaboradorMatricula()->getVinculos()->first()->getOrientador()->getNome());?></td>
+                    <td style="font-size: 11px;"><?php echo (null != $vinculo && null != $vinculo->getInstituicaoFomento()) ? $this->escapeHtml($vinculo->getInstituicaoFomento()->getDesRazaoSocial()) : "";?></td>
+                    <td style="font-size: 11px;"><?php echo (null != $vinculo && null != $vinculo->getOrientador()) ? $this->escapeHtml($vinculo->getOrientador()->getNome()) : "";?></td>
                     <td style="font-size: 12px;"><?php echo $status[$folhaPonto->getStatus()];?></td>
                     <td>
                         <a class="btn btn-primary btn-sm pull-center"

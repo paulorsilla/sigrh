@@ -24,6 +24,7 @@
         <thead>
             <tr>
                 <th>Data</th>
+                <th>Dia semana</th>
                 <th>Nome</th>
                 <th>Descricao</th>
                 <th>Tipo</th>
@@ -34,6 +35,7 @@
             <?php foreach ($this->feriados as $feriado): ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($feriado->getDataFeriado()->format("d/m/Y")); ?></td>
+                    <td><?php echo $this->escapeHtml($this->diasSemana[$feriado->getDataFeriado()->format("N")]); ?></td>
                     <td><?php echo $this->escapeHtml($feriado->getNome()); ?></td>
                     <td><?php echo $this->escapeHtml($feriado->getDescricao()); ?></td>
                     <td><?php echo $this->escapeHtml($feriado->getTipoFeriado()->getDescricao()); ?></td>

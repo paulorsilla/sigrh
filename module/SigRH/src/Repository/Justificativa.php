@@ -11,7 +11,11 @@ class Justificativa extends AbstractRepository {
         $qb->select('j')
                 ->from(JustificativaEntity::class, 'j');
         if (!empty($search['listar'])) {
-            $qb->where('j.listar = 1');
+            if ($search['listar'] == 1) {
+                $qb->where('j.listar = 1');
+            } else {
+                $qb->where('j.listar > 0');
+            }
         }
         if (!empty($search['indicarHorario'])) {
             $qb->where('j.indicarHorario = 1');
@@ -19,7 +23,11 @@ class Justificativa extends AbstractRepository {
         if (!empty($search['indicarCracha'])) {
             $qb->where('j.indicarCracha = 1');
         }
-       return $qb;
+        if (!empty($search['combo'])) {
+            return $qb->getQuery()->getResult();
+        } else {
+            return $qb;
+        }
     }
     
     public function delete($id) {

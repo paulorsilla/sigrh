@@ -4,6 +4,24 @@ namespace SigRH\Repository;
 use SigRH\Entity\RegistroHorario as RegistroHorarioEntity;
 
 class RegistroHorario extends AbstractRepository {
+    
+    public function getQuery($search = []) {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('r')
+                ->from(RegistroHorarioEntity::class, 'r');
+        if (!empty($search['matricula'])) {
+            $horaCorte = \DateTime::createFromFormat( "H:i", "15:00");
+
+            $qb->innerJoin('r.movimentacaoPonto', 'm')
+               ->innerJoin('m.folhaPonto', 'f')
+               ->where('f.colaboradorMatricula = :matricula')
+               ->andWhere('r.horaRegistro > :horaCorte')
+               ->setParameter('matricula', $search['matricula'])
+               ->setParameter('horaCorte', $horaCorte);
+        }
+       return $qb;
+
+    }
 
     public function incluir_ou_editar($movimentacaoPonto, $hora) 
     {

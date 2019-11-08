@@ -85,19 +85,11 @@
                                         <li><a href="/sig-rh/linha-onibus">Linha de ônibus</a></li>
                                         <li><a href="/sig-rh/modalidade-bolsa">Modalidade bolsa</a></li>
                                         <li><a href="/sig-rh/nivel">Nível</a></li>
-                                        <li><a href="/sig-rh/tipo-colaborador">Tipo de colaboradores</a></li>
+                                        <li><a href="/sig-rh/tipo-vinculo">Tipo de vínculo</a></li>
                                     </ul>
                             </li>
                             <?php endif;?>
                             
-                            <?php if ( in_array( $user['papel'], array('1')) ): ?>
-                            <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Administração<b class="caret"></b></a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-
-                                        <li><a href="/users">Gerenciar usuários</a></li>
-                                </ul>
-                            </li>
-                            <?php endif;?>
                             <li><a href="/logout">Sair</a></li>
                         <?php endif;?>
                     </ul>

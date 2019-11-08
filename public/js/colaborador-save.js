@@ -149,11 +149,8 @@
         
         $.post(urlPost,dados,function(data){
             if ( data.success == 1 ){
-                
                 $("#HorarioModal").modal('hide');
                 refreshGridHorario(vinculoId);
-                 
-                
             } else {
                 $(".modal-body",$(obj).closest(".modal-content")).html(data);
             }

@@ -39,7 +39,7 @@ class VinculoController extends AbstractActionController
                 $paginator = $repo->getPaginator($page,$search);
             
                 $view = new ViewModel([
-				'vinculos' => $paginator,
+                    'vinculos' => $paginator,
 		]);
 		return 	$view->setTerminal(true);
 	}

@@ -1,0 +1,19 @@
+<?php
+$title = 'Excluir um registro';
+$url   = $this->url('sig-rh/tipo-vinculo', ['action' => 'delete', 'id' => $tipoVinculo->getId()]);
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title) ?></h1>
+
+<p>
+    Deseja realmente excluir
+    "<?php echo $this->escapeHtml($tipoVinculo->getDescricao()); ?>"
+</p>
+
+<form action="<?php echo $url ?>" method="post">
+    <div class="form-group">
+        <input type="hidden" name="id" value="<?php echo (int) $tipoVinculo->getId() ?>" />
+        <input type="submit" class="btn btn-danger" name="del" value="Sim" />
+        <input type="submit" class="btn btn-success" name="del" value="Não" />
+    </div>
+</form>

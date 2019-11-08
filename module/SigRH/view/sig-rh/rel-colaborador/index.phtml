@@ -239,18 +239,33 @@
             </select>
         </div>
         
-        <div class="col-sm-3 form-group">
-            <label for="numeroChip">Número do chip (crachá):</label>
+        <div class="col-sm-2 form-group">
+            <label for="numeroChip">Nº do chip (crachá):</label>
             <input class="form-control" type="text" value="" name="numeroChip" id="numeroChip"> 
+        </div>
+        
+        <div class="col-sm-3 form-group">
+                <label for="ativoEmInicio">Ativo em (início do período):</label>
+                <input class="form-control" type="date" value="" name="ativoEmInicio" id="ativoEmInicio"> 
+        </div>
+        
+        <div class="col-sm-3 form-group">
+                <label for="ativoEmFinal">Ativo em (final do período):</label>
+                <input class="form-control" type="date" value="" name="ativoEmFinal" id="ativoEmFinal"> 
         </div>
 
     </div>
     
     <div class="row">
-       <div class="col-sm-6 form-group" style="padding-top: 25px;">                  
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Relatório</button>
-                <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/gerar-cracha"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crachá</button>
-                <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/csv"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> CSV</button>                    
+       <div class="col-sm-8 form-group" style="padding-top: 25px;">                  
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Relatório</button>
+            <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/gerar-cracha"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Crachá</button>
+            <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/csv"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> CSV</button>                    
+            <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/gerar-documento-inicial"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Documentação inicial</button>
+            <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/gerar-documento-desligamento"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Documentação desligamento</button>
+       </div>
+        <div class="col-sm-4 form-group text-right" style="padding-top: 25px;">  
+            <button class="btn btn-default" type="submit" formaction="/sig-rh/rel-colaborador/captiveportalsql"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Captive Portal</button>
         </div>
     </div>
 </form>
@@ -284,9 +299,28 @@
     </div>
 </form>
 
+<hr>
+<form action="/sig-rh/rel-colaborador/feriascsv" method="get">
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="periodoFeriasIni">Início do período (mês/ano):</label>
+            <input class="form-control" type="text" value="" name="periodoFeriasIni" id="periodoFeriasIni"> 
+        </div>
+        <div class="col-sm-3">
+            <label for="periodoFeriasFim">Final do período (mês/ano):</label>
+            <input class="form-control" type="text" value="" name="periodoFeriasFim" id="periodoFeriasFim"> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Férias</button>
+        </div>
+    </div>
+</form>
+
+
 <script>
-    $("#periodoIni").inputmask("99/9999");
-    $("#periodoFim").inputmask("99/9999");
+    $("#periodoIni, #periodoFim, #periodoFeriasIni, #periodoFeriasFim").inputmask("99/9999");
 </script>
 
 

@@ -3,12 +3,15 @@
         <br>
         <button class="btn btn-secondary" onclick="print()" type="submit"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir</button>
         <?php 
-        $aniversariantes = False;
-        $vigencia = True;
+        $aniversariantes = false;
+        $vigencia = true;
+        $fomento = false;
+        
         if (!empty($this->tipoVinculo)):?>
             <h4>Tipo de vínculo: <?php echo $this->escapeHtml($this->tipoVinculo->getDescricao());?></h4>
         <?php endif;
-        if (!empty($this->instituicaoFomento)): ?>
+        if (!empty($this->instituicaoFomento)):
+            $fomento = true;?>
             <h4>Instituição de fomento: <?php echo $this->escapeHtml($this->instituicaoFomento->getDesRazaoSocial());?></h4>
         <?php endif;
         if (!empty($this->instituicaoEnsino)): ?>
@@ -53,9 +56,7 @@
             <h4>Escala de horários:
                 <?php echo $this->escala->getEscalaComposta();?>
             </h4>
-        <?php endif;
-        
-        ?>
+        <?php endif;?>
 
         <h4>Total de registros: <?php echo count($colaboradores);?></h4>    
             
@@ -67,10 +68,12 @@
                 <th>Nome</th>
                 <th>Matrícula</th>
                 <th>Tipo de vínculo</th>
+                <th>Orientador</th>
                 <th>Sublotação</th>
                 <th>Localização</th>
                 <th>Grau de instrução</th>
                 <th>Obrigatório</th>
+                <th>E-mail</th>
                 <?php if ($aniversariantes):?>
                     <th>Data de nascimento</th>
                     
@@ -78,6 +81,9 @@
                 <?php if ($vigencia):?>
                     <th>Início vigência</th>
                     <th>Término vigência</th>
+                <?php endif;
+                if ($fomento):?>
+                    <th>Valor bolsa</th>
                 <?php endif;
                 if ($this->identity() != null): 
                          $user = $this->identity(); // pegar o usuario logado da sessao e salvar em uma variavel para verificacoes de papel por exemplo?> 
@@ -96,17 +102,37 @@
                     <td><?php echo $this->escapeHtml($colaborador->nome); ?></td>
                     <td><?php echo $this->escapeHtml($colaborador->matricula); ?></td>
                     <td><?php echo (null != $vinculo && null != $vinculo->getTipoVinculo()) ? $this->escapeHtml($vinculo->getTipoVinculo()->getDescricao()) : "";?></td>
+                    <td><?php echo (null != $vinculo && null != $vinculo->getOrientador()) ? $this->escapeHtml($vinculo->getOrientador()->getNome()) : "";?></td>
                     <td><?php echo (null != $vinculo && null != $vinculo->getSublotacao()) ? $this->escapeHtml($vinculo->getSublotacao()->getDescricao()) : ""; ?></td>
                     <td><?php echo (null != $vinculo && null != $vinculo->getLocalizacao()) ? $this->escapeHtml($vinculo->getLocalizacao()->getDescricao()) : ""; ?></td>
                     <td><?php echo (null != $colaborador->getGrauInstrucao())? $this->escapeHtml($colaborador->getGrauInstrucao()->getDescricao()) : "";?></td>
                     <td><?php echo ($vinculo != NULL) ? $vinculo->getObrigatorio() ? "Sim" : "Não" : "-"; ?></td>
+                    <td><?php echo $this->escapeHtml($colaborador->getEmail())?></td>
                     <?php if ($aniversariantes):?>
                         <td><?php echo (null != $colaborador->getDataNascimento()) ? $this->escapeHtml($colaborador->getDataNascimento()->format("d/m/Y")) : "";?></td>
                     <?php endif;
-                    if ($vigencia):?>
-                        <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataInicio()) ? $vinculo->getDataInicio()->format("d/m/Y") : "-";?></td>
-                        <td><?php echo (NULL != $vinculo &&  NULL != $vinculo->getDataTermino()) ? $vinculo->getDataTermino()->format("d/m/Y") : "-";?></td>
+                    if ($vigencia):
+                        $dataInicioVigencia = "-";
+                        $dataTerminoVigencia = "-";
+                        if ($vinculo) {
+                            $dataInicioVigencia = (NULL != $vinculo->getDataInicio()) ? $vinculo->getDataInicio()->format("d/m/Y") : "";
+                            
+                            if (null != $vinculo->dataDesligamento) {
+                                $dataTerminoVigencia = $vinculo->dataDesligamento->format("d/m/Y")."*";
+                            } else if (null != $vinculo->dataTermino) {
+                                $dataTerminoVigencia = $vinculo->dataTermino->format("d/m/Y");
+                            }
+//                            $dataTerminoVigencia = (NULL != $vinculo->getDataDesligamento()) ? $vinculo->getDataDesligamento()->format("d/m/Y")."*" : $vinculo->getDataTermino()->format("d/m/Y");
+                        }
+                        
+                        ?>
+                        <td><?php echo $dataInicioVigencia;?></td>
+                        <td><?php echo $dataTerminoVigencia;?></td>
                     <?php endif;
+                    if ($fomento):?>
+                        <td><?php echo (null != $vinculo) ? $this->escapeHtml($vinculo->getValorBolsa()) : "-";?></td>
+                    <?php endif;
+
                     if ( in_array( $user['papel'], array('1')) ): ?>
                         <td><a class="btn btn-primary btn-sm pull-center"
                                 href="<?php echo $this->url('sig-rh/colaborador', ['action' => 'save', 'id' => $colaborador->getMatricula(), 'ativo' => 'S', 'page' => 1]) ?>"
@@ -153,5 +179,6 @@
                 endif;
             endforeach; ?>
     </table>
+    * - Data de desligamento.
     </div>
 </div>

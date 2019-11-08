@@ -78,15 +78,18 @@ class FolhaPontoController extends AbstractActionController
                     $paginator->setCurrentPageNumber($page);
                 }
             }
+            $repoVinculo = $this->entityManager->getRepository(Vinculo::class);
+
             return new ViewModel([
-                    'folhasPonto' => $paginator,
-                    'referencia' => $search['referencia'],
-                    'nome' => $search['nome'],
-                    'orientador' => $search['orientador'],
-                    'stringReferencia' => $stringReferencia,
-                    'status' => $search['status'],
-                    'instituicaoFomento' => $search['instituicaoFomento'],
-                    'page' => $page
+                'folhasPonto' => $paginator,
+                'referencia' => $search['referencia'],
+                'nome' => $search['nome'],
+                'orientador' => $search['orientador'],
+                'stringReferencia' => $stringReferencia,
+                'status' => $search['status'],
+                'instituicaoFomento' => $search['instituicaoFomento'],
+                'page' => $page,
+                'repoVinculo' => $repoVinculo
             ]);	
 	}
         
@@ -95,23 +98,26 @@ class FolhaPontoController extends AbstractActionController
             $meses = ['1' => 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
             $colaborador = null;
             if ($this->identity() != null) {
-                $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity());
-//               $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByMatricula('503348');
+                $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity()['login']);
+//               $colaborador = $this->entityManager->getRepository(Colaborador::class)->findOneByMatricula('502479');
             }
             
             $search['colaborador'] = $colaborador;
-            $page = $this->params()->fromQuery('page', 1);
+//            $page = $this->params()->fromQuery('page', 1);
             
             $repo = $this->entityManager->getRepository(FolhaPonto::class);
-            $adapter = new DoctrineAdapter(new ORMPaginator($repo->getQuery($search)));
-            $paginator = new Paginator($adapter);
-            $paginator->setDefaultItemCountPerPage(10);
-            $paginator->setCurrentPageNumber($page);
+            $folhasPonto = $repo->getQuery($search)->getQuery()->getResult();
+
+//            $adapter = new DoctrineAdapter(new ORMPaginator($repo->getQuery($search)));
+//            $paginator = new Paginator($adapter);
+//            $paginator->setDefaultItemCountPerPage(10);
+//            $paginator->setCurrentPageNumber($page);
             
             return new ViewModel([
                 'colaborador' => $colaborador,
                 'meses' => $meses,
-                'folhasPonto' => $paginator
+                'folhasPonto' => $folhasPonto
+//                'folhasPonto' => $paginator
             ]);
         }
         
@@ -138,26 +144,26 @@ class FolhaPontoController extends AbstractActionController
             foreach($folhasPonto as $folhaPonto) {
                 $colaborador = $folhaPonto->getColaboradorMatricula();
 
-                $vinculo = $repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $referencia);
-                if (null != $vinculo) {
-                    $horarioFlexivel = $vinculo->getHorarioFlexivel();
+                //saldo mensal da folha 
+                $saldoMinutosTotal = 0;
+                $pendencias = false;
 
-                    //saldo mensal da folha 
-                    $saldoMinutosTotal = 0;
+                //movimentacao ponto
+                foreach($folhaPonto->getMovimentacaoPonto() as $movimentacaoPonto) {
+                    $dataPonto = \DateTime::createFromFormat("Ymd", $referencia.$movimentacaoPonto->getDiaPonto());
+                    $dataPonto->setTime(0,0);
+                    $diaSemana = $dataPonto->format("w");
+                    $feriado = $this->entityManager->getRepository(Feriado::class)->findOneBy(['dataFeriado' => $dataPonto]);
+                    $expediente = true;
+                    if ($feriado) {
+                        $expediente = $feriado->getExpediente();
+                    }
+
+                    $vinculo = $repoVinculo->buscar_vinculo_por_referencia($colaborador->getMatricula(), $referencia, $dataPonto);
                     
-                    $pendencias = false;
-
-                    //movimentacao ponto
-                    foreach($folhaPonto->getMovimentacaoPonto() as $movimentacaoPonto) {
-                        $dataPonto = \DateTime::createFromFormat("Ymd", $referencia.$movimentacaoPonto->getDiaPonto());
-                        $dataPonto->setTime(0,0);
-                        $diaSemana = $dataPonto->format("w");
-                        $feriado = $this->entityManager->getRepository(Feriado::class)->findOneBy(['dataFeriado' => $dataPonto]);
-                        $expediente = true;
-                        if ($feriado) {
-                            $expediente = $feriado->getExpediente();
-                        }
-
+                    if (null != $vinculo) {
+                        $horarioFlexivel = $vinculo->getHorarioFlexivel();
+                        
                         //busca a escala do colaborador para a data
                         $escala = new \SigRH\Entity\Escala();
                         $possuiEscala = false;
@@ -266,7 +272,9 @@ class FolhaPontoController extends AbstractActionController
                                 $registrosEsperados = ["E2" => "", "S2" => ""];
                                 $intervaloMinutos = ["E2" => null, "S2" => null];
                             }
-                            
+                            $ocorrenciaDia = false;
+                            error_log("DIA PONTO =>".$movimentacaoPonto->getDiaPonto());
+
                             //registros de ponto realizados na data 
                             foreach($movimentacaoPonto->getRegistros() as $k => $registro) {
 
@@ -363,10 +371,9 @@ class FolhaPontoController extends AbstractActionController
                                     }
                                     if ( $lancarOcorrencia )  {
                                         $calcularMinutos = true;
-                                        $lancarOcorrencia = true;
+                                        $ocorrenciaDia = true;
+                                        error_log("ocorrencia dia ".$descricaoOcorrencia);
                                         $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, $descricaoOcorrencia);
-                                    } else {
-                                        $repoOcorrencia->excluir($movimentacaoPonto);
                                     }
                                 } else {
                                     $calcularMinutos = true;
@@ -376,7 +383,12 @@ class FolhaPontoController extends AbstractActionController
                                 }
                             }
                             
-                            if ( (null != $escala->getEntrada2()) && ($registrosEsperados["E2"] == "") && (!$horarioFlexivel)) {
+                            if (!$ocorrenciaDia) {
+                                $repoOcorrencia->excluir($movimentacaoPonto);
+                                error_log("limpando ocorrencias");
+                            }
+                            
+                            if ( (null != $escala->getEntrada2()) && ($registrosEsperados["E2"] == "") && (!$horarioFlexivel) && ($expediente) && (!$recesso)) {
                                 $calcularMinutos = true;
                                 $repoOcorrencia->incluir_ou_editar($movimentacaoPonto, "-Omissão de ponto.");
                             }
@@ -400,7 +412,7 @@ class FolhaPontoController extends AbstractActionController
                                     }
                                 }
      //                           $saldoMinutos = $considerarMinutos ?  (-1 * $cargaHorariaMinutos) : 0;
-                            } else if (!$horarioFlexivel && !$recesso) {
+                            } else if (!$horarioFlexivel && !$recesso && $expediente) {
                                 $repoOcorrencia->excluir($movimentacaoPonto);
                                 $saldoMinutos = $cargaHorariaMinutos;
                             } else {
@@ -477,6 +489,10 @@ class FolhaPontoController extends AbstractActionController
         {
             $id = $this->params()->fromRoute('id');
             $referencia = $this->params()->fromRoute('referencia');
+            $usuario = null;
+            if ($this->identity() != null) {
+                $usuario = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity()['login']);
+            }
 
             if ($id == '0') {
                 //imprime todas as folhas ponto do período de referência
@@ -498,7 +514,8 @@ class FolhaPontoController extends AbstractActionController
                 'folhasPonto' => $folhasPonto,
                 'feriadosPeriodo' => $feriadosPeriodo,
                 'repoVinculo' => $repoVinculo,
-                'constantesMes' => $constantesMes
+                'constantesMes' => $constantesMes,
+                'usuario' => $usuario
             ]);
         }
         
@@ -524,6 +541,76 @@ class FolhaPontoController extends AbstractActionController
             $this->entityManager->flush();
             return $this->redirect()->toUrl('/sig-rh/folha-ponto');
         }
+        
+        public function excluireferenciaAction()
+        {
+            $referencia = "201912";
+            $folhasPonto = $this->entityManager->getRepository(\SigRH\Entity\FolhaPonto::class)->getQuery(['referencia' => $referencia])->getQuery()->getResult();
+            error_log("Processando ".count($folhasPonto)." folhas ponto");
+            foreach ($folhasPonto as $folha) {
+                foreach($folha->getMovimentacaoPonto() as $movimentacao) {
+                    $registros = $movimentacao->getRegistros();
+                    $ocorrencias = $movimentacao->getOcorrencias();
+                    
+                    foreach($registros as $registro) {
+                        $this->entityManager->remove($registro);
+                    }
+                    $this->entityManager->flush();
+                    
+                    foreach($ocorrencias as $ocorrencia) {
+                        $this->entityManager->remove($ocorrencia);
+                    }
+                    $this->entityManager->flush();
+                    $this->entityManager->remove($movimentacao);
+                }
+                $this->entityManager->flush();
+                $this->entityManager->remove($folha);
+            }
+            $this->entityManager->flush();
+
+            error_log("fim");
+        }
+        
+        public function justificativageralAction() 
+        {
+//            $referencia = $this->params()->fromRoute('referencia');
+            $referencia = "201812";
+            $dia = "14";
+            $justificativaId = 12;
+            $justificativa = $this->entityManager->find(\SigRH\Entity\Justificativa::class, $justificativaId);
+            $movimentacoesPonto = $this->entityManager->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->getQuery(['referencia' => $referencia, 'dia' => $dia])->getQuery()->getResult();
+            
+            foreach($movimentacoesPonto as $movimentacaoPonto) {
+                foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia) {
+                    if($ocorrencia->getDescricao() != '-Recesso obrigatório.') {
+                        error_log($justificativa->getDescricao());
+                        $ocorrencia->setJustificativa1($justificativa);
+                        $this->entityManager->persist($ocorrencia);
+                    }
+                }
+            }
+            $this->entityManager->flush();
+            return $this->redirect()->toUrl('/sig-rh/folha-ponto');
+        }
+        
+        public function ajustaregistrosAction() 
+        {
+//            $referencia = $this->params()->fromRoute('referencia');
+            $matricula = "503629";
+            $registros = $this->entityManager->getRepository(\SigRH\Entity\RegistroHorario::class)->getQuery(['matricula' => $matricula])->getQuery()->getResult();
+            $horaCorte = \DateTime::createFromFormat( "H:i", "15:00");
+
+            foreach($registros as $registro) {
+                error_log($registro->getHoraRegistro()->format("H:i"));
+                $registro->setHoraRegistro($horaCorte);
+                $this->entityManager->persist($registro);
+                $this->entityManager->flush();
+            }
+//            $this->entityManager->flush();
+            return $this->redirect()->toUrl('/sig-rh/folha-ponto');
+        }
+
+
 
         
 }
