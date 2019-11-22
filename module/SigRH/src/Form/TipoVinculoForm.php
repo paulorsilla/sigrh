@@ -25,6 +25,7 @@ class TipoVinculoForm extends Form {
     }
 
     protected function addElements() {
+        
         //Adiciona o campo "descricao"
         $this->add([
             'type' => 'text',
@@ -34,6 +35,23 @@ class TipoVinculoForm extends Form {
             ],
             'options' => [
                 'label' => 'Descricao'
+            ],
+        ]);
+        
+        //Adiciona o campo "acessoSistema"
+        $this->add([
+            'type' => 'select',
+            'name' => 'acessoSistema',
+            'attributes' => [
+                'id' => 'acessoSistema',
+                'class' => 'form-control'
+            ],
+            'options' => [
+                'label' => 'Acesso ao sistema para emissão de folha ponto',
+                'value_options' => [
+                    "0" => "Não",
+                    "1" => "Sim"
+                ]
             ],
         ]);
 

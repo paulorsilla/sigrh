@@ -10,6 +10,7 @@ namespace SigRH\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use SigRH\Entity\Colaborador;
+use SigRH\Entity\Vinculo;
 
 //use User\Entity\User;
 //use Zend\Barcode\Barcode;
@@ -34,6 +35,17 @@ class IndexController extends AbstractActionController
     	if ($this->identity() != null) {
             $user = $this->entityManager->getRepository(Colaborador::class)->findOneByLoginLocal($this->identity()['login']);
     	}
+        if ($user) {
+            $dataAcesso = \DateTime::createFromFormat("Ymd", date("Ymd"));
+
+            $repoVinculo = $this->entityManager->getRepository(Vinculo::class);
+
+            $vinculo = $repoVinculo->buscar_vinculo_por_referencia($user->getMatricula(), date("Ym"), $dataAcesso);
+            if ( ( !$vinculo ) || ( !$vinculo->getTipoVinculo()->getAcessoSistema() ) ) {
+                return $this->redirect()->toRoute('/logout');
+            }
+
+        }
         return new ViewModel([
             'user' => $user
         ]);

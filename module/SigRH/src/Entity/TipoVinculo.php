@@ -24,28 +24,40 @@ class TipoVinculo extends AbstractEntity {
     protected $descricao;
 
     /**
+     * @ORM\Column(name="acesso_sistema", type="boolean")
+     */
+    protected $acessoSistema;
+
+    /**
      * Returns user ID.
-     * 
      * @return integer
      */
     public function getId() {
         return $this->id;
     }
 
-    function getDescricao() {
+    public function getDescricao() {
         return $this->descricao;
+    }
+    
+    public function getAcessoSistema() {
+        return $this->acessoSistema;
     }
     
     /**
      * Sets user ID.
-     * 
      * @param int $id        	
      */
     public function setId($id) {
         $this->id = $id;
     }
 
-    function setDescricao($descricao) {
+    public function setDescricao($descricao) {
         $this->descricao = $descricao;
     }
+    
+    public function setAcessoSistema($acessoSistema) {
+        $this->acessoSistema = $acessoSistema;
+    }
+    
 }

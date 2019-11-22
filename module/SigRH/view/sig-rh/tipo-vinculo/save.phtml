@@ -33,6 +33,10 @@ $form->get('submit')->setAttributes([
                 <?php echo $this->formElement($form->get('descricao')); ?>
                 <?php echo $this->formElementErrors($form->get('descricao')); ?>                  
 
+                <?php echo $this->formLabel($form->get('acessoSistema')); ?><br>
+                <?php echo $this->formElement($form->get('acessoSistema')); ?>
+                <?php echo $this->formElementErrors($form->get('acessoSistema')); ?>                  
+
                 <br>
                 <br>
                 <?php echo $this->formElement($form->get('submit')); ?>

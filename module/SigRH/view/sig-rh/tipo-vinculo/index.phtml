@@ -6,6 +6,7 @@
             <tr>
                 <th>Id</th>
                 <th>Tipo de vínculo</th>
+                <th>Acesso ao sistema para emissão de folha ponto</th>
                 <th>Opções</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
                 <tr>
                     <td><?php echo $this->escapeHtml($tipoVinculo->getId()); ?></td>
                     <td><?php echo $this->escapeHtml($tipoVinculo->getDescricao()); ?></td>
+                    <td><?php echo ($tipoVinculo->getAcessoSistema() ? "Sim" : "Não"); ?></td>
                     <td><a class="btn btn-primary btn-sm pull-center"
                            href="<?php echo $this->url('sig-rh/tipo-vinculo', ['action' => 'save', 'id' => $tipoVinculo->getId()]) ?>"
                            title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>

@@ -45,7 +45,7 @@ class Vinculo extends AbstractRepository {
         }
     }
     
-    public function incluir_ou_editar($dados,$id = null,$matricula=null) {
+    public function incluir_ou_editar($dados, $id = null,$matricula=null) {
         
         $row = null;
         if ( !empty($id)) { // verifica se foi passado o codigo (se sim, considera edicao)
