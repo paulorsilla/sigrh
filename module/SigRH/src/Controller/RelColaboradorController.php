@@ -62,6 +62,10 @@ class RelColaboradorController extends AbstractActionController {
             "inicioVigenciaFim" => $this->params()->fromQuery("inicioVigenciaFim"),
             "terminoVigenciaIni" => $this->params()->fromQuery("terminoVigenciaIni"),
             "terminoVigenciaFim" => $this->params()->fromQuery("terminoVigenciaFim"),
+            
+            "desligamentoIni" => $this->params()->fromQuery("desligamentoIni"),
+            "desligamentoFim" => $this->params()->fromQuery("desligamentoFim"),
+            
             "subLotacao" => $this->params()->fromQuery("subLotacao"),
             "instituicaoEnsino" => $this->params()->fromQuery("instituicaoEnsino"),
             "escala" => $this->params()->fromQuery("escala"),
@@ -193,6 +197,16 @@ class RelColaboradorController extends AbstractActionController {
         if (!empty($search['terminoVigenciaFim'])) {
             $terminoVigenciaFim = \DateTime::createFromFormat("Y-m-d", $search['terminoVigenciaFim']);
         }
+        
+        $desligamentoIni = NULL;
+        if (!empty($search['desligamentoIni'])) {
+            $desligamentoIni = \DateTime::createFromFormat("Y-m-d", $search['desligamentoIni']);
+        }
+
+        $desligamentoFim = NULL;
+        if (!empty($search['desligamentoFim'])) {
+            $desligamentoFim = \DateTime::createFromFormat("Y-m-d", $search['desligamentoFim']);
+        }
 
         $subLotacao = NULL;
         if (!empty($search['subLotacao'])) {
@@ -223,6 +237,8 @@ class RelColaboradorController extends AbstractActionController {
             "inicioVigenciaFim" => $inicioVigenciaFim,
             "terminoVigenciaIni" => $terminoVigenciaIni,
             "terminoVigenciaFim" => $terminoVigenciaFim,
+            "desligamentoIni" => $desligamentoIni,
+            "desligamentoFim" => $desligamentoFim,
             "subLotacao" => $subLotacao,
             "escala" => $escala,
             "numeroChip" => $numeroChip,

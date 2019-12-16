@@ -45,81 +45,34 @@
     </div>
 </div>
     <div class="row">
-        <div class="col-sm-3 form-group" >
-                     <label>Grupo sanguíneo: </label>
-                                    <select name="combo_grupoSanguineo" class="form-control">
-                                     <option value="">Selecione aqui...</option>
-                                     <?php foreach($this->array_grupoSanguineo as $row) { ?>
-                                        <option value="<?php echo $row["id"]; ?>"  
-                                                 <?php if ( (!empty($search["combo_grupoSanguineo"])) && ($row["id"] == $search["combo_grupoSanguineo"])){ echo "selected";}?>
-                                                ><?php echo $row["nome"]; ?></option>
-                                     <?php } ?>
-                                   </select>                      
-        </div>
-    
-        <div class="col-sm-3 form-group" >
-                     <label>Grau de instrução: </label>
-                                    <select name="combo_grauInstrucao" class="form-control">
-                                     <option value="">Selecione aqui...</option>
-                                     <?php foreach($this->array_grauInstrucao as $row) { ?>
-                                        <option value="<?php echo $row["id"]; ?>"  
-                                                 <?php if ( (!empty($search["combo_grauInstrucao"])) && ($row["id"] == $search["combo_grauInstrucao"])){ echo "selected";}?>
-                                                ><?php echo $row["nome"]; ?></option>
-                                     <?php } ?>
-                                   </select>                      
-        </div>
-    
-        <div class="col-sm-2 form-group" >
-        <label>Necessidades especiais: </label>
-            <select name="necessidadeEspecial" class="form-control">
-                <option value="">Selecione aqui...</option>
-                <option value="0" <?php if ( (!empty($search["necessidadeEspecial"])) && ("0" == $search["necessidadeEspecial"])) { echo "selected";}?>>Não</option>
-                <option value="1" <?php if ( (!empty($search["necessidadeEspecial"])) && ("1" == $search["necessidadeEspecial"])) { echo "selected";}?>>Sim</option>
-            </select>                      
-        </div>
-        
-        <div class="col-sm-2 form-group" >
-            <label for="sexo">Sexo: </label>
-            <select name="sexo" id="sexo" class="form-control">
-                <option value="">Selecione aqui...</option>
-                <option value="F" <?php if ( (!empty($search["sexo"])) && ("F" == $search["sexo"])) { echo "selected";}?>>Feminino</option>
-                <option value="M" <?php if ( (!empty($search["sexo"])) && ("M" == $search["sexo"])){ echo "selected";}?>>Masculino</option>
-            </select>                      
-        </div>
-    
-        <div class="col-sm-2 form-group" >
-            <label for="combo_estadoCivil">Estado civil: </label>
-                <select name="combo_estadoCivil" id="combo_estadoCivil" class="form-control">
-                    <option value="">Selecione aqui...</option>
-                     <?php foreach($this->array_estadoCivil as $row) { ?>
-                           <option value="<?php echo $row["id"]; ?>"  
-                                    <?php if ( (!empty($search["combo_estadoCivil"])) && ($row["id"] == $search["combo_estadoCivil"])){ echo "selected";}?>
-                                   ><?php echo $row["nome"]; ?></option>
-                        <?php } ?>
-                </select>                      
-        </div>
-        
-    </div>
-    
-    <div class="row">
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-2 form-group">
                 <label for="inicioVigenciaIni">Início vigência (início do período):</label>
                 <input class="form-control" type="date" value="" name="inicioVigenciaIni" id="inicioVigenciaIni"> 
             </div>
 
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-2 form-group">
                 <label for="inicioVigenciaFim">Início vigência (final do período):</label>
                 <input class="form-control" type="date" value="" name="inicioVigenciaFim" id="inicioVigenciaFim"> 
             </div>
 
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-2 form-group">
                 <label for="terminoVigenciaIni">Término vigência (início do período):</label>
                 <input class="form-control" type="date" value="" name="terminoVigenciaIni" id="terminoVigenciaIni"> 
             </div>
 
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-2 form-group">
                 <label for="terminoVigenciaFim">Término vigência (final do período):</label>
                 <input class="form-control" type="date" value="" name="terminoVigenciaFim" id="terminoVigenciaFim"> 
+            </div>
+        
+            <div class="col-sm-2 form-group">
+                <label for="desligamentoIni">Desligamento(início do período):</label>
+                <input class="form-control" type="date" value="" name="desligamentoIni" id="desligamentoIni">
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label for="desligamentoFim">Desligamento (final do período):</label>
+                <input class="form-control" type="date" value="" name="desligamentoFim" id="desligamentoFim">
             </div>
     </div>
 
@@ -255,6 +208,64 @@
         </div>
 
     </div>
+    
+    <div class="row">
+        <div class="col-sm-3 form-group" >
+                     <label>Grupo sanguíneo: </label>
+                                    <select name="combo_grupoSanguineo" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_grupoSanguineo as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( (!empty($search["combo_grupoSanguineo"])) && ($row["id"] == $search["combo_grupoSanguineo"])){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+    
+        <div class="col-sm-3 form-group" >
+                     <label>Grau de instrução: </label>
+                                    <select name="combo_grauInstrucao" class="form-control">
+                                     <option value="">Selecione aqui...</option>
+                                     <?php foreach($this->array_grauInstrucao as $row) { ?>
+                                        <option value="<?php echo $row["id"]; ?>"  
+                                                 <?php if ( (!empty($search["combo_grauInstrucao"])) && ($row["id"] == $search["combo_grauInstrucao"])){ echo "selected";}?>
+                                                ><?php echo $row["nome"]; ?></option>
+                                     <?php } ?>
+                                   </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+        <label>Necessidades especiais: </label>
+            <select name="necessidadeEspecial" class="form-control">
+                <option value="">Selecione aqui...</option>
+                <option value="0" <?php if ( (!empty($search["necessidadeEspecial"])) && ("0" == $search["necessidadeEspecial"])) { echo "selected";}?>>Não</option>
+                <option value="1" <?php if ( (!empty($search["necessidadeEspecial"])) && ("1" == $search["necessidadeEspecial"])) { echo "selected";}?>>Sim</option>
+            </select>                      
+        </div>
+        
+        <div class="col-sm-2 form-group" >
+            <label for="sexo">Sexo: </label>
+            <select name="sexo" id="sexo" class="form-control">
+                <option value="">Selecione aqui...</option>
+                <option value="F" <?php if ( (!empty($search["sexo"])) && ("F" == $search["sexo"])) { echo "selected";}?>>Feminino</option>
+                <option value="M" <?php if ( (!empty($search["sexo"])) && ("M" == $search["sexo"])){ echo "selected";}?>>Masculino</option>
+            </select>                      
+        </div>
+    
+        <div class="col-sm-2 form-group" >
+            <label for="combo_estadoCivil">Estado civil: </label>
+                <select name="combo_estadoCivil" id="combo_estadoCivil" class="form-control">
+                    <option value="">Selecione aqui...</option>
+                     <?php foreach($this->array_estadoCivil as $row) { ?>
+                           <option value="<?php echo $row["id"]; ?>"  
+                                    <?php if ( (!empty($search["combo_estadoCivil"])) && ($row["id"] == $search["combo_estadoCivil"])){ echo "selected";}?>
+                                   ><?php echo $row["nome"]; ?></option>
+                        <?php } ?>
+                </select>                      
+        </div>
+        
+    </div>
+    
     
     <div class="row">
        <div class="col-sm-8 form-group" style="padding-top: 25px;">                  

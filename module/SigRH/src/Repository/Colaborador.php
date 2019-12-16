@@ -125,6 +125,21 @@ class Colaborador extends AbstractRepository {
             $qb->andWhere("v.dataTermino <= :dataTerminoFim")
                 ->setParameter("dataTerminoFim", $dataTerminoFim->format("Ymd"));
         }
+        
+        
+        if ( !empty($search["desligamentoIni"]) ) {
+            $desligamentoIni = \DateTime::createFromFormat("Y-m-d", $search["desligamentoIni"]);
+            $qb->andWhere("v.dataDesligamento >= :desligamentoIni")
+                ->setParameter("desligamentoIni", $desligamentoIni->format("Ymd"));
+        }
+                
+        if ( !empty($search["desligamentoFim"]) ) {
+            $desligamentoFim = \DateTime::createFromFormat("Y-m-d", $search["desligamentoFim"]);
+            $qb->andWhere("v.dataDesligamento <= :desligamentoFim")
+                ->setParameter("desligamentoFim", $desligamentoFim->format("Ymd"));
+        }
+
+        
 
         if ( !empty($search["obrigatorio"]) ) {
             if ($search['obrigatorio'] == '9') {
@@ -146,7 +161,7 @@ class Colaborador extends AbstractRepository {
         
         if ( !empty($search["tipoVinculo"]) ){
             if ($search["tipoVinculo"] == "FP") { // Folha ponto: 2 => estagiário, 4 => Treinando, 6 => Bolsista, 8 => Estudante, 
-                $qb->andWhere('v.tipoVinculo in (2, 4, 6, 8)');
+                $qb->andWhere('v.tipoVinculo in (2, 4, 6, 8, 13');
             } else {
                 $qb->andWhere('v.tipoVinculo = :tipoVinculo');
                 $qb->setParameter("tipoVinculo",$search["tipoVinculo"]);

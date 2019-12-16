@@ -273,7 +273,7 @@ class FolhaPontoController extends AbstractActionController
                                 $intervaloMinutos = ["E2" => null, "S2" => null];
                             }
                             $ocorrenciaDia = false;
-                            error_log("DIA PONTO =>".$movimentacaoPonto->getDiaPonto());
+//                            error_log("DIA PONTO =>".$movimentacaoPonto->getDiaPonto());
 
                             //registros de ponto realizados na data 
                             foreach($movimentacaoPonto->getRegistros() as $k => $registro) {
