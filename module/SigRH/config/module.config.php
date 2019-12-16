@@ -36,6 +36,20 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'agente-integracao' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/agente-integracao[/:action[/:id]]',
+                            'constraints' => [
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\AgenteIntegracaoController::class,
+                                'action' => 'index'
+                            ]
+                        ]
+                    ],
                     'banco' => [
                         'type' => Segment::class,
                         'options' => [
@@ -525,6 +539,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Service\Factory\PadraoControllerFactory::class,
+            Controller\AgenteIntegracaoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\BancoController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\CidadeController::class => Service\Factory\PadraoControllerFactory::class,
             Controller\ColaboradorController::class => Service\Factory\PadraoControllerFactory::class,

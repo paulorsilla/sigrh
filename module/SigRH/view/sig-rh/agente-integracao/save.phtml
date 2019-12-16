@@ -1,0 +1,84 @@
+<?php
+$form = $this->form;
+
+$form->get('submit')->setAttributes([
+    'class' => 'btn btn-primary'
+]);
+?>
+
+<h1>Cadastro de agentes de integração</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">
+                    Por favor, preencha o formulário abaixo e, em seguida, clique sobre
+                    o botão <i>Salvar</i>. <a
+                        class="btn btn-secondary btn-sm pull-right"
+                        href="/sig-rh/agente-integracao" title="Fechar"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <?php echo $this->form()->openTag($form); ?>
+
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('nome')); ?><br>
+                        <?php echo $this->formElement($form->get('nome')); ?>
+                        <?php echo $this->formElementErrors($form->get('nome')); ?>    
+                    </div>
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('endereco')); ?><br>
+                        <?php echo $this->formElement($form->get('endereco')); ?>
+                        <?php echo $this->formElementErrors($form->get('endereco')); ?>    
+                    </div>
+                </div>
+                
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('contato')); ?><br>
+                        <?php echo $this->formElement($form->get('contato')); ?>
+                        <?php echo $this->formElementErrors($form->get('contato')); ?>    
+                    </div>
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('site')); ?><br>
+                        <?php echo $this->formElement($form->get('site')); ?>
+                        <?php echo $this->formElementErrors($form->get('site')); ?>    
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                    <?php echo $this->formLabel($form->get('email')); ?><br>
+                    <?php echo $this->formElement($form->get('email')); ?>
+                    <?php echo $this->formElementErrors($form->get('email')); ?>    
+                            </div>
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('apolice')); ?><br>
+                        <?php echo $this->formElement($form->get('apolice')); ?>
+                        <?php echo $this->formElementErrors($form->get('apolice')); ?>    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($form->get('vigencia')); ?><br>
+                        <?php echo $this->formElement($form->get('vigencia')); ?>
+                        <?php echo $this->formElementErrors($form->get('vigencia')); ?>    
+                    </div>
+                </div>
+            </div>
+
+
+
+            <?= $this->formElement($form->get('submit')); ?>
+
+            <?= $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>
+</div>

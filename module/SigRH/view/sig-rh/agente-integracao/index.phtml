@@ -1,0 +1,50 @@
+<h1>Agentes de integração cadastrados</h1>
+<div class="row">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+               
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Contato</th>
+                <th>Site</th>
+                <th>Email</th>
+                <th>Apolice</th>
+                <th>Vigencia</th>
+                <th>Opções</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->agentesIntegracao as $agenteIntegracao): ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getNome()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getEndereco()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getContato()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getSite()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getEmail()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getApolice()); ?></td>
+                    <td><?php echo $this->escapeHtml($agenteIntegracao->getVigencia()->format('d/m/Y')); ?></td>
+
+
+                    <td><a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/agente-integracao', ['action' => 'save', 'id' => $agenteIntegracao->getId()]) ?>"
+                           title="Editar registro."><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="btn btn-primary btn-sm pull-center"
+                           href="<?= $this->url('sig-rh/agente-integracao', ['action' => 'delete', 'id' => $agenteIntegracao->getId()]) ?>"
+                           title="Excluir registro."><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <span class="pull-right">
+        <?= $this->paginationControl($this->agentesIntegracao, 'Elastic', 'sig-rh/partial/paginator', ['route' => 'sig-rh/agente-integracao']); ?>
+    </span>
+</div>
+
+<div class="row">
+    <a class="btn btn-primary pull-left" href="/sig-rh/agente-integracao/save">Novo
+        registro</a>
+</div>
