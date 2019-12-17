@@ -85,6 +85,13 @@ class Vinculo extends AbstractEntity {
      **/      
     protected $sublotacao;
     
+        /**
+     * @ORM\ManyToOne(targetEntity="\SigRH\Entity\AgenteIntegracao")
+     * @ORM\JoinColumn(name="agente_integracao_id", referencedColumnName="id")
+     **/      
+    protected $agenteIntegracao;
+    
+    
     /**
      * @ORM\ManyToOne(targetEntity="\SigRH\Entity\Cargo")
      * @ORM\JoinColumn(name="cargo_id", referencedColumnName="id")
@@ -512,6 +519,15 @@ class Vinculo extends AbstractEntity {
     public function setHorarios($horarios)
     {
         $this->horarios = $horarios;
+    }
+    
+     public function getAgenteIntegracao()
+    {
+        return $this->agenteIntegracao;
+    }
+    
+    public function setAgenteIntegracao($agenteIntegracao) {
+        $this->agenteIntegracao = $agenteIntegracao;
     }
 
 }

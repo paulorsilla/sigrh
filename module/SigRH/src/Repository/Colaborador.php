@@ -173,6 +173,11 @@ class Colaborador extends AbstractRepository {
              $qb->setParameter("nivel",$search["nivel"]);
         }
         
+         if ( !empty($search["agenteIntegracao"]) ){
+             $qb->andWhere('v.agenteIntegracao = :agenteIntegracao');
+             $qb->setParameter("agenteIntegracao",$search["agenteIntegracao"]);
+        }
+        
         if ( !empty($search["modalidadeBolsa"]) ){
              $qb->andWhere('v.modalidadeBolsa = :modalidadeBolsa');
              $qb->setParameter("modalidadeBolsa",$search["modalidadeBolsa"]);

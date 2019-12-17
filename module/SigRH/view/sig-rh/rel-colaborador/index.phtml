@@ -266,6 +266,20 @@
         
     </div>
     
+    <div class="row">
+        <div class="col-sm-2 form-group" >
+            <label for="agenteIntegracao">Agente de Integração: </label>
+                <select name="agenteIntegracao" id="combo_agenteIntegracao" class="form-control">
+                    <option value="">Selecione aqui...</option>
+                     <?php foreach($this->array_agenteIntegracao as $row) { ?>
+                           <option value="<?php echo $row["id"]; ?>"  
+                                    <?php if ( (!empty($search["agenteIntegracao"])) && ($row["id"] == $search["agenteIntegracao"])){ echo "selected";}?>
+                                   ><?php echo $row["nome"]; ?></option>
+                        <?php } ?>
+                </select>      
+        </div>
+    </div>
+    
     
     <div class="row">
        <div class="col-sm-8 form-group" style="padding-top: 25px;">                  

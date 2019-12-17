@@ -80,6 +80,18 @@ class Vinculo extends AbstractRepository {
         }
         unset($dados['curso']);
         
+        //Agente Integração...
+        if ( isset($dados['agenteIntegracao']) ) {
+            if ( !empty($dados['agenteIntegracao'] )) {
+                $agenteIntegracao = $this->getEntityManager()->find('SigRH\Entity\AgenteIntegracao', $dados['agenteIntegracao']); //busca as informações
+                $row->setAgenteIntegracao($agenteIntegracao);
+            } else {  // caso ele tenha sido passado em branco, setar como nulo
+                $row->setAgenteIntegracao(null);
+            }
+        }
+        unset($dados['agenteIntegracao']);
+        
+        
         //fonte seguro...
         if ( isset($dados['fonteSeguro']) ) {
             if ( !empty($dados['fonteSeguro'] )) {
