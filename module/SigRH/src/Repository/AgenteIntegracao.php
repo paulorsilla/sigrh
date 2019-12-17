@@ -19,6 +19,16 @@ class AgenteIntegracao extends AbstractRepository {
        return $qb;
     }
     
+      public function getListaParaCombo()
+    {
+        $array = array();
+        $list = $this->findAll();
+        foreach($list  as $row){
+            $array[] = array("id"=>$row->id,"nome"=>$row->nome);
+        }
+        return $array;
+    }
+    
     
     public function delete($id){
         $row = $this->find($id);

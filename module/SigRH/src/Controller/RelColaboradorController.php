@@ -70,6 +70,7 @@ class RelColaboradorController extends AbstractActionController {
             "instituicaoEnsino" => $this->params()->fromQuery("instituicaoEnsino"),
             "escala" => $this->params()->fromQuery("escala"),
             "numeroChip" => $this->params()->fromQuery("numeroChip"),
+            "agenteIntegracao" => $this->params()->fromQuery("combo_agenteIntegracao"),
         ];
 
         $repo = $this->entityManager->getRepository(\SigRH\Entity\Colaborador::class);
@@ -84,6 +85,10 @@ class RelColaboradorController extends AbstractActionController {
         //estado civil...
         $repo_estadoCivil = $this->entityManager->getRepository(\SigRH\Entity\EstadoCivil::class);
         $array_estadoCivil = $repo_estadoCivil->getListParaCombo();
+        
+        //agente integração...
+        $repo_agenteIntegracao = $this->entityManager->getRepository(\SigRH\Entity\AgenteIntegracao::class);
+        $array_agenteIntegracao = $repo_agenteIntegracao->getListaParaCombo();
 
         //grau de instrucao...
         $repo_grauInstrucao = $this->entityManager->getRepository(\SigRH\Entity\GrauInstrucao::class);
@@ -130,6 +135,7 @@ class RelColaboradorController extends AbstractActionController {
         $view->setVariable("array_orientador", $array_orientador);
         $view->setVariable("array_subLotacao", $array_subLotacao);
         $view->setVariable("array_escala", $array_escala);
+        $view->setVariable("array_agenteIntegracao", $array_agenteIntegracao);
 
         return $view;
     }
@@ -242,6 +248,7 @@ class RelColaboradorController extends AbstractActionController {
             "subLotacao" => $subLotacao,
             "escala" => $escala,
             "numeroChip" => $numeroChip,
+            "agenteIntegracao" => $agenteIntegracao,
         ]);
         return $view;
 //}

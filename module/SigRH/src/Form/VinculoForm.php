@@ -66,6 +66,24 @@ class VinculoForm extends Form {
             ]
         ]);
         
+        //Adiciona o campo "AgenteIntegracao"
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'agenteIntegracao',
+            'attributes' => [
+                'id' => 'agenteIntegracao',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Agente de integração',
+                'empty_option' => 'Selecione o agente de integração',
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => \SigRH\Entity\AgenteIntegracao::class,
+                'property' => 'nome',
+                'display_empty_item' => false,
+            ]
+        ]);
+        
         $this->add([
             'type' => 'text',
             'name' => 'previsaoConclusao',
