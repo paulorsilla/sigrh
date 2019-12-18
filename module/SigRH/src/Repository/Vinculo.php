@@ -148,6 +148,16 @@ class Vinculo extends AbstractRepository {
         }
         unset($dados['dataInicioEfetivo']);
         
+        $row->setVigencia(null);
+        if ($dados ['vigencia'] != "") {					
+            $vigencia= \DateTime::createFromFormat ( "Y-m-d", $dados ['vigencia'] );
+            if ( !empty($vigencia)  ) {
+               $row->setVigencia($vigencia);
+            }
+        }
+        unset($dados['vigencia']);
+        
+        
         if ( isset($dados['tipoContrato']) && $dados['tipoContrato'] === '' ){
             $dados['tipoContrato'] = null;
         }
