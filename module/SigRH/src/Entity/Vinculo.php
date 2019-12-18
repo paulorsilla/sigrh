@@ -198,6 +198,12 @@ class Vinculo extends AbstractEntity {
      */
     protected $diasRecesso;
     
+        /**
+     * @ORM\Column(name="seguro_vigencia", type="datetime")
+     */
+    protected $vigencia;
+    
+    
     /**
      * @ORM\Column(name="observacoes", type="string")
      */
@@ -529,5 +535,15 @@ class Vinculo extends AbstractEntity {
     public function setAgenteIntegracao($agenteIntegracao) {
         $this->agenteIntegracao = $agenteIntegracao;
     }
+    
+    public function getVigencia() {
+        return $this->vigencia;
+    }
+
+    public function setVigencia($vigencia) {
+        $this->vigencia = $vigencia;
+    }
+
+
 
 }

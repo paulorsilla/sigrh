@@ -84,6 +84,21 @@ class VinculoForm extends Form {
             ]
         ]);
         
+        //Adiciona o campo "vigencia"
+        $this->add([
+            'type' => 'Zend\Form\Element\Date',
+            'name' => 'vigencia',
+            'attributes' => [
+                'id' => 'vigencia',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'format' => 'Y-m-d',
+                'label' => 'Vigência'
+            ],
+        ]);
+        
+        
         $this->add([
             'type' => 'text',
             'name' => 'previsaoConclusao',
@@ -640,6 +655,12 @@ class VinculoForm extends Form {
             'name' => 'tipoAditivo',
             'required' => false,
         ]);
+        
+                $inputFilter->add([
+            'name' => 'agenteIntegracao',
+            'required' => false,
+        ]);
+        
         
          $inputFilter->add([
             'name' => 'dataInicioEfetivo',
