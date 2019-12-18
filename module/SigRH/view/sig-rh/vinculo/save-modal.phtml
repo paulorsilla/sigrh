@@ -176,22 +176,28 @@
         
         <hr>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('fonteSeguro')); ?><br>
                 <?php echo $this->formElement($this->form->get('fonteSeguro')); ?>
                 <?php echo $this->formElementErrors($this->form->get('fonteSeguro')); ?>                  
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('seguroApolice')); ?><br>
                 <?php echo $this->formElement($this->form->get('seguroApolice')); ?>
                 <?php echo $this->formElementErrors($this->form->get('seguroApolice')); ?>                  
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <?php echo $this->formLabel($this->form->get('seguroSeguradora')); ?><br>
                 <?php echo $this->formElement($this->form->get('seguroSeguradora')); ?>
                 <?php echo $this->formElementErrors($this->form->get('seguroSeguradora')); ?>                  
+            </div>
+            
+            <div class="col-md-3">
+                <?php echo $this->formLabel($this->form->get('vigencia')); ?><br>
+                <?php echo $this->formElement($this->form->get('vigencia')); ?>
+                <?php echo $this->formElementErrors($this->form->get('vigencia')); ?>                  
             </div>
 
         </div>
