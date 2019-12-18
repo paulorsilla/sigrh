@@ -774,8 +774,6 @@ class VinculoForm extends Form {
             'required' => false,
         ]);
         
-         
-        
         $inputFilter->add([
             'name' => 'inicio',
             'required' => false,

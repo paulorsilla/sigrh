@@ -567,24 +567,26 @@ class FolhaPontoController extends AbstractActionController
                 $this->entityManager->remove($folha);
             }
             $this->entityManager->flush();
-
             error_log("fim");
         }
         
         public function justificativageralAction() 
         {
 //            $referencia = $this->params()->fromRoute('referencia');
-            $referencia = "201812";
-            $dia = "14";
-            $justificativaId = 12;
-            $justificativa = $this->entityManager->find(\SigRH\Entity\Justificativa::class, $justificativaId);
+            $referencia = "201912";
+            $dia = "30";
+            $justificativa1Id = 12;
+//            $justificativa2Id = 19;
+            $justificativa1 = $this->entityManager->find(\SigRH\Entity\Justificativa::class, $justificativa1Id);
+//            $justificativa2 = $this->entityManager->find(\SigRH\Entity\Justificativa::class, $justificativa2Id);
             $movimentacoesPonto = $this->entityManager->getRepository(\SigRH\Entity\MovimentacaoPonto::class)->getQuery(['referencia' => $referencia, 'dia' => $dia])->getQuery()->getResult();
             
             foreach($movimentacoesPonto as $movimentacaoPonto) {
                 foreach($movimentacaoPonto->getOcorrencias() as $ocorrencia) {
                     if($ocorrencia->getDescricao() != '-Recesso obrigatório.') {
-                        error_log($justificativa->getDescricao());
-                        $ocorrencia->setJustificativa1($justificativa);
+//                        error_log($justificativa->getDescricao());
+                        $ocorrencia->setJustificativa1(null);
+ //                       $ocorrencia->setJustificativa2($justificativa2);
                         $this->entityManager->persist($ocorrencia);
                     }
                 }
