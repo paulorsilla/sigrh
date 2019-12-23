@@ -4,6 +4,7 @@ namespace SigRH\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use SigRH\Entity\Vinculo;
+use SigRH\Entity\Colaborador;
 
 /**
  * Controlador que gerencia o relatorio 
@@ -1439,5 +1440,26 @@ class RelColaboradorController extends AbstractActionController {
             $pdf->writeHTML($tblNadaConsta, true, false, false, false, '');
         }
         $pdf->Output();
+    }
+    
+     public function vigenciaAction() {
+
+        $search = $this->params()->fromQuery();
+        $search['consultaVigencia'] = true;
+        
+//        $user = $this->identity();
+ //       $search['perfilUsuario'] = $user['papel'];
+
+      $repo = $this->entityManager->getRepository(Colaborador::class);
+      $colaboradores = $repo->getQuery($search)->getResult();
+        $this->layout()
+                ->setTemplate("layout/impressao")
+                ->setVariable("titulo_impressao", "Colaboradores");
+        $view = new \Zend\View\Model\ViewModel();
+        $view->setVariables(["colaboradores" => $colaboradores,
+          
+        ]);
+        return $view;
+//}
     }
 }
