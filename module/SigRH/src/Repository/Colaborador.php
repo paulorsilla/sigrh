@@ -161,7 +161,7 @@ class Colaborador extends AbstractRepository {
         
         if ( !empty($search["tipoVinculo"]) ){
             if ($search["tipoVinculo"] == "FP") { // Folha ponto: 2 => estagiário, 4 => Treinando, 6 => Bolsista, 8 => Estudante, 
-                $qb->andWhere('v.tipoVinculo in (2, 4, 6, 8, 13');
+                $qb->andWhere('v.tipoVinculo in (2, 4, 6, 8, 13)');
             } else {
                 $qb->andWhere('v.tipoVinculo = :tipoVinculo');
                 $qb->setParameter("tipoVinculo",$search["tipoVinculo"]);
