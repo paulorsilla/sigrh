@@ -660,6 +660,12 @@ class VinculoForm extends Form {
             'name' => 'agenteIntegracao',
             'required' => false,
         ]);
+                
+        $inputFilter->add([
+            'name' => 'vigencia',
+            'required' => false,
+        ]);
+        
         
         
          $inputFilter->add([
