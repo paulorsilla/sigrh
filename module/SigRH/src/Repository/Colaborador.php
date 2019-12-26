@@ -235,6 +235,15 @@ class Colaborador extends AbstractRepository {
                ->setParameter("dataControleF", $search["ativoEmFinal"]);
         }
         
+        if (isset($search['consultaVigencia'])){
+            $dataAtual = new \DateTime();
+            $dataPosterior = new \DateTime('+1 month');
+            $qb->andWhere("v.vigencia is not null");
+            $qb->andWhere ("v.vigencia BETWEEN :dataAtual AND :dataPosterior");
+            $qb->setParameter("dataAtual", $dataAtual->format('Ymd'));
+            $qb->setParameter("dataPosterior", $dataPosterior->format('Ymd'));
+            }
+        
         if (!empty($search['combo'])) {
             if ($search['combo'] == 1) {
                 $array = [];
