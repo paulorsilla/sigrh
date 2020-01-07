@@ -40,14 +40,14 @@ class IndexController extends AbstractActionController
             $repoVinculo = $this->entityManager->getRepository(Vinculo::class);
             $vinculo = $repoVinculo->buscar_vinculo_por_referencia($user->getMatricula(), date("Ym"), $dataAcesso);
             if ( ( !$vinculo ) || ( !$vinculo->getTipoVinculo()->getAcessoSistema() ) ) {
-                return $this->redirect()->toRoute('/logout');
+                return $this->redirect()->toRoute('logout');
             }
         }
         return new ViewModel([
             'user' => $user
         ]);
     }
-//    
+
 //    public function barcodeAction()
 //    {
 //       // Get parameters from route.

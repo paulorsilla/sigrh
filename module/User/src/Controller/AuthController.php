@@ -127,6 +127,12 @@ class AuthController extends AbstractActionController
         ]);
     }
     
+    public function infoAction()
+    {
+        return new ViewModel();
+        
+    }
+    
     /**
      * The "logout" action performs logout operation.
      */
